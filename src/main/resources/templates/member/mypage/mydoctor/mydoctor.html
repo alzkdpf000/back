@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임</title>
+    <link rel="stylesheet" href="/css/member/mypage/mypage/mypage.css">
+    <link rel="stylesheet" href="/css/member/mypage/mydoctor/mydoctor.css">
+    <link rel="stylesheet" href="/css/doctor-hospital/doctor-hospital.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
+</head>
+<body>
+    <div class="whole-body">
+        <main class ="main-layout-wrapper">
+            <div class ="mypage-title-container ">
+                <div class = "mypage-title-wrapper">
+                    <h1 class = "mypage-title">마이페이지</h1>
+                </div>
+            </div>
+            <div class ="mypage-body-container">
+                <div class="mypage-category-container">
+                    <!-- 카테고리 누르면 해당 페이지로 넘어가면서 카테고리 색 바뀌는 이벤트 -->
+                    <aside class="mypage-category-wrapper">
+                        <a class ="mypage-category-wrap-black">
+                            <span class ="mypage-category-black">내 정보 수정</span>
+                        </a>
+                        <a class = "mypage-category-wrap-black">
+                            <span class = "mypage-category-black">내 작성글 목록</span>
+                        </a>
+                        <a class = "mypage-category-wrap-black">
+                            <span class = "mypage-category-black">진료 신청 기록</span>
+                        </a>
+                        <a class = "mypage-category-wrap-black">
+                            <span class = "mypage-category-black active">내 관심 의사</span>
+                        </a>
+                        <a class = "mypage-category-wrap-black">
+                            <span class = "mypage-category-black">1:1 문의함</span>
+                        </a>
+                    </aside>
+                </div>
+                <div class="mydoctor-main-container">
+                    <div class="mydoctor-main-category-wrap">
+                        <div class="mydoctor-main-category-container">
+                            <div class="mydoctor-category-group-wrapper">
+                                <div class="mydoctor-category-wrapper">
+                                    <div class="mydoctor-category-content-wrapper">
+                                        <span class="mydoctor-category-content-active">
+                                            관심 의사 목록</span>
+                                        <div class="mydoctor-category-highlight"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul
+                        class="content-list" id="intersectionObserver">
+                        <!-- 반복 부분 -->
+                        <li>
+                                <div class="content-info">
+                                    <img class="contentInfoImg img-doc-tag" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" width="48" height="48" alt="" style="color: transparent">
+                                    <div class="content-info-text">
+                                        <div class="type-user-wrapper">
+                                            <div class="depart-treatment">
+                                                <a>
+                                                    <div class="doctor-info">
+                                                        <span class="doctorinfo-name">
+                                                            의사 이름
+                                                        </span>
+                                                        <div class="docterinfo-favorite-wrapper">
+                                                        <img alt="좋아요" loading="lazy" width="15" height="15" decoding="async" data-nimg="1" src="https://img.icons8.com/?size=100&id=CACXQmtR6nnC&format=png&color=000000" style="color: transparent;">
+                                                        <span class="doctorinfo-favoriteCount">2886</span><span class="unit">명</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <div class="depart-treatment-wrap">
+                                                    <span class="first">
+                                                        진료 과목
+                                                    </span>
+                                                    <span class="second">
+                                                        안과
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 주소 클릭 이벤트 -->
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                소속 병원
+                                            </span>
+                                            <span class="second">
+                                                서울 백병원
+                                            </span>
+                                            <span class="first detail-address">
+                                                상세 주소
+                                            </span>
+                                            <span class="second">
+                                                서울 노원구 동일로 1342 상계백병원
+                                            </span>
+                                        </div>
+                                        <!-- /주소 클릭 이벤트 -->
+                                        <div class="info-container">
+                                            <span class="first">
+                                                병원 전화 번호
+                                            </span>
+                                            <span class="second">
+                                                02-123-1234
+                                            </span>
+                                        </div>
+                                        <div class="icon-btn-wrap">
+                                            <div class="icon-container">
+                                                <img src="/static/images/DrIcon-Photoroom.png" with="35" height="35" alt="">
+                                                <span class="greeting">
+                                                    <strong>최선</strong>을 다하겠습니다.</span>
+                                            </div>
+                                            <div class="btn-container">
+                                                <div class="mydoctor-content-button-container">
+                                                    <!-- 쪽지 클릭 이벤트 -->
+                                                    <button class="mydoctor-content-button-wrapper mail-send-btn">
+                                                        <img src="/static/images/email.png">
+                                                        <span class="mydoctor-content-button">쪽지 보내기</span>
+                                                    </button>
+                                                    <!-- /쪽지 클릭 이벤트 -->
+                                                    <!-- 관심 추가 클릭 이벤트 -->
+                                                    <button class="mydoctor-content-button-wrapper interest-btn active">
+                                                        <span class="mydoctor-content-button">관심 중</span>
+                                                        <img src="/static/images/check.png">
+                                                    </button>
+                                                    <!-- /관심 추가 클릭 이벤트 -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </li>
+                            <!-- 나중에 삭제할 부분 -->
+                        <li>                            
+                                <div class="content-info img-doc-tag">
+                                    <img class="contentInfoImg img-doc-tag" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" width="48" height="48" alt="" style="color: transparent">
+                                    <div class="content-info-text">
+                                        <div class="type-user-wrapper">
+                                            <div class="depart-treatment">
+                                                <a>
+                                                    <div class="doctor-info">
+                                                        <span class="doctorinfo-name">
+                                                            의사 이름
+                                                        </span>
+                                                        <div class="docterinfo-favorite-wrapper">
+                                                        <img alt="좋아요" loading="lazy" width="15" height="15" decoding="async" data-nimg="1" src="https://img.icons8.com/?size=100&id=CACXQmtR6nnC&format=png&color=000000" style="color: transparent;">
+                                                        <span class="doctorinfo-favoriteCount">317</span><span class="unit">명</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <div class="depart-treatment-wrap">
+                                                    <span class="first">
+                                                        진료 과목
+                                                    </span>
+                                                    <span class="second">
+                                                        안과
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 주소 클릭 이벤트 -->
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                소속 병원
+                                            </span>
+                                            <span class="second">
+                                                서울 백병원
+                                            </span>
+                                            <span class="first detail-address">
+                                                상세 주소
+                                            </span>
+                                            <span class="second">
+                                                서울 노원구 동일로 1342 상계백병원
+                                            </span>
+                                        </div>
+                                        <!-- /주소 클릭 이벤트 -->
+                                        <div class="info-container">
+                                            <span class="first">
+                                                병원 전화 번호
+                                            </span>
+                                            <span class="second">
+                                                02-123-1234
+                                            </span>
+                                        </div>
+                                        <div class="icon-btn-wrap">
+                                            <div class="icon-container">
+                                                <img src="/static/images/DrIcon-Photoroom.png" with="35" height="35" alt="">
+                                                <span class="greeting">
+                                                    <strong>최선</strong>을 다하겠습니다.</span>
+                                            </div>
+                                            <div class="btn-container">
+                                                <div class="mydoctor-content-button-container">
+                                                    <!-- 쪽지 클릭 이벤트 -->
+                                                    <button class="mydoctor-content-button-wrapper mail-send-btn">
+                                                        <img src="/static/images/email.png">
+                                                        <span class="mydoctor-content-button">쪽지 보내기</span>
+                                                    </button>
+                                                    <!-- /쪽지 클릭 이벤트 -->
+                                                    <!-- 관심 추가 클릭 이벤트 -->
+                                                    <button class="mydoctor-content-button-wrapper interest-btn active">
+                                                        <span class="mydoctor-content-button">관심 중</span>
+                                                        <img src="/static/images/check.png">
+                                                    </button>
+                                                    <!-- /관심 추가 클릭 이벤트 -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </li>
+                            <!-- 나중에 삭제할 부분 -->
+                        <li>                            
+                                <div class="content-info img-doc-tag">
+                                    <img class="contentInfoImg img-doc-tag" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" width="48" height="48" alt="" style="color: transparent">
+                                    <div class="content-info-text">
+                                        <div class="type-user-wrapper">
+                                            <div class="depart-treatment">
+                                                <a>
+                                                    <div class="doctor-info">
+                                                        <span class="doctorinfo-name">
+                                                            의사 이름
+                                                        </span>
+                                                        <div class="docterinfo-favorite-wrapper">
+                                                        <img alt="좋아요" loading="lazy" width="15" height="15" decoding="async" data-nimg="1" src="https://img.icons8.com/?size=100&id=CACXQmtR6nnC&format=png&color=000000" style="color: transparent;">
+                                                        <span class="doctorinfo-favoriteCount">15</span><span class="unit">명</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <div class="depart-treatment-wrap">
+                                                    <span class="first">
+                                                        진료 과목
+                                                    </span>
+                                                    <span class="second">
+                                                        안과
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 주소 클릭 이벤트 -->
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                소속 병원
+                                            </span>
+                                            <span class="second">
+                                                서울 백병원
+                                            </span>
+                                            <span class="first detail-address">
+                                                상세 주소
+                                            </span>
+                                            <span class="second">
+                                                서울 노원구 동일로 1342 상계백병원
+                                            </span>
+                                        </div>
+                                        <!-- /주소 클릭 이벤트 -->
+                                        <div class="info-container">
+                                            <span class="first">
+                                                병원 전화 번호
+                                            </span>
+                                            <span class="second">
+                                                02-123-1234
+                                            </span>
+                                        </div>
+                                        <div class="icon-btn-wrap">
+                                            <div class="icon-container">
+                                                <img src="/static/images/DrIcon-Photoroom.png" with="35" height="35" alt="">
+                                                <span class="greeting">
+                                                    <strong>최선</strong>을 다하겠습니다.</span>
+                                            </div>
+                                            <div class="btn-container">
+                                                <div class="mydoctor-content-button-container">
+                                                    <!-- 쪽지 클릭 이벤트 -->
+                                                    <button class="mydoctor-content-button-wrapper mail-send-btn">
+                                                        <img src="/static/images/email.png">
+                                                        <span class="mydoctor-content-button">쪽지 보내기</span>
+                                                    </button>
+                                                    <!-- /쪽지 클릭 이벤트 -->
+                                                    <!-- 관심 추가 클릭 이벤트 -->
+                                                    <button class="mydoctor-content-button-wrapper interest-btn active">
+                                                        <span class="mydoctor-content-button">관심 중</span>
+                                                        <img src="/static/images/check.png">
+                                                    </button>
+                                                    <!-- /관심 추가 클릭 이벤트 -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="mydoctor-content-no-exist-wrapper">
+                <img alt="아직 관심등록한 의사가 없어요." fetchpriority="high" width="48" height="48" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/v3/product/feed/message.webp" style="color: transparent;">
+                <span class="mydoctor-content-no-exist">아직 관심등록한 의사가 없어요.</span>
+            </div> 
+                </div>
+    <script src="/js/member/mydoctor/event.js"></script>              
+</body>
+</html>

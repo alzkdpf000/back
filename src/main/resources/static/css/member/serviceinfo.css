@@ -1,0 +1,221 @@
+
+
+element.style {
+    width: 400px;
+    height: 640px;
+    overflow: hidden;
+    margin: 0px;
+    outline: none;
+}  
+  
+div.big1-ac3evlphone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 95px;
+    height: 1000px;
+    background-color: #FFFFFF;
+}
+
+/* 무엇이든 질문하세요 부분 */
+div.rmcoop {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 32px;
+    
+}
+
+/* 모든 의학정보는 골든타임에 물어보세요 */
+span.n4isnw {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: #4E5968;
+}
+
+
+
+div.big2-1n9ih9h {
+    display: flex;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    gap: 160px;
+    height: 1000px;
+    overflow-x: hidden;
+    background-color: #F9FAFB;
+}
+
+
+/* div.css-1n9ih9hbig의 첫번째 */
+div.pb79vc {
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 32px; 
+}
+
+/* 관심있는 주제로 나만의 피드를 만들어보세요. */
+h2.css-8tcewi {
+    color: #191F28;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    line-height: 130%;
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+span.css-1afuuud {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: #4E5968;
+
+}
+
+
+/* div.css-1n9ih9hbig의 두번째 */
+div.r0647{
+     display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-x: hidden;
+}
+
+
+div.big3-ac3evl {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 95px;
+    height: 1000px;
+    background-color: #FFFFFF;
+}
+
+div.big4-7r6g2l{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    height: 1200px;
+    background-color: #191f28;
+}
+
+div.css-jqtr20big5{
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    gap: 200px;
+    height: 504px;
+    background-color: #000000;  
+}
+
+/* 궁금한것을 검색하세요 */
+div.css-1xh969x {
+    color: #191F28;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    line-height: 130%;
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+
+/* 아하토큰을 모아서 돈을 벌어보세요! */
+h2.s5wb3 {
+    margin-top: 120px;
+    color: #FFFFFF;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    line-height: 130%;
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+span.css-spog17 {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: #B0B8C1;
+    text-align: center;
+}
+
+div.css-jqtr20 {
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    gap: 200px;
+    height: 504px;
+    background-color: #000000;
+
+}
+
+div.css-1dwkave {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 60px;
+    width: 495px;
+}
+
+div.css-1fw3me3 {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+span.css-39y4g6 {
+        color: #B0B8C1;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: -0.056px;
+    line-height: 150%;
+    text-align: center;
+}
+
+

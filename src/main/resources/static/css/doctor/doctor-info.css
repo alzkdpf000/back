@@ -1,0 +1,1118 @@
+body, html{
+    text-size-adjust: none;
+    height: 100%;
+    overscroll-behavior-x: none;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+audio, canvas, embed, iframe, img, object, svg, video {
+    display: block;
+}
+
+button, input, optgroup, select, textarea
+{
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    opacity: 1;
+    background-color: #0000;
+    border-radius: 0;
+}
+*{
+    box-sizing: border-box;
+    font-family: inherit;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+}
+
+menu, ol, ul {
+    list-style: none;
+}
+
+*, ::backdrop, :after, :before {
+    box-sizing: border-box;
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+}
+path{
+    clip-rule: evenodd;
+    /* fill: #b0b8c1; */
+    fill-rule: evenodd;
+}
+
+body{
+    color: #000;
+    overscroll-behavior-y: none;
+    font-family: Pretendard Variable;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 1172px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 60px;
+    padding-bottom: 170px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 1172px;
+    min-height: 100vh;
+}
+
+button {
+    background: inherit;
+    box-shadow: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 16px;
+    overflow: visible;
+}
+
+div.info-layout-container{
+    display: flex;
+    gap:16px;
+}
+
+div.info-main-layout-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+}
+
+div.info-header-layout{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+div.info-header-wrap{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+img.info-profil-img{
+    border: 1px solid rgb(242,244,246);
+    border-radius: 40px;
+    object-fit: cover;
+    width: 140px;
+    height: 140px;
+}
+
+img.info-profil-img.review{
+    width: 35px;
+    height: 35px;
+}
+div.info-profil-text-wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+}
+
+div.info-profil-name-wrap{
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+}
+span.info-profil-name{
+    font-size: 24px;
+    line-height: 140%;
+    font-weight: 700
+}
+
+div.btn-wrap{
+    display: flex;
+    gap: 16px;
+}
+div.btn-container{
+    position: absolute;
+    bottom: 19px;
+    right: 13px;
+}
+
+button.btnshape{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 42px;
+    padding: 0 10px;
+    border-radius: 8px;
+    background-color: #1731e9;
+    gap: 4px;
+    color: #fff;
+    width: 109px;
+}
+button.btnshape span{
+    color: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 100%;
+    width: max-content;
+}
+
+button.btnshape img{
+    margin-bottom: 2px;
+    width: 13px;
+    height: 13px;
+}
+
+button.interest-btn.active{
+    background-color: #10b981;
+}
+
+
+button.mail-send-btn img, button.mail-send-btn-check img{
+    margin-bottom: 2px;
+    width: 20px;
+    height: 22px;
+}
+
+div.kakao-map{
+    width: 100%;
+    background-image: url("/images/temp.png");
+    height: 300px;
+    border-radius: 12px 12px 0 0;
+    object-fit: cover;
+}
+div.side-bar-container{
+    /* position: sticky; */
+    /* top: 300px; */
+    width: 100%;
+    min-width: 320px;
+    max-width: 320px;
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+div.content-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+}
+
+span.department::after{
+    content: "";
+    font-size: 9px;
+    border: 1px solid rgb(107, 118, 132);
+    margin: 0px 10px 0px 10px;
+    vertical-align: 2px;
+    margin-left:10px ;
+}
+span.department-content{
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 700;
+    color: rgb(107, 118, 132);
+}
+span.info-profil-introduction{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block; /* 또는 block도 가능 */
+    max-width: 100%;       /* 부모 div 너비 기준 */
+}
+
+div.main-container{
+    display: flex;
+    gap: 16px;
+}
+
+div.profil-content-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+div.profil-content-title-container{
+    display: flex;
+}
+div.profil-content-title-wrap{
+    width: 100%;
+    border-bottom: 1px solid rgb(242,244,246);
+    padding: 0px;
+}
+div.profil-content-section{
+    display: flex;
+    gap: 16px;
+}
+div.profil-content-select{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 116px;
+    padding: 12px 0px;
+    cursor: pointer;
+}
+div.profil-content{
+    display: flex;
+    gap: 4px;
+}
+span.profil-content-text{
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(176, 184, 193);
+}
+
+div.profil-content-selector{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    transform: translateX(calc(0% + 0px));
+    transition: transform 0.1s ease-in;
+    border-bottom: 2px solid rgb(25, 31, 40);
+    will-change: transform;
+}
+
+div.profil-content-selector span{
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(176, 184, 193);
+}
+
+span.active{
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 700;
+    color: rgb(25, 31, 40);
+}
+div.address{
+    cursor: pointer;
+}
+
+/* 게시글 부분 */
+div.mail-modal{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-radius: 20px;
+    background-color: #fff;
+    border: 1px solid #e5e8eb;
+}
+div.mail-title-wrap{
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+}
+div.mail-title-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+label.mail-title-content{
+    color: #333d4b;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 100%;
+}
+
+span.text-warn{
+    color: #b0b8c1;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 100%;
+    display: flex;
+    gap: 4px;
+}
+
+span.text-warn::before{
+    content: attr(data-count);
+    color: #333d4b;
+}
+div.main-title-input-wrap,div.doctor-search-wrap{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+input.mail-title-input-content{
+    padding-inline: 16px;
+    border-radius: 12px;
+    border: 1px solid #f2f4f6;
+    background-color: #f9fafb;
+    color: #333d4b;
+    min-height: 48px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 150%;
+    outline: none;
+}
+/* 경고 표시 */
+input.warn{
+    border: 1px solid #e42939;
+}
+
+div.mail-modal hr.line-hr{
+    width: 100%;
+    height: 1px;
+    background: #fff;
+}
+
+
+hr.content-hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+hr.input-btn-list-bottom{
+    margin: 0;
+    border: 0;
+}
+
+div.mail-content-container{
+    display: flex;
+    flex-direction: column;
+}
+div.mail-content-wrap{
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+}
+div.mail-content-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+label.content-text{
+    color: #333d4b;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 100%
+}
+
+div.mail-content-input-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+div.mail-content-input-container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid #f2f4f6;
+}
+div.input-btn-list-wrap{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+}
+label.img-btn{
+    display: flex;
+    padding: 8px;
+    cursor: pointer;
+}
+input#create-question-image{
+    display: none;
+}
+button.input-style-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+div.input-textarea-container{
+    padding: 14px 16px;
+    border-radius: 0 0 12px 12px;
+    background-color: #f9fafb;
+}
+div.input-textarea{
+    color: #333d4b;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 160%;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+    outline: none;
+    height: 252px;
+    overflow-y: auto;
+    position: relative;
+}
+
+div.input-textarea-container .input-textarea p{
+    min-height: 22.5px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 22.5px;
+}
+
+div.input-textarea-container .input-textarea p.is-editor-empty:first-of-type::before {
+    background-color: #f9fafb;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+    font-size: 15px;
+    font-weight: 400;
+    color: #b0b8c1;
+    line-height: 150%;
+}
+div.content-info {
+    display: flex;
+    gap: 16px;
+    padding: 32px 40px 32px 32px;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 12px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(224, 230, 240, 0.2) 0px 4px 8px 0px;
+}
+div.ProseMirror{
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: break-spaces;
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0;
+}
+
+div.receive-container{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+div.receive-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+
+}
+
+div.receive-wrap span:first-child{
+    color: #333d4b;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 100%;
+}
+div.receive-wrap span:last-child{
+    color: #8b95a1;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 100%;
+}
+input.doctor-input-content{
+    padding-inline: 16px;
+    border-radius: 12px;
+    border: 1px solid #f2f4f6;
+    background-color: #f9fafb;
+    color: #333d4b;
+    min-height: 48px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 150%;
+    outline: none;
+}
+
+
+div.search-layout {
+    border-radius: 12px;
+    width: 100%;
+    opacity: 1;
+    height: 0px;
+    background-color: #f9fafb;
+    transition: all 0.15s;
+    overflow:auto;
+    max-height: 200px;
+    scrollbar-width: none;
+    overflow-y: auto;
+}
+ul.mail-search-doctor-name-list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-height: 200px;
+}
+
+div.mail-doctor-info  span.first{
+    margin-left: 10px;
+    font-weight: 900;
+    cursor: unset;
+}
+
+div.mail-doctor-info  span.second{
+    font-size: 15px;
+    font-weight: 400;
+    cursor: unset;
+}
+
+div.content-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+div.type-user-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+div.depart-treatment {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+div.doctor-info, div.hospital-info {
+    cursor: pointer;
+}
+
+div.doctor-info span:first-child {
+    font-size: 22px;
+    line-height: 150%;
+    font-weight: 500;
+}
+
+span.first::after {
+    content: "";
+    font-size: 9px;
+    border: 1px solid rgb(107, 118, 132);
+    margin: 0px 10px 0px 10px;
+    vertical-align: 3px;
+}
+
+div.mail-doctor-info span.second {
+    font-size: 15px;
+    font-weight: 400;
+    cursor: unset;
+}
+div.mail-doctor-info span.first {
+    margin-left: 10px;
+    font-weight: 900;
+    cursor: unset;
+}
+a.link-click img {
+    border-radius: 12px;
+}
+ul.mail-search-doctor-name-list li a.link-click div.content-info{
+    height: 53px;
+    padding: 11px 40px 14px 32px;
+    z-index: 1000;
+    position: static;
+}
+div.doctor-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+div.mail-doctor-search-wrap{
+    position: relative;
+}
+div.mail-doctor-search-wrap button{
+    position: absolute;
+    display: none;
+    top: -6px;
+    bottom: 5px;
+    right: 17px;
+}
+
+div.thumbnail-wrap{
+    position: relative;
+}
+div.thumbnail-wrap img.thumbnail{
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #0000000d;
+    background-color: #f2f4f6;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+}
+div.thumbnail-wrap ul{
+    display: flex;
+}
+
+div.thumbnail-wrap ul li{
+    margin-right: 10px;
+}
+
+div#file-cancel-btn{
+    cursor: pointer;
+    background-image: url(/images/cancel.png);
+    background-size: 100% 100%;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 37px;
+    bottom: 36px;
+}
+div.cancle{
+    position: relative;
+    width: 20px;
+}
+div#file-cancel-btn{
+    display: flex;
+    padding: 4px;
+    border-radius: 50%;
+    background-color: #18181c8f;
+}
+
+
+hr.btn-hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+div.mail-send-cancle{
+    display: flex;
+    justify-content: center;
+}
+
+button.mail-send-cancle-btn.btnshape{
+    background-color: #ff4d4d;
+}
+button.mail-send-btn-check:disabled{
+    background-color: #b0b8f5;
+    cursor: pointer;
+}
+
+
+ul li a{
+    cursor: pointer;
+}
+div.label-check-box{
+    width: 50%;
+    display: flex;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+    gap: 8px;
+    border-radius: 14px;
+    background: rgb(232, 240, 249);
+}
+span.checkbox-span-wrap{
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+input[type="checkbox"].checkbox-input-display{
+    display: none;
+} 
+label.checkbox-label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(229, 232, 235);
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.checkbox-check.inactive{
+    display: none;
+}
+textarea.mail-content{
+    width: 100%;
+    resize: none;
+}
+textarea.mail-content:focus{
+    outline: none;
+    box-shadow: none;
+}
+@keyframes popUp {
+    from {scale: 0;}
+    to {scale: 1;}
+}
+
+@keyframes popDown {
+    from {scale: 1;}
+    to {scale: 0;}
+}
+
+div.modal ,div.mail-send-modal,div.category-modal{
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    inset: 0px;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #8586898a;
+}
+/* div.mail-send-modal{
+    display: flex;
+} */
+div.warn-modal {
+    box-sizing: border-box;
+    position: unset;
+    width: 288px;
+    margin: 20vh 0px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgb(33 35 41 / 12%) 0px 2px 12px;
+    border-radius: 8px;
+}
+
+div.warn-modal {
+    padding: 24px;
+}
+
+div#content-wrap span{
+    display: block;
+}   
+/* /게시글 부분 */
+
+/* 검색 결과 없음 */
+div.no-search-result-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+span.no-search-result-text{
+    color: #6b7684;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 150%;
+    text-align: center;
+    margin-top: 16px;
+}
+/* /검색 결과 없음 */
+
+/* 답변 리스트 부분 */
+ul.content-list{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 804px;
+}
+div.answer-list-container{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 12px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(224, 230, 240, 0.2) 0px 4px 8px 0px;
+}
+
+div.answer-list-header-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+div.answer-list-content-tag{
+    display: flex;
+    
+    gap: 4px;
+}
+
+div.review-list-content-tag{
+    width: 100%;
+}
+span.review-content-text.anonymous{
+    font-size: 18px;
+    margin-bottom: 10px;
+    max-width: 100%;
+}
+
+div.answer-list-content-tag span{
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 700;
+    color: rgb(51, 61, 75);
+}
+
+div.answer-create-day{
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(139, 149, 161);
+}
+div.answer-title-content-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+div.review-header{
+    display: flex;
+    justify-content: space-between;
+}
+span.answer-title-content{
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(176, 184, 193);
+    max-width: 100%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+span.answer-content{
+    color: rgb(23, 49, 233);
+    font-weight: 700;
+}
+span.answer-content-wrap{
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(51, 61, 75);
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+span.answer-title-content{
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+/* /답변 리스트 부분 */
+
+/* 후기 부분 */
+button.review-btn img{
+    margin-bottom: 2px;
+    width: 20px;
+    height: 22px;
+}
+div.review-register-container{
+    display: none;
+    flex-direction: column;
+    gap: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+    width: 100%;
+}
+hr.review-horizon{
+    width: 100%;
+    height: 1px;
+    margin: 20px 0px 0px 0px;
+    border: 0px;
+    background: rgb(242, 244, 246);
+}
+div.review-register-wrap{
+    display: flex;
+    gap: 8px;
+}
+div.review-register-img img{
+    color: transparent;
+    border-radius: 32px;
+    object-fit: cover;
+}
+div.review-input-wrap{
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 14px;
+    background-color: rgb(255, 255, 255);
+}
+form.review-form{
+    display: flex;
+    align-items: end;
+    position: relative;
+    width: 100%;
+    gap: 8px;
+}
+textarea#reviewContent{
+    width: 100%;
+    border: none;
+    outline: none;
+    color: rgb(25, 31, 40);
+    font-size: 16px;
+    resize: none;
+}
+form.review-form button{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 8px;
+}
+div.review-register-container.active{
+    display: flex;
+}
+button.review-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 10px;
+    border-radius: 8px;
+    gap: 4px;
+    width: 126px;
+    border: 1px solid;
+}
+button.noexist-search-btn{
+    margin-top: 20px;
+}
+div.review-btn-wrap{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+span.review-content-text{
+    margin-left: 10px;
+}
+div.review-content-text-wrap{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    width: 100%;
+}
+span.review-content-text.content{
+    font-weight: 400;
+    display: -webkit-box;
+    max-width: 80%;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+
+}
+div.review-star-wrap{
+    position: relative;
+}
+div.review-star-content{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+span.review-point{
+    color: #333d4b;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 100%;
+}
+div.review-star-svg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    width: 24px;
+}
+div.review-star-content svg{
+    width: 100%;
+    height: 100%;
+}
+div.review-img-star{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 7px;
+}
+div.reg-star-cnt{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: absolute;
+    bottom: -39px;
+    left: -16px;
+}
+ul.star-list-wrap{
+    display: flex;
+}
+li.star-list-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+}
+button.start-btn-click{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 8px;
+}
+div.star-btn-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+}
+/* button.exist-search-btn */
+/* /후기 부분 */
+
+.docterinfo-favorite-wrapper{
+    display: flex;
+    align-items: center;
+    gap:4px;
+    position: absolute;
+    top: 0px;
+    right: 39px;
+}
+
+.doctorinfo-favoriteCount {
+    font-size: 20px;
+    font-weight: 500;
+    color:#6b7684;
+}
+
+
+
+span.unit{
+    font-size: 20px;
+    font-weight: 500;
+    color: #6b7684;
+}

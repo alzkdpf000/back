@@ -1,0 +1,183 @@
+
+body, html{
+    text-size-adjust: none;
+    height: 100%;
+    overscroll-behavior-x: none;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+audio, canvas, embed, iframe, img, object, svg, video {
+    display: block;
+}
+
+button, input, optgroup, select, textarea
+{
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    opacity: 1;
+    background-color: #0000;
+    border-radius: 0;
+}
+*{
+    box-sizing: border-box;
+    font-family: inherit;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+}
+
+menu, ol, ul {
+    list-style: none;
+}
+
+*, ::backdrop, :after, :before {
+    box-sizing: border-box;
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+}
+path{
+    clip-rule: evenodd;
+    fill: #b0b8c1;
+    fill-rule: evenodd;
+}
+
+body{
+    color: #000;
+    overscroll-behavior-y: none;
+    font-family: Pretendard Variable;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 1172px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 60px;
+    padding-bottom: 170px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 1172px;
+    min-height: 100vh;
+}
+
+div.main-container{
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+button {
+    background: inherit;
+    box-shadow: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 16px;
+    overflow: visible;
+}
+
+div.error-404-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 160px 0 0;
+}
+img.error-404-img {
+    width: 126px;
+    height: 177px;
+    color: transparent;
+}
+div.error-404-comment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 48px;
+}
+span.comment-header {
+    font-size: 24px;
+    line-height: 140%;
+    font-weight: 700;
+    color: #333D4B;
+}
+div.span-horizon {
+    display: flex;
+    margin-top: 8px;
+}
+span.comment-body {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: #6B7684;
+    text-align: center;
+}
+
+div.error-404-btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    padding-bottom: 16px;
+}
+button.befor-page-mv {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 54px;
+    min-height: 54px;
+    border-radius: 14px;
+    max-width: 146px;
+    background: #F2F4F6;
+    color: #333D4B;
+}
+span.btn-text {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+}
+
+a.home-btn-wrap {
+    width: 100%;
+    max-width: 146px;
+}
+
+button.home-btn {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 54px;
+    min-height: 54px;
+    border-radius: 14px;
+    background: #E8F0F9;
+    color: #2553E5;
+}

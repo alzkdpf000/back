@@ -1,0 +1,118 @@
+  
+div.h8f519 {
+  display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0px auto;
+  }
+
+div.oh4f1i {
+    width: 100%;
+    padding: 0px 16px;
+}
+
+
+div.qnrdaz {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 계정을 찾으려면 글씨 */
+span.mx2 {
+    font-size: 24px;
+    line-height: 140%;
+    font-weight: 700;
+    color: rgb(25, 31, 40);
+    display: block;    
+}
+
+/* 휴대폰 인증이 필요해요 글씨 */
+div.tecsv {
+    text-align: center;
+
+}
+span.iai39v {
+    font-size: 24px;
+    line-height: 140%;
+    font-weight: 700;
+    color: #e5c052;
+}
+
+br.d0b0iu {
+        display: none;
+}
+
+span.cko {
+    font-size: 24px;
+    line-height: 140%;
+    font-weight: 700;
+    color: rgb(25, 31, 40);  
+}
+
+
+div.m8y5ve {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* 뒤로가기, 다음 버튼 부분 */
+div.oms8b {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 116px;
+}
+
+
+button.e5nat2 {
+    display: flex;
+    gap: 8px;
+    /* -webkit-box-align: center; */
+    align-items: center;
+    /* -webkit-box-pack: center; */
+    justify-content: center;
+    width: 100%;
+    height: 54px;
+    min-height: 54px;
+    border-radius: 14px;
+    max-width: 160px;
+    background: rgb(242, 244, 246);
+    color: rgb(51, 61, 75);
+    border: none;
+}
+
+.e5nat2:hover {
+    background : rgb(197, 202, 209);
+}
+
+
+button.qfxk {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 54px;
+    min-height: 54px;
+    border-radius: 14px;
+    max-width: 160px;
+    background: rgb(23, 49, 233);
+    color: rgb(255, 255, 255);
+    border: none;
+}
+
+/* 글씨 */
+span.h2tnj {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+
+}

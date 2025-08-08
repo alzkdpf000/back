@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임</title>
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/housecall/housecall-request.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="main-wrap">
+    <main>
+        <div class="request-header-container">
+            <div class="request-header-wrap">
+                <div class="request-header-content">
+                    <div class="request-header-title">
+                        <div class="request-header-title-wrap">
+                            <h1 class="request-header-title-text">신청 내용은 의료진에게만 전달됩니다.</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="request-main-container">
+            <div class="req-modal">
+                <div class="req-title-wrap">
+                    <!-- input 이벤트 -->
+                    <div class="main-title-input-wrap">
+                        <div class="req-title-text warn-text header">
+                            <label class="req-title-content">환자성함 </label>
+                            <input type="text" class="reg req-input req-title-input-content" maxlength="7" placeholder="성함" form="reqForm" name="temp1">
+                        </div>
+                        <div class="req-title-text warn-text header">  
+                            <label class="req-title-content">아픈 부위</label>
+                            <input type="text" class="reg req-input req-title-input-content" maxlength="7" placeholder="아픈 부위" form="reqForm" name="temp2">
+                        </div>
+                        <div class="req-title-text warn-text header">
+                            <label class="req-title-content">아픔 정도
+                                <span class="pain-level">1~5</span>
+                            </label>
+                            <input type="text" min="1" max="5" class="reg pain-level req-input req-title-input-content" maxlength="1" placeholder="공백 시 기본 값 1" form="reqForm" name="temp3" value="1">
+                        </div>
+                    </div>
+                    <!-- /input 이벤트 -->
+                </div>
+                <hr class="line-hr content-hr">
+                <div class="req-title-wrap-gener-age">
+                    <!-- input 이벤트 -->
+                    <div class="main-title-input-wrap gender-age-wrap">
+                        <div class="req-title-text warn-text gender-age-wrap">
+                            <label class="req-title-content">성별 </label>
+                            <!-- <input type="text" class="req-input req-title-input-content" maxlength="7" placeholder="" form="reqForm" name="requestTitle"> -->
+                            <div class="gender-wrap">
+                                <!-- 정규식 처리 필요 -->
+                                <input type="text" class="gender req-input req-title-input-content checked" maxlength="4"  form="reqForm" name="temp13" readonly value="남성">
+                                <input type="text" class="gender req-input req-title-input-content" maxlength="4"  form="reqForm" readonly value="여성">
+                                <!-- /정규식 처리 필요 -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-title-input-wrap gender-age-wrap">
+                        <div class="req-title-text warn-text gender-age-wrap">
+                            <label class="req-title-content">나이 </label>
+                            <!-- <input type="text" class="req-input req-title-input-content" maxlength="7" placeholder="" form="reqForm" name="requestTitle"> -->
+                            <div class="age-wrap">
+                                <!-- 정규식 처리 필요 -->
+                                <input type="text" class="reg req-input req-title-input-content" maxlength="2" placeholder="나이" form="reqForm" name="temp14">
+                                <!-- /정규식 처리 필요 -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /input 이벤트 -->
+                </div>
+                <hr class="line-hr content-hr">
+                <div class="req-title-wrap">
+                    <!-- input 이벤트 -->
+                    <div class="main-title-input-wrap">
+                        <div class="req-title-text warn-text">
+                            <label class="req-title-content">전화번호 </label>
+                            <!-- <input type="text" class="req-input req-title-input-content" maxlength="7" placeholder="" form="reqForm" name="requestTitle"> -->
+                            <div class="phone-number-container">
+                                <div class="phone-number-wrap">
+                                    <!-- 클릭 이벤트 -->
+                                    <div class="select" id="phone-numer-content">
+                                        <span>010</span> 
+                                        <input type="text" id="phoneHidden" style="display:none;" name="temp0" value="010" form="reqForm">
+                                        <img src="/images/arrow-down.png" class="arrow">
+                                        <div class="option option-item-one">011</div>
+                                        <div class="option option-item-two">02</div>    
+                                    </div>
+                                    <!-- /클릭 이벤트 -->
+                                </div>
+                                
+                                <!-- 정규식 처리 필요 -->
+                                <div class="split">-</div>
+                                <input type="text" class="reg req-input req-title-input-content" maxlength="4" placeholder="중간번호" form="reqForm" name="temp4">
+                                <div class="split">-</div>
+                                <input type="text" class="reg req-input req-title-input-content" maxlength="4" placeholder="끝번호" form="reqForm" name="temp5">
+                            </div>
+                            <!-- /정규식 처리 필요 -->
+                        </div>
+                    </div>
+                    <!-- /input 이벤트 -->
+                </div>
+                <hr class="line-hr content-hr">
+                <div class="req-title-wrap">
+                    <!-- input 이벤트 -->
+                    <div class="main-title-input-wrap">
+                        <div class="req-title-text warn-text">
+                            <label class="req-title-content">희망날짜</label>
+                            <!-- <input type="text" class="req-input req-title-input-content" maxlength="7" placeholder="" form="reqForm" name="requestTitle"> -->
+                            <!-- 정규식 처리 필요 -->
+                            <div class="date-container">
+                                <div class="date-container">
+                                    <input type="text" class="reg req-input req-title-input-content date" id="year" maxlength="2" placeholder="연도" form="reqForm" name="temp6">
+                                </div>
+                                <div class="split">/</div>
+                                <div class="date-container">
+                                    <input type="text" class="reg req-input req-title-input-content date" id="month" maxlength="2" placeholder="월" form="reqForm" name="temp7">
+                                </div>
+                                <div class="split">/</div>
+                                <div class="date-container">
+                                    <input type="text" class="reg req-input req-title-input-content date" id="day" maxlength="2" placeholder="일" form="reqForm" name="temp8">
+                                </div>
+                            </div>
+                            <!-- /정규식 처리 필요 -->
+                        </div>
+                    </div>
+                    <!-- /input 이벤트 -->
+                </div>
+                <hr class="line-hr content-hr">
+                <div class="req-title-wrap">
+                    <!-- input 이벤트 -->
+                    <div class="main-title-input-wrap">
+                        <div class="req-title-text warn-text address">
+                            <label class="req-title-content">주소</label>
+                            <div class="address-search">
+                                <input type="text" class="reg req-input req-title-input-content" maxlength="7" placeholder="도로명 주소" form="reqForm" name="temp9">
+                                <!-- 클릭 이벤트 -->
+                                <button type="button"class="request-reg-btn">주소찾기</button>
+                                <!-- /클릭 이벤트 -->
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- /input 이벤트 -->
+                </div>
+                <hr class="address-hr">
+                <div class="req-title-wrap">
+                    <!-- input 이벤트 -->
+                    <div class="main-title-input-wrap">
+                        <div class="req-title-text warn-text">
+                            <input type="text" class="req-input req-title-input-content req-address" maxlength="7" placeholder="상세 주소" form="reqForm" name="temp10">
+                        </div>
+                    </div>
+                    <!-- /input 이벤트 -->
+                </div>
+                <hr class="line-hr content-hr">
+                <div class="req-content-container">
+                    <div class="req-content-wrap">
+                        <div class="req-content-text warn-text">
+                            <label class="content-text">간단한 증상 설명</label>
+                        </div>
+                        <div class="req-content-input-wrap">
+                                <hr class="line-hr input-btn-list-bottom">
+                                <div class="input-textarea-container">
+                                    <!-- input 이벤트 -->
+                                    <textarea class="req-content" form="reqForm" name="temp11" id="requestContent" cols="30" rows="10" placeholder="질문의 내용을 구체적으로 입력해주세요."></textarea>
+                                    <!-- /input 이벤트 -->
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="request-side-bar-wrap">
+            <button type="submit"class="request-reg-btn" form="reqForm" name="requestBtn" id="requestBtn">신청하기</button>
+            <div class="request-reg-warn-container">
+                <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM11 7.5C11 6.94772 11.4477 6.5 12 6.5C12.5523 6.5 13 6.94772 13 7.5V13.5C13 14.0523 12.5523 14.5 12 14.5C11.4477 14.5 11 14.0523 11 13.5V7.5ZM13 16.5C13 17.0523 12.5523 17.5 12 17.5C11.4477 17.5 11 17.0523 11 16.5C11 15.9477 11.4477 15.5 12 15.5C12.5523 15.5 13 15.9477 13 16.5Z" fill="#6b7684" fill-rule="evenodd"></path></svg>
+                <div class="request-reg-warn-wrap">
+                    <div class="request-wran-text-wrap">
+                        <span class="wran-text">꼭 확인해주세요.</span>
+                        <ul class="wran-text-list">
+                            <li>
+                                <div class="wran-text-item">
+                                    <span class="wran-content">
+                                        해당 신청서는 진료 목적으로만 활용되며, 담당 의료진에게만 노출됩니다.
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="wran-text-item">
+                                    <span class="wran-content">
+                                    상호 간의 예의와 존중을 부탁드립니다.
+                                </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+</div>
+
+
+<form id="reqForm" name="reqForm" style="display: none;"></form>
+</body>
+<script src="/js/housecall/housecall-request/event.js"></script>
+</html>

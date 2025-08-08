@@ -1,0 +1,209 @@
+.mypost-list-main-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    gap: 20px;
+}
+
+.mypost-list-main-category-wrap {
+    display: flex;
+}
+
+.mypost-list-main-category-container {
+    width: 100%;
+    padding: 0px;
+}
+
+.mypost-list-category-group-wrapper {
+    display: flex;
+    gap: 16px;
+}
+
+.mypost-list-category-wrapper {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    width: 116px;
+    padding: 12px 0px;
+    cursor: pointer;
+}
+
+.mypost-list-category-content-wrapper {
+    display: flex;
+    gap: 4px;
+}
+
+.mypost-list-category-content-active {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(25, 31, 40);
+}
+
+.mypost-list-category-content{
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(176, 184, 193);
+}
+
+.mypost-list-category-highlight {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    transform: translateX(calc(0% + 0px));
+    transition: transform 0.1s ease-in;
+    border-bottom: 2px solid rgb(25, 31, 40);
+    will-change: transform;
+}
+
+.mypost-list-content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 804px;
+}
+
+.mypost-list-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 12px;
+    background-color: rgb(255, 255, 255);
+}
+
+.mypost-category-container {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.mypost-category-wrapper {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.mypost-category-a {
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 700;
+    color: rgb(51, 61, 75);
+}
+
+.mypost-category-b {
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 400;
+    color: rgb(51, 61, 75);
+}
+
+.mypost-content-time {
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(139, 149, 161);
+}
+
+.mypost-content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mypost-content-title-wrapper {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(51, 61, 75);
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.mypost-content-body-wrapper {
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(107, 118, 132);
+    max-width: 100%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.mypost-content-title-q {
+    color: rgb(23, 49, 233);
+    font-weight: 700;
+}
+
+.mypost-content-body-a {
+    color: rgb(38, 223, 47);
+    font-weight: 700;
+}
+
+ul {
+    list-style: none;
+}
+
+.mypost-page-button-wrap {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.mypost-page-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mypost-page-arrow-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.mypost-page-button-wrapper {
+    display: flex;
+    gap: 8px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.mypost-page-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(240, 240, 240, 0.959);
+    color: rgba(143, 152, 165, 0.952);
+}
+
+.active-page {
+    background: rgb(102, 101, 101);
+    color: rgb(255, 255, 255);
+}
+
+.mypost-page-button-number {
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0px;
+    font-weight: 500;
+}

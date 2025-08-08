@@ -1,0 +1,491 @@
+/* @charset "utf-8"; */
+
+/* 병원 부분이랑 의사부분 css입니다. */
+
+body, html{
+    text-size-adjust: none;
+    height: 100%;
+    overscroll-behavior-x: none;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+audio, canvas, embed, iframe, img, object, svg, video {
+    display: block;
+}
+
+button, input, optgroup, select, textarea
+{
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    opacity: 1;
+    background-color: #0000;
+    border-radius: 0;
+}
+*{
+    box-sizing: border-box;
+    font-family: inherit;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+}
+
+menu, ol, ul {
+    list-style: none;
+}
+
+*, ::backdrop, :after, :before {
+    box-sizing: border-box;
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+}
+path{
+    clip-rule: evenodd;
+    fill: #b0b8c1;
+    fill-rule: evenodd;
+}
+
+body{
+    color: #000;
+    overscroll-behavior-y: none;
+    font-family: Pretendard Variable;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 1172px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 60px;
+    padding-bottom: 170px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 1172px;
+    min-height: 100vh;
+}
+
+div.main-container{
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+button {
+    background: inherit;
+    box-shadow: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 16px;
+    overflow: visible;
+}
+
+ul.coach-mark-container,ul.category-list-wrap{
+    display: flex;
+    gap: 20px;
+}
+
+header.coach-mark-wrapper{
+    display: flex;
+    justify-content: space-between;
+    cursor: unset;
+}
+
+
+li span.btn-content{
+    font-size: 32px;
+    line-height: 130%;
+    font-weight: 700;
+    color: #B0B8C1;
+}
+
+li span.active{
+    font-size: 32px;
+    line-height: 130%;
+    font-weight: 700;
+    color: #191F28;
+}
+
+div.content-wrapper{
+    display: flex;
+    gap: 16px;
+}
+div.content-list-container{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+ul.content-list{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 804px;
+}
+
+header.coach-mark-wrapper ul.coach-mark-container li button {
+    cursor: unset;
+}
+div.content-info{
+    display: flex;
+    gap: 16px;
+    padding: 32px 40px 32px 32px;
+    border: 1px solid rgb(229, 232, 235);
+    border-radius: 12px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(224, 230, 240, 0.2) 0px 4px 8px 0px;
+}
+
+div.content-info img.content-info-img{
+    border-radius: 16px;
+    object-fit: cover;
+}
+div.content-info-text{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+div.type-user-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+div.depart-treatment {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+
+div.depart-treatment-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+div.depart-treatment-wrap span, div.info-container span {
+        font-size: 14px;
+        line-height: 150%;
+        font-weight: 400;
+        color: rgb(51, 61, 75);
+}
+
+
+
+div.depart-treatment-wrap span:last-child, div.info-container span.second{
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 700;
+    color: rgb(107, 118, 132);
+    /* margin-left: 25px; */
+}
+
+div.depart-treatment-wrap span:first-child, div.info-container span.first{
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 700;
+    color: rgb(51, 61, 75);
+}
+
+div.info-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+div.doctor-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+hr.category-ul-horizon{
+    width: 100%;
+    height: 1px;
+    margin: 0px;
+    border: 0px;
+    background: #f2f4f6;
+}
+
+div.doctor-info span:first-child{
+    font-size: 22px;
+    line-height: 150%;
+    font-weight: 500;
+}
+
+div.icon-btn-wrap{
+    display: flex;
+    justify-content: space-between;
+}
+
+div.icon-container{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+span.greeting{
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgb(51, 61, 75);
+}
+span.greeting strong{
+    font-weight: 700;
+}
+
+div.btn-wrap{
+    display: flex;
+    gap: 16px;
+}
+
+button.btnshape{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 42px;
+    padding: 0 10px;
+    border-radius: 8px;
+    background-color: #1731e9;
+    gap: 4px;
+    color: #fff;
+    width: 109px;
+}
+button.btnshape span{
+    color: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 100%;
+    width: max-content;
+}
+
+
+button.btnshape img {
+    margin-bottom: 2px;
+    width: 20px;
+    height: 20px;
+}
+
+button.housecall-btn.active{
+    background-color: #10b981;
+}
+
+span.first::after{
+    content: "";
+    font-size: 9px;
+    border: 1px solid rgb(107, 118, 132);
+    margin: 0px 10px 0px 10px;
+    vertical-align: 3px;
+}
+span.detail-address{
+    margin-left: 26px;
+}
+
+div.side-bar-container{
+    position: sticky;
+    top: 61px;
+    width: 100%;
+    min-width: 320px;
+    max-width: 320px;
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+div.kakao-map{
+    width: 100%;
+    margin-top: 62px;
+    background-image: url("/images/temp.png");
+    height: calc(100% - 62px);
+}
+
+
+
+@keyframes popUp {
+    from {scale: 0;}
+    to {scale: 1;}
+}
+
+@keyframes popDown {
+    from {scale: 1;}
+    to {scale: 0;}
+}
+
+div.modal {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    inset: 0px;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #8586898a;
+}
+/* div.mail-send-modal{
+    display: flex;
+} */
+div.warn-modal {
+    box-sizing: border-box;
+    position: unset;
+    width: 288px;
+    margin: 20vh 0px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgb(33 35 41 / 12%) 0px 2px 12px;
+    border-radius: 8px;
+}
+img.img-doc-tag{
+    width: 48px;
+    height: 48px;
+    color: transparent
+}
+img.img-hos-tag{
+    width: 152px;
+    height: 152px;
+    color: transparent
+}
+div.warn-modal {
+    padding: 24px;
+}
+
+div#content-wrap span{
+    display: block;
+}
+
+
+/* 위에 카테고리 부분 */
+div.category-list-container{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+    justify-content: flex-end;
+}
+button.category-container-modal-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 36px;
+    border-radius: 36px;
+    background-color: #fff;
+    color: #6b7684;
+    padding: 0px 14px 0px 10px;
+    gap: 12px;
+    border: 1px solid #e5e8eb;
+}
+span.check-list{
+    color: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 100%;
+}
+div.check-list-svg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
+}
+div.check-list-svg svg{
+    width: 100%;
+    height: 100%;
+    transform: rotate(90deg);
+}
+button.card-list-order-btn{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+span.card-list-btn-text{
+    color: #6b7684;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 100%;
+}
+div.card-list-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px
+}
+div.card-list-icon svg {
+    width: 100%;
+    height: 100%;
+}
+/* /위에 카테고리 부분 */
+
+
+/* 검색 결과 없음 */
+div.no-search-result-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+span.no-search-result-text{
+    color: #6b7684;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 150%;
+    text-align: center;
+    margin-top: 16px;
+}
+
+span.doctorinfo-name span.patient{
+    font-size: 15px;
+    line-height: 150%;
+    font-weight: 700;
+    color: rgb(107, 118, 132);
+    margin-left: 5px;
+}
+span.pain{
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 700;
+    color: rgb(51, 61, 75);
+}
+
+div.tell-date{
+    cursor: unset;
+}
+span.remain-time-span{
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+

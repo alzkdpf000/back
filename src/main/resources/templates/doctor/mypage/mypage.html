@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임</title>
+    <link rel="stylesheet" href="/css/doctor/mypage/mypage.css">
+    <link rel="stylesheet" href="/css/member/mypage/mypage/mypage.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
+</head>
+<body>
+    <div class="whole-body">
+        <main class ="main-layout-wrapper">
+            <div class ="mypage-title-container ">
+                <div class = "mypage-title-wrapper">
+                    <h1 class = "mypage-title">마이페이지</h1>
+                </div>
+            </div>
+            <div class ="mypage-body-container">
+                <div width="320" class="mypage-category-container";>
+                    <!-- 카테고리 누르면 해당 페이지로 넘어가면서 카테고리 색 바뀌는 이벤트 -->
+                    <aside class="mypage-category-wrapper">
+                        <a class ="mypage-category-wrap-black ">
+                            <span class ="mypage-category-black active">내 정보 수정</span>
+                        </a>
+                    </aside>
+                </div>
+                <div class ="mypage-main-container">
+                    <div class = "mypage-main-wrap">
+                        <span class = "mypage-main-info-title">프로필 정보</span>
+                        <div class="mypage-main-content-wrapper">
+                            <label class="mypage-main-profile-label">
+                                <div class="mypage-main-profile-wrapper">
+                                    <img class="mypage-main-profile-body" alt="프로필 이미지" width="80" height="80" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/human/person-filled.svg" style="color: transparent;">
+                                    <img class="mypage-main-profile-plus" alt="plus-circle" loading="lazy" width="40" height="40" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/math/plus-circle-twoToned.svg" style="color: transparent;">
+                                </div>
+                            </label>    
+                        <div class="mypage-main-profile-content-button-wrapper">
+                            <button Id = "change-email-button" class="mypage-main-button" color ="grey" height="54">
+                                <span class="mypage-main-button-name">변경</span>
+                            </button>
+                            <button Id = "change-email-button" class="mypage-main-button" color ="grey" height="54">
+                                <span class="mypage-main-button-name">확인</span>
+                            </button>
+                        </div>
+                        </div>  
+                    </div>
+                    <div class = "mypage-main-wrap">
+                        <span class = "mypage-main-info-title">기본 정보</span>
+                        <div class="mypage-main-content-container">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <span class="mypage-main-key">이름</span>
+                                        </div>
+                                        <span class="mypage-main-value">김초밥</span>
+                                    </div>
+                                    <!-- 버튼 클릭 시 이메일 변경 창 생성 -->
+                                </div>
+                            </div>
+                            <hr class="mypage-main-content-line">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <span class="mypage-main-key">이메일</span>
+                                        </div>
+                                        <span class="mypage-main-value">이메일@주소.형식</span>
+                                    </div>
+                                    <!-- 버튼 클릭 시 이메일 변경 창 생성 -->
+                                    <button Id = "change-email-button" class="mypage-main-button" color ="grey" height="54">
+                                        <span class="mypage-main-button-name">변경</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr class="mypage-main-content-line">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <span class="mypage-main-key">휴대폰 번호</span>
+                                        </div>
+                                        <span class="mypage-main-value">+821012345678</span>
+                                    </div>
+                                    <button Id="change-phone-button" class="mypage-main-button" color ="grey" height="54">
+                                        <!-- 휴대폰 번호 인증 이벤트 -->
+                                        <span class="mypage-main-button-name">변경</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            <div class = "mypage-main-wrap">
+                        <span class = "mypage-main-info-title">전문가 정보</span>
+                        <div class="mypage-main-content-container">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <span class="mypage-main-key">의사 면허증</span>
+                                        </div>
+                                        <div class="mypage-main-value-wrapper">
+                                            <div class="mypage-main-value-icon-wrapper">
+                                                <img class="mypage-main-value-icon" src="/static/images/license-check.png">
+                                            <span class="mypage-main-value">인증됨</span>
+                                            </div>
+                                        </div>
+                                        <div class="mypage-main-value-wrapper">
+                                            <div class="mypage-main-value-icon-wrapper">
+                                                <img class="mypage-main-value-icon" src="/static/images/license-warning.png">
+                                            <span class="mypage-main-value">인증이 필요합니다!</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button Id="change-phone-button" class="mypage-main-button" color ="grey" height="54">
+                                        <!-- 휴대폰 번호 인증 이벤트 -->
+                                        <span class="mypage-main-button-name">등록</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr class="mypage-main-content-line">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <span class="mypage-main-key">병원 정보</span>
+                                        </div>
+                                        <span class="mypage-main-value">강남 병원</span>
+                                    </div>
+                                    <button Id="change-phone-button" class="mypage-main-button" color ="grey" height="54">
+                                        <!-- 휴대폰 번호 인증 이벤트 -->
+                                        <span class="mypage-main-button-name">변경</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class = "mypage-main-wrap">
+                        <span class = "mypage-main-info-title">보안 설정</span>
+                        <div class="mypage-main-content-container">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <span class="mypage-main-key">비밀번호</span>
+                                        </div>
+                                        <span class="mypage-main-value"></span>
+                                    </div>
+                                    <!-- 버튼 클릭 시 이메일 인증 이벤트 -> 확인 시 새로운 비밀번호 입력 -->                                    
+                                    <button Id= "change-password-button" class="mypage-main-button" color ="grey" height="54">
+                                        <span class="mypage-main-button-name">변경</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "mypage-main-wrap">
+                        <span class = "mypage-main-info-title">연동 되어있는 SNS 계정</span>
+                        <div class="mypage-main-content-container">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <img alt="카카오" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/mark/logo-kakao-color.svg" style="color: transparent;">
+                                            <span class="mypage-main-key">카카오</span>
+                                        </div>
+                                        <span class="mypage-main-value"></span>
+                                    </div>
+                                <div class = "mypage-button-group">
+                                    <button Id ="connect-sms-button" class="mypage-main-button-on" color ="blue" height="54">
+                                    <!-- 버튼 클릭 시 카카오 연동 이벤트 ---? -->
+                                        <span class="mypage-main-button-name">연동하기</span>
+                                    </button>
+                                    <!-- 경고 팝업 이벤트 -->
+                                    <button id = "disconnect-sms-button" class="mypage-main-button" color ="grey" height="54">
+                                        <span class="mypage-main-button-name">연동 해제</span>
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "mypage-main-wrap">
+                        <div class="mypage-main-content-container">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <img alt="로그아웃" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" src="https://media.a-ha.io/aha-qna/images/common/icons/object-and-tool/lock-keyhole-filled.svg">
+                                            <span class="mypage-main-key">로그아웃</span>
+                                        </div>
+                                        <span class="mypage-main-value"></span>
+                                    </div>
+                                    <!-- 버튼 클릭 시 바로 로그아웃 이벤트-->
+                                    <button id = "logout-button" class="mypage-main-button" color ="grey" height="54">
+                                        <span class="mypage-main-button-name">로그아웃</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "mypage-main-wrap">
+                        <div class="mypage-main-content-container">
+                            <div class="mypage-main-key-container">
+                                <div class="mypage-main-content-wrapper">
+                                    <div class="mypage-main-wrapper-wrapper">
+                                        <div class="mypage-main-key-wrapper">
+                                            <img alt="탈퇴" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" src="https://media.a-ha.io/aha-qna/images/common/icons/math/minus-circle-line.svg">
+                                            <span class="mypage-main-key">탈퇴</span>
+                                        </div>
+                                        <span class="mypage-main-value"></span>
+                                    </div>
+                                    <!-- 버튼 클릭 시 탈퇴 사유 입력 -> "탈퇴합니다" 기입 -> 버튼 눌러서 탈퇴 -->
+                                    <button Id= "delete-button" class="mypage-main-button" color ="grey" height="54">
+                                        <span class="mypage-main-button-name">회원 탈퇴</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                                            
+        </main>
+    </div> 
+    <script src="/js/doctor/mypage/event.js"></script>  
+</body>
+</html>

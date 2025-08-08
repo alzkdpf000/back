@@ -1,0 +1,134 @@
+/* 전체 배경 */
+.ir7f {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: url("/static/images/gold001.png") center/cover no-repeat;
+}
+
+/* 흰색 박스 */
+.yjjqs {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 내부 컨텐츠 가운데 정렬 */
+    min-width: 440px;
+    padding: 60px 40px 40px;
+    border-radius: 20px;
+    background: #fff;
+    filter: drop-shadow(0 4px 16px rgba(24, 24, 28, 0.2));
+    text-align: center;
+}
+
+/* 로그인 + 골든타임 제목 라인 */
+.gwzjin {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 12px;
+}
+
+/* 제목 텍스트 */
+.m0bel {
+    font-size: 22px;
+    line-height: 140%;
+    font-weight: 400;
+}
+
+/* 중앙 섹션 */
+.yuj3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 140px;
+    width: 100%;
+}
+
+/* 소셜 버튼 전체 컨테이너 */
+.kizdzl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+/* 소셜 버튼 공통 스타일 */
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 240px;
+    width: 100%;
+    height: 52px;
+    padding: 0 10px;
+    border-radius: 14px;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    cursor: pointer;
+}
+
+/* 개별 소셜 버튼 색상 */
+.social-btn.kakao {
+    background-color: #F9D450;
+    color: #333D4B;
+}
+
+.social-btn.naver {
+    background-color: #3ED03B;
+    color: #fff;
+}
+
+.social-btn.avt0 {
+    background-color: #1E1E1E;
+    color: #fff;
+}
+
+/* 소셜 버튼 텍스트 */
+.ua8imd {
+    color: inherit;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* 버튼 하단 공간 */
+.e4d5n {
+    display: flex;
+    margin-top: 20px;
+}
+
+/* 하단 회원가입/계정찾기 버튼 컨테이너 */
+.qzlw6m {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 240px;
+}
+
+/* 하단 텍스트 버튼 */
+.an0xmh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    width: 100%;
+    padding: 0 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;  /* 테두리 제거 추가 */
+    box-shadow: none;  /* 그림자 제거 (필요 시) */
+}
+
+/* 텍스트 전용 span */
+.h9r0xh {
+    font-size: 14px;
+    font-weight: 500;
+}

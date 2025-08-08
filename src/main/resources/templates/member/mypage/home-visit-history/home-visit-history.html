@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임</title>
+    <link rel="stylesheet" href="/css/member/mypage/mypage/mypage.css">
+    <link rel="stylesheet" href="/css/member/mypage/home-visit-history/home-visit-history.css">
+    <link rel="stylesheet" href="/css/doctor-hospital/doctor-hospital.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
+</head>
+<body>
+    <div class="whole-body">
+        <main class ="main-layout-wrapper">
+            <div class ="mypage-title-container ">
+                <div class = "mypage-title-wrapper">
+                    <h1 class = "mypage-title">마이페이지</h1>
+                </div>
+            </div>
+            <div class ="mypage-body-container">
+                <div class="mypage-category-container">
+                    <!-- 카테고리 누르면 해당 페이지로 넘어가면서 카테고리 색 바뀌는 이벤트 -->
+                    <aside class="mypage-category-wrapper">
+                        <a class ="mypage-category-wrap-black">
+                            <span class ="mypage-category-black">내 정보 수정</span>
+                        </a>
+                        <a class = "mypage-category-wrap-black">
+                            <span class = "mypage-category-black">내 작성글 목록</span>
+                        </a>
+                        <a class = "mypage-category-wrap-black">
+                            <span class = "mypage-category-black  active">진료 신청 기록</span>
+                        </a>
+                        <a class = "mypage-category-wrap-black">
+                            <span class = "mypage-category-black">내 관심 의사</span>
+                        </a>
+                        <a class = "mypage-category-wrap-black">
+                            <span class = "mypage-category-black">1:1 문의함</span>
+                        </a>
+                    </aside>
+                </div>
+                <div class="home-visit-history-main-container">
+                    <div class="home-visit-history-main-category-wrap">
+                        <div class="home-visit-history-main-category-container">
+                            <div class="home-visit-history-category-group-wrapper">
+                                <div class="home-visit-history-category-wrapper">
+                                    <div class="home-visit-history-category-content-wrapper">
+                                        <span class="home-visit-history-category-content-active">
+                                            방문진료 신청 내역</span>
+                                        <div class="home-visit-history-category-highlight"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul
+                        class="content-list" id="intersectionObserver">
+                        <!-- 반복 부분 -->
+                        <li>    
+                            <div class="content-info">
+                                <div class="content-info-text">
+                                    <div class="type-info-container">
+                                        <div class="type-info-wrapper">
+                                            <div class="depart-treatment">
+                                                <div class="depart-treatment-wrap">
+                                                    <span class="first">
+                                                        증상
+                                                    </span>
+                                                    <span class="second">
+                                                        복통
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                희망 날짜
+                                            </span>
+                                            <span class="second">
+                                                2025-08-15
+                                            </span>
+                                        </div>
+                                        <!-- 주소 클릭 이벤트 -->
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                소재지
+                                            </span>
+                                            <span class="second">
+                                                경기도 남양주시
+                                            </span>
+                                            <span class="first detail-address">
+                                                상세 주소
+                                            </span>
+                                            <span class="second">
+                                                화도읍 비룡로 111-11 103호
+                                            </span>
+                                        </div>
+                                        <!-- /주소 클릭 이벤트 -->
+                                        <div class="info-container">
+                                            <span class="first">
+                                                전화번호
+                                            </span>
+                                            <span class="second">
+                                                010-7777-1234
+                                            </span>
+                                        </div>
+                                    </div>
+                                            <div class="home-visit-history-content-button-container">
+                                                <!-- 현재 상태 표시 -->
+                                                <button class="home-visit-history-content-button-wrapper in-progress-btn">
+                                                    <img src="/static/images/wait.png">
+                                                    <span class="home-visit-history-content-button">승인 대기</span>
+                                                </button>
+                                                <span class="remain-time-span">
+                                                <svg fill="none" height="14" viewBox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_6147_7791)"><path clip-rule="evenodd" d="M6.99992 13.4167C10.5437 13.4167 13.4166 10.5439 13.4166 7.00004C13.4166 3.45621 10.5437 0.583374 6.99992 0.583374C3.45609 0.583374 0.583252 3.45621 0.583252 7.00004C0.583252 10.5439 3.45609 13.4167 6.99992 13.4167ZM7.75837 4.08338C7.75837 3.66457 7.41885 3.32505 7.00003 3.32505C6.58122 3.32505 6.2417 3.66457 6.2417 4.08338V7.29172C6.2417 7.47274 6.30646 7.64779 6.42426 7.78523L8.17426 9.8269C8.44683 10.1449 8.92556 10.1817 9.24355 9.90915C9.56154 9.63659 9.59836 9.15785 9.3258 8.83987L7.75837 7.01119V4.08338Z" fill="var(--color-gray-600)" fill-rule="evenodd"></path></g><defs><clipPath id="clip0_6147_7791"><rect fill="white" height="14" width="14"></rect></clipPath></defs></svg>
+                                                6일 남음</span>
+                                            </div>
+                                </div>
+                                    </div>
+                                </div>
+                        </li>
+                        <li>
+                            <div class="content-info">
+                                <div class="content-info-text">
+                                    <div class="type-info-container">
+                                        <div class="type-info-wrapper">
+                                            <div class="depart-treatment">
+                                                <div class="depart-treatment-wrap">
+                                                    <span class="first">
+                                                        증상
+                                                    </span>
+                                                    <span class="second">
+                                                        복통
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                희망 날짜
+                                            </span>
+                                            <span class="second">
+                                                2025-08-15
+                                            </span>
+                                        </div>
+                                        <!-- 주소 클릭 이벤트 -->
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                소재지
+                                            </span>
+                                            <span class="second">
+                                                경기도 남양주시
+                                            </span>
+                                            <span class="first detail-address">
+                                                상세 주소
+                                            </span>
+                                            <span class="second">
+                                                화도읍 비룡로 111-11 103호
+                                            </span>
+                                        </div>
+                                        <!-- /주소 클릭 이벤트 -->
+                                        <div class="info-container">
+                                            <span class="first">
+                                                전화번호
+                                            </span>
+                                            <span class="second">
+                                                010-7777-1234
+                                            </span>
+                                        </div>
+                                    </div>
+                                            <div class="home-visit-history-content-button-container">
+                                                <!-- 현재 상태 표시 -->
+                                                <button class="home-visit-history-content-button-wrapper time-out-btn">
+                                                    <img class="to-white" src="/static/images/time-out.png">
+                                                    <span class="home-visit-history-content-button">기간 만료</span>
+                                                </button>
+                                                <span class="remain-time-span">
+                                                <svg fill="none" height="14" viewBox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_6147_7791)"><path clip-rule="evenodd" d="M6.99992 13.4167C10.5437 13.4167 13.4166 10.5439 13.4166 7.00004C13.4166 3.45621 10.5437 0.583374 6.99992 0.583374C3.45609 0.583374 0.583252 3.45621 0.583252 7.00004C0.583252 10.5439 3.45609 13.4167 6.99992 13.4167ZM7.75837 4.08338C7.75837 3.66457 7.41885 3.32505 7.00003 3.32505C6.58122 3.32505 6.2417 3.66457 6.2417 4.08338V7.29172C6.2417 7.47274 6.30646 7.64779 6.42426 7.78523L8.17426 9.8269C8.44683 10.1449 8.92556 10.1817 9.24355 9.90915C9.56154 9.63659 9.59836 9.15785 9.3258 8.83987L7.75837 7.01119V4.08338Z" fill="var(--color-gray-600)" fill-rule="evenodd"></path></g><defs><clipPath id="clip0_6147_7791"><rect fill="white" height="14" width="14"></rect></clipPath></defs></svg>
+                                                0분 남음</span>
+                                                <button class="home-visit-history-content-button-wrapper re-post-btn">
+                                                    <img class="to-white" src="/static/images/writing.png">
+                                                    <span class="home-visit-history-content-button">재등록하기</span>
+                                                </button>
+                                            </div>
+                                </div>
+                                    </div>
+                                </div>
+                        </li>
+                            <!-- 나중에 삭제할 부분 -->
+                        <li>
+                            <div class="content-info">
+                                <div class="content-info-text">
+                                    <div class="type-info-container">
+                                        <div class="type-info-wrapper">
+                                            <div class="depart-treatment">
+                                                <div class="depart-treatment-wrap">
+                                                    <span class="first">
+                                                        증상
+                                                    </span>
+                                                    <span class="second">
+                                                        어지러움
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                희망 날짜
+                                            </span>
+                                            <span class="second">
+                                                2025-08-06
+                                            </span>
+                                        </div>
+                                        <!-- 주소 클릭 이벤트 -->
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                소재지
+                                            </span>
+                                            <span class="second">
+                                                경기도 남양주시
+                                            </span>
+                                            <span class="first detail-address">
+                                                상세 주소
+                                            </span>
+                                            <span class="second">
+                                                화도읍 비룡로 111-11 103호
+                                            </span>
+                                        </div>
+                                        <!-- /주소 클릭 이벤트 -->
+                                        <div class="info-container">
+                                            <span class="first">
+                                                전화번호
+                                            </span>
+                                            <span class="second">
+                                                010-7777-1234
+                                            </span>
+                                        </div>
+                                    </div>
+                                            <div class="home-visit-history-content-button-container">
+                                                <!-- 현재 상태 표시 -->
+                                                <button class="home-visit-history-content-button-wrapper approve-btn">
+                                                    <img src="/static/images/check-mark.png">
+                                                    <span class="home-visit-history-content-button">승인 완료</span>
+                                                </button>
+                                            </div>
+                                </div>
+                                        <div class="home-visit-history-doctor-info">
+                                            <span>승인한 의사 정보</span>
+                                        </div>
+                                        <div class="doctor-info-container">
+                                            <a class="doctor-info-wrapper">
+                                                <div class="doctor-info-img-wrapper">
+                                                    <img alt="문용현 세무사" class="doctor-info-img" loading="lazy" width="48" height="48" decoding="async" class="" src="https://www.a-ha.io/questions/_next/image?url=https%3A%2F%2Fmedia.a-ha.io%2Faha-qna%2Fusers%2FP_6pPee-Enmq7xGYohJjs&amp;w=128&amp;q=75">
+                                                </div>
+                                                <div class="doctor-info-content-container">
+                                                    <div class="doctor-info-content-wrapper">
+                                                        <div class="doctor-info-content-name">
+                                                            홍길동 내과전문의
+                                                        </div>
+                                                    <div class="doctor-info-content-wrapper">
+                                                        <div class="doctor-info-content-hospital">
+                                                            강남병원
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                                <div class="doctor-info-content-button-wrapper">
+                                                    <div class="doctor-info-content-button">
+                                                        <img src ="/static/images/close-message.png">
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </li>
+                            <!-- 나중에 삭제할 부분 -->
+                        <li>
+                            <div class="content-info">
+                                <div class="content-info-text">
+                                    <div class="type-info-container">
+                                        <div class="type-info-wrapper">
+                                            <div class="depart-treatment">
+                                                <div class="depart-treatment-wrap">
+                                                    <span class="first">
+                                                        증상
+                                                    </span>
+                                                    <span class="second">
+                                                        어지러움
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                희망 날짜
+                                            </span>
+                                            <span class="second">
+                                                2025-03-12
+                                            </span>
+                                        </div>
+                                        <!-- 주소 클릭 이벤트 -->
+                                        <div class="info-container hospital-info">
+                                            <span class="first">
+                                                소재지
+                                            </span>
+                                            <span class="second">
+                                                경기도 남양주시
+                                            </span>
+                                            <span class="first detail-address">
+                                                상세 주소
+                                            </span>
+                                            <span class="second">
+                                                화도읍 비룡로 111-11 103호
+                                            </span>
+                                        </div>
+                                        <!-- /주소 클릭 이벤트 -->
+                                        <div class="info-container">
+                                            <span class="first">
+                                                전화번호
+                                            </span>
+                                            <span class="second">
+                                                010-7777-1234
+                                            </span>
+                                        </div>
+                                    </div>
+                                            <div class="home-visit-history-content-button-container">
+                                                <!-- 현재 상태 표시 -->
+                                                <button class="home-visit-history-content-button-wrapper">
+                                                    <img class="to-white" src="/static/images/pill.png">
+                                                    <span class="home-visit-history-content-button">진료 완료</span>
+                                                </button>
+                                            </div>
+                                </div>
+                                        <div class="home-visit-history-doctor-info">
+                                            <span>승인한 의사 정보</span>
+                                        </div>
+                                        <div class="doctor-info-container">
+                                            <a class="doctor-info-wrapper">
+                                                <div class="doctor-info-img-wrapper">
+                                                    <img alt="문용현 세무사" class="doctor-info-img" loading="lazy" width="48" height="48" decoding="async" class="" src="https://www.a-ha.io/questions/_next/image?url=https%3A%2F%2Fmedia.a-ha.io%2Faha-qna%2Fusers%2FP_6pPee-Enmq7xGYohJjs&amp;w=128&amp;q=75">
+                                                </div>
+                                                <div class="doctor-info-content-container">
+                                                    <div class="doctor-info-content-wrapper">
+                                                        <div class="doctor-info-content-name">
+                                                            홍길동 내과전문의
+                                                        </div>
+                                                    <div class="doctor-info-content-wrapper">
+                                                        <div class="doctor-info-content-hospital">
+                                                            강남병원
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                                <div class="doctor-info-content-button-wrapper">
+                                                    <div class="doctor-info-content-button">
+                                                        <img src ="/static/images/close-message.png">
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </li>
+                            <div class="home-visit-history-content-no-exist-wrapper">
+                                <img alt="아직 방문진료 신청 내역이 없어요." fetchpriority="high" width="48" height="48" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/v3/product/feed/message.webp" style="color: transparent;">
+                                <span class="home-visit-history-content-no-exist">아직 방문진료 신청 내역이 없어요.</span>
+                            </div> 
+                </div>
+<script src="/static/js/member/home-visit-history/event.js"></script>              
+</body>
+</html>

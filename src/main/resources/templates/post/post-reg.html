@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임</title>
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/post/post-reg.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="main-wrap">
+    <main>
+        <div class="post-header-container">
+            <div class="post-header-wrap">
+                <div class="post-header-content">
+                    <div class="post-header-title">
+                        <div class="post-header-title-wrap">
+                            <h1 class="post-header-title-text">무엇이든 물어보세요.</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="post-main-container">
+            <div class="mail-modal">
+                <div class="mail-title-wrap">
+                    <div class="mail-title-text warn-text">
+                        <label class="mail-title-content">제목</label>
+                        <span class="mail-title-warn text-warn" data-count="0">/ 80자 (최소 16자)</span>
+                    </div>
+                    <!-- keyup 이벤트 -->
+                    <div class="main-title-input-wrap">
+                        <input type="text" class="mail-input mail-title-input-content" minlength="16" placeholder="제목을 작성해 주세요." form="postForm" name="postTitle">
+                    </div>
+                    <!-- /keyup 이벤트 -->
+                </div>
+                <hr class="line-hr content-hr">
+                <div class="mail-content-container">
+                    <div class="mail-content-wrap">
+                        <div class="mail-content-text warn-text">
+                            <label class="content-text">내용</label>
+                            <span class="content-text-warn text-warn" data-count="0">/500자 (최소 55자)</span>
+                        </div>
+                        <div class="mail-content-input-wrap">
+                            <div class="mail-content-input-container">
+                                <div class="input-btn-list-wrap">
+                                    <label for="create-question-image" class="img-btn">
+                                        <svg height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                            <path clip-rule="evenodd" d="M3.41634 4.16683C3.41634 3.8298 3.51385 3.66777 3.59056 3.59105C3.66728 3.51434 3.82931 3.41683 4.16634 3.41683H15.833C16.17 3.41683 16.3321 3.51434 16.4088 3.59105C16.4855 3.66777 16.583 3.8298 16.583 4.16683V15.8335C16.583 16.1705 16.4855 16.3326 16.4088 16.4093C16.3321 16.486 16.17 16.5835 15.833 16.5835H4.16634C3.82931 16.5835 3.66728 16.486 3.59056 16.4093C3.51385 16.3326 3.41634 16.1705 3.41634 15.8335V4.16683ZM4.16634 1.5835C3.46171 1.5835 2.7904 1.79849 2.2942 2.29469C1.798 2.79089 1.58301 3.4622 1.58301 4.16683V15.8335C1.58301 16.5381 1.798 17.2094 2.2942 17.7056C2.7904 18.2018 3.46171 18.4168 4.16634 18.4168H15.833C16.5376 18.4168 17.2089 18.2018 17.7051 17.7056C18.2013 17.2094 18.4163 16.5381 18.4163 15.8335V4.16683C18.4163 3.4622 18.2013 2.79089 17.7051 2.29469C17.2089 1.79849 16.5376 1.5835 15.833 1.5835H4.16634ZM14.7914 7.08348C14.7914 8.00395 14.0452 8.75014 13.1248 8.75014C12.2043 8.75014 11.4581 8.00395 11.4581 7.08348C11.4581 6.163 12.2043 5.41681 13.1248 5.41681C14.0452 5.41681 14.7914 6.163 14.7914 7.08348ZM9.38854 9.37223C9.71626 9.03238 10.2606 9.03238 10.5883 9.37223L14.5924 13.5246C14.9751 13.9215 14.6938 14.5835 14.1425 14.5835H5.83434C5.28298 14.5835 5.00172 13.9215 5.38443 13.5246L9.38854 9.37223Z" fill="#B0B8C1" fill-rule="evenodd"></path>
+                                        </svg>
+                                    </label>
+                                    <input accept=".jpeg, .png, .jpg" id="create-question-image" form="postForm" name="multipleFile" type="file" multiple>
+                                </div>
+                                <hr class="line-hr input-btn-list-bottom">
+                                <div class="input-textarea-container">
+                                    <!-- keyup 이벤트 -->
+                                    <textarea class="mail-content" form="postForm" name="postContent" id="postContent" cols="30" rows="10" placeholder="질문의 내용을 구체적으로 입력해주세요."></textarea>
+                                    <!-- /keyup 이벤트 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="btn-hr input-btn-list-bottom" style="margin-top:-12px;">
+                <div class="thumbnail-wrap" id="thumbnail-wrap">
+                    <ul id="file-img-list"></ul>
+                </div>
+                <hr class="btn-hr input-btn-list-bottom" style="margin-bottom: 0px;">
+                <div class="post-tag-btn-container">
+                    <div class="post-tag-header-wrap">
+                        <span class="post-tag-department">
+                            진료 과목
+                        </span>
+                        <button class="post-tag-add-btn">
+                            <span class="post-tag-text">진료 과목을 선택해주세요.</span>
+                        </button>
+                    </div>
+                </div>
+                <hr class="btn-hr input-btn-list-bottom" style="margin-bottom: 0px;">
+                <div class="department-list-container">
+                    <div class="department-list-wrap">
+                    </div>
+                </div>
+            </div>
+        <div class="post-side-bar-wrap">
+            <button type="submit"class="post-reg-btn" form="postForm" name="postBtn" id="postBtn" disabled>질문하기</button>
+            <div class="post-reg-warn-container">
+                <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM11 7.5C11 6.94772 11.4477 6.5 12 6.5C12.5523 6.5 13 6.94772 13 7.5V13.5C13 14.0523 12.5523 14.5 12 14.5C11.4477 14.5 11 14.0523 11 13.5V7.5ZM13 16.5C13 17.0523 12.5523 17.5 12 17.5C11.4477 17.5 11 17.0523 11 16.5C11 15.9477 11.4477 15.5 12 15.5C12.5523 15.5 13 15.9477 13 16.5Z" fill="#6b7684" fill-rule="evenodd"></path></svg>
+                <div class="post-reg-warn-wrap">
+                    <div class="post-wran-text-wrap">
+                        <span class="wran-text">꼭 확인해주세요.</span>
+                        <ul class="wran-text-list">
+                            <li>
+                                <div class="wran-text-item">
+                                    <span class="wran-content">
+                                        남기신 질문은 타 사이트에서 검색을 통해 노출될 수 있어요.
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="wran-text-item">
+                                    <span class="wran-content">
+                                    상호 간의 예의와 존중을 부탁드립니다.
+                                </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="label-check-box">
+                <span class="checkbox-span-wrap">
+                    <span>쪽지 발송 시 포인트 10점이 차감됩니다.<br> 계속 진행하시겠습니까?</span>
+                    <label for="checkbox-agree" class="checkbox-label checkbox-check"></label>
+                    <svg class="checkbox-svg checkbox-check inactive" fill="none" height="24" viewBox="-1 -1 26 26" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_453_7698)">
+                            <circle cx="12" cy="12.5" fill="#2553E5" r="11.5" stroke="#1731E9" stroke-linejoin="round"></circle>
+                            <path clip-rule="evenodd" d="M6.7071 10.8639C6.31658 11.2545 6.31658 11.8876 6.7071 12.2781L10.9497 16.5208L10.9498 16.5208L10.9498 16.5208L17.3137 10.1568C17.7042 9.76631 17.7042 9.13314 17.3137 8.74262C16.9232 8.3521 16.29 8.3521 15.8995 8.74262L10.9497 13.6924L8.12131 10.8639C7.73079 10.4734 7.09763 10.4734 6.7071 10.8639Z" fill="white" fill-rule="evenodd"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_453_7698">
+                                <rect fill="white" height="24" rx="4" width="24" y="0.5"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </span>
+            </div>
+        </div>
+        </div>
+    </main>
+</div>
+
+<div class="category-modal">
+    <div class="category-modal-container">
+        <div class="category-modal-wrap">
+            <span class="category-title">진료과목 선택</span>
+            <div class="category-btn-wrap">
+                <div class="category-btn-container">
+                    <div class="category-btn-container-scroll">
+                        <div class="category-content-wrap">
+                            <div class="category-content-title">
+                                <span class="category-department">진료과목</span>
+                            </div>
+                            <!-- 클릭 이벤트(안에 button쪽 일 거임)-->
+                            <ul class="category-list-wrap">
+                                <li>
+                                    <button class="category-btn">
+                                        <span>피부과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>안과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>치과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>비뇨의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>산부인과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>한방과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>신경과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>재활의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>정신건강의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>응급의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>마취통증의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>방사선종양학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>영상의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>진단검사의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>직업환경의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>가정의학과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>소아청소년과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>이비인후과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>소화기내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>호흡기내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>감염내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>알레르기내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>내분비내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>순환기내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>신장내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>류마티스내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>혈액종양내과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>성형외과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>정형외과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>신경외과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>대장항문외과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>흉부외과</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="category-btn">
+                                        <span>외과</span>
+                                    </button>
+                                </li>
+                            </ul>
+                            <!-- /클릭 이벤트 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="category-fix-btn-wrap">
+                <!-- 버튼 이벤트 -->
+                <button color="gray" height="54" class="category-fix-btn category-select-btn-del">
+                    <span>선택해제</span>
+                </button>
+                <button color="primary" height="54" class="category-fix-btn category-select-fix-btn">
+                    <span>확인</span>
+                </button>
+                <!-- /버튼 이벤트 -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal">
+    <div class="warn-modal">
+        <div id="content-wrap">
+            <div class="point-low">포인트가 부족해요.<br>충전 후 다시 이용해 주세요.</div>
+            <div class="btn-wrap">
+                <a href="">
+                    <button class="btnshape">
+                        <span>충전하러가기</span>
+                    </button>
+                </a>
+                <!-- /쪽지 클릭 이벤트 -->
+                <!-- 관심 추가 클릭 이벤트 -->
+                <button class="btnshape cancle-btn">
+                    <span>취소</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="postForm" name="postForm" style="display: none;"></form>
+</body>
+<script src="/js/post/post-reg/event.js"></script>
+</html>

@@ -1,0 +1,50 @@
+css-h8f519
+= change-email-whole-body
+css-1n28uzs
+= change-email-header-area
+css-szkvbm
+= change-email-main-wrapper
+css-ftjrz7
+= change-email-main-container
+css-161kwn1
+= change-email-main-title-container
+css-1202cko
+= change-email-main-title
+css-1n0qd3p
+= change-email-content-container
+css-1wjhi74
+= change-email-used-container
+css-3ukwes
+= change-email-used-wrapper
+css-k008qs
+= change-email-used-title-wrapper
+css-wt0vpp
+= change-email-used-label
+css-183o2av
+= change-email-used
+css-10ii5pb
+= change-email-used-email
+css-bms9cb
+= change-email-used-input
+css-1h2hxv0
+= change-email-error-message-wrapper
+css-1vpvmlf
+= change-email-error-message-container
+css-1woir7p
+= change-email-new-label
+css-sbo1gj
+= change-email-new-container
+css-1171cfh
+= change-email-button-container
+css-10asqeo
+= change-email-button-wrapper
+css-15h2tnj
+= change-email-button
+css-109jyh9
+= change-email-button-config
+css-16y2swj
+= change-email-footer-area
+css-mhamv9
+= change-email-footer-wrapper
+css-iraqi1
+= change-email-footer
