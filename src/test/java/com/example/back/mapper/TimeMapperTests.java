@@ -1,4 +1,4 @@
-package com.example.goldentime.mapper;
+package com.example.back.mapper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -12,5 +12,7 @@ public class TimeMapperTests {
     private TimeMapper timeMapper;
 
     @Test
-    public void testGetTime(){ log.info(timeMapper.getTime()); }
+    public void testGetTime() {
+        log.info(timeMapper.getTime());
+    }
 }

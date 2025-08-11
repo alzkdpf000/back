@@ -1,4 +1,4 @@
-package com.example.goldentime.mapper;
+package com.example.back.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

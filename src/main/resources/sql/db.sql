@@ -1,5 +1,6 @@
 /*create database prjdb;
 use prjdb;*/
+use app;
 show databases;
 /* 병원 테이블 */
 

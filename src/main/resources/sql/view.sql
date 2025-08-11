@@ -1,3 +1,4 @@
+use app;
 create view view_member_file as
 (
 select tmf.file_id,
@@ -13,22 +14,6 @@ from tbl_file tf
      tbl_member_file tmf on tf.id = tmf.file_id
     );
 
-create view view_doctor_file as
-(
-select tdf.file_id,
-       tdf.doctor_id,
-       tf.file_name,
-       tf.file_path,
-       tf.file_size,
-       tf.file_status,
-       tf.created_date,
-       tf.updated_date
-from tbl_file tf
-         join prjdb.tbl_doctor_file tdf on
-    tf.id = tdf.file_id
-    );
-
-
 create view view_hospital_file as
 (
 select tdhf.file_id,
@@ -42,6 +27,22 @@ select tdhf.file_id,
 from tbl_file tf
          join tbl_hospital_file tdhf on
     tf.id = tdhf.file_id
+    );
+
+
+create view view_doctor_file as
+(
+select tdf.file_id,
+       tdf.doctor_id,
+       tf.file_name,
+       tf.file_path,
+       tf.file_size,
+       tf.file_status,
+       tf.created_date,
+       tf.updated_date
+from tbl_file tf
+         join tbl_doctor_file tdf on
+    tf.id = tdf.file_id
     );
 
 
