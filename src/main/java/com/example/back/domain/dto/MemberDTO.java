@@ -1,6 +1,5 @@
-package com.example.back.domain.member;
+package com.example.back.domain.dto;
 
-import com.example.back.audit.Period;
 import com.example.back.common.enumeration.Provider;
 import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
@@ -8,14 +7,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Component;
 
+@Component
 @Getter @Setter @ToString
-@SuperBuilder
 @EqualsAndHashCode(of = "id")
-
-public class MemberVO extends Period {
-
+public class MemberDTO {
     private Long id;
     private String memberEmail;
     private String memberPassword;
@@ -27,5 +24,7 @@ public class MemberVO extends Period {
     private String KakaoProfileUrl;
     private Role role;
     private int memberVitaAmount;
+    private String createdDatetime;
+    private String updatedDatetime;
 
 }
