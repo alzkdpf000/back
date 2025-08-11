@@ -1,4 +1,7 @@
 use app;
+
+
+
 create view view_member_file as
 (
 select tmf.file_id,

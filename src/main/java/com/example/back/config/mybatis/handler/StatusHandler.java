@@ -1,4 +1,4 @@
-package com.example.back.mybatis.handler;
+package com.example.back.config.mybatis.handler;
 import com.example.back.common.enumeration.Status;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
