@@ -1,0 +1,99 @@
+-- 1. 멤버 1명 등록
+INSERT INTO tbl_member (member_email, member_password, member_name, member_phone)
+VALUES ('testuser@example.com', '1234', '테스트유저', '010-1234-5678');
+
+-- 2. 카테고리 전체 등록
+INSERT INTO tbl_category (category_name)
+VALUES ('피부과'),
+       ('안과'),
+       ('치과'),
+       ('비뇨의학과'),
+       ('산부인과'),
+       ('한방과'),
+       ('신경과'),
+       ('재활의학과'),
+       ('정신건강의학과'),
+       ('응급의학과'),
+       ('마취통증의학과'),
+       ('방사선종양학과'),
+       ('영상의학과'),
+       ('진단검사의학과'),
+       ('직업환경의학과'),
+       ('가정의학과'),
+       ('소아청소년과'),
+       ('이비인후과'),
+       ('소화기내과'),
+       ('호흡기내과'),
+       ('감염내과'),
+       ('알레르기내과'),
+       ('내분비내과'),
+       ('순환기내과'),
+       ('신장내과'),
+       ('류마티스내과'),
+       ('혈액종양내과'),
+       ('성형외과'),
+       ('정형외과'),
+       ('신경외과'),
+       ('대장항문외과'),
+       ('흉부외과'),
+       ('외과');
+
+-- 3. 상담 게시글 예시 등록 (view_point 다양하게)
+INSERT INTO tbl_consultation_post (member_id, consultation_post_title, consultation_post_content,
+                                   consultation_post_view_count)
+VALUES (1, '첫 번째 상담글', '피부 고민에 대한 상담글입니다.', 10),
+       (1, '두 번째 상담글', '산부인과 관련 상담글입니다.', 50),
+       (1, '세 번째 상담글', '호흡기 문제에 대한 상담글입니다.', 0),
+       (1, '네 번째 상담글', '정형외과 수술 상담글입니다.', 100),
+       (1, '다섯 번째 상담글', '안과 검진 상담글입니다.', 25);
+
+-- 4. 게시글-카테고리 연결 (다중 연결 예시)
+INSERT INTO tbl_consultation_post_category (category_id, consultation_post_id)
+VALUES (1, 1),
+       (3, 1),
+       (5, 2),
+       (10, 2),
+       (20, 3),
+       (7, 3),
+       (28, 4),
+       (30, 4),
+       (2, 5),
+       (25, 5);
+
+
+-- 5. 파일 3개 등록
+INSERT INTO tbl_file (file_name, file_path, file_size)
+VALUES ('temp1', 'temp1', 204800),
+       ('temp2', 'temp2', 307200),
+       ('temp3', 'temp3', 512000);
+
+
+-- 6. 파일-게시글 연결 (글 1에 3개 이미지 연결)
+INSERT INTO tbl_consultation_post_file (file_id, consultation_post_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1);
+
+
+-- 7. tbl_file에 프로필 이미지 1개 넣기
+INSERT INTO tbl_file (file_name, file_path, file_size)
+VALUES ('프로필이미지1', '프로필이미지1', 150000);
+
+-- 8. 파일-멤버 연결
+INSERT INTO tbl_member_file (file_id, member_id)
+VALUES (4, 1);
+
+
+select tcp.id,
+       tcp.consultation_post_title      as consultation_post_title,
+       tcp.consultation_post_content    as consultation_post_content,
+       tcp.consultation_post_status     as consultation_post_status,
+       tcp.consultation_post_view_count as consultation_post_view_count,
+       tcp.member_id                    as member_id,
+       tcp.created_date                 as created_date,
+       vmf.file_path                    as file_path
+from tbl_member tm
+         join tbl_consultation_post tcp on tcp.member_id = tm.id
+         join view_member_file vmf on tm.id = vmf.member_id
+order by consultation_post_view_count desc
+limit 3;
