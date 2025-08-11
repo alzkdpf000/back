@@ -61,14 +61,15 @@ create table tbl_normal_member
 /* 상담글 */
 create table tbl_consultation_post
 (
-    id                           bigint unsigned auto_increment primary key,
-    consultation_post_title      varchar(255) not null,
-    consultation_post_content    text         not null,
-    consultation_post_status     enum ('active','inactive') default 'active',
-    consultation_post_view_count bigint unsigned            default 0,
-    member_id                    bigint unsigned,
-    created_date                 datetime                   default current_timestamp,
-    updated_date                 datetime                   default current_timestamp,
+    id                             bigint unsigned auto_increment primary key,
+    consultation_post_title        varchar(255) not null,
+    consultation_post_content      text         not null,
+    consultation_post_status       enum ('active','inactive') default 'active',
+    consultation_post_view_count   bigint unsigned            default 0,
+    consultation_post_answer_count bigint unsigned            default 0,
+    member_id                      bigint unsigned,
+    created_date                   datetime                   default current_timestamp,
+    updated_date                   datetime                   default current_timestamp,
     constraint fk_consultation_post_member foreign key (member_id)
         references tbl_member (id)
 );

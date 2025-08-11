@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.file.FileConsultationPostMapper">
     <select id="selectFilesByPostId">
-        select file_id, consultation_post_id, file_name, file_path, file_size, file_status, created_date, updated_date
+        select file_path
         from view_consultation_post_file
         where consultation_post_id = #{consultationPostId} and file_status = 'active'
     </select>

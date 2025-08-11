@@ -40,12 +40,12 @@ VALUES ('피부과'),
 
 -- 3. 상담 게시글 예시 등록 (view_point 다양하게)
 INSERT INTO tbl_consultation_post (member_id, consultation_post_title, consultation_post_content,
-                                   consultation_post_view_count)
-VALUES (1, '첫 번째 상담글', '피부 고민에 대한 상담글입니다.', 10),
-       (1, '두 번째 상담글', '산부인과 관련 상담글입니다.', 50),
-       (1, '세 번째 상담글', '호흡기 문제에 대한 상담글입니다.', 0),
-       (1, '네 번째 상담글', '정형외과 수술 상담글입니다.', 100),
-       (1, '다섯 번째 상담글', '안과 검진 상담글입니다.', 25);
+                                   consultation_post_view_count,consultation_post_answer_count)
+VALUES (1, '첫 번째 상담글', '피부 고민에 대한 상담글입니다.', 10,1),
+       (1, '두 번째 상담글', '산부인과 관련 상담글입니다.', 50,2),
+       (1, '세 번째 상담글', '호흡기 문제에 대한 상담글입니다.', 10,3),
+       (1, '네 번째 상담글', '정형외과 수술 상담글입니다.', 100,5),
+       (1, '다섯 번째 상담글', '안과 검진 상담글입니다.', 25,0);
 
 -- 4. 게시글-카테고리 연결 (다중 연결 예시)
 INSERT INTO tbl_consultation_post_category (category_id, consultation_post_id)
@@ -89,6 +89,7 @@ select tcp.id,
        tcp.consultation_post_content    as consultation_post_content,
        tcp.consultation_post_status     as consultation_post_status,
        tcp.consultation_post_view_count as consultation_post_view_count,
+       tcp.consultation_post_answer_count as consultation_post_answer_count,
        tcp.member_id                    as member_id,
        tcp.created_date                 as created_date,
        vmf.file_path                    as file_path
