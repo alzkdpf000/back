@@ -14,7 +14,8 @@ create table tbl_hospital
     created_date          datetime                    default current_timestamp,
     updated_date          datetime                    default current_timestamp
 );
-select * from tbl_hospital;
+select *
+from tbl_hospital;
 
 /* 슈퍼 타입 회원 */
 create table tbl_member
@@ -75,7 +76,9 @@ create table tbl_consultation_post
 create table tbl_category
 (
     id            bigint unsigned auto_increment primary key,
-    category_name varchar(255)
+    category_name varchar(255),
+    created_date  datetime default current_timestamp,
+    updated_date  datetime default current_timestamp
 );
 
 create table tbl_consultation_post_category
@@ -282,13 +285,14 @@ create table tbl_house_call_doctor
 
 create table tbl_inquiries
 (
-    id                bigint unsigned auto_increment primary key,
-    inquiries_title   varchar(255) not null,
-    inquiries_content text         not null,
-    inquiries_status  enum ('active','inactive') default 'active',
-    member_id         bigint unsigned,
-    created_date      datetime                   default current_timestamp,
-    updated_date      datetime                   default current_timestamp,
+    id                   bigint unsigned auto_increment primary key,
+    inquiries_title      varchar(255) not null,
+    inquiries_content    text         not null,
+    inquiries_status     enum ('active','inactive') default 'active',
+    inquiries_view_count bigint unsigned            default 0,
+    member_id            bigint unsigned,
+    created_date         datetime                   default current_timestamp,
+    updated_date         datetime                   default current_timestamp,
     constraint fk_inquiries_member foreign key (member_id)
         references tbl_member (id)
 );
@@ -311,13 +315,14 @@ create table tbl_inquiries_reply
 
 create table tbl_notices
 (
-    id              bigint unsigned auto_increment primary key,
-    notices_title   varchar(255) not null,
-    notices_content text         not null,
-    notices_status  enum ('active','inactive') default 'active',
-    member_id       bigint unsigned,
-    created_date    datetime                   default current_timestamp,
-    updated_date    datetime                   default current_timestamp,
+    id                 bigint unsigned auto_increment primary key,
+    notices_title      varchar(255) not null,
+    notices_content    text         not null,
+    notices_status     enum ('active','inactive') default 'active',
+    notices_view_count bigint unsigned            default 0,
+    member_id          bigint unsigned,
+    created_date       datetime                   default current_timestamp,
+    updated_date       datetime                   default current_timestamp,
     constraint fk_notices_member foreign key (member_id)
         references tbl_member (id)
 );

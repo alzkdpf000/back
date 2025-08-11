@@ -15,6 +15,6 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  mapper-locations: classpath*:/mapper/*.xml
-  type-handlers-package: com.example.app.config.mybatis.handler
-  type-aliases-package: com.example.app.domain;com.example.app.dto;
+  mapper-locations: classpath*:/mapper/*/*.xml
+  type-handlers-package: com.example.back.config.mybatis.handler
+  type-aliases-package: com.example.back.domain;com.example.back.dto;

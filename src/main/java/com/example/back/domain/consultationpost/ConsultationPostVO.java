@@ -1,4 +1,4 @@
-package com.example.back.domain.consultationPost;
+package com.example.back.domain.consultationpost;
 
 import com.example.back.audit.Period;
 import com.example.back.common.enumeration.Status;
@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
-import java.sql.Time;
 
 @SuperBuilder
 @ToString(callSuper = true)

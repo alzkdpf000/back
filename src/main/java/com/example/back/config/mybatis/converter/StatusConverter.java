@@ -1,4 +1,4 @@
-package com.example.back.mybatis.converter;
+package com.example.back.config.mybatis.converter;
 
 
 import com.example.back.common.enumeration.Status;
