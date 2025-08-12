@@ -864,3 +864,13 @@ div.side-bar-poster img{
 ul#intersectionObserver li a{
     cursor: pointer;
 }
+div#loading{
+    display: none;
+    width: 100px;
+    height: 100px;
+    margin: 0px auto;
+    position: fixed;
+    right: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+}

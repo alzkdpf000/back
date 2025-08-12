@@ -12,11 +12,18 @@
                IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, vmf.file_path)
                                                   as member_file_path,
                tm.member_name                     as member_name
-        from tbl_member tm
-                 left outer join view_member_file vmf on tm.id = vmf.member_id
-                 join tbl_consultation_post tcp on tcp.member_id = tm.id
-            and tcp.consultation_post_status = 'active'
-        order by consultation_post_view_count desc
-        limit 5 offset #{offset}
+        from (select id,
+                     consultation_post_title,
+                     consultation_post_content,
+                     consultation_post_view_count,
+                     consultation_post_answer_count,
+                     member_id,
+                     created_date
+              from tbl_consultation_post
+              where consultation_post_status = 'active'
+              order by consultation_post_view_count desc
+              limit 5 offset #{offset}) tcp
+                 join tbl_member tm on tcp.member_id = tm.id
+                 left join view_member_file vmf on tm.id = vmf.member_id;
     </select>
 </mapper>
