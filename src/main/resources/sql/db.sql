@@ -40,14 +40,14 @@ select * from tbl_member;
 /*의사 테이블*/
 create table tbl_doctor
 (
-    id                    bigint unsigned primary key,
+    member_id                    bigint unsigned primary key,
     doctor_license_number varchar(20)     not null unique,
     doctor_specialty      varchar(255)    not null,
     hospital_id           bigint unsigned not null,
     doctor_status         enum ('active','inactive') default 'inactive',
     constraint fk_doctor_hospital foreign key (hospital_id)
         references tbl_hospital (id),
-    constraint fk_doctor_member foreign key (id)
+    constraint fk_doctor_member foreign key (member_id)
         references tbl_member (id)
 );
 /* 일반 회원
@@ -62,24 +62,26 @@ create table tbl_normal_member
 /* 상담글 */
 create table tbl_consultation_post
 (
-    id                           bigint unsigned auto_increment primary key,
-    consultation_post_title      varchar(255) not null,
-    consultation_post_content    text         not null,
-    consultation_post_status     enum ('active','inactive') default 'active',
-    consultation_post_view_count bigint unsigned            default 0,
-    member_id                    bigint unsigned,
-    created_date                 datetime                   default current_timestamp,
-    updated_date                 datetime                   default current_timestamp,
+    id                             bigint unsigned auto_increment primary key,
+    consultation_post_title        varchar(255) not null,
+    consultation_post_content      text         not null,
+    consultation_post_status       enum ('active','inactive') default 'active',
+    consultation_post_view_count   bigint unsigned            default 0,
+    consultation_post_answer_count bigint unsigned            default 0,
+    member_id                      bigint unsigned,
+    created_date                   datetime                   default current_timestamp,
+    updated_date                   datetime                   default current_timestamp,
     constraint fk_consultation_post_member foreign key (member_id)
         references tbl_member (id)
 );
 
 create table tbl_category
 (
-    id            bigint unsigned auto_increment primary key,
-    category_name varchar(255),
-    created_date  datetime default current_timestamp,
-    updated_date  datetime default current_timestamp
+    id                   bigint unsigned auto_increment primary key,
+    category_name        varchar(255),
+    category_post_status enum ('active','inactive') default 'active',
+    created_date         datetime                   default current_timestamp,
+    updated_date         datetime                   default current_timestamp
 );
 
 create table tbl_consultation_post_category
@@ -136,8 +138,9 @@ create table tbl_hospital_address
     road_address   varchar(255) not null,
     detail_address varchar(255) not null,
     zip_code       char(5)      not null,
-    created_date   datetime default current_timestamp,
-    updated_date   datetime default current_timestamp,
+    address_status enum ('active','inactive') default 'active',
+    created_date   datetime                   default current_timestamp,
+    updated_date   datetime                   default current_timestamp,
     constraint fk_hospital_address_hospital foreign key (hospital_id)
         references tbl_hospital (id)
 );
@@ -149,8 +152,9 @@ create table tbl_member_address
     road_address   varchar(255) not null,
     detail_address varchar(255) not null,
     zip_code       char(5)      not null,
-    created_date   datetime default current_timestamp,
-    updated_date   datetime default current_timestamp,
+    address_status enum ('active','inactive') default 'active',
+    created_date   datetime                   default current_timestamp,
+    updated_date   datetime                   default current_timestamp,
     constraint fk_member_address_member foreign key (member_id)
         references tbl_member (id)
 );
@@ -241,13 +245,14 @@ create table tbl_hospital_file
 create table tbl_vita_history
 (
     id                       bigint unsigned auto_increment primary key,
-    vita_history_amount      int                     default 0,
-    vita_history_status      enum ('done', 'cancle') default 'done',
+    vita_history_amount      int                        default 0,
+    vita_history_result      enum ('done', 'cancel')    default 'done',
     vita_history_type        enum ('charge','use') not null,
+    vita_history_status      enum ('active','inactive') default 'active',
     vita_history_description varchar(255)          not null,
     member_id                bigint unsigned,
-    created_date             datetime                default current_timestamp,
-    updated_date             datetime                default current_timestamp,
+    created_date             datetime                   default current_timestamp,
+    updated_date             datetime                   default current_timestamp,
     constraint fk_charge_history_member foreign key (member_id)
         references tbl_member (id)
 );
@@ -358,8 +363,9 @@ create table tbl_house_call_address
     road_address   varchar(255) not null,
     detail_address varchar(255) not null,
     zip_code       char(5)      not null,
-    created_date   datetime default current_timestamp,
-    updated_date   datetime default current_timestamp,
+    address_status enum ('active','inactive') default 'active',
+    created_date   datetime                   default current_timestamp,
+    updated_date   datetime                   default current_timestamp,
     constraint fk_house_call_address_hospital foreign key (house_call_id)
         references tbl_house_call (id)
 );
