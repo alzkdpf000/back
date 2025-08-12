@@ -3,17 +3,18 @@
 <mapper namespace="com.example.back.mapper.consultationpost.ConsultationPostMapper">
     <select id="selectTop5OrderByViewCountDesc">
         select tcp.id,
-               tcp.consultation_post_title      as consultation_post_title,
-               tcp.consultation_post_content    as consultation_post_content,
-               tcp.consultation_post_status     as consultation_post_status,
-               tcp.consultation_post_view_count as consultation_post_view_count,
-               tcp.member_id                    as member_id,
-               tcp.created_date                 as created_date,
-               vmf.file_path                    as member_file_path,
-               tm.member_name                   as member_name
+               tcp.consultation_post_title        as consultation_post_title,
+               tcp.consultation_post_content      as consultation_post_content,
+               tcp.consultation_post_view_count   as consultation_post_view_count,
+               tcp.consultation_post_answer_count as consultation_post_answer_count,
+               tcp.member_id                      as member_id,
+               tcp.created_date                   as created_date,
+               IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, vmf.file_path)
+                                                  as member_file_path,
+               tm.member_name                     as member_name
         from tbl_member tm
                  join tbl_consultation_post tcp on tcp.member_id = tm.id
-                 join view_member_file vmf on tm.id = vmf.member_id
+                 join view_member_file vmf on tm.id = vmf.member_id and tcp.consultation_post_status = 'active'
         order by consultation_post_view_count desc
         limit 3
 

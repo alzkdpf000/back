@@ -17,5 +17,6 @@ public class ConsultationPostVO extends Period {
     private String consultationPostContent;
     private Status consultationPostStatus;
     private String consultationPostViewCount;
+    private String consultationPostAnswerCount;
     private Long memberId;
 }
