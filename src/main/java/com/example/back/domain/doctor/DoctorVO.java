@@ -1,3 +1,14 @@
+
+package com.example.back.domain.doctor;
+
+
+public class DoctorVO extends MemberVO {
+    private String doctorLicenseNumber;
+    private String doctorSpecialty;
+    private Status doctorStatus;
+    private HospitalVO hospital;
+}
+
 package com.example.back.domain.doctor;
 
 
@@ -21,3 +32,4 @@ public class DoctorVO extends Period {
     private Status doctorStatus;
     private HospitalVO hospital;
 }
+
