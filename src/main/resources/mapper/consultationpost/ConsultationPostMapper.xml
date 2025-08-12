@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.consultationpost.ConsultationPostMapper">
-    <select id="selectTop5OrderByViewCountDesc">
+    <select id="select5OrderByViewCountDesc">
         select tcp.id,
                tcp.consultation_post_title        as consultation_post_title,
                tcp.consultation_post_content      as consultation_post_content,
@@ -13,10 +13,10 @@
                                                   as member_file_path,
                tm.member_name                     as member_name
         from tbl_member tm
+                 left outer join view_member_file vmf on tm.id = vmf.member_id
                  join tbl_consultation_post tcp on tcp.member_id = tm.id
-                 join view_member_file vmf on tm.id = vmf.member_id and tcp.consultation_post_status = 'active'
+            and tcp.consultation_post_status = 'active'
         order by consultation_post_view_count desc
-        limit 3
-
+        limit 5 offset #{offset}
     </select>
 </mapper>

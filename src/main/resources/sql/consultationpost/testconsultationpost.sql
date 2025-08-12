@@ -2,6 +2,10 @@
 INSERT INTO tbl_member (member_email, member_password, member_name, member_phone)
 VALUES ('testuser@example.com', '1234', '테스트유저', '010-1234-5678');
 
+-- 2. 카카오 멤버 1명 등록
+INSERT INTO tbl_member (member_name, member_phone, member_provider, member_kakao_profile_url, member_kakao_email)
+VALUES ('kakaouser', '010-1234-1243', 'kakao', 'kakaoProfile', 'test@kakao.com');
+
 -- 2. 카테고리 전체 등록
 INSERT INTO tbl_category (category_name)
 VALUES ('피부과'),
@@ -40,12 +44,12 @@ VALUES ('피부과'),
 
 -- 3. 상담 게시글 예시 등록 (view_point 다양하게)
 INSERT INTO tbl_consultation_post (member_id, consultation_post_title, consultation_post_content,
-                                   consultation_post_view_count,consultation_post_answer_count)
-VALUES (1, '첫 번째 상담글', '피부 고민에 대한 상담글입니다.', 10,1),
-       (1, '두 번째 상담글', '산부인과 관련 상담글입니다.', 50,2),
-       (1, '세 번째 상담글', '호흡기 문제에 대한 상담글입니다.', 10,3),
-       (1, '네 번째 상담글', '정형외과 수술 상담글입니다.', 100,5),
-       (1, '다섯 번째 상담글', '안과 검진 상담글입니다.', 25,0);
+                                   consultation_post_view_count, consultation_post_answer_count)
+VALUES (1, '첫 번째 상담글', '피부 고민에 대한 상담글입니다.', 10, 1),
+       (1, '두 번째 상담글', '산부인과 관련 상담글입니다.', 50, 2),
+       (2, '세 번째 상담글', '호흡기 문제에 대한 상담글입니다.', 10, 3),
+       (2, '네 번째 상담글', '정형외과 수술 상담글입니다.', 100, 5),
+       (1, '다섯 번째 상담글', '안과 검진 상담글입니다.', 25, 0);
 
 -- 4. 게시글-카테고리 연결 (다중 연결 예시)
 INSERT INTO tbl_consultation_post_category (category_id, consultation_post_id)
@@ -72,7 +76,7 @@ VALUES ('temp1', 'temp1', 204800),
 INSERT INTO tbl_consultation_post_file (file_id, consultation_post_id)
 VALUES (1, 1),
        (2, 1),
-       (3, 1);
+       (3, 2);
 
 
 -- 7. tbl_file에 프로필 이미지 1개 넣기
@@ -85,16 +89,20 @@ VALUES (4, 1);
 
 
 select tcp.id,
-       tcp.consultation_post_title      as consultation_post_title,
-       tcp.consultation_post_content    as consultation_post_content,
-       tcp.consultation_post_status     as consultation_post_status,
-       tcp.consultation_post_view_count as consultation_post_view_count,
+       tcp.consultation_post_title        as consultation_post_title,
+       tcp.consultation_post_content      as consultation_post_content,
+       tcp.consultation_post_view_count   as consultation_post_view_count,
        tcp.consultation_post_answer_count as consultation_post_answer_count,
-       tcp.member_id                    as member_id,
-       tcp.created_date                 as created_date,
-       vmf.file_path                    as file_path
+       tcp.member_id                      as member_id,
+       tcp.created_date                   as created_date,
+       IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, vmf.file_path)
+                                          as member_file_path,
+       tm.member_name                     as member_name
 from tbl_member tm
+         left outer join view_member_file vmf on tm.id = vmf.member_id
          join tbl_consultation_post tcp on tcp.member_id = tm.id
-         join view_member_file vmf on tm.id = vmf.member_id
+          and tcp.consultation_post_status = 'active'
 order by consultation_post_view_count desc
 limit 3;
+
+select count(*) from tbl_consultation_post;
