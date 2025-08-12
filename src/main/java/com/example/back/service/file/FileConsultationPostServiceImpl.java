@@ -13,7 +13,7 @@ public class FileConsultationPostServiceImpl implements FileConsultationPostServ
     private final FileConsultationPostDAO fileConsultationPostDAO;
 
     @Override
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     // 상담글 번호로 해당 상담글 이미지파일 목록 조회
     public List<String> getFilesByPostId(Long consultationPostId) {
         return fileConsultationPostDAO.findFilesByPostId(consultationPostId);

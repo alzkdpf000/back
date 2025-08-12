@@ -23,4 +23,5 @@ public class ConsultationPostCategoryFileUserDTO {
     private List<String> categories;
     private String memberName;
     private String memberFilePath;
+    private String relativeDate;
 }

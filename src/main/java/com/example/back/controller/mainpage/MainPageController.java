@@ -18,25 +18,12 @@ import java.util.List;
 @RequestMapping("/")
 @Slf4j
 public class MainPageController {
-    private final CategoryService categoryService;
-    private final FileConsultationPostService fileConsultationPostService;
-    private final ConsultationPostService consultationPostService;
+
 
 
     @GetMapping
     public String goMainPage(Model model) {
-        List<ConsultationPostCategoryFileUserDTO> top5PostsByViews = consultationPostService.getTop5PostsByViews();
-        Long consultationPostId = 0L;
-        List<String> categories = null;
-        List<String> files = null;
-        for (ConsultationPostCategoryFileUserDTO top5PostsByView : top5PostsByViews) {
-            consultationPostId = top5PostsByView.getId();
-            categories = categoryService.getCategoryByPostId(consultationPostId);
-            top5PostsByView.setCategories(categories);
-            files = fileConsultationPostService.getFilesByPostId(consultationPostId);
-            top5PostsByView.setConsultationPostFiles(files);
-        }
-        top5PostsByViews.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
+
         return "/main/main";
     }
 }
