@@ -30,18 +30,27 @@ ul {
     border:oklch(92.2% 0 0);
 }
 
-
+body{
+    padding-top: 80px;
+}
 .main-header-wrap {
-    display: flex;
-    position: fixed;
-    inset-inline: 0;
-    z-index: 10;
+    position: fixed; /* 항상 fixed */
     top: 0;
-    background-color: #FFFFFF;
-    transition: transform 0.4s ease-in;
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 10;
     transform: translateY(0);
+    transition: transform 0.3s ease;
+    box-shadow: none;
+}
+
+
+
+/* 스크롤 내린 후 헤더 보여주기 */
+.main-header-wrap.show {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .main-header-container {
@@ -65,7 +74,7 @@ ul {
 
 .main-header-logo-category-wrapper {
     display: flex;
-    gap: 30px;
+    gap: 50px;
 }
 
 .main-header-content-logo {
@@ -86,7 +95,7 @@ ul {
 
 .main-header-main-category-wrapper {
     display: flex;
-    gap: 15px;
+    gap: 30px;
 }
 
 .main-header-main-category-content-wrapper {
@@ -97,13 +106,6 @@ ul {
     padding: 4px;
 }
 
-.main-header-main-category-content-wrapper.doctor {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    align-items: center;
-    padding: 4px;
-}
 
 .main-header-main-category-content.active {
     display: flex;
@@ -163,7 +165,7 @@ ul {
     flex-direction: column;
     align-items: flex-start;
     color: #7e8792;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 100%;
     white-space: nowrap;
@@ -178,7 +180,7 @@ ul {
 .main-header-icon-container {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
 }
 
 .main-header-icon-wrapper {
@@ -220,14 +222,16 @@ ul {
     height: 24px;
     width: 24px;
 }
+.main-header-login-profile-icon-wrapper{
+    height: 24px;
+    width: 24px;
+}
 
-.main-header-login-profile-icon-wrapper {
+.main-header-login-profile-icon-wrapper,.main-header-login-profile-icon-wrapper-profile {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0px;
-    height: 24px;
-    width: 24px;
 }
 
 .main-header-login-icon {
@@ -269,4 +273,9 @@ ul {
 }
 
 
-
+ul.main-header-main-category-wrapper li span a{
+    display: flex;
+    position: relative;
+    gap: 6px;
+    align-items: center;
+}

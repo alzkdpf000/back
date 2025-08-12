@@ -7,10 +7,13 @@
     <title>골든타임</title>
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/main/main.css">
+    <link rel="stylesheet" href="/css/main/header.css">
 <!--    <link rel="stylesheet" href="/css/main/footer.css">-->
+
     <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
 </head>
 <body>
+<header th:replace="~{/fixed/header.html :: header}"></header>
 <!-- main -->
 <main>
 
@@ -44,6 +47,7 @@
 <!-- /main -->
 <div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
 </body>
+<script src ="/js/main/header/event.js"></script>
 <!--<script src="/js/main/main/module/service.js"></script>-->
 <!--<script src="/js/main/main/module/layout.js"></script>-->
 <!--<script src="/js/main/main/event.js"></script>-->
