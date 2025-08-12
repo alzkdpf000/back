@@ -124,7 +124,7 @@ create table tbl_consultation_post_file
 create table tbl_member_file
 (
     file_id   bigint unsigned primary key,
-    member_id bigint unsigned,
+    member_id bigint unsigned unique,
     constraint fk_member_file_file foreign key (file_id)
         references tbl_file (id),
     constraint fk_member_file_member foreign key (member_id)

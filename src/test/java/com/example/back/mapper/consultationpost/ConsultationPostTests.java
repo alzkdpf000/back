@@ -22,20 +22,20 @@ public class ConsultationPostTests {
 
     @Test
     public void testMapperSelectTop5OrderByViewCountDesc() {
-        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostMapper.selectTop5OrderByViewCountDesc();
+        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostMapper.select5OrderByViewCountDesc(5);
 
         consultationPostDTOS.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
 
     }
     @Test
     public void testDAOFindTop5OrderByViewCountDesc() {
-        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostDAO.findTop5OrderByViewCountDesc();
+        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostDAO.find5OrderByViewCountDesc(5);
 
         consultationPostDTOS.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
     }
     @Test
     public void testServiceGetTop5PostsByViews() {
-        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostService.getTop5PostsByViews();
+        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostService.get5PostsByViews(5);
 
         consultationPostDTOS.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
     }

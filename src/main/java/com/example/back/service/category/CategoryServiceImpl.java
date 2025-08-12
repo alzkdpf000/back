@@ -14,7 +14,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryDAO categoryDAO;
 
     @Override
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     // 상담글 번호로 해당 상담글 카테고리 목록 조회
     public List<String> getCategoryByPostId(Long consultationPostId) {
         return categoryDAO.findCategoryByPostId(consultationPostId);
