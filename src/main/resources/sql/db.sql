@@ -370,3 +370,4 @@ create table tbl_house_call_address
     constraint fk_house_call_address_hospital foreign key (house_call_id)
         references tbl_house_call (id)
 );
+
