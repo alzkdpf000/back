@@ -7,9 +7,8 @@ import java.util.List;
 
 @Service
 public interface DoctorListService {
-//  의사 정보 페이지, 5개 노출
+    List<DoctorListDTO> getList(DoctorListDTO doctorListDTO);
 
-    List<DoctorListDTO> selectDoctorList();
 
     default DoctorListDTO toVO(DoctorListDTO doctorListDTO){
         return DoctorListDTO.builder()

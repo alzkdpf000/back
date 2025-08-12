@@ -12,7 +12,7 @@ import java.util.List;
 public class DoctorListDAO {
     private final DoctorListMapper doctorListMapper;
 
-    public List<DoctorListDTO> findAll(DoctorListDTO doctorListDTO) {
-        return doctorListMapper.selectDoctorList();
+    public List<DoctorListDTO> getList(DoctorListDTO doctorListDTO) {
+        return doctorListMapper.selectDoctorList(doctorListDTO);
     }
 }
