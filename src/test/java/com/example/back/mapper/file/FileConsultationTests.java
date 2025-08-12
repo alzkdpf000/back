@@ -1,6 +1,5 @@
 package com.example.back.mapper.file;
 
-import com.example.back.dto.file.FileConsultationPostDTO;
 import com.example.back.repository.file.FileConsultationPostDAO;
 import com.example.back.service.file.FileConsultationPostService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,18 +20,18 @@ public class FileConsultationTests {
     FileConsultationPostService fileConsultationPostService;
     @Test
     public void testMapperSelectFilesByPostId(){
-        List<FileConsultationPostDTO> fileConsultationPostDTOS = fileConsultationPostMapper.selectFilesByPostId(2L);
-        fileConsultationPostDTOS.stream().map(FileConsultationPostDTO::toString).forEach(log::info);
+        List<String> fileConsultationPostDTOS = fileConsultationPostMapper.selectFilesByPostId(2L);
+        fileConsultationPostDTOS.forEach(log::info);
     }
 
     @Test
     public void testDAOFindFilesByPostId(){
-        List<FileConsultationPostDTO> fileConsultationPostDTOS = fileConsultationPostDAO.findFilesByPostId(1L);
-        fileConsultationPostDTOS.stream().map(FileConsultationPostDTO::toString).forEach(log::info);
+        List<String> fileConsultationPostDTOS = fileConsultationPostDAO.findFilesByPostId(1L);
+        fileConsultationPostDTOS.forEach(log::info);
     }
     @Test
     public void testServiceGetFilesByPostId(){
-        List<FileConsultationPostDTO> fileConsultationPostDTOS = fileConsultationPostService.getFilesByPostId(1L);
-        fileConsultationPostDTOS.stream().map(FileConsultationPostDTO::toString).forEach(log::info);
+        List<String> fileConsultationPostDTOS = fileConsultationPostService.getFilesByPostId(1L);
+        fileConsultationPostDTOS.forEach(log::info);
     }
 }
