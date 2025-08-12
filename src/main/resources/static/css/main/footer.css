@@ -86,7 +86,4 @@ html {
     color: #8b95a1;
     font-size: .625rem;
     line-height: calc(1/.75);
-    --tw-space-y-reverse: 0;
-    margin-block-start: calc(calc(.25rem * 1) * 0)* 0;
-    margin-block-end: calc(calc(.25rem * 1) * calc(1 - 0));
 }

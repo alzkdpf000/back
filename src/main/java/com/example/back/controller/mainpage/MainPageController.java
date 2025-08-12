@@ -22,8 +22,13 @@ public class MainPageController {
 
 
     @GetMapping
-    public String goMainPage(Model model) {
+    public String goMainPage() {
 
         return "/main/main";
+    }
+
+    @GetMapping("service-info")
+    public String goServiceInfoPage() {
+        return "/member/service-info";
     }
 }
