@@ -40,14 +40,14 @@ select * from tbl_member;
 /*의사 테이블*/
 create table tbl_doctor
 (
-    id                    bigint unsigned primary key,
+    member_id                    bigint unsigned primary key,
     doctor_license_number varchar(20)     not null unique,
     doctor_specialty      varchar(255)    not null,
     hospital_id           bigint unsigned not null,
     doctor_status         enum ('active','inactive') default 'inactive',
     constraint fk_doctor_hospital foreign key (hospital_id)
         references tbl_hospital (id),
-    constraint fk_doctor_member foreign key (id)
+    constraint fk_doctor_member foreign key (member_id)
         references tbl_member (id)
 );
 /* 일반 회원
@@ -169,7 +169,7 @@ create table tbl_review
     constraint fk_review_member foreign key (member_id)
         references tbl_member (id),
     constraint fk_review_doctor foreign key (doctor_id)
-        references tbl_doctor (id)
+        references tbl_doctor (member_id)
 );
 /* 좋아요 테이블*/
 create table tbl_likes
@@ -182,7 +182,7 @@ create table tbl_likes
     constraint fk_likes_member foreign key (member_id)
         references tbl_member (id),
     constraint fk_likes_doctor foreign key (doctor_id)
-        references tbl_doctor (id)
+        references tbl_doctor (member_id)
 );
 
 
@@ -198,7 +198,7 @@ create table tbl_counsel_reply
     created_date             datetime                       default current_timestamp,
     updated_date             datetime                       default current_timestamp,
     constraint fk_counsel_reply_doctor foreign key (doctor_id)
-        references tbl_doctor (id),
+        references tbl_doctor (member_id),
     constraint fk_counsel_reply_consultation_post foreign key (consultation_post_id)
         references tbl_consultation_post (id)
 );
@@ -224,7 +224,7 @@ create table tbl_doctor_file
     constraint fk_doctor_file_file foreign key (file_id)
         references tbl_file (id),
     constraint fk_doctor_file_doctor foreign key (doctor_id)
-        references tbl_doctor (id)
+        references tbl_doctor (member_id)
 );
 /* 병원-이미지 테이블 */
 create table tbl_hospital_file
@@ -280,7 +280,7 @@ create table tbl_house_call_doctor
     constraint fk_house_call_doctor_house_call foreign key (house_call_id)
         references tbl_house_call (id),
     constraint fk_house_call_doctor_doctor foreign key (doctor_id)
-        references tbl_doctor (id)
+        references tbl_doctor (member_id)
 );
 
 
@@ -363,3 +363,4 @@ create table tbl_house_call_address
     constraint fk_house_call_address_hospital foreign key (house_call_id)
         references tbl_house_call (id)
 );
+
