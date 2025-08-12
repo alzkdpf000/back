@@ -7,6 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface DoctorListMapper {
-//  의사 리스트
-    public List<DoctorListDTO> selectDoctorList();
+    List<DoctorListDTO> selectDoctorList(DoctorListDTO doctorListDTO);
+
 }
