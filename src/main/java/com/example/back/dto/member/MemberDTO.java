@@ -1,4 +1,4 @@
-package com.example.back.domain.dto;
+package com.example.back.dto.member;
 
 import com.example.back.common.enumeration.Provider;
 import com.example.back.common.enumeration.Role;

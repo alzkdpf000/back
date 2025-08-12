@@ -10,12 +10,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Slf4j
 public class MemberMapperTests {
     @Autowired
-    MemberMapper memberMapper;
+    private MemberMapper memberMapper;
 
     @Test
     public void testInsertMember(){
         MemberVO member = MemberVO.builder()
-                .memberEmail("test@gmail.com");
+                .memberEmail("test@gmail.com")
+                .memberName("test")
+                .memberPhone("010-0000-0000")
+                .memberPassword("1234")
+                .build();
+
+        memberMapper.insertMember(member);
 
     }
 

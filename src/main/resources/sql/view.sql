@@ -131,5 +131,5 @@ select tm.id,
        td.hospital_id
 from tbl_member tm
          join tbl_doctor td
-              on tm.id = td.id
+              on tm.id = td.member_id
     );
