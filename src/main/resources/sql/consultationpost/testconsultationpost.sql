@@ -88,6 +88,8 @@ INSERT INTO tbl_member_file (file_id, member_id)
 VALUES (4, 1);
 
 
+
+explain
 select tcp.id,
        tcp.consultation_post_title        as consultation_post_title,
        tcp.consultation_post_content      as consultation_post_content,
@@ -101,8 +103,39 @@ select tcp.id,
 from tbl_member tm
          left outer join view_member_file vmf on tm.id = vmf.member_id
          join tbl_consultation_post tcp on tcp.member_id = tm.id
-          and tcp.consultation_post_status = 'active'
+    and tcp.consultation_post_status = 'active'
 order by consultation_post_view_count desc
-limit 3;
+limit 3 offset 3;
 
-select count(*) from tbl_consultation_post;
+
+SHOW INDEX FROM tbl_member WHERE Column_name = 'id';
+explain
+select tcp.id,
+       tcp.consultation_post_title        as consultation_post_title,
+       tcp.consultation_post_content      as consultation_post_content,
+       tcp.consultation_post_view_count   as consultation_post_view_count,
+       tcp.consultation_post_answer_count as consultation_post_answer_count,
+       tcp.member_id                      as member_id,
+       tcp.created_date                   as created_date,
+       IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, vmf.file_path)
+                                          as member_file_path,
+       tm.member_name                     as member_name
+from (SELECT id,
+             consultation_post_title,
+             consultation_post_content,
+             consultation_post_view_count,
+             consultation_post_answer_count,
+             member_id,
+             created_date
+      FROM tbl_consultation_post
+      WHERE consultation_post_status = 'active'
+      ORDER BY consultation_post_view_count DESC
+      LIMIT 3 offset 3) tcp
+         JOIN tbl_member tm ON tcp.member_id = tm.id
+         LEFT JOIN view_member_file vmf ON tm.id = vmf.member_id;
+
+
+select count(*)
+from tbl_consultation_post;
+
+ANALYZE TABLE tbl_member;
