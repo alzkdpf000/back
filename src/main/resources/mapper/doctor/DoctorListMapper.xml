@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.back.mapper.DoctorMapper">
+<mapper namespace="com.example.back.mapper.doctor.DoctorListMapper">
+    <insert id="insertDoctor" parameterType="com.example.back.dto.doctor.DoctorListDTO">
+        INSERT INTO tbl_doctor (
+            member_id,
+            doctor_license_number,
+            doctor_specialty,
+            hospital_id,
+            doctor_status
+        )
+        VALUES (
+           #{memberId},
+           #{doctorLicenseNumber},
+           #{doctorSpecialty},
+           #{hospitalId},
+           #{doctorStatus}
+               )
+    </insert>
     <select id="selectDoctorList">
         select
-            d.member_id as doctor_id,
+            d.member_id,
             m.member_name,
             d.doctor_specialty,
             d.doctor_status,
