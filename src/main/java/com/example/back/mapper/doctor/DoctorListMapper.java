@@ -7,6 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface DoctorListMapper {
+    void insertDoctor(DoctorListDTO doctor);
+
     List<DoctorListDTO> selectDoctorList(DoctorListDTO doctorListDTO);
 
 }
