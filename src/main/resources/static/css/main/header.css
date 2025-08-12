@@ -278,4 +278,35 @@ ul.main-header-main-category-wrapper li span a{
     position: relative;
     gap: 6px;
     align-items: center;
+<<<<<<< HEAD
+=======
+}
+ul.member-profile-btn-modal{
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+    top: 48px;
+    box-shadow: rgba(229, 232, 235, 0.8) 0px 4px 16px;
+    background-color: #fff;
+    position: absolute;
+    border-radius: 8px;
+    width: max-content;
+    height: max-content;
+}
+ul.member-profile-btn-modal.show{
+    display: flex;
+}
+div.member-profile-btn-item{
+    display: flex;
+    padding: 10px 16px;
+    border-radius: 8px;
+    width: 100%;
+}
+div.member-profile-btn-item span{
+    color: #4e5968;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%;
+>>>>>>> mainpage/header
 }

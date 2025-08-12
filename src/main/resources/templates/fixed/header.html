@@ -132,10 +132,34 @@
                     </button>
 
                     <!-- 로그인 상태 시(프로필 이미지) -->
+<<<<<<< HEAD
                     <button class="main-header-login-profile-icon-wrapper-profile" th:if="${session.member !=null}">
                         <img alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" style="color: transparent;">
                     </button>
 
+=======
+                    <div style="position: relative" th:if="${session.member !=null}">
+                        <button class="main-header-login-profile-icon-wrapper-profile" >
+                            <img alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" style="color: transparent;">
+                        </button>
+                        <ul class="member-profile-btn-modal">
+                        <li>
+                            <a href="/권한/my-page">
+                                <div class="member-profile-btn-item">
+                                    <span>마이페이지</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/member/logout">
+                                <div class="member-profile-btn-item">
+                                    <span>로그아웃</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    </div>
+>>>>>>> mainpage/header
                     <!-- 비로그인 상태 시(로그인 아이콘) -->
                     <a href="/temp" th:if="${session.member == null}">
                         <button class="main-header-login-profile-icon-wrapper">
@@ -159,4 +183,8 @@
 </header>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> mainpage/header
