@@ -7,11 +7,20 @@
     <title>골든타임</title>
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/main/main.css">
+<<<<<<< HEAD
+
+=======
+>>>>>>> mainpage/header
+    <link rel="stylesheet" href="/css/main/header.css">
+<!--    <link rel="stylesheet" href="/css/main/footer.css">-->
+
     <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
 </head>
 <body>
+<header th:replace="~{/fixed/header.html :: header}"></header>
 <!-- main -->
 <main>
+
     <div class="main-container">
         <header class="coach-mark-wrapper">
             <ul class="coach-mark-container">
@@ -35,14 +44,16 @@
         </div>
         <!-- /무한 스크롤 -->
     </div>
-    <div id="loading" style="display: none; width: 100px; height: 100px; margin: 0 auto; position: fixed; right: 5px; top: 15px;">
+    <div id="loading">
         <img src="/images/loading.gif">
     </div>
 </main>
 <!-- /main -->
+<div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
 </body>
-<script src="/js/main/main/module/service.js"></script>
-<script src="/js/main/main/module/layout.js"></script>
-<script src="/js/main/main/event.js"></script>
+<script src ="/js/main/header/event.js"></script>
+<!--<script src="/js/main/main/module/service.js"></script>-->
+<!--<script src="/js/main/main/module/layout.js"></script>-->
+<!--<script src="/js/main/main/event.js"></script>-->
 </html>
 
