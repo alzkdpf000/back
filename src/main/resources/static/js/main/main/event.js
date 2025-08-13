@@ -1,4 +1,5 @@
 let offset = 0;
+let checkMore = true;
 const showList = async (offset = 0) => {
     const loading = document.getElementById("loading");
 
@@ -7,15 +8,16 @@ const showList = async (offset = 0) => {
     setTimeout(() => {
         loading.style.display = "none";
     }, 1000)
-
+    checkMore = consultationMainPage.length === 6;
     return consultationMainPage;
 }
 showList();
 
 let checkScroll = true;
 let consultationMainPage;
-let checkMore = true;
+
 window.addEventListener("scroll", async (e) => {
+    if(!checkMore) {return;}
     // 현재 스크롤 위치
     const scrollTop = window.scrollY
     // 화면 높이
@@ -29,7 +31,7 @@ window.addEventListener("scroll", async (e) => {
             consultationMainPage = await showList(offset);
             checkScroll = false;
         }
-        checkMore = consultationMainPage.length === 5;
+        checkMore = consultationMainPage.length === 6;
         setTimeout(() => {
             if(consultationMainPage !== null && checkMore){
                 checkScroll = true
