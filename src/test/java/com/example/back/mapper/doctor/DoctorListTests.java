@@ -37,10 +37,12 @@ public class DoctorListTests {
     }
 
     @Test
-    public void testGetList(){
+    public void testSelectDoctorList(){
         DoctorListDTO doctorListDTO = new DoctorListDTO();
         log.info("doctorListDTO = {}", doctorListDTO);
         doctorListMapper.selectDoctorList(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
+
+
 
 
     }

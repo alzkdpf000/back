@@ -6,15 +6,14 @@ import com.example.back.common.enumeration.Status;
 import com.example.back.dto.likes.LikesDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-@Getter @ToString(callSuper = true)
-@Setter
-@SuperBuilder
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Component
+@Getter @Setter
+@ToString
 @EqualsAndHashCode(of="id")
 public class DoctorListDTO {
     private Long id;
@@ -24,14 +23,14 @@ public class DoctorListDTO {
     private Status doctorStatus;
     private Long memberId;
     private Long hospitalId;
-    private String createdDate;
-    private String updatedDate;
+    private String createdDatetime;
+    private String updatedDatetime;
 //  의사 기본정보
+//  의사 이미지
     private String hospitalName;
     private String hospitalPhone;
     private String hospitalAddress;
 //  + 병원 정보
     private List<LikesDTO> likes;
 //  관심 정보
-//  상담글 정보
 }
