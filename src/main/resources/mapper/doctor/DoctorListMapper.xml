@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.doctor.DoctorListMapper">
     <insert id="insertDoctor" parameterType="com.example.back.dto.doctor.DoctorListDTO">
-        INSERT INTO tbl_doctor (
+        insert into tbl_doctor (
             member_id,
             doctor_license_number,
             doctor_specialty,
             hospital_id,
             doctor_status
         )
-        VALUES (
+        values (
            #{memberId},
            #{doctorLicenseNumber},
            #{doctorSpecialty},
            #{hospitalId},
            #{doctorStatus}
-               )
+        )
     </insert>
     <select id="selectDoctorList">
         select
@@ -36,5 +36,10 @@
                  join tbl_hospital h on d.hospital_id = h.id
                  join tbl_hospital_address ha on h.id = ha.hospital_id
         where d.doctor_status = 'active'
+    </select>
+
+    <select id="selectCountAll">
+        select count(*) from tbl_doctor
+        where doctor_status = 'active'
     </select>
 </mapper>
