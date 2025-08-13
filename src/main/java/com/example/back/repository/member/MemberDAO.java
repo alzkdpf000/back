@@ -14,4 +14,9 @@ public class MemberDAO {
     public void save(MemberVO memberVO){
         memberMapper.insertMember(memberVO);
     }
+
+//    이메일 검사
+    public boolean isExitMemberEmail(String memberEmail){
+        return memberMapper.existMemberEmail(memberEmail);
+    }
 }

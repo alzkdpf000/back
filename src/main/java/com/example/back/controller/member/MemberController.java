@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@RequestMapping("/member/**")
+@RequestMapping("/member")
 @RequiredArgsConstructor
 @Slf4j
 
@@ -22,6 +22,7 @@ public class MemberController {
     private final MemberService memberService;
     private final HttpSession session;
 
+//    회원가입
     @GetMapping("join")
     public String goToJoinForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
@@ -37,7 +38,7 @@ public class MemberController {
     @GetMapping("login")
     public String goToLoginForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
-        return "member/login";
+        return "/member/login";
     }
 
 
