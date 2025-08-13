@@ -9,9 +9,9 @@ select tmf.file_id,
        tf.file_name,
        tf.file_path,
        tf.file_size,
-       tf.file_status,
-       tf.created_date,
-       tf.updated_date
+       tf.file_original_name,
+       tf.created_datetime,
+       tf.updated_datetime
 from tbl_file tf
          join
      tbl_member_file tmf on tf.id = tmf.file_id
@@ -24,9 +24,9 @@ select tdhf.file_id,
        tf.file_name,
        tf.file_path,
        tf.file_size,
-       tf.file_status,
-       tf.created_date,
-       tf.updated_date
+       tf.file_original_name,
+       tf.created_datetime,
+       tf.updated_datetime
 from tbl_file tf
          join tbl_hospital_file tdhf on
     tf.id = tdhf.file_id
@@ -40,9 +40,9 @@ select tdf.file_id,
        tf.file_name,
        tf.file_path,
        tf.file_size,
-       tf.file_status,
-       tf.created_date,
-       tf.updated_date
+       tf.file_original_name,
+       tf.created_datetime,
+       tf.updated_datetime
 from tbl_file tf
          join tbl_doctor_file tdf on
     tf.id = tdf.file_id
@@ -56,9 +56,9 @@ select tcpf.file_id,
        tf.file_name,
        tf.file_path,
        tf.file_size,
-       tf.file_status,
-       tf.created_date,
-       tf.updated_date
+       tf.file_original_name,
+       tf.created_datetime,
+       tf.updated_datetime
 from tbl_file tf
          join tbl_consultation_post_file tcpf on
     tf.id = tcpf.file_id
@@ -72,9 +72,9 @@ select tcrf.file_id,
        tf.file_name,
        tf.file_path,
        tf.file_size,
-       tf.file_status,
-       tf.created_date,
-       tf.updated_date
+       tf.file_original_name,
+       tf.created_datetime,
+       tf.updated_datetime
 from tbl_file tf
          join tbl_counsel_reply_file tcrf on
     tf.id = tcrf.file_id
@@ -88,9 +88,9 @@ select tnf.file_id,
        tf.file_name,
        tf.file_path,
        tf.file_size,
-       tf.file_status,
-       tf.created_date,
-       tf.updated_date
+       tf.file_original_name,
+       tf.created_datetime,
+       tf.updated_datetime
 from tbl_file tf
          join tbl_notices_file tnf on
     tf.id = tnf.file_id
@@ -103,9 +103,9 @@ select tif.file_id,
        tf.file_name,
        tf.file_path,
        tf.file_size,
-       tf.file_status,
-       tf.created_date,
-       tf.updated_date
+       tf.file_original_name,
+       tf.created_datetime,
+       tf.updated_datetime
 from tbl_file tf
          join tbl_inquiries_file tif on
     tf.id = tif.file_id
@@ -124,8 +124,8 @@ select tm.id,
        tm.member_kakao_profile_url,
        tm.member_role,
        tm.member_vita_amount,
-       tm.created_date,
-       tm.updated_date,
+       tm.created_datetime,
+       tm.updated_datetime,
        td.doctor_license_number,
        td.doctor_specialty,
        td.hospital_id
