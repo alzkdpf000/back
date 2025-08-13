@@ -49,4 +49,7 @@ public class DateUtils {
             return date;
         }
     }
+    public static String getCreatedDate(String createdDatetime){
+        return createdDatetime.split(" ")[0];
+    }
 }

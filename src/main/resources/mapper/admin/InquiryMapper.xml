@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.inquiry.InquiryMapper">
+    <select id="selectInquiriesByEmailOrId">
+        select sub.id                as id,
+               sub.inquiries_title   as inquiries_title,
+               sub.inquiries_content as inquiries_content,
+               sub.created_datetime  as created_datetime,
+               sub.member_email      as member_email,
+               sub.has_answer        as has_answer,
+               sub.answer_datetime   as answer_datetime
+        from (select ti.id,
+                     ti.inquiries_title,
+                     ti.inquiries_content,
+                     ti.created_datetime,
+                     if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+                     if(tir.id is not null, 1, 0)                                             as has_answer,
+                     tir.created_datetime                                                     as answer_datetime
+              from tbl_member tm
+                       join tbl_inquiries ti
+                            on ti.member_id = tm.id
+                                and ti.inquiries_status = 'active'
+                       left join tbl_inquiries_reply tir
+                                 on ti.id = tir.inquiries_id
+                                     and tir.inquiries_status = 'active') sub
+        where sub.member_email like concat('%', #{query} , '%')
+           or sub.id = #{query}
+        order by sub.id desc;
+    </select>
+</mapper>
