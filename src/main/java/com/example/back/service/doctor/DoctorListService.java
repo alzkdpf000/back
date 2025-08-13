@@ -20,8 +20,8 @@ public interface DoctorListService {
                 .hospitalName(doctorListDTO.getHospitalName())
                 .hospitalPhone(doctorListDTO.getHospitalPhone())
                 .hospitalAddress(doctorListDTO.getHospitalAddress())
-                .createdDate(doctorListDTO.getCreatedDatetime())
-                .updatedDate(doctorListDTO.getUpdatedDatetime())
+                .createdDatetime(doctorListDTO.getCreatedDatetime())
+                .updatedDatetime(doctorListDTO.getUpdatedDatetime())
                 .build();
     }
 }
