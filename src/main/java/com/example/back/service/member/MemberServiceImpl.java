@@ -18,4 +18,9 @@ public class MemberServiceImpl implements MemberService{
         memberDAO.save(toVO(memberDTO));
     }
 
+    @Override
+    public boolean isExistMemberEmail(String memberEmail) {
+        return memberDAO.isExistMemberEmail(memberEmail);
+    }
+
 }

@@ -16,7 +16,8 @@ public class MemberDAO {
     }
 
 //    이메일 검사
-    public boolean isExitMemberEmail(String memberEmail){
+    public boolean isExistMemberEmail(String memberEmail){
+
         return memberMapper.existMemberEmail(memberEmail);
     }
 }
