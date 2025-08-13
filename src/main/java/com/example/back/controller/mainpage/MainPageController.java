@@ -1,9 +1,5 @@
 package com.example.back.controller.mainpage;
 
-import com.example.back.dto.consultationpost.ConsultationPostCategoryFileUserDTO;
-import com.example.back.service.category.CategoryService;
-import com.example.back.service.consultationpost.ConsultationPostService;
-import com.example.back.service.file.FileConsultationPostService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
