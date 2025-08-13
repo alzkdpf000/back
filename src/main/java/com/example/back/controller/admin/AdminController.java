@@ -12,4 +12,8 @@ public class AdminController {
     public String goAdminPage(){
         return "/admin/mainpage";
     }
+    @GetMapping
+    public String goAdmin(){
+        return "/admin/inquiry";
+    }
 }

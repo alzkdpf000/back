@@ -3,13 +3,17 @@ const menuBtns = document.querySelectorAll(".menu-btn");
 const allSubMenus = document.querySelectorAll(".menu-sub-list");
 
 menuBtns.forEach((btn) => {
-    btn.addEventListener("click", function () {
+    btn.addEventListener("click", async ()=> {
         allSubMenus.forEach((submenu) => (submenu.style.display = "none"));
         menuBtns.forEach((b) => b.classList.remove("active"));
 
-        this.classList.add("active");
-        console.log(btn.classList.contains("inquiry"));
-        const targetId = this.getAttribute("aria-controls");
+        btn.classList.add("active");
+
+        if(btn.classList.contains("inquiry")){
+            await mainService.showInquiries(mainLayout.showInquiries)
+        }
+
+        const targetId = btn.getAttribute("aria-controls");
         const targetMenu = document.getElementById(targetId);
         if (targetMenu) targetMenu.style.display = "block";
     });
