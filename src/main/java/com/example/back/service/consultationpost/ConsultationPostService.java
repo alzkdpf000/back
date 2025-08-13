@@ -17,8 +17,8 @@ public interface ConsultationPostService {
                 .consultationPostContent(consultationPostDTO.getConsultationPostContent())
                 .consultationPostViewCount(consultationPostDTO.getConsultationPostViewCount())
                 .consultationPostStatus(consultationPostDTO.getConsultationPostStatus())
-                .createdDate(consultationPostDTO.getCreatedDate())
-                .updatedDate(consultationPostDTO.getUpdatedDate())
+                .createdDatetime(consultationPostDTO.getCreatedDatetime())
+                .updatedDatetime(consultationPostDTO.getUpdatedDatetime())
                 .memberId(consultationPostDTO.getMemberId())
                 .build();
     }

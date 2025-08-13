@@ -1,6 +1,8 @@
 package com.example.back.dto.consultationpost;
 
+import com.example.back.common.enumeration.Provider;
 import com.example.back.common.enumeration.Status;
+import com.example.back.dto.file.FileDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +20,9 @@ public class ConsultationPostCategoryFileUserDTO {
     private String consultationPostContent;
     private String consultationPostAnswerCount;
     private Long memberId;
-    private String createdDate;
-    private List<String> consultationPostFiles;
+    private String createdDatetime;
+    private Provider memberProvider;
+    private List<FileDTO> consultationPostFiles;
     private List<String> categories;
     private String memberName;
     private String memberFilePath;

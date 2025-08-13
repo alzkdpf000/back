@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.springframework.http.ResponseEntity;
 
 @SuperBuilder
 @ToString(callSuper = true)
