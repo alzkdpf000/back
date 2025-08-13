@@ -23,15 +23,21 @@ public class MemberController {
     private final HttpSession session;
 
     @GetMapping("join")
-    public String goToJoinForm(Model model){
-        model.addAttribute("memberDTO",new MemberDTO());
+    public String goToJoinForm(MemberDTO memberDTO ,Model model){
+        model.addAttribute("memberDTO", memberDTO);
         return "/member/joinpeople";
     }
 
     @PostMapping("join")
-    public RedirectView join(@ModelAttribute MemberDTO memberDTO){
+    public RedirectView join( MemberDTO memberDTO){
         memberService.join(memberDTO);
         return new RedirectView("/member/login");
+    }
+
+    @GetMapping("login")
+    public String goToLoginForm(MemberDTO memberDTO ,Model model){
+        model.addAttribute("memberDTO", memberDTO);
+        return "member/login";
     }
 
 

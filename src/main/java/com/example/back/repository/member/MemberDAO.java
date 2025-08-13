@@ -1,4 +1,4 @@
-package com.example.back.repository.memberDAO;
+package com.example.back.repository.member;
 
 import com.example.back.domain.member.MemberVO;
 import com.example.back.mapper.member.MemberMapper;
