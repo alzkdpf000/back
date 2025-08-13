@@ -1,4 +1,4 @@
-package com.example.back.dto.category;
+package com.example.back.dto.file;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,12 +7,19 @@ import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 @Component
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @EqualsAndHashCode(of="id")
-public class CategoryDTO {
+public class FileDTO {
     private Long id;
-    private String categoryName;
+    private String fileOriginalName;
+    private String filePath;
+    private String fileName;
+    private String fileSize;
+    private String fileContentType;
     private String createdDatetime;
     private String updatedDatetime;
 }
+
+

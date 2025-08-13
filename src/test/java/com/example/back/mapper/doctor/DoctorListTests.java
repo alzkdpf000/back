@@ -18,7 +18,7 @@ public class DoctorListTests {
 
     @Test
     public void testGetList() {
-        DoctorListDTO doctorListDTO = new DoctorListDTO();
+//        DoctorListDTO doctorListDTO = new DoctorListDTO();
 
 
     }

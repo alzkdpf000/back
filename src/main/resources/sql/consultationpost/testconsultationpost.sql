@@ -66,10 +66,10 @@ VALUES (1, 1),
 
 
 -- 5. 파일 3개 등록
-INSERT INTO tbl_file (file_name, file_path, file_size)
-VALUES ('temp1', 'temp1', 204800),
-       ('temp2', 'temp2', 307200),
-       ('temp3', 'temp3', 512000);
+INSERT INTO tbl_file (file_name, file_path, file_size, file_original_name)
+VALUES ('t_test.jpeg', '2025/08/13', 204800, 'test.jpeg'),
+       ('t_user.jpeg', '2025/08/13', 307200, 'user.jpeg'),
+       ('t_test.jpeg', '2025/08/13', 512000, 'test.jpeg');
 
 
 -- 6. 파일-게시글 연결 (글 1에 3개 이미지 연결)
@@ -80,8 +80,8 @@ VALUES (1, 1),
 
 
 -- 7. tbl_file에 프로필 이미지 1개 넣기
-INSERT INTO tbl_file (file_name, file_path, file_size)
-VALUES ('프로필이미지1', '프로필이미지1', 150000);
+INSERT INTO tbl_file (file_name, file_path, file_size, file_original_name)
+VALUES ('t_user.jpeg', '2025/08/13', 150000, 'user.jpeg');
 
 -- 8. 파일-멤버 연결
 INSERT INTO tbl_member_file (file_id, member_id)
@@ -96,8 +96,8 @@ select tcp.id,
        tcp.consultation_post_view_count   as consultation_post_view_count,
        tcp.consultation_post_answer_count as consultation_post_answer_count,
        tcp.member_id                      as member_id,
-       tcp.created_date                   as created_date,
-       IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, vmf.file_path)
+       tcp.created_datetime               as created_date,
+       IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, concat(vmf.file_path, '/', vmf.file_name))
                                           as member_file_path,
        tm.member_name                     as member_name
 from tbl_member tm
@@ -105,7 +105,7 @@ from tbl_member tm
          join tbl_consultation_post tcp on tcp.member_id = tm.id
     and tcp.consultation_post_status = 'active'
 order by consultation_post_view_count desc
-limit 3 offset 3;
+limit 3 offset 0;
 
 
 SHOW INDEX FROM tbl_member WHERE Column_name = 'id';
@@ -116,8 +116,9 @@ select tcp.id,
        tcp.consultation_post_view_count   as consultation_post_view_count,
        tcp.consultation_post_answer_count as consultation_post_answer_count,
        tcp.member_id                      as member_id,
-       tcp.created_date                   as created_date,
-       IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, vmf.file_path)
+       tcp.created_datetime               as created_datetime,
+       tm.member_provider                 as merber_provider,
+       IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, concat(vmf.file_path, '/', vmf.file_path))
                                           as member_file_path,
        tm.member_name                     as member_name
 from (SELECT id,
@@ -126,16 +127,30 @@ from (SELECT id,
              consultation_post_view_count,
              consultation_post_answer_count,
              member_id,
-             created_date
+             created_datetime
       FROM tbl_consultation_post
       WHERE consultation_post_status = 'active'
-      ORDER BY consultation_post_view_count DESC
-      LIMIT 3 offset 3) tcp
+      LIMIT 5 offset 0) tcp
          JOIN tbl_member tm ON tcp.member_id = tm.id
-         LEFT JOIN view_member_file vmf ON tm.id = vmf.member_id;
+         LEFT JOIN view_member_file vmf ON tm.id = vmf.member_id
+ORDER BY tcp.consultation_post_view_count DESC
+;
 
 
 select count(*)
 from tbl_consultation_post;
 
 ANALYZE TABLE tbl_member;
+
+
+SELECT id,
+       consultation_post_title,
+       consultation_post_content,
+       consultation_post_view_count,
+       consultation_post_answer_count,
+       member_id,
+       created_datetime
+FROM tbl_consultation_post
+WHERE consultation_post_status = 'active'
+ORDER BY consultation_post_view_count DESC
+LIMIT 3 offset 0;

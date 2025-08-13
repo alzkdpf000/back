@@ -20,6 +20,6 @@ public class ConsultationPostDTO {
     private String consultationPostViewCount;
     private String consultationPostAnswerCount;
     private Long memberId;
-    private String createdDate;
-    private String updatedDate;
+    private String createdDatetime;
+    private String updatedDatetime;
 }
