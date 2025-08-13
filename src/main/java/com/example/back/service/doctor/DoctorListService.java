@@ -1,25 +1,27 @@
 package com.example.back.service.doctor;
 
+import com.example.back.domain.doctor.DoctorVO;
+import com.example.back.dto.doctor.DoctorListCriteriaDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
 
-@Service
 public interface DoctorListService {
-    List<DoctorListDTO> getList(DoctorListDTO doctorListDTO);
+    //  목록
+    public DoctorListCriteriaDTO getList(int page);
 
 
-    default DoctorListDTO toVO(DoctorListDTO doctorListDTO){
-        return DoctorListDTO.builder()
-                .memberName(doctorListDTO.getMemberName())
+    default DoctorVO toDoctorVO(DoctorListDTO doctorListDTO){
+        return DoctorVO.builder()
+                .id(doctorListDTO.getId())
                 .doctorSpecialty(doctorListDTO.getDoctorSpecialty())
                 .doctorStatus(doctorListDTO.getDoctorStatus())
+                .id(doctorListDTO.getMemberId())
+                .hospitalId(doctorListDTO.getHospitalId())
                 .hospitalName(doctorListDTO.getHospitalName())
                 .hospitalPhone(doctorListDTO.getHospitalPhone())
                 .hospitalAddress(doctorListDTO.getHospitalAddress())
-                .createdDate(doctorListDTO.getCreatedDate())
-                .updatedDate(doctorListDTO.getUpdatedDate())
+                .createdDate(doctorListDTO.getCreatedDatetime())
+                .updatedDate(doctorListDTO.getUpdatedDatetime())
                 .build();
     }
 }
