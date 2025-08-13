@@ -6,11 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>골든타임</title>
     <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/main/side.css">
     <link rel="stylesheet" href="/css/main/main.css">
+<<<<<<< HEAD
 <!--    <link rel="stylesheet" href="/css/main/footer.css">-->
+=======
+
+    <link rel="stylesheet" href="/css/main/header.css">
+<!--    <link rel="stylesheet" href="/css/main/footer.css">-->
+
+>>>>>>> master
     <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
 </head>
 <body>
+<header th:replace="~{/fixed/header.html :: header}"></header>
 <!-- main -->
 <main>
 
@@ -34,6 +43,7 @@
 
                 </ul>
             </div>
+            <div th:replace="~{/fixed/side.html :: .main-side-container}"></div>
         </div>
         <!-- /무한 스크롤 -->
     </div>
@@ -44,8 +54,9 @@
 <!-- /main -->
 <div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
 </body>
-<!--<script src="/js/main/main/module/service.js"></script>-->
-<!--<script src="/js/main/main/module/layout.js"></script>-->
-<!--<script src="/js/main/main/event.js"></script>-->
+<script src ="/js/main/header/event.js"></script>
+<script src="/js/main/main/module/service.js"></script>
+<script src="/js/main/main/module/layout.js"></script>
+<script src="/js/main/main/event.js"></script>
 </html>
 

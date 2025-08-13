@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
@@ -20,18 +21,17 @@ import org.springframework.web.servlet.view.RedirectView;
 public class MemberController {
     private final MemberService memberService;
     private final HttpSession session;
-    private final MemberDTO memberDTO;
 
     @GetMapping("join")
     public String goToJoinForm(Model model){
-        model.addAttribute("MemberDTO",memberDTO);
-        return "/join";
+        model.addAttribute("memberDTO",new MemberDTO());
+        return "/member/joinpeople";
     }
 
     @PostMapping("join")
-    public RedirectView join(Model model){
+    public RedirectView join(@ModelAttribute MemberDTO memberDTO){
         memberService.join(memberDTO);
-        return new RedirectView("member/login");
+        return new RedirectView("/member/login");
     }
 
 
