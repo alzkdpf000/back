@@ -2,29 +2,35 @@ const consultationMainPageLayout = (() => {
     const showList = (consultationPost) => {
         const consultationPostContainer = document.querySelector("#intersectionObserver");
         let text = ``;
-        let imgText = ``;
-        let categoryText = ``;
-        consultationPost.forEach((post) => {
+
+        consultationPost.forEach((post,i) => {
+            if(i === consultationPost.length -1) {
+                return;
+            }
+            let categoryText = ``;
+            let imgText = ``;
             console.log(post.consultationPostFiles);
-            post.consultationPostFiles.forEach((file)=>{
-                imgText+=`
+            post.consultationPostFiles.forEach((file) => {
+                imgText += `
                 <li>
-                    <img src="${file}" width="161" height="161" alt="">
+                    <img src="/api/files/display?filePath=${file.filePath}&fileName=${file.fileName}" width="161" height="161" alt="">
                 </li>
                 `
             })
-            post.categories.forEach((category,index)=>{
-                categoryText+=`
+            post.categories.forEach((category, index) => {
+                categoryText += `
                 ${category}${index === post.categories.length - 1 ? '' : ' ·'}
                 `
             })
-
-            text += `
+            console.log(post.memberProvider)
+            const providerImgSrc = post.memberProvider === "KAKAO"
+                ? post.memberFilePath
+                : `/api/files/profile?url=${post.memberFilePath}`;
+                text += `
             <li>
                         <a href="/consultation-post/detail/${post.id}">
                             <div class="answer-list-container contain-imgs">
-                                <img src="${post.memberFilePath}"
-                                     width="48" height="48" class="answer-client-img">
+                            <img src="${providerImgSrc}" class="answer-client-img">
                                 <div class="answer-list-content-tag">
                                     <div class="answer-writer-cotent-wrap">
                                         <div class="category-wrap">

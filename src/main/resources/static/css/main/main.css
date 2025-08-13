@@ -835,6 +835,7 @@ ul.answer-imag-container li {
 img.answer-client-img{
     width: 48px;
     height: 48px;
+    border-radius: 16px;
 }
 ul.answer-imag-container li img {
     color: transparent;
@@ -872,7 +873,7 @@ div#loading{
     position: fixed;
     right: 50%;
     top: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
 }
 
 
@@ -952,4 +953,5 @@ div#loading{
     /*--tw-space-y-reverse: 0;*/
     /*margin-block-start: calc(calc(.25rem * 1) * 0)* 0;*/
     /*margin-block-end: calc(calc(.25rem * 1) * calc(1 - 0));*/
+
 }

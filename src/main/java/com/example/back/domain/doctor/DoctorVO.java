@@ -19,8 +19,6 @@ public class DoctorVO extends Period {
     private String doctorLicenseNumber;
     private String doctorSpecialty;
     private Status doctorStatus;
-    private Long hospitalId;
-    private String hospitalAddress;
-    private String hospitalPhone;
-    private String hospitalName;
+    private HospitalVO hospital;
 }
+

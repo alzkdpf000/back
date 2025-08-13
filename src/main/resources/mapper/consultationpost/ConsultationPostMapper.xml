@@ -8,22 +8,17 @@
                tcp.consultation_post_view_count   as consultation_post_view_count,
                tcp.consultation_post_answer_count as consultation_post_answer_count,
                tcp.member_id                      as member_id,
-               tcp.created_date                   as created_date,
-               IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, vmf.file_path)
+               tcp.created_datetime               as created_datetime,
+               tm.member_provider                 as member_provider,
+               IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, concat(vmf.file_path, '/', vmf.file_name))
                                                   as member_file_path,
                tm.member_name                     as member_name
-        from (select id,
-                     consultation_post_title,
-                     consultation_post_content,
-                     consultation_post_view_count,
-                     consultation_post_answer_count,
-                     member_id,
-                     created_date
-              from tbl_consultation_post
-              where consultation_post_status = 'active'
-              order by consultation_post_view_count desc
-              limit 5 offset #{offset}) tcp
-                 join tbl_member tm on tcp.member_id = tm.id
-                 left join view_member_file vmf on tm.id = vmf.member_id;
+        from tbl_member tm
+                 left outer join view_member_file vmf on tm.id = vmf.member_id
+                 join tbl_consultation_post tcp on tcp.member_id = tm.id
+            and tcp.consultation_post_status = 'active'
+        order by consultation_post_view_count desc
+        limit 6 offset #{offset};
+
     </select>
 </mapper>

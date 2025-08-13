@@ -278,8 +278,7 @@ ul.main-header-main-category-wrapper li span a{
     position: relative;
     gap: 6px;
     align-items: center;
-<<<<<<< HEAD
-=======
+
 }
 ul.member-profile-btn-modal{
     display: none;
@@ -308,5 +307,4 @@ div.member-profile-btn-item span{
     font-size: 16px;
     font-weight: 500;
     line-height: 100%;
->>>>>>> mainpage/header
 }
