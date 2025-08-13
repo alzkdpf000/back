@@ -3,7 +3,10 @@ const consultationMainPageLayout = (() => {
         const consultationPostContainer = document.querySelector("#intersectionObserver");
         let text = ``;
 
-        consultationPost.forEach((post) => {
+        consultationPost.forEach((post,i) => {
+            if(i === consultationPost.length -1) {
+                return;
+            }
             let categoryText = ``;
             let imgText = ``;
             console.log(post.consultationPostFiles);
