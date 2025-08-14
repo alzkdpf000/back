@@ -16,5 +16,7 @@ public class HospitalVO extends Period {
     private String hospitalPhone;
     private String hospitalHomePageUrl;
     private String hospitalStatus;
-    private Long hospitalAddressId;
+    private Long hospitalId;
+    private String hospitalRoadAddress;
+    private String hospitalDetailAddress;
 }

@@ -17,8 +17,8 @@ public class DoctorListController{
     //    의사 목록
     @GetMapping("list/{page}")
     public String list(@PathVariable int page, Model model){
-        model.addAttribute("doctorListsCriteriaDTO", doctorListService.getList(page));
-        return "doctor/doctor-hospital-list";
+        model.addAttribute("doctorsListCriteriaDTO", doctorListService.getList(page));
+        return "doctor/doctor-list";
     }
 
 

@@ -14,6 +14,6 @@ import java.util.List;
 @Setter
 @ToString
 public class DoctorListCriteriaDTO {
-    private List<DoctorListDTO> doctorLists;
+    private List<DoctorListDTO> doctorsList;
     private Criteria criteria;
 }
