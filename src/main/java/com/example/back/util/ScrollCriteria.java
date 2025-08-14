@@ -13,10 +13,13 @@ public class ScrollCriteria {
     private String query;
     private String answerStatus;
     private int offset;
-
+    public ScrollCriteria(int page) {
+        rowCount = 8;
+        offset = (page-1)* (rowCount-1);
+    }
     public ScrollCriteria(int page,String query,String answerStatus) {
         rowCount = 8;
-        offset = (page-1)* rowCount;
+        offset = (page-1)* (rowCount-1);
         this.query = query;
         this.answerStatus = answerStatus;
 

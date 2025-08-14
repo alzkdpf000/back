@@ -3,6 +3,7 @@ package com.example.back.dto.consultationpost;
 import com.example.back.common.enumeration.Provider;
 import com.example.back.common.enumeration.Status;
 import com.example.back.dto.file.FileDTO;
+import com.example.back.util.ScrollCriteria;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

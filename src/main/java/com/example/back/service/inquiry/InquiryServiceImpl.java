@@ -2,17 +2,13 @@ package com.example.back.service.inquiry;
 
 import com.example.back.dto.file.FileDTO;
 import com.example.back.dto.inquiry.InquiriesCountDto;
-import com.example.back.dto.inquiry.InquiryDTO;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
-import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.file.FileInquiryDAO;
 import com.example.back.repository.inquiry.InquiryDAO;
-import com.example.back.repository.memberDAO.MemberDAO;
 import com.example.back.util.DateUtils;
 import com.example.back.util.ScrollCriteria;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

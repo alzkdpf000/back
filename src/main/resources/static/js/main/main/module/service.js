@@ -1,12 +1,12 @@
 const consultationMainPageService = (()=>{
-    const getConsultationPost = async (limit,offset= 0, callback)=>{
+    const getConsultationPost = async (page, callback)=>{
 
         try{
-            const response = await fetch(`/api/${offset}?limit=${limit}`);
+            const response = await fetch(`/api/${page}`);
             const consultationPost = await response.json();
             if(callback){
                 setTimeout(() => {
-                    callback(limit,consultationPost);
+                    callback(consultationPost);
                 }, 1000)
             }
 

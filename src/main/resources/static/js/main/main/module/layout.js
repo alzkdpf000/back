@@ -1,15 +1,11 @@
 const consultationMainPageLayout = (() => {
-    const showList = (limit,consultationPost) => {
+    const showList = (consultationPost) => {
         const consultationPostContainer = document.querySelector("#intersectionObserver");
         let text = ``;
 
-        consultationPost.forEach((post,i) => {
-            if(i === consultationPost.length -1 && consultationPost.length === limit) {
-                return;
-            }
+        consultationPost.consultationPosts.forEach((post,i) => {
             let categoryText = ``;
             let imgText = ``;
-            console.log(post.consultationPostFiles);
             post.consultationPostFiles.forEach((file) => {
                 imgText += `
                 <li>
@@ -22,7 +18,7 @@ const consultationMainPageLayout = (() => {
                 ${category}${index === post.categories.length - 1 ? '' : ' ·'}
                 `
             })
-            console.log(post.memberProvider)
+
             const providerImgSrc = post.memberProvider === "KAKAO"
                 ? post.memberFilePath
                 : `/api/files/profile?url=${post.memberFilePath}`;
