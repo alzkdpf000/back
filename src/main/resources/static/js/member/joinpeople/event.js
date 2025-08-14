@@ -95,12 +95,11 @@ emailInput.addEventListener("blur", () => {
             return res.json();
         })
         .then(data => {
-            // 서버 응답 키 확인 (여기서는 isExist 사용)
             if (data.isExist) {
-                emailCheckMessage.textContent = "이미 사용 중입니다.";
+                emailCheckMessage.textContent = "사용 불가";
                 emailCheckMessage.style.color = "red";
             } else {
-                emailCheckMessage.textContent = "사용 가능합니다.";
+                emailCheckMessage.textContent = "사용 가능.";
                 emailCheckMessage.style.color = "green";
             }
         })
