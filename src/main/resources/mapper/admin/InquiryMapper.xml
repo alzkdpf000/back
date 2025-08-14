@@ -9,61 +9,44 @@
         sub.member_email as member_email,
         sub.has_answer as has_answer,
         sub.answer_datetime as answer_datetime
-        from (select ti.id,
-        ti.inquiries_title,
-        ti.inquiries_content,
-        ti.created_datetime,
-        if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-        if(tir.id is not null, 1, 0) as has_answer,
-        tir.created_datetime as answer_datetime,
-        tir.id as reply_id
-        from tbl_member tm
-        join tbl_inquiries ti
-        on ti.member_id = tm.id
-        and ti.inquiries_status = 'active'
-        left join tbl_inquiries_reply tir
-        on ti.id = tir.inquiries_id
-        and tir.inquiries_status = 'active') sub
+        from view_inquiry_member_reply sub
         <where>
             <if test='query != null and query !=""'>
-                sub.member_email like concat('%', #{query} , '%')
-                or sub.id = #{query}
+                (sub.member_email like concat('%', #{query} , '%')
+                or sub.id = #{query})
             </if>
-            <if test='answerStatus'>
-                AND sub.reply_id IS NULL
+            <if test='answerStatus == "no"'>
+                and sub.reply_id IS NULL
             </if>
 
-            <if test='not answerStatus'>
-                AND sub.reply_id IS NOT NULL
+            <if test='answerStatus == "yes"'>
+                and sub.reply_id IS NOT NULL
             </if>
+
         </where>
-        order by sub.id desc;
+        order by sub.id desc
+        limit 17 offset #{offset}
     </select>
     
     
     <select id="selectAnswerCounts">
-        select sum(if(tir.id is not null, 1, 0)) as answer_count,
-               sum(if(tir.id is null, 1, 0))     as no_answer_count
+        select ifnull(sum(if(tir.id is not null, 1, 0)),0) as answer_count,
+               ifnull(sum(if(tir.id is null, 1, 0)),0)     as no_answer_count
         from tbl_inquiries ti
                  left outer join tbl_inquiries_reply tir
                                  on ti.id = tir.inquiries_id
-                                     and ti.inquiries_status = 'active' and tir.inquiries_status = 'active';
+                                     where ti.inquiries_status = 'active';
     </select>
 
     <select id="selectActiveInquiryWithReplyById">
-        select ti.id as id,
-               ti.inquiries_title as inquiry_title,
-               ti.inquiries_content as inquiry_content,
-               ti.created_datetime as created_datetime,
-               if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-               tir.inquiries_reply_content as inquiry_reply_content
-        from tbl_member tm
-                 join
-             tbl_inquiries ti on tm.id = ti.member_id
-                 left outer join tbl_inquiries_reply tir
-                                 on ti.id = tir.inquiries_id
-        where ti.id = #{inquiriesId}
-          and ti.inquiries_status = 'active'
-          and tir.inquiries_status = 'active';
+        select id,
+               inquiries_title         AS inquiry_title,
+               inquiries_content       AS inquiry_content,
+               created_datetime,
+               member_email,
+               inquiries_reply_content AS inquiry_reply_content
+        from view_inquiry_member_reply
+        where id = #{inquiriesId}
+
     </select>
 </mapper>

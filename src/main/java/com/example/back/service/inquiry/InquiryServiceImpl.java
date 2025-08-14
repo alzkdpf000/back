@@ -24,14 +24,16 @@ public class InquiryServiceImpl implements InquiryService {
     private final FileInquiryDAO fileInquiryDAO;
 
 
-//    문의글 목록 및 통계
+    //    문의글 목록 및 통계
     @Override
-    public InquirySummaryDTO getInquiryListWithAnswerStats(String query,boolean answerStatus) {
+    public InquirySummaryDTO getInquiryListWithAnswerStats(String query, String answerStatus, int offset) {
         InquirySummaryDTO inquirySummaryDTO = new InquirySummaryDTO();
-        List<InquiryMemberReplyDTO> inquiriesByEmailOrId = inquiryDAO.findInquiriesByEmailOrId(query,answerStatus);
+        List<InquiryMemberReplyDTO> inquiriesByEmailOrId = inquiryDAO.findInquiriesByEmailOrId(query, answerStatus, offset);
         inquiriesByEmailOrId.forEach(inquiryMemberReplyDTO -> {
             inquiryMemberReplyDTO.setCreatedDateTimeInquiry(DateUtils.getCreatedDate(inquiryMemberReplyDTO.getCreatedDateTime()));
-            inquiryMemberReplyDTO.setAnswerDatetimeReply(DateUtils.getCreatedDate(inquiryMemberReplyDTO.getAnswerDatetime()));
+            if(inquiryMemberReplyDTO.getAnswerDatetime() != null){
+                inquiryMemberReplyDTO.setAnswerDatetimeReply(DateUtils.getCreatedDate(inquiryMemberReplyDTO.getAnswerDatetime()));
+            }
         });
         InquiriesCountDto answerCounts = inquiryDAO.getAnswerCounts();
         inquirySummaryDTO.setInquiriesCountDto(answerCounts);
@@ -48,6 +50,6 @@ public class InquiryServiceImpl implements InquiryService {
             inquiryMemberReplyDTO.setCreatedDateTimeInquiry(DateUtils.getCreatedDate(inquiryMemberReplyDTO.getCreatedDateTime()));
             inquiryMemberReplyDTO.setFiles(filesByInquiryId);
         });
-           return activeInquiryWithReplyById;
+        return activeInquiryWithReplyById;
     }
 }

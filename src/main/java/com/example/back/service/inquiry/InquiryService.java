@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface InquiryService {
     //    문의글 목록
-    public InquirySummaryDTO getInquiryListWithAnswerStats(String query,boolean answerStatus);
+    public InquirySummaryDTO getInquiryListWithAnswerStats(String query,String answerStatus,int offset);
     //  문의글 상세보기
     public Optional<InquiryMemberReplyDTO> getInquiryDetail(Long inquiryId);
 

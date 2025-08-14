@@ -19,14 +19,14 @@ public class InquiryTests {
     private InquiryService inquiryService;
     @Test
     public void testMapperSelectInquiriesByEmailOrId(){
-        log.info("testMapperSelectInquiriesByEmailOrId{}",inquiryMapper.selectInquiriesByEmailOrId("kakao",false));
-        log.info("testMapperSelectInquiriesByEmailOrId{}",inquiryMapper.selectInquiriesByEmailOrId(null,false));
+        log.info("testMapperSelectInquiriesByEmailOrId{}",inquiryMapper.selectInquiriesByEmailOrId("kakao","no",5));
+        log.info("testMapperSelectInquiriesByEmailOrId{}",inquiryMapper.selectInquiriesByEmailOrId(null,"no",5));
     }
     @Test
     public void testDAOFindInquiriesByEmailOrId(){
-        log.info("{}",inquiryDAO.findInquiriesByEmailOrId("kakao",true));
-        log.info("{}",inquiryDAO.findInquiriesByEmailOrId(null,true));
-        log.info("{}",inquiryDAO.findInquiriesByEmailOrId(null,true).size());
+        log.info("{}",inquiryDAO.findInquiriesByEmailOrId("kakao","yes",5));
+        log.info("{}",inquiryDAO.findInquiriesByEmailOrId(null,"yes",5));
+        log.info("{}",inquiryDAO.findInquiriesByEmailOrId(null,"all",5).size());
 
     }
 
@@ -41,7 +41,7 @@ public class InquiryTests {
 
     @Test
     public void testServiceGetInquiryListWithAnswerStats(){
-        log.info("testServiceGetInquiryListWithAnswerStats{}",inquiryService.getInquiryListWithAnswerStats("kakao",false));
+        log.info("testServiceGetInquiryListWithAnswerStats{}",inquiryService.getInquiryListWithAnswerStats("kakao","all",5));
     }
 
     @Test

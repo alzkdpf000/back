@@ -36,7 +36,6 @@ VALUES ('안녕하세요, 해당 문제는 비밀번호 재설정 후 24시간 �
        ('광고 메일 수신 거부가 정상적으로 적용되었습니다.', 1, 6),
        ('포인트 적립 오류를 확인했습니다. 누락분을 추가 적립하겠습니다.', 2, 7),
        ('재가입 문제는 고객센터로 문의 주시면 처리해 드리겠습니다.', 1, 8),
-       ('게시글 삭제가 완료되었습니다.', 'active', 2, 9),
        ('다국어 지원 기능은 내년 상반기에 추가될 예정입니다.', 1, 10),
        ('추가로 로그인 시도 후에도 문제가 있으면 알려주세요.', 2, 1),
        ('배송이 내일 중으로 완료될 예정입니다.', 1, 5),
@@ -93,10 +92,11 @@ from (select ti.id,
       from tbl_member tm
                join tbl_inquiries ti
                     on ti.member_id = tm.id
-                        and ti.inquiries_status = 'active'
+
                left join tbl_inquiries_reply tir
                          on ti.id = tir.inquiries_id
-                             and tir.inquiries_status = 'active') sub
+      where ti.inquiries_status = 'active'
+        and tir.inquiries_status = 'active') sub
 order by sub.id desc;
 
 
@@ -105,19 +105,55 @@ select sum(if(tir.id is not null, 1, 0)) as answer_count,
 from tbl_inquiries ti
          left outer join tbl_inquiries_reply tir
                          on ti.id = tir.inquiries_id
-                             and ti.inquiries_status = 'active' and tir.inquiries_status = 'active';
+                             and ti.inquiries_status = 'active';
 
-explain select ti.id as id,
-       ti.inquiries_title as inquiries_title,
-       ti.inquiries_content as inquiries_content,
-       ti.created_datetime as created_datetime,
+explain
+select ti.id                                                                    as id,
+       ti.inquiries_title                                                       as inquiries_title,
+       ti.inquiries_content                                                     as inquiries_content,
+       ti.created_datetime                                                      as created_datetime,
        if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-       tir.inquiries_reply_content as inquiries_reply_content
+       tir.inquiries_reply_content                                              as inquiries_reply_content,
+       ti.inquiries_status
 from tbl_member tm
          join
      tbl_inquiries ti on tm.id = ti.member_id
          left outer join tbl_inquiries_reply tir
                          on ti.id = tir.inquiries_id
-where ti.id = 1
-  and ti.inquiries_status = 'active'
+where ti.inquiries_status = 'active'
   and tir.inquiries_status = 'active';
+
+
+
+select ti.id as id,
+       ti.inquiries_title as inquiry_title,
+       ti.inquiries_content as inquiry_content,
+       ti.created_datetime as created_datetime,
+       if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+       tir.inquiries_reply_content as inquiry_reply_content
+from tbl_member tm
+         join
+     tbl_inquiries ti on tm.id = ti.member_id
+         left outer join tbl_inquiries_reply tir
+                         on ti.id = tir.inquiries_id
+where ti.id =7
+  and ti.inquiries_status = 'active';
+
+select *
+from view_inquiry_member_reply;
+
+
+
+
+select sub.id as id,
+       sub.inquiries_title as inquiry_title,
+       sub.inquiries_content as inquiry_content,
+       sub.created_datetime as created_datetime,
+       sub.member_email as member_email,
+       sub.has_answer as has_answer,
+       sub.answer_datetime as answer_datetime
+from view_inquiry_member_reply sub
+order by sub.id desc
+limit 6 offset 0;
+
+

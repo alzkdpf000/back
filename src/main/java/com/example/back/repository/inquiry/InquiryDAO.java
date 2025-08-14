@@ -17,8 +17,8 @@ import java.util.OptionalInt;
 public class InquiryDAO {
     private final InquiryMapper inquiryMapper;
     //  검색 이메일 또는 아이디로 검색 결과 내림차순
-    public List<InquiryMemberReplyDTO> findInquiriesByEmailOrId(String query,boolean answerStatus){
-        return inquiryMapper.selectInquiriesByEmailOrId(query,answerStatus);
+    public List<InquiryMemberReplyDTO> findInquiriesByEmailOrId(String query,String answerStatus,int offset){
+        return inquiryMapper.selectInquiriesByEmailOrId(query,answerStatus,offset);
     }
     //  답변 수, 미답변 수
     public InquiriesCountDto getAnswerCounts(){

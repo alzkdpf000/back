@@ -1,29 +1,78 @@
+
+
 // 사이드바 메뉴 토글
 const menuBtns = document.querySelectorAll(".menu-btn");
 const allSubMenus = document.querySelectorAll(".menu-sub-list");
 
+let checkMore = true;
+let inquires;
+let offset = 0;
+const showList = async (offset = 0,query="",answerStatus="all") => {
+    const loading = document.getElementById("loading");
+
+    loading.style.display = "block";
+    const inquiresList = await mainService.getInquiries(mainLayout.showInquiries,offset);
+    setTimeout(() => {
+        loading.style.display = "none";
+    }, 1000)
+    // console.log(consultationMainPage.length());
+    console.log(inquiresList)
+    checkMore = inquiresList.length === 17;
+    console.log(checkMore)
+    return inquiresList;
+}
+
+let inquiryScroll = false;
+
+
+
 menuBtns.forEach((btn) => {
-    btn.addEventListener("click", async ()=> {
+    btn.addEventListener("click", async () => {
         allSubMenus.forEach((submenu) => (submenu.style.display = "none"));
         menuBtns.forEach((b) => b.classList.remove("active"));
 
+        let clickId = btn.classList[2];
+        console.log(clickId);
+        document.querySelectorAll("div.wide-page").forEach((divTag) => {
+            divTag.style.display = "none";
+        })
+        document.getElementById(`${clickId}`).style.display = "block";
+        if (clickId === "inquiry") {
+            inquiryScroll = true;
+            await showList();
+        }
         btn.classList.add("active");
 
-        if(btn.classList.contains("inquiry")){
-            await mainService.showInquiries(mainLayout.showInquiries)
-        }
 
         const targetId = btn.getAttribute("aria-controls");
         const targetMenu = document.getElementById(targetId);
         if (targetMenu) targetMenu.style.display = "block";
     });
 });
+console.log(window.scrollY,window.innerHeight ,document.documentElement.scrollHeight);
 
-const homeButton = document.getElementById("menu-home");
-const sideMenuButtons = document.querySelectorAll(".menu-btn");
-const sideSubLists = document.querySelectorAll(".menu-sub-list");
-const sideSubLinks = document.querySelectorAll(".boot-link");
-const tabNames = document.querySelectorAll(".tab-name");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const icons = document.querySelectorAll(".icon-wrapper i");
 
 // 상단 오른쪽 관리자 이메일 클릭 시 리스트 출력
