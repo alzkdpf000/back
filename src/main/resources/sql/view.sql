@@ -2,23 +2,23 @@ use app;
 
 drop view view_inquiry_member_reply;
 create view view_inquiry_member_reply as
-    (
-    select ti.id,
-           ti.inquiries_title,
-           ti.inquiries_content,
-           ti.created_datetime,
-           ti.inquiries_status,
-           if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-           if(tir.id is not null, 1, 0) as has_answer,
-           tir.created_datetime as answer_datetime,
-           tir.inquiries_reply_content,
-           tir.id as reply_id
-    from tbl_member tm
-             join tbl_inquiries ti
-                  on ti.member_id = tm.id
-             left join tbl_inquiries_reply tir
-                       on ti.id = tir.inquiries_id
-    where ti.inquiries_status = 'active'
+(
+select ti.id,
+       ti.inquiries_title,
+       ti.inquiries_content,
+       ti.created_datetime,
+       ti.inquiries_status,
+       if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+       if(tir.id is not null and tir.inquiries_status = 'active',1, 0) as has_answer,
+       tir.created_datetime as answer_datetime,
+       tir.inquiries_reply_content,
+       tir.id as reply_id
+from tbl_member tm
+         join tbl_inquiries ti
+              on ti.member_id = tm.id
+         left join tbl_inquiries_reply tir
+                   on ti.id = tir.inquiries_id
+where ti.inquiries_status = 'active'
     );
 
 create view view_member_file as
