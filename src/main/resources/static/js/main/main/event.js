@@ -1,18 +1,18 @@
-let offset = 0;
-let limit = 6;
 let checkMore = true;
-const showList = async (limit,offset = 0) => {
+let page = 1
+const showList = async (page =1) => {
     const loading = document.getElementById("loading");
 
     loading.style.display = "block";
-    const consultationMainPage = await consultationMainPageService.getConsultationPost(limit,offset, consultationMainPageLayout.showList);
+    const consultationMainPage = await consultationMainPageService.getConsultationPost(page,consultationMainPageLayout.showList);
     setTimeout(() => {
         loading.style.display = "none";
     }, 1000)
-    checkMore = consultationMainPage.length === limit;
+    checkMore = consultationMainPage.consultationPosts.length === consultationMainPage.scrollCriteria.rowCount;
+    console.log(checkMore)
     return consultationMainPage;
 }
-showList(limit);
+showList();
 
 let checkScroll = true;
 let consultationMainPage;
@@ -28,11 +28,10 @@ window.addEventListener("scroll", async (e) => {
     if(scrollTop + windowHeight >= documentHeight - 2) {
         //     바닥에 닿았을 때
         if(checkScroll){
-            offset +=5;
-            consultationMainPage = await showList(offset);
+            consultationMainPage = await showList(++page);
             checkScroll = false;
         }
-        checkMore = consultationMainPage.length === limit;
+        checkMore = consultationMainPage.consultationPostFiles.length === consultationMainPage.scrollCriteria.rowCount
         setTimeout(() => {
             if(consultationMainPage !== null && checkMore){
                 checkScroll = true

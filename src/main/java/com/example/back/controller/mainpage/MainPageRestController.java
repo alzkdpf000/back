@@ -1,6 +1,7 @@
 package com.example.back.controller.mainpage;
 
 import com.example.back.dto.consultationpost.ConsultationPostCategoryFileUserDTO;
+import com.example.back.dto.consultationpost.ConsultationPostCriteria;
 import com.example.back.service.consultationpost.ConsultationPostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,14 +20,14 @@ public class MainPageRestController {
 
 
     //  조회순으로 5개씩 무한 스크롤로 뿌려주기
-    @GetMapping("{offset}")
-    public ResponseEntity<List<ConsultationPostCategoryFileUserDTO>> mainPage(@RequestParam int limit, @PathVariable int offset) {
-        List<ConsultationPostCategoryFileUserDTO> consultationPostService5PostsByViews = consultationPostService.get5PostsByViews(limit,offset);
+    @GetMapping("{page}")
+    public ResponseEntity<ConsultationPostCriteria> mainPage(@PathVariable int page) {
+        ConsultationPostCriteria consultationPostCriteria = consultationPostService.get5PostsByViews(page);
 
 //        consultationPostService5PostsByViews.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
-        if (consultationPostService5PostsByViews.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(consultationPostService5PostsByViews);
+        if (consultationPostCriteria.getConsultationPosts().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(consultationPostCriteria);
         }
-        return ResponseEntity.ok(consultationPostService5PostsByViews);
+        return ResponseEntity.ok(consultationPostCriteria);
     }
 }
