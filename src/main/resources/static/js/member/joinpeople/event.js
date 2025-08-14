@@ -66,11 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
     checkAllInputs();
 });
 
-// 이메일 중복 검사 블러이벤트
-// 이메일 입력 요소
+// 이메일 중복 검사
 const emailInput = document.getElementById("email");
 
-// 메시지 표시용 span 생성
 const emailCheckMessage = document.createElement("span");
 emailCheckMessage.id = "emailCheckMessage";
 emailInput.parentNode.appendChild(emailCheckMessage);
@@ -85,7 +83,7 @@ emailInput.addEventListener("blur", () => {
         return;
     }
 
-    fetch("/member/check-email", {
+    fetch("check-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ memberEmail: email })
