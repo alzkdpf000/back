@@ -10,141 +10,7 @@
     <title>골든타임 관리자</title>
 </head>
 <body id="body">
-<div id="bootpay">
-    <div class="popup-manager" style="width: 0px;"></div>
-    <aside id="bootpay-side">
-        <div class="d-flex flex-column" id="side-wrapper">
-            <div class="side-header">
-                <div class="app-wrapper">
-                    <div class="provider-name hover-spin">
-                            <span class="comp-provider-name ">
-                                <span class="pn-name">골든타임</span>
-                            </span>
-
-                    </div>
-                    <a class="app-name d-flex justify-content-between align-items-center " href="">
-                        <span>골든타임</span>
-                        <i class="mdi mdi-apps"></i>
-                    </a>
-                </div>
-
-            </div>
-            <div class="menu-wrapper flex-grow-1">
-                <ul class="menu-list">
-                    <li class="menu menu-item d-flex flex-column">
-                        <a class="boot-link menu-btn " href="">
-                            <span class="menu-name">Home</span>
-                        </a>
-                        <ul class="menu-sub-list collapse ">
-
-                        </ul>
-
-                    </li>
-                    <li class="menu menu-item d-flex flex-column">
-                        <a id="menubtn1" class="menu-btn d-flex w-100 " data-toggle="collapse" aria-expanded="false"
-                           aria-controls="menu-6109064136799700f1ebced6" href="">
-                            <span class="menu-name">회원관리</span>
-                            <div class="icon-wrapper flex-grow-1 text-right">
-                                <i class="mdi mdi-chevron-down">
-
-                                </i>
-                            </div>
-                        </a>
-                        <!-- 바로밑 ul show 유무따라 소 카테고리가 열림 -->
-                        <ul id="sublist1" class="menu-sub-list collapse ">
-                            <li class="submenu menu-item ">
-                                <a class="boot-link " data-param="0" href="">
-                                    -
-                                    일반 회원목록
-                                </a>
-
-                            </li>
-                            <li class="submenu menu-item ">
-                                <a class="boot-link " data-param="0" href="">
-                                    -
-                                    의사회원 목록
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu menu-item d-flex flex-column">
-                        <a class="boot-link menu-btn " href="">
-                            <span class="menu-name">가입승인</span>
-                        </a>
-                        <ul class="menu-sub-list collapse ">
-                        </ul>
-                    </li>
-                    <li class="menu menu-item d-flex flex-column">
-                        <a class="boot-link menu-btn " href="">
-                            <span class="menu-name">결제내역조회</span>
-                        </a>
-                        <ul class="menu-sub-list collapse ">
-                        </ul>
-                    </li>
-                    <li class="menu menu-item d-flex flex-column">
-                        <a class="boot-link menu-btn active " href="">
-                            <span class="menu-name">문의</span>
-
-                        </a>
-                        <ul class="menu-sub-list collapse " id="menu-60934308367997007c4c3d2c">
-
-                        </ul>
-
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </aside>
-    <div id="bootpay-main" class="has-menu">
-        <div id="header-wrapper">
-            <div id="bootpay-header" class="d-flex trial-mode">
-                <div class="flex-grow-1"></div>
-                <div>
-                    <div class="header-menu-group d-flex">
-                        <a class="boot-link mr-3" href="">
-                            <div class="header-menu-btn " data-for="8598bfd3-1b35-4de3-a48f-9d6654dc0268"
-                                 data-toggle="tooltip" data-custom-class title="공지사항">
-                                <i class="mdi mdi-bullhorn-variant-outline">
-
-                                </i>
-
-                            </div>
-                        </a>
-                        <div class="user-menu">
-                            <!-- 주석 아래에 show 유무로 메뉴가보임 -->
-                            <div id="usermenubtn" class="user-menu-wrapper d-flex align-items-center cursor-pointer"
-                                 data-toggle="dropdown">
-                                <div class="user-avatar">T</div>
-                                <div class="user-menu-email">test@gamil.com</div>
-                            </div>
-                            <div id="usermenu" class="user-menu-content dropdown-menu dropdown-menu-right">
-                                <ul class="menu-body list-unstyled">
-                                    <li>
-                                        <a class="boot-link d-block text-dark" href="">
-                                            <i class="mdi mdi-bell-outline mr-2 mdi-18px"></i>
-                                            알림
-
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="d-block text-dark" href="">
-                                            <i class="mdi mdi-logout-variant mr-2 mdi-18px"></i>
-                                            로그아웃
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-        <div class="page wide-page receipt-index">
+<div th:fragment="inquiries"  style="display: none" class="page wide-page receipt-index" id="inquiry">
             <div class="page-header">
                 <div class="page-title">문의 내역 조회</div>
                 <div class="page-subtitle">회원 문의</div>
@@ -161,7 +27,7 @@
 
                             </div>
                             <div class="pill-value">
-                                <span class="span-amount">0</span>
+                                <span class="span-amount" id="replyCount">0</span>
                                 <span class="amount-unit">건</span>
 
                             </div>
@@ -175,7 +41,7 @@
                                 </span>
                                 <span>미답변</span>
                             </div>
-                            <div class="pill-value"><span class="span-amount">0</span><span class="amount-unit">건</span>
+                            <div class="pill-value"><span class="span-amount" id="noReplyCount">0</span><span class="amount-unit">건</span>
                             </div>
 
                         </div>
@@ -189,7 +55,7 @@
                             <div class="row">
                                 <div class="col-auto">
                                     <span class="receipt-count">총
-                                        <span class="count-amount">0</span>
+                                        <span class="count-amount" id="countAmount">0</span>
                                     건</span>
 
                                 </div>
@@ -325,21 +191,7 @@
                                 <th class="td-action">상세</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <!-- <td class="text-center font-weight-bold" colspan="5" >문의 내역이 없습니다</td> -->
-                                <td class="text-list">12345678</td>
-                                <td>안녕하세요</td>
-                                <td>2025-08-03</td>
-                                <td>답변완료</td>
-                                <td>2025-08-04</td>
-                                <td>-</td>
-                                <td class="td-action text-center">
-                                    <div id="modal-open" class="action-btn">
-                                        <i id="modalbtn" class="mdi mdi-chevron-right"></i></div>
-                                </td>
-
-                            </tr>
+                            <tbody id="inquiriesBody">
                             </tbody>
                         </table>
 
@@ -348,6 +200,7 @@
                 </div>
 
             </div>
+
             <div id="modal" class="modal fade receipt-modal show" aria-modal="true" role="dialog ">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -476,9 +329,8 @@
 
         </div>
 
-    </div>
-</div>
+
 
 </body>
-<script src="/js/admin/inquiry.js"></script>
+<script src="/js/admin/inquiry/event.js"></script>
 </html>

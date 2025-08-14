@@ -12,7 +12,7 @@ import java.util.List;
 
 @SpringBootTest
 @Slf4j
-public class FileVOConsultationTests {
+public class FileConsultationTests {
     @Autowired
     FileConsultationPostMapper fileConsultationPostMapper;
     @Autowired
