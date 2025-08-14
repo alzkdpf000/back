@@ -24,12 +24,14 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
 
     //    조회순(인기순)5개 게시글 조회 현재 임시로 3개만
     @Override
-//    @Transactional(readOnly = true)
     public ConsultationPostCriteria get5PostsByViews(int page) {
         ConsultationPostCriteria criteria = new ConsultationPostCriteria();
         ScrollCriteria scrollCriteria = new ScrollCriteria(page);
         List<ConsultationPostCategoryFileUserDTO> consultationPostDAO5OrderByViewCountDesc = consultationPostDAO.find5OrderByViewCountDesc(scrollCriteria);
 
+        if(consultationPostDAO5OrderByViewCountDesc.size() > scrollCriteria.getRowCount()){
+            consultationPostDAO5OrderByViewCountDesc.remove(consultationPostDAO5OrderByViewCountDesc.size()-1);
+        }
         consultationPostDAO5OrderByViewCountDesc.forEach((post) -> {
             post.setRelativeDate(DateUtils.toRelativeTime(post.getCreatedDatetime()));
             Long consultationPostId = post.getId();
