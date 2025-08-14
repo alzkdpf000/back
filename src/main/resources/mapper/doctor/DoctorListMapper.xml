@@ -29,11 +29,10 @@
             h.hospital_name,
             h.hospital_phone,
             ha.road_address,
-            ha.detail_address,
-            ha.zip_code
+            ha.detail_address
         from tbl_doctor d
                  join tbl_member m on d.member_id = m.id
-                 join tbl_hospital h on d.hospital_id = h.id
+                 join tbl_hospital   h on d.hospital_id = h.id
                  join tbl_hospital_address ha on h.id = ha.hospital_id
         where d.doctor_status = 'active'
     </select>

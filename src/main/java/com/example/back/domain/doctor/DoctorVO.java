@@ -15,14 +15,12 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(of="id")
 public class DoctorVO extends Period {
     private Long id;
-    private Long memberId;
+    private MemberVO member;
     private String doctorLicenseNumber;
     private String doctorSpecialty;
     private Status doctorStatus;
     private Long hospitalId;
-    private String hospitalName;
-    private String hospitalPhone;
     private String hospitalAddress;
-
+    private String hospitalPhone;
+    private String hospitalName;
 }
-
