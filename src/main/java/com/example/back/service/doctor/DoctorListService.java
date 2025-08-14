@@ -9,19 +9,17 @@ public interface DoctorListService {
     //  목록
     public DoctorListCriteriaDTO getList(int page);
 
-
-    default DoctorVO toDoctorVO(DoctorListDTO doctorListDTO){
-        return DoctorVO.builder()
-                .id(doctorListDTO.getId())
-                .doctorSpecialty(doctorListDTO.getDoctorSpecialty())
-                .doctorStatus(doctorListDTO.getDoctorStatus())
-                .id(doctorListDTO.getMemberId())
-                .hospitalId(doctorListDTO.getHospitalId())
-                .hospitalName(doctorListDTO.getHospitalName())
-                .hospitalPhone(doctorListDTO.getHospitalPhone())
-                .hospitalAddress(doctorListDTO.getHospitalAddress())
-                .createdDate(doctorListDTO.getCreatedDatetime())
-                .updatedDate(doctorListDTO.getUpdatedDatetime())
-                .build();
-    }
+//    default DoctorVO toDoctorVO(DoctorListDTO doctorListDTO){
+//        return DoctorVO.builder()
+//                .id(doctorListDTO.getId())
+//                .doctorSpecialty(doctorListDTO.getDoctorSpecialty())
+//                .doctorStatus(doctorListDTO.getDoctorStatus())
+//                .id(doctorListDTO.getMemberId())
+//                .hospitalId(doctorListDTO.getHospitalId())
+//                .hospitalName(doctorListDTO.getHospitalName())
+//                .hospitalPhone(doctorListDTO.getHospitalPhone())
+//                .createdDate(doctorListDTO.getCreatedDatetime())
+//                .updatedDate(doctorListDTO.getUpdatedDatetime())
+//                .build();
+//    }
 }
