@@ -9,6 +9,9 @@ public interface MemberService {
 //    회원가입
     public void join(MemberDTO memberDTO);
 
+//    이메일 검사
+    public boolean isExitMemberEmail(String memberEmail);
+    
     default MemberVO toVO(MemberDTO memberDTO){
         return MemberVO.builder()
                 .memberEmail(memberDTO.getMemberEmail())

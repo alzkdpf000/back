@@ -1,7 +1,7 @@
 package com.example.back.service.member;
 
 import com.example.back.dto.member.MemberDTO;
-import com.example.back.repository.memberDAO.MemberDAO;
+import com.example.back.repository.member.MemberDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

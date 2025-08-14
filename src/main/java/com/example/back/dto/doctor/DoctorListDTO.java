@@ -1,27 +1,32 @@
 package com.example.back.dto.doctor;
 
 
-import ch.qos.logback.core.status.Status;
+
+import com.example.back.common.enumeration.Status;
 import com.example.back.dto.likes.LikesDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-@Getter @ToString(callSuper = true)
-@Setter
-@SuperBuilder
+@Component
+@Getter @Setter
+@ToString
 @EqualsAndHashCode(of="id")
 public class DoctorListDTO {
     private Long id;
     private String memberName;
+    private String doctorLicenseNumber;
     private String doctorSpecialty;
     private Status doctorStatus;
     private Long memberId;
-    private String createdDate;
-    private String updatedDate;
+    private Long hospitalId;
+    private String createdDatetime;
+    private String updatedDatetime;
 //  의사 기본정보
+//  의사 이미지
     private String hospitalName;
     private String hospitalPhone;
     private String hospitalAddress;
