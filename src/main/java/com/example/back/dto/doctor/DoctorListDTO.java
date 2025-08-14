@@ -29,8 +29,15 @@ public class DoctorListDTO {
 //  의사 이미지
     private String hospitalName;
     private String hospitalPhone;
-    private String hospitalAddress;
+    private String roadAddress;
+    private String detailAddress;
 //  + 병원 정보
     private List<LikesDTO> likes;
 //  관심 정보
+
+    public String getHospitalAddress() {
+        String road = roadAddress != null ? roadAddress : "";
+        String detail = detailAddress != null ? detailAddress : "";
+        return (road + " " + detail).trim();
+    }
 }

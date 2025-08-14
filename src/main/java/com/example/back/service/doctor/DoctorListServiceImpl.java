@@ -6,6 +6,7 @@ import com.example.back.repository.doctor.DoctorListDAO;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +22,19 @@ public class DoctorListServiceImpl implements DoctorListService {
     public DoctorListCriteriaDTO getList(int page) {
         DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
         Criteria criteria = new Criteria(page, doctorListDAO.findCountDoctorList());
-        List<DoctorListDTO> doctorLists = doctorListDAO.findDoctorList(criteria);
+        List<DoctorListDTO> doctorsList = doctorListDAO.findDoctorList(criteria);
 
-        criteria.setHasMore(doctorLists.size() > criteria.getRowCount());
+        //        11개 가져왔으면, 마지막 1개 삭제
+        criteria.setHasMore(doctorsList.size() > criteria.getRowCount());
 
-//        11개 가져왔으면, 마지막 1개 삭제
         if(criteria.isHasMore()){
-            doctorLists.remove(doctorLists.size() - 1);
+            doctorsList.remove(doctorsList.size() - 1);
         }
 
-        doctorListCriteriaDTO.setDoctorLists(doctorLists);
+        doctorListCriteriaDTO.setDoctorsList(doctorsList);
         doctorListCriteriaDTO.setCriteria(criteria);
+
+
         return doctorListCriteriaDTO;
     }
 }

@@ -25,4 +25,10 @@ public class MemberMapperTests {
 
     }
 
+    @Test
+    public void testExistMemberEmail(){
+        boolean isExist = memberMapper.existMemberEmail("test@gmail.com");
+        log.info("isExist: {}", isExist);
+    }
+
 }

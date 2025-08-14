@@ -10,7 +10,7 @@ public interface MemberService {
     public void join(MemberDTO memberDTO);
 
 //    이메일 검사
-    public boolean isExitMemberEmail(String memberEmail);
+    public boolean isExistMemberEmail(String memberEmail);
     
     default MemberVO toVO(MemberDTO memberDTO){
         return MemberVO.builder()

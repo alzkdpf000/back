@@ -1,7 +1,6 @@
 package com.example.back.controller.doctor;
 
 import com.example.back.service.doctor.DoctorListService;
-import com.example.back.service.doctor.DoctorListServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +16,9 @@ public class DoctorListController{
 
     //    의사 목록
     @GetMapping("list/{page}")
-    public String getToList(@PathVariable int page, Model model){
-        model.addAttribute("doctorListsCriteriaDTO", doctorListService.getList(page));
-        return "doctor/doctor-hospital-list";
+    public String list(@PathVariable int page, Model model){
+        model.addAttribute("doctorsListCriteriaDTO", doctorListService.getList(page));
+        return "doctor/doctor-list";
     }
 
 
