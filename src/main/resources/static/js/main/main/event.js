@@ -1,17 +1,18 @@
 let offset = 0;
+let limit = 6;
 let checkMore = true;
-const showList = async (offset = 0) => {
+const showList = async (limit,offset = 0) => {
     const loading = document.getElementById("loading");
 
     loading.style.display = "block";
-    const consultationMainPage = await consultationMainPageService.getConsultationPost(offset, consultationMainPageLayout.showList);
+    const consultationMainPage = await consultationMainPageService.getConsultationPost(limit,offset, consultationMainPageLayout.showList);
     setTimeout(() => {
         loading.style.display = "none";
     }, 1000)
-    checkMore = consultationMainPage.length === 6;
+    checkMore = consultationMainPage.length === limit;
     return consultationMainPage;
 }
-showList();
+showList(limit);
 
 let checkScroll = true;
 let consultationMainPage;
@@ -31,7 +32,7 @@ window.addEventListener("scroll", async (e) => {
             consultationMainPage = await showList(offset);
             checkScroll = false;
         }
-        checkMore = consultationMainPage.length === 6;
+        checkMore = consultationMainPage.length === limit;
         setTimeout(() => {
             if(consultationMainPage !== null && checkMore){
                 checkScroll = true

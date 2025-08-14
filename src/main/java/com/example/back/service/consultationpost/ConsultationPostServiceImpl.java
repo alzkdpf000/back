@@ -23,8 +23,8 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
     //    조회순(인기순)5개 게시글 조회 현재 임시로 3개만
     @Override
 //    @Transactional(readOnly = true)
-    public List<ConsultationPostCategoryFileUserDTO> get5PostsByViews(int offest) {
-        List<ConsultationPostCategoryFileUserDTO> consultationPostDAO5OrderByViewCountDesc = consultationPostDAO.find5OrderByViewCountDesc(offest);
+    public List<ConsultationPostCategoryFileUserDTO> get5PostsByViews(int limit ,int offest) {
+        List<ConsultationPostCategoryFileUserDTO> consultationPostDAO5OrderByViewCountDesc = consultationPostDAO.find5OrderByViewCountDesc(limit,offest);
 
         consultationPostDAO5OrderByViewCountDesc.forEach((post) -> {
             post.setRelativeDate(DateUtils.toRelativeTime(post.getCreatedDatetime()));

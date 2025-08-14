@@ -1,15 +1,15 @@
 const mainService = (() => {
 
-    const getInquiries = async (callback,offset=0,query="",answerStatus="all") => {
+    const getInquiries = async (callback,page,query,answerStatus,load) => {
         try {
-            const response = await fetch(`/api/admin/inquires?offset=${offset}&query=${query}&answerStatus=${answerStatus}`)
+            const response = await fetch(`/api/admin/inquires/${page}?query=${query}&answerStatus=${answerStatus}`)
             const result = await  response.json();
             console.log(result);
             if(response.ok){
                 console.log("문의글 잘나옴")
             if (callback) {
                 setTimeout(()=>{
-                    callback(result);
+                    callback(result,load);
                 },1000)
             }
             }else{
@@ -17,10 +17,12 @@ const mainService = (() => {
                 console.log(response.status);
                 console.log(errorText || "Fetch Error");
             }
-            return result.inquiryMemberReplyDTOs;
+            return result;
         } catch (error) {
             console.log(error);
         }
     }
+
+    // const getDetailInquiry = async (callback)
     return {getInquiries: getInquiries}
 })();

@@ -6,18 +6,20 @@ const allSubMenus = document.querySelectorAll(".menu-sub-list");
 
 let checkMore = true;
 let inquires;
-let offset = 0;
-const showList = async (offset = 0,query="",answerStatus="all") => {
+
+
+const showList = async (page=1,query="",answerStatus="all",load=false) => {
     const loading = document.getElementById("loading");
 
     loading.style.display = "block";
-    const inquiresList = await mainService.getInquiries(mainLayout.showInquiries,offset);
+    const inquiresList = await mainService.getInquiries(mainLayout.showInquiries,page,query,answerStatus,load);
+
     setTimeout(() => {
         loading.style.display = "none";
     }, 1000)
     // console.log(consultationMainPage.length());
     console.log(inquiresList)
-    checkMore = inquiresList.length === 17;
+    checkMore =  inquiresList.inquiryMemberReplyDTOs.length  === inquiresList.scrollCriteria.rowCount;
     console.log(checkMore)
     return inquiresList;
 }
@@ -49,7 +51,7 @@ menuBtns.forEach((btn) => {
         if (targetMenu) targetMenu.style.display = "block";
     });
 });
-console.log(window.scrollY,window.innerHeight ,document.documentElement.scrollHeight);
+
 
 
 

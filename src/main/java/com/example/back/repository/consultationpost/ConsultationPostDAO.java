@@ -13,8 +13,8 @@ public class ConsultationPostDAO {
     private final ConsultationPostMapper consultationPostMapper;
 
     //    조회순(인기순)5개 게시글 조회 현재 임시로 3개만
-    public List<ConsultationPostCategoryFileUserDTO> find5OrderByViewCountDesc(int offest) {
-        return consultationPostMapper.select5OrderByViewCountDesc(offest);
+    public List<ConsultationPostCategoryFileUserDTO> find5OrderByViewCountDesc(int limit,int offest) {
+        return consultationPostMapper.select5OrderByViewCountDesc(limit,offest);
     }
 
 }

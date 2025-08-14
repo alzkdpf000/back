@@ -1,10 +1,10 @@
 const consultationMainPageLayout = (() => {
-    const showList = (consultationPost) => {
+    const showList = (limit,consultationPost) => {
         const consultationPostContainer = document.querySelector("#intersectionObserver");
         let text = ``;
 
         consultationPost.forEach((post,i) => {
-            if(i === consultationPost.length -1 && consultationPost.length === 6) {
+            if(i === consultationPost.length -1 && consultationPost.length === limit) {
                 return;
             }
             let categoryText = ``;

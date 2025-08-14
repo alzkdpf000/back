@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ConsultationPostService {
     //    조회순(인기순)5개 게시글 조회 현재 임시로 3개만
-    List<ConsultationPostCategoryFileUserDTO> get5PostsByViews(int offest);
+    List<ConsultationPostCategoryFileUserDTO> get5PostsByViews(int limit, int offest);
 
     default ConsultationPostVO toVO(ConsultationPostDTO consultationPostDTO) {
         return ConsultationPostVO.builder()

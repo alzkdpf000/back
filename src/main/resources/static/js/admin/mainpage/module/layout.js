@@ -1,34 +1,28 @@
 const mainLayout = (() => {
-    const showInquiries = async (result) => {
+    const showInquiries = async (result,load) => {
         const inquiriesBody = document.getElementById("inquiriesBody");
         const totalInquires = document.getElementById("countAmount");
         const replyCount = document.getElementById("replyCount");
         const noReplyCount = document.getElementById("noReplyCount");
         let text = ``;
         const inquiryMemberReplyDTOs = result.inquiryMemberReplyDTOs;
+        const scrollCriteria= result.scrollCriteria;
         replyCount.textContent = result.inquiriesCountDto.answerCount;
         noReplyCount.textContent = result.inquiriesCountDto.noAnswerCount;
         totalInquires.textContent = Number(replyCount.textContent) + Number(noReplyCount.textContent);
-
-
-
-
         if (inquiryMemberReplyDTOs.length === 0) {
             text += `
             <td class="text-center font-weight-bold" colspan="6" >문의 내역이 없습니다</td>
             `
         } else {
             inquiryMemberReplyDTOs.forEach((inquiryMemberReplyDTO,i) => {
-                if( i === inquiryMemberReplyDTOs.length -1  && inquiryMemberReplyDTOs.length === 17) {
-                    return;
-                }
                 text += `
                 <tr>
                     <td class="text-list">${inquiryMemberReplyDTO.id}</td>
                     <td>${inquiryMemberReplyDTO.inquiryTitle}</td>
                     <td>${inquiryMemberReplyDTO.createdDateTimeInquiry}</td>
                     <td>${inquiryMemberReplyDTO.hasAnswer ? "답변 완료" : "미답변"}</td>
-                    <td>${inquiryMemberReplyDTO.answerDatetimeReply ? inquiryMemberReplyDTO.answerDatetimeReply : "-" }</td>
+                    <td>${inquiryMemberReplyDTO.hasAnswer ? inquiryMemberReplyDTO.answerDatetimeReply : "-" }</td>
                     <td class="td-action text-center">
                         <div id="modal-open" class="action-btn" data-inquiryId = "${inquiryMemberReplyDTO.id}">
                             <i id="modalbtn" class="mdi mdi-chevron-right"></i></div>
@@ -38,7 +32,7 @@ const mainLayout = (() => {
             });
         }
 
-        inquiriesBody.innerHTML += text;
+        load ? inquiriesBody.innerHTML += text : inquiriesBody.innerHTML = text;
 
     }
     return {showInquiries: showInquiries}
