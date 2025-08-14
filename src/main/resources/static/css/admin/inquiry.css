@@ -1209,7 +1209,6 @@ button:not(:disabled) {
 }
 .modal.receipt-modal .modal-body .tab-view .tab-view-body {
     border-radius: 0;
-    min-height: 500px;
 }
 .tab-view .tab-view-body {
     background-color: #fff;
@@ -1274,6 +1273,9 @@ table.info-table td, table.info-table th {
     height: 46px;
     padding: 0 16px;
     vertical-align: middle;
+}
+table.info-table th{
+    text-align: center;
 }
 th {
     text-align: inherit;
