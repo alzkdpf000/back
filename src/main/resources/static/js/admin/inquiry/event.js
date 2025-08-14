@@ -44,11 +44,19 @@ btnFilterStatus?.addEventListener("click", () => {
 const inquiriesBody = document.getElementById("inquiriesBody");
 // 모달 열기/닫기
 
-inquiriesBody.addEventListener("click", (e) => {
+inquiriesBody.addEventListener("click", async (e) => {
+    const inquiryDetailBtn = e.target.closest("div#modal-open");
     console.log(e.target);
-    if (e.target.closest("div#modal-open")) {
-        modal.classList.add("show");
-        modal.style.display = "block";
+    if (inquiryDetailBtn) {
+        const inquiryId = inquiryDetailBtn.dataset.inquiryid
+        loading.style.display = "block";
+        await mainService.getDetailInquiry(mainLayout.showDetailInquiry,inquiryId);
+        setTimeout(() => {
+            loading.style.display = "none";
+            modal.classList.add("show");
+            modal.style.display = "block";
+        }, 1000)
+
 
     }
 })
@@ -57,13 +65,14 @@ modalClose?.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
-const scrollBox = document.getElementById("bootpay-main")
-let page =1;
-let query= "";
+
+let query = "";
 let answerStatus = "all";
+
 scrollBox.addEventListener("scroll", async (e) => {
-    console.log(checkMore);
-    console.log(inquiryScroll);
+    if (!inquiryScroll) {
+        return;
+    }
     if (!checkMore) {
         return;
     }
@@ -74,10 +83,11 @@ scrollBox.addEventListener("scroll", async (e) => {
     // div의 전체 콘텐츠 높이
     const scrollHeight = scrollBox.scrollHeight;
 
-    if (scrollTop + clientHeight >= scrollHeight - 2) {
+    if (scrollTop + clientHeight >= scrollHeight - 1) {
         //     바닥에 닿았을 때
         if (inquiryScroll) {
-            inquires = await showList(++page,query,answerStatus,true);
+            inquires = await showList(++page, query, answerStatus, true);
+            console.log("스크롤 이벤트야");
             inquiryScroll = false;
         }
         checkMore = inquires.inquiryMemberReplyDTOs.length === inquires.scrollCriteria.rowCount;
@@ -85,7 +95,7 @@ scrollBox.addEventListener("scroll", async (e) => {
             if (inquires !== null && checkMore) {
                 inquiryScroll = true
             }
-        }, 1100);
+        }, 2000);
     }
 })
 

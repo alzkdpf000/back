@@ -1,5 +1,7 @@
 package com.example.back.controller.admin;
 
+import com.example.back.common.exception.InquiryNotFoundException;
+import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
 import com.example.back.service.inquiry.InquiryService;
 import com.example.back.util.ScrollCriteria;
@@ -9,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/admin/**")
 @RequiredArgsConstructor
@@ -16,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminRestController {
     private final InquiryService inquiryService;
 
-    @GetMapping("inquires/{page}")
-    public ResponseEntity<InquirySummaryDTO> inquires(@PathVariable int page,
+    @GetMapping("inquires")
+    public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
                                                       @RequestParam String query,
                                                       @RequestParam String answerStatus) {
         log.info("{},{},{}",page,query,answerStatus);
@@ -25,4 +29,11 @@ public class AdminRestController {
         InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(scrollCriteria);
         return ResponseEntity.ok().body(inquiryListWithAnswerStats);
     }
+
+    @GetMapping("inquires/{inquiryId}")
+    public ResponseEntity<InquiryMemberReplyDTO> inquires(@PathVariable Long inquiryId) {
+        Optional<InquiryMemberReplyDTO> inquiryDetail = inquiryService.getInquiryDetail(inquiryId);
+        return ResponseEntity.ok().body(inquiryDetail.orElseThrow(InquiryNotFoundException::new));
+    }
+
 }
