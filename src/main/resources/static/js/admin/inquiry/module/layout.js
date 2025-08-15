@@ -1,4 +1,4 @@
-const mainLayout = (() => {
+const inquiryLayout = (() => {
     const showInquiries = async (result, load) => {
         console.log("몇 번이 실행될까")
         const inquiriesBody = document.getElementById("inquiriesBody");
@@ -45,6 +45,14 @@ const mainLayout = (() => {
         const replyContentTag = document.getElementById("replyContent");
         const modalFooter =  document.getElementById("modalFooter");
         const inquiryDetailDiv = document.getElementById("inquiryDetailDiv")
+        const imgContainer = document.getElementById("imgContainer");
+        let text= ``;
+        result.files.forEach((file)=>{
+            text +=`
+            <div><img src="/api/files/display?filePath=${file.filePath}&fileName=${file.fileName}" width="150" height="150"></div>
+            `
+        });
+        imgContainer.innerHTML = text;
         hasAnswerTag.textContent = result.hasAnswer ? "답변 완료" : "미답변"
         inquiryIdTag.textContent = result.id;
         createdDateTag.textContent = result.createdDateTimeInquiry;

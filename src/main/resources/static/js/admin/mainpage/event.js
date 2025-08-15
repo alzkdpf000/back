@@ -10,7 +10,7 @@ const showList = async (page = 1, query = "", answerStatus = "all", load = false
     const loading = document.getElementById("loading");
 
     loading.style.display = "block";
-    const inquiresList = await mainService.getInquiries(mainLayout.showInquiries, page, query, answerStatus, load);
+    const inquiresList = await inquiryService.getInquiries(inquiryLayout.showInquiries, page, query, answerStatus, load);
 
     setTimeout(() => {
         loading.style.display = "none";
@@ -20,7 +20,7 @@ const showList = async (page = 1, query = "", answerStatus = "all", load = false
 }
 
 
-const scrollBox = document.getElementById("bootpay-main")
+
 
 menuBtns.forEach((btn) => {
     btn.addEventListener("click", async () => {

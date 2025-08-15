@@ -1,4 +1,4 @@
-const mainService = (() => {
+const inquiryService = (() => {
 
     const getInquiries = async (callback, page, query, answerStatus, load) => {
         console.log(page)
