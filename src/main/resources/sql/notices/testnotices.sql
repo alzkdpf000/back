@@ -11,7 +11,7 @@ VALUES
     ('서버 이전 안내2', '서버 이전 작업으로 일시적인 접속 장애가 발생할 수 있습니다.', 'active', 11, 1),
     ('신규 기능 소개2', '마이페이지에 프로필 배경 설정 기능이 추가되었습니다.', 'active', 9, 2),
     ('이벤트 예고2', '다음 달 대규모 할인 이벤트가 진행됩니다.', 'active', 30, 2);
-
+select count(*) from tbl_notices;
 
 INSERT INTO tbl_file (file_original_name, file_name, file_path, file_size)
 VALUES

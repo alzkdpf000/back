@@ -1849,3 +1849,6 @@ button.btn.btn-outline-filter {
 #noticeBody tr td.td-title{
     width: 484px;
 }
+a.paging,td.td-title a.detail-notice{
+    cursor: pointer;
+}
