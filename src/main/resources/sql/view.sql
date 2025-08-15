@@ -9,6 +9,7 @@ create view view_inquiry_member_reply as
            ti.created_datetime,
            ti.inquiries_status,
            if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+           if(tir.id is not null, 1, 0) as has_answer,
            if(tir.id is not null and tir.inquiries_status = 'active',1, 0) as has_answer,
            tir.created_datetime as answer_datetime,
            tir.inquiries_reply_content,
