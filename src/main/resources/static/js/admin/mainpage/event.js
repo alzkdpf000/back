@@ -18,8 +18,8 @@ document.querySelector(".boot-link.mr-3").addEventListener("click",async (e)=>{
 
     contentWrap.innerHTML=`<tr><td class="text-light-grey text-center" colspan="3">조회된 공지가 없습니다.</td></tr>`;
     loading.style.display = "block";
-    await showNotices()
-    setTimeout(() => {
+    setTimeout(async () => {
+        await showNotices()
         loading.style.display = "none";
     }, 100)
 
