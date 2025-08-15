@@ -3,7 +3,10 @@ package com.example.back.controller.admin;
 import com.example.back.common.exception.InquiryNotFoundException;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
+import com.example.back.dto.notice.NoticeSummaryDTO;
+import com.example.back.dto.notice.NoticesCriteria;
 import com.example.back.service.inquiry.InquiryService;
+import com.example.back.service.notice.NoticeService;
 import com.example.back.util.ScrollCriteria;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +23,7 @@ import java.util.Optional;
 @Slf4j
 public class AdminRestController {
     private final InquiryService inquiryService;
+    private final NoticeService noticeService;
 
     @GetMapping("inquires")
     public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
@@ -35,5 +40,10 @@ public class AdminRestController {
         Optional<InquiryMemberReplyDTO> inquiryDetail = inquiryService.getInquiryDetail(inquiryId);
         return ResponseEntity.ok().body(inquiryDetail.orElseThrow(InquiryNotFoundException::new));
     }
+    @GetMapping("notices/{page}")
+    public ResponseEntity<NoticesCriteria> notices(@PathVariable int page) {
+        NoticesCriteria noticesCriteria = noticeService.getList(page);
 
+        return ResponseEntity.ok().body(noticesCriteria);
+    }
 }

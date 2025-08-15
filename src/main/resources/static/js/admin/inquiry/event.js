@@ -66,9 +66,30 @@ modalClose?.addEventListener("click", () => {
 });
 
 
+
 let query = "";
 let answerStatus = "all";
 const scrollBox = document.getElementById("bootpay-main")
+let checkMore = true;
+let inquires;
+let inquiryScroll = false;
+let page = 1;
+const showList = async (page = 1, query = "", answerStatus = "all", load = false) => {
+    const loading = document.getElementById("loading");
+
+    loading.style.display = "block";
+    const inquiresList = await inquiryService.getInquiries(inquiryLayout.showInquiries, page, query, answerStatus, load);
+
+    setTimeout(() => {
+        loading.style.display = "none";
+    }, 1000)
+    checkMore = inquiresList.inquiryMemberReplyDTOs.length === inquiresList.scrollCriteria.rowCount;
+    return inquiresList;
+}
+
+
+
+
 scrollBox.addEventListener("scroll", async (e) => {
     if (!inquiryScroll) {
         return;

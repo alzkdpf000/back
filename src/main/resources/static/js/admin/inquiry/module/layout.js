@@ -10,10 +10,11 @@ const inquiryLayout = (() => {
         replyCount.textContent = result.inquiriesCountDto.answerCount;
         noReplyCount.textContent = result.inquiriesCountDto.noAnswerCount;
         totalInquires.textContent = Number(replyCount.textContent) + Number(noReplyCount.textContent);
-        if (inquiryMemberReplyDTOs.length === 0) {
+        if (inquiryMemberReplyDTOs.length === 0 && !load) {
             text += `
             <td class="text-center font-weight-bold" colspan="6" >문의 내역이 없습니다</td>
             `
+            inquiriesBody.innerHTML = text;
         } else {
             inquiryMemberReplyDTOs.forEach((inquiryMemberReplyDTO, i) => {
                 text += `
@@ -29,10 +30,10 @@ const inquiryLayout = (() => {
                     </td>
                 </tr>
             `
-            });
-        }
 
-        load ? inquiriesBody.innerHTML += text : inquiriesBody.innerHTML = text;
+            });
+            inquiriesBody.innerHTML += text
+        }
 
     }
     const showDetailInquiry = async (result) => {

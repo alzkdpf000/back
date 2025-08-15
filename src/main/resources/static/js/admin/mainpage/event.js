@@ -2,31 +2,30 @@
 const menuBtns = document.querySelectorAll(".menu-btn");
 const allSubMenus = document.querySelectorAll(".menu-sub-list");
 
-let checkMore = true;
-let inquires;
-let inquiryScroll = false;
-let page = 1;
-const showList = async (page = 1, query = "", answerStatus = "all", load = false) => {
-    const loading = document.getElementById("loading");
-
-    loading.style.display = "block";
-    const inquiresList = await inquiryService.getInquiries(inquiryLayout.showInquiries, page, query, answerStatus, load);
-
-    setTimeout(() => {
-        loading.style.display = "none";
-    }, 1000)
-    checkMore = inquiresList.inquiryMemberReplyDTOs.length === inquiresList.scrollCriteria.rowCount;
-    return inquiresList;
-}
 
 
+document.querySelector(".boot-link.mr-3").addEventListener("click",async (e)=>{
+    e.preventDefault();
+    inquiryScroll = false;
+    document.querySelectorAll("div.wide-page").forEach((divTag) => {
+        divTag.style.display = "none";
+    })
+    document.getElementById("inquiriesBody").innerHTML = "";
+    menuBtns.forEach((btn)=>{
+        btn.classList.remove("active");
+    })
+    document.getElementById("notices").style.display="block";
+    await showNotices()
+
+})
 
 
 menuBtns.forEach((btn) => {
+
     btn.addEventListener("click", async () => {
+        document.getElementById("notices").style.display="none";
         allSubMenus.forEach((submenu) => (submenu.style.display = "none"));
         menuBtns.forEach((b) => b.classList.remove("active"));
-
         let clickId = btn.classList[2];
         console.log(clickId);
         document.querySelectorAll("div.wide-page").forEach((divTag) => {

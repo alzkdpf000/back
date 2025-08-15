@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="/css/admin/font.css">
     <link rel="stylesheet" href="/css/admin/mainpage.css">
+    <link rel="stylesheet" href="/css/admin/notification.css">
     <link rel="stylesheet" href="/css/admin/inquiry.css">
     <link rel="shortcut icon" href="/images/golden-time-favicon.png">
 <body>
@@ -103,7 +104,7 @@
                 <div class="flex-grow-1"></div>
                 <div>
                     <div class="header-menu-group d-flex">
-                        <a class="boot-link mr-3" href="">
+                        <a class="boot-link mr-3">
                             <div class="header-menu-btn " data-for="8598bfd3-1b35-4de3-a48f-9d6654dc0268"
                                  data-toggle="tooltip" data-custom-class title="공지사항">
                                 <i class="mdi mdi-bullhorn-variant-outline">
@@ -141,6 +142,7 @@
         <div id="test-wide-page">
             <div th:replace="~{/admin/fragments/mainpage :: main-page}"></div>
             <div th:replace="~{/admin/fragments/inquiry :: inquiries }"></div>
+            <div th:replace="~{/admin/fragments/notification :: notices}"></div>
         </div>
 
     </div>
@@ -151,6 +153,9 @@
 <script src="/js/admin/inquiry/module/service.js"></script>
 <script src="/js/admin/inquiry/module/layout.js"></script>
 <script src="/js/admin/inquiry/event.js"></script>
+<script src="/js/admin/notice/module/service.js"></script>
+<script src="/js/admin/notice/module/layout.js"></script>
+<script src="/js/admin/notice/event.js"></script>
 <script src="/js/admin/mainpage/event.js"></script>
 
 </html>
