@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임 관리자</title>
+
+    <link rel="stylesheet" href="/css/admin/font.css">
+    <link rel="stylesheet" href="/css/admin/notification.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png">
+
+</head>
+<body>
+<!-- 공지사항 메인 -->
+<div th:fragment="notices" style="display: none" class="page notice notice-index narrow-center" id="notices">
+    <div class="page-header">
+        <div class="page-title">공지사항</div>
+    </div>
+    <div class="page-body">
+        <div class="page-content white-panel p-5">
+            <div class="table-wrapper border-top">
+                <table class="table table-notice">
+                    <tbody id="noticeBody">
+                    <tr><td class="text-light-grey text-center" colspan="3">조회된 공지가 없습니다.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="bootpay-pagination-wrapper undefined">
+                <ul class="pagination bootpay-pagination">
+                </ul>
+                <div class="pagination-desc"></div>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="/js/admin/notification.js"></script>
+
+</html>

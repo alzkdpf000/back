@@ -28,21 +28,20 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
         ConsultationPostCriteria criteria = new ConsultationPostCriteria();
         ScrollCriteria scrollCriteria = new ScrollCriteria(page);
         List<ConsultationPostCategoryFileUserDTO> consultationPostDAO5OrderByViewCountDesc = consultationPostDAO.find5OrderByViewCountDesc(scrollCriteria);
-
-        if(consultationPostDAO5OrderByViewCountDesc.size() > scrollCriteria.getRowCount()){
-            consultationPostDAO5OrderByViewCountDesc.remove(consultationPostDAO5OrderByViewCountDesc.size()-1);
+        boolean hasMore = consultationPostDAO5OrderByViewCountDesc.size() > scrollCriteria.getRowCount();
+        if (hasMore) {
+            consultationPostDAO5OrderByViewCountDesc.remove(consultationPostDAO5OrderByViewCountDesc.size() - 1);
         }
         consultationPostDAO5OrderByViewCountDesc.forEach((post) -> {
             post.setRelativeDate(DateUtils.toRelativeTime(post.getCreatedDatetime()));
             Long consultationPostId = post.getId();
-            log.info("{}",consultationPostId);
+            log.info("{}", consultationPostId);
             List<String> categories = categoryDAO.findCategoryByPostId(consultationPostId);
-            log.info("{}",categories);
+            log.info("{}", categories);
             post.setCategories(categories);
             List<FileDTO> files = fileConsultationPostDAO.findFilesByPostId(consultationPostId);
             post.setConsultationPostFiles(files);
         });
-
         criteria.setConsultationPosts(consultationPostDAO5OrderByViewCountDesc);
         criteria.setScrollCriteria(scrollCriteria);
         return criteria;

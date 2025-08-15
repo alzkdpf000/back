@@ -1,4 +1,4 @@
-const mainLayout = (() => {
+const inquiryLayout = (() => {
     const showInquiries = async (result, load) => {
         console.log("몇 번이 실행될까")
         const inquiriesBody = document.getElementById("inquiriesBody");
@@ -10,10 +10,11 @@ const mainLayout = (() => {
         replyCount.textContent = result.inquiriesCountDto.answerCount;
         noReplyCount.textContent = result.inquiriesCountDto.noAnswerCount;
         totalInquires.textContent = Number(replyCount.textContent) + Number(noReplyCount.textContent);
-        if (inquiryMemberReplyDTOs.length === 0) {
+        if (inquiryMemberReplyDTOs.length === 0 && !load) {
             text += `
             <td class="text-center font-weight-bold" colspan="6" >문의 내역이 없습니다</td>
             `
+            inquiriesBody.innerHTML = text;
         } else {
             inquiryMemberReplyDTOs.forEach((inquiryMemberReplyDTO, i) => {
                 text += `
@@ -29,10 +30,10 @@ const mainLayout = (() => {
                     </td>
                 </tr>
             `
-            });
-        }
 
-        load ? inquiriesBody.innerHTML += text : inquiriesBody.innerHTML = text;
+            });
+            inquiriesBody.innerHTML += text
+        }
 
     }
     const showDetailInquiry = async (result) => {
@@ -45,6 +46,14 @@ const mainLayout = (() => {
         const replyContentTag = document.getElementById("replyContent");
         const modalFooter =  document.getElementById("modalFooter");
         const inquiryDetailDiv = document.getElementById("inquiryDetailDiv")
+        const imgContainer = document.getElementById("imgContainer");
+        let text= ``;
+        result.files.forEach((file)=>{
+            text +=`
+            <div><img src="/api/files/display?filePath=${file.filePath}&fileName=${file.fileName}" width="150" height="150"></div>
+            `
+        });
+        imgContainer.innerHTML = text;
         hasAnswerTag.textContent = result.hasAnswer ? "답변 완료" : "미답변"
         inquiryIdTag.textContent = result.id;
         createdDateTag.textContent = result.createdDateTimeInquiry;

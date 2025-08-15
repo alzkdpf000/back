@@ -1,9 +1,13 @@
 package com.example.back.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
+@Slf4j
 public class DateUtils {
     public static String toRelativeTime(String date) {
         if (date == null || date.isEmpty()) {
@@ -51,5 +55,12 @@ public class DateUtils {
     }
     public static String getCreatedDate(String createdDatetime){
         return createdDatetime.split(" ")[0];
+    }
+
+    public static String getMonthAndDay(String createdDatetime){
+        String date = getCreatedDate(createdDatetime);
+        String[] dateSplit =date.split("-");
+//        Arrays.stream(dateSplit).forEach(log::info);
+        return dateSplit[1] + "-"  + dateSplit[2];
     }
 }
