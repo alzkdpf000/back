@@ -996,11 +996,21 @@ button:not(:disabled) {
 .page.wide-page {
     max-width: 1800px;
 }
-
+#notices,#noticeDetail{
+    max-width: 1000px;
+}
 .page .page-header {
     padding-bottom: 20px;
 }
-
+#noticeDetailImgWrap{
+    display: flex;
+    margin-bottom: 34px;
+    gap: 20px;
+}
+#noticeDetailImgWrap img{
+    width: 150px;
+    height: 150px;
+}
 .page .page-header .page-title {
     font-size: 1.2rem;
     font-weight: 700;

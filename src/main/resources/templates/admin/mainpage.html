@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/admin/font.css">
     <link rel="stylesheet" href="/css/admin/mainpage.css">
     <link rel="stylesheet" href="/css/admin/notification.css">
+    <link rel="stylesheet" href="/css/admin/notificationDetail.css">
     <link rel="stylesheet" href="/css/admin/inquiry.css">
     <link rel="shortcut icon" href="/images/golden-time-favicon.png">
 <body>
@@ -143,6 +144,7 @@
             <div th:replace="~{/admin/fragments/mainpage :: main-page}"></div>
             <div th:replace="~{/admin/fragments/inquiry :: inquiries }"></div>
             <div th:replace="~{/admin/fragments/notification :: notices}"></div>
+            <div th:replace="~{/admin/fragments/notificationDetail :: noticesDetail}"></div>
         </div>
 
     </div>
@@ -156,6 +158,9 @@
 <script src="/js/admin/notice/module/service.js"></script>
 <script src="/js/admin/notice/module/layout.js"></script>
 <script src="/js/admin/notice/event.js"></script>
+<script src="/js/admin/noticedetail/module/service.js"></script>
+<script src="/js/admin/noticedetail/module/layout.js"></script>
+<script src="/js/admin/noticedetail/event.js"></script>
 <script src="/js/admin/mainpage/event.js"></script>
 
 </html>

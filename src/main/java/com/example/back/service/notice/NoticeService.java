@@ -7,9 +7,13 @@ import com.example.back.dto.notice.NoticeSummaryDTO;
 import com.example.back.dto.notice.NoticesCriteria;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface NoticeService {
+//  목록과 페이징 처리
     NoticesCriteria getList(int page);
+//  특정 공지사항 가져오기
+    Optional<NoticeDTO> getNotice(Long id);
 
     default NoticeVO toVO(NoticeDTO noticeDTO){
         return NoticeVO.builder()

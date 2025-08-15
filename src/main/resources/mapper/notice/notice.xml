@@ -16,6 +16,13 @@
     </select>
 
     <select id="selectById">
-#         select
+        select id,notices_title, notices_content, created_datetime
+        from tbl_notices
+        where notices_status = 'active' and id = #{id}
     </select>
+    <update id="updateNoticeReadCount">
+        update tbl_notices
+        set notices_view_count = notices_view_count + 1
+        where id =#{id}
+    </update>
 </mapper>

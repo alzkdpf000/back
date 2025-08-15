@@ -1,6 +1,5 @@
 package com.example.back.dto.file;
 
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @ToString
 @EqualsAndHashCode(of="fileId")
-public class FileInquirytDTO {
+public class FileNoticeDTO {
     private Long fileId;
-    private Long InquiryId;
+    private Long noticeId;
 }

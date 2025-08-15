@@ -1,12 +1,15 @@
 package com.example.back.dto.notice;
 
 import com.example.back.common.enumeration.Status;
+import com.example.back.dto.file.FileDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @ToString
@@ -21,4 +24,5 @@ public class NoticeDTO {
     private Long memberId;
     private String createdDatetime;
     private String updatedDatetime;
+    private List<FileDTO> files;
 }
