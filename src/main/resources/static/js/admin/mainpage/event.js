@@ -1,36 +1,31 @@
-
-
 // 사이드바 메뉴 토글
 const menuBtns = document.querySelectorAll(".menu-btn");
 const allSubMenus = document.querySelectorAll(".menu-sub-list");
 
-let checkMore = true;
-let inquires;
-let offset = 0;
-const showList = async (offset = 0,query="",answerStatus="all") => {
-    const loading = document.getElementById("loading");
 
-    loading.style.display = "block";
-    const inquiresList = await mainService.getInquiries(mainLayout.showInquiries,offset);
-    setTimeout(() => {
-        loading.style.display = "none";
-    }, 1000)
-    // console.log(consultationMainPage.length());
-    console.log(inquiresList)
-    checkMore = inquiresList.length === 17;
-    console.log(checkMore)
-    return inquiresList;
-}
 
-let inquiryScroll = false;
+document.querySelector(".boot-link.mr-3").addEventListener("click",async (e)=>{
+    e.preventDefault();
+    inquiryScroll = false;
+    document.querySelectorAll("div.wide-page").forEach((divTag) => {
+        divTag.style.display = "none";
+    })
+    document.getElementById("inquiriesBody").innerHTML = "";
+    menuBtns.forEach((btn)=>{
+        btn.classList.remove("active");
+    })
+    document.getElementById("notices").style.display="block";
+    await showNotices()
 
+})
 
 
 menuBtns.forEach((btn) => {
+
     btn.addEventListener("click", async () => {
+        document.getElementById("notices").style.display="none";
         allSubMenus.forEach((submenu) => (submenu.style.display = "none"));
         menuBtns.forEach((b) => b.classList.remove("active"));
-
         let clickId = btn.classList[2];
         console.log(clickId);
         document.querySelectorAll("div.wide-page").forEach((divTag) => {
@@ -38,8 +33,11 @@ menuBtns.forEach((btn) => {
         })
         document.getElementById(`${clickId}`).style.display = "block";
         if (clickId === "inquiry") {
-            inquiryScroll = true;
+            page = 1;
+            document.getElementById("inquiriesBody").innerHTML = "";
             await showList();
+            console.log("클릭 이벤트야")
+            inquiryScroll = true;
         }
         btn.classList.add("active");
 
@@ -49,28 +47,6 @@ menuBtns.forEach((btn) => {
         if (targetMenu) targetMenu.style.display = "block";
     });
 });
-console.log(window.scrollY,window.innerHeight ,document.documentElement.scrollHeight);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const icons = document.querySelectorAll(".icon-wrapper i");

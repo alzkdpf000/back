@@ -1,8 +1,8 @@
 const consultationMainPageService = (()=>{
-    const getConsultationPost = async (offset= 0, callback)=>{
+    const getConsultationPost = async (page, callback)=>{
 
         try{
-            const response = await fetch(`/api/${offset}`);
+            const response = await fetch(`/api/${page}`);
             const consultationPost = await response.json();
             if(callback){
                 setTimeout(() => {

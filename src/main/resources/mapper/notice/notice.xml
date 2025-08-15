@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.notice.NoticeMapper">
+    <select id="selectAll">
+        select id,notices_title, created_datetime
+        from tbl_notices
+        where notices_status = 'active'
+        order by id desc
+        limit #{count} offset #{offset}
+    </select>
+
+    <select id="selectCountAll">
+        select count(id)
+        from tbl_notices
+        where notices_status ='active'
+    </select>
+</mapper>

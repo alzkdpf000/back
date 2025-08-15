@@ -1,5 +1,6 @@
 package com.example.back.dto.inquiry;
 
+import com.example.back.util.ScrollCriteria;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +17,5 @@ import java.util.List;
 public class InquirySummaryDTO {
     private List<InquiryMemberReplyDTO> inquiryMemberReplyDTOs;
     private InquiriesCountDto inquiriesCountDto;
+    private ScrollCriteria scrollCriteria;
 }
