@@ -68,10 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 이메일 중복 검사
 const emailInput = document.getElementById("email");
+const check = document.querySelector(".iprukchang1");
 
 const emailCheckMessage = document.createElement("span");
 emailCheckMessage.id = "emailCheckMessage";
-emailInput.parentNode.appendChild(emailCheckMessage);
+//emailInput.parentNode.appendChild(emailCheckMessage);
+check.appendChild(emailCheckMessage);
 
 // 블러 이벤트
 emailInput.addEventListener("blur", () => {
