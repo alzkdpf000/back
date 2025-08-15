@@ -14,4 +14,8 @@
         from tbl_notices
         where notices_status ='active'
     </select>
+
+    <select id="selectById">
+#         select
+    </select>
 </mapper>
