@@ -1,30 +1,26 @@
-
-
 // 사이드바 메뉴 토글
 const menuBtns = document.querySelectorAll(".menu-btn");
 const allSubMenus = document.querySelectorAll(".menu-sub-list");
 
 let checkMore = true;
 let inquires;
-let offset = 0;
-const showList = async (offset = 0,query="",answerStatus="all") => {
+let inquiryScroll = false;
+let page = 1;
+const showList = async (page = 1, query = "", answerStatus = "all", load = false) => {
     const loading = document.getElementById("loading");
 
     loading.style.display = "block";
-    const inquiresList = await mainService.getInquiries(mainLayout.showInquiries,offset);
+    const inquiresList = await mainService.getInquiries(mainLayout.showInquiries, page, query, answerStatus, load);
+
     setTimeout(() => {
         loading.style.display = "none";
     }, 1000)
-    // console.log(consultationMainPage.length());
-    console.log(inquiresList)
-    checkMore = inquiresList.length === 17;
-    console.log(checkMore)
+    checkMore = inquiresList.inquiryMemberReplyDTOs.length === inquiresList.scrollCriteria.rowCount;
     return inquiresList;
 }
 
-let inquiryScroll = false;
 
-
+const scrollBox = document.getElementById("bootpay-main")
 
 menuBtns.forEach((btn) => {
     btn.addEventListener("click", async () => {
@@ -38,8 +34,11 @@ menuBtns.forEach((btn) => {
         })
         document.getElementById(`${clickId}`).style.display = "block";
         if (clickId === "inquiry") {
-            inquiryScroll = true;
+            page = 1;
+            document.getElementById("inquiriesBody").innerHTML = "";
             await showList();
+            console.log("클릭 이벤트야")
+            inquiryScroll = true;
         }
         btn.classList.add("active");
 
@@ -49,28 +48,6 @@ menuBtns.forEach((btn) => {
         if (targetMenu) targetMenu.style.display = "block";
     });
 });
-console.log(window.scrollY,window.innerHeight ,document.documentElement.scrollHeight);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const icons = document.querySelectorAll(".icon-wrapper i");

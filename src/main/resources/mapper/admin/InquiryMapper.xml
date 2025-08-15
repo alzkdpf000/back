@@ -22,16 +22,15 @@
             <if test='answerStatus == "yes"'>
                 and sub.reply_id IS NOT NULL
             </if>
-
         </where>
         order by sub.id desc
-        limit 17 offset #{offset}
+        limit #{count} offset #{offset}
     </select>
     
     
     <select id="selectAnswerCounts">
-        select ifnull(sum(if(tir.id is not null, 1, 0)),0) as answer_count,
-               ifnull(sum(if(tir.id is null, 1, 0)),0)     as no_answer_count
+        select ifnull(sum(if(tir.id is not null and tir.inquiries_status = 'active', 1, 0)),0) as answer_count,
+               ifnull(sum(if(tir.id is null or tir.inquiries_status = 'inactive', 1, 0)),0)     as no_answer_count
         from tbl_inquiries ti
                  left outer join tbl_inquiries_reply tir
                                  on ti.id = tir.inquiries_id
@@ -44,6 +43,7 @@
                inquiries_content       AS inquiry_content,
                created_datetime,
                member_email,
+               has_answer,
                inquiries_reply_content AS inquiry_reply_content
         from view_inquiry_member_reply
         where id = #{inquiriesId}

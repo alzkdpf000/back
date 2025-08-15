@@ -4,6 +4,7 @@ import com.example.back.common.enumeration.Status;
 import com.example.back.dto.inquiry.InquiriesCountDto;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.mapper.inquiry.InquiryMapper;
+import com.example.back.util.ScrollCriteria;
 import lombok.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -17,8 +18,8 @@ import java.util.OptionalInt;
 public class InquiryDAO {
     private final InquiryMapper inquiryMapper;
     //  검색 이메일 또는 아이디로 검색 결과 내림차순
-    public List<InquiryMemberReplyDTO> findInquiriesByEmailOrId(String query,String answerStatus,int offset){
-        return inquiryMapper.selectInquiriesByEmailOrId(query,answerStatus,offset);
+    public List<InquiryMemberReplyDTO> findInquiriesByEmailOrId(ScrollCriteria scrollCriteria){
+        return inquiryMapper.selectInquiriesByEmailOrId(scrollCriteria);
     }
     //  답변 수, 미답변 수
     public InquiriesCountDto getAnswerCounts(){

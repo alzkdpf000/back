@@ -2,16 +2,13 @@ package com.example.back.service.inquiry;
 
 import com.example.back.dto.file.FileDTO;
 import com.example.back.dto.inquiry.InquiriesCountDto;
-import com.example.back.dto.inquiry.InquiryDTO;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
-import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.file.FileInquiryDAO;
 import com.example.back.repository.inquiry.InquiryDAO;
-import com.example.back.repository.memberDAO.MemberDAO;
 import com.example.back.util.DateUtils;
+import com.example.back.util.ScrollCriteria;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,16 +23,21 @@ public class InquiryServiceImpl implements InquiryService {
 
     //    문의글 목록 및 통계
     @Override
-    public InquirySummaryDTO getInquiryListWithAnswerStats(String query, String answerStatus, int offset) {
+    public InquirySummaryDTO getInquiryListWithAnswerStats(ScrollCriteria scrollCriteria) {
         InquirySummaryDTO inquirySummaryDTO = new InquirySummaryDTO();
-        List<InquiryMemberReplyDTO> inquiriesByEmailOrId = inquiryDAO.findInquiriesByEmailOrId(query, answerStatus, offset);
+        List<InquiryMemberReplyDTO> inquiriesByEmailOrId = inquiryDAO.findInquiriesByEmailOrId(scrollCriteria);
+        if(inquiriesByEmailOrId.size() > scrollCriteria.getRowCount()){
+            inquiriesByEmailOrId.remove(inquiriesByEmailOrId.size()-1);
+        }
         inquiriesByEmailOrId.forEach(inquiryMemberReplyDTO -> {
             inquiryMemberReplyDTO.setCreatedDateTimeInquiry(DateUtils.getCreatedDate(inquiryMemberReplyDTO.getCreatedDateTime()));
             if(inquiryMemberReplyDTO.getAnswerDatetime() != null){
                 inquiryMemberReplyDTO.setAnswerDatetimeReply(DateUtils.getCreatedDate(inquiryMemberReplyDTO.getAnswerDatetime()));
             }
         });
+
         InquiriesCountDto answerCounts = inquiryDAO.getAnswerCounts();
+        inquirySummaryDTO.setScrollCriteria(scrollCriteria);
         inquirySummaryDTO.setInquiriesCountDto(answerCounts);
         inquirySummaryDTO.setInquiryMemberReplyDTOs(inquiriesByEmailOrId);
         return inquirySummaryDTO;

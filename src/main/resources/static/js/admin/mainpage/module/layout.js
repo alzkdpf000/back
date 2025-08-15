@@ -1,5 +1,6 @@
 const mainLayout = (() => {
-    const showInquiries = async (result) => {
+    const showInquiries = async (result, load) => {
+        console.log("몇 번이 실행될까")
         const inquiriesBody = document.getElementById("inquiriesBody");
         const totalInquires = document.getElementById("countAmount");
         const replyCount = document.getElementById("replyCount");
@@ -9,26 +10,19 @@ const mainLayout = (() => {
         replyCount.textContent = result.inquiriesCountDto.answerCount;
         noReplyCount.textContent = result.inquiriesCountDto.noAnswerCount;
         totalInquires.textContent = Number(replyCount.textContent) + Number(noReplyCount.textContent);
-
-
-
-
         if (inquiryMemberReplyDTOs.length === 0) {
             text += `
             <td class="text-center font-weight-bold" colspan="6" >문의 내역이 없습니다</td>
             `
         } else {
-            inquiryMemberReplyDTOs.forEach((inquiryMemberReplyDTO,i) => {
-                if( i === inquiryMemberReplyDTOs.length -1  && inquiryMemberReplyDTOs.length === 17) {
-                    return;
-                }
+            inquiryMemberReplyDTOs.forEach((inquiryMemberReplyDTO, i) => {
                 text += `
                 <tr>
                     <td class="text-list">${inquiryMemberReplyDTO.id}</td>
                     <td>${inquiryMemberReplyDTO.inquiryTitle}</td>
                     <td>${inquiryMemberReplyDTO.createdDateTimeInquiry}</td>
                     <td>${inquiryMemberReplyDTO.hasAnswer ? "답변 완료" : "미답변"}</td>
-                    <td>${inquiryMemberReplyDTO.answerDatetimeReply ? inquiryMemberReplyDTO.answerDatetimeReply : "-" }</td>
+                    <td>${inquiryMemberReplyDTO.hasAnswer ? inquiryMemberReplyDTO.answerDatetimeReply : "-"}</td>
                     <td class="td-action text-center">
                         <div id="modal-open" class="action-btn" data-inquiryId = "${inquiryMemberReplyDTO.id}">
                             <i id="modalbtn" class="mdi mdi-chevron-right"></i></div>
@@ -38,23 +32,42 @@ const mainLayout = (() => {
             });
         }
 
-        inquiriesBody.innerHTML += text;
+        load ? inquiriesBody.innerHTML += text : inquiriesBody.innerHTML = text;
 
     }
-    return {showInquiries: showInquiries}
+    const showDetailInquiry = async (result) => {
+        const hasAnswerTag = document.getElementById("hasAnswer");
+        const inquiryIdTag = document.getElementById("inquiryId");
+        const createdDateTag = document.getElementById("createdDate");
+        const titleTag = document.getElementById("title");
+        const memberEmailTag = document.getElementById("memberEmail");
+        const contentTag = document.getElementById("content");
+        const replyContentTag = document.getElementById("replyContent");
+        const modalFooter =  document.getElementById("modalFooter");
+        const inquiryDetailDiv = document.getElementById("inquiryDetailDiv")
+        hasAnswerTag.textContent = result.hasAnswer ? "답변 완료" : "미답변"
+        inquiryIdTag.textContent = result.id;
+        createdDateTag.textContent = result.createdDateTimeInquiry;
+        titleTag.textContent = result.inquiryTitle;
+        memberEmailTag.textContent = result.memberEmail;
+        contentTag.textContent = result.inquiryContent;
+
+        if (result.hasAnswer) {
+            modalFooter.style.display = "none";
+            hasAnswerTag.classList.remove("text-danger");
+            hasAnswerTag.classList.add("text-primary");
+            inquiryDetailDiv.style.display = "block";
+            replyContentTag.textContent =result.inquiryReplyContent;
+        } else {
+            hasAnswerTag.classList.remove("text-primary");
+            hasAnswerTag.classList.add("text-danger");
+            inquiryDetailDiv.style.display = "none";
+            replyContentTag.textContent ="";
+            modalFooter.style.display ="flex"
+        }
+
+
+    }
+    return {showInquiries: showInquiries, showDetailInquiry: showDetailInquiry}
 })();
 
-
-// <tr>
-//     <!-- <td class="text-center font-weight-bold" colspan="5" >문의 내역이 없습니다</td> -->
-//     <td className="text-list">12345678</td>
-//     <td>안녕하세요</td>
-//     <td>2025-08-03</td>
-//     <td>답변완료</td>
-//     <td>2025-08-04</td>
-//     <td className="td-action text-center">
-//         <div id="modal-open" className="action-btn">
-//             <i id="modalbtn" className="mdi mdi-chevron-right"></i></div>
-//     </td>
-//
-// </tr>
