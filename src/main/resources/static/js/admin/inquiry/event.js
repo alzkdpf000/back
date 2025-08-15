@@ -50,7 +50,7 @@ inquiriesBody.addEventListener("click", async (e) => {
     if (inquiryDetailBtn) {
         const inquiryId = inquiryDetailBtn.dataset.inquiryid
         loading.style.display = "block";
-        await mainService.getDetailInquiry(mainLayout.showDetailInquiry,inquiryId);
+        await inquiryService.getDetailInquiry(inquiryLayout.showDetailInquiry,inquiryId);
         setTimeout(() => {
             loading.style.display = "none";
             modal.classList.add("show");
@@ -68,7 +68,7 @@ modalClose?.addEventListener("click", () => {
 
 let query = "";
 let answerStatus = "all";
-
+const scrollBox = document.getElementById("bootpay-main")
 scrollBox.addEventListener("scroll", async (e) => {
     if (!inquiryScroll) {
         return;
