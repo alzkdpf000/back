@@ -56,4 +56,16 @@ public class NoticeTests {
         log.info("{}",noticeDAO.findCountAll());
     }
 
+    @Test
+    public void testMapperSelectById(){
+        log.info("{}",noticeMapper.selectById(180L));
+    }
+    @Test
+    public void testDAOfindById(){
+        log.info("{}",noticeDAO.findById(180L));
+    }
+    @Test
+    public void testServiceGetNotice(){
+        log.info("{}",noticeService.getNotice(180L));
+    }
 }

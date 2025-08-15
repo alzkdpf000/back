@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,7 +18,19 @@ public class NoticeDAO {
     public List<NoticeSummaryDTO> findAll(Criteria criteria) {
         return noticeMapper.selectAll(criteria);
     }
+//  전체 개수 조회
     public int findCountAll(){
         return noticeMapper.selectCountAll();
+
     }
+    //  특정 공지사항 조회
+    public Optional<NoticeDTO> findById(Long id){
+        return noticeMapper.selectById(id);
+    }
+
+    // 조회 수 증가
+    public void updateNoticeReadCount(Long id){
+        noticeMapper.updateNoticeReadCount(id);
+    }
+
 }

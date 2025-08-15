@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of="fileId")
 public class FileConsultationPostDTO {
     private Long fileId;
     private Long consultationPostId;

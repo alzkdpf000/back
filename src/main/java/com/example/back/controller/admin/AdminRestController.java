@@ -1,8 +1,10 @@
 package com.example.back.controller.admin;
 
 import com.example.back.common.exception.InquiryNotFoundException;
+import com.example.back.common.exception.NoticeNotFoundException;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
+import com.example.back.dto.notice.NoticeDTO;
 import com.example.back.dto.notice.NoticeSummaryDTO;
 import com.example.back.dto.notice.NoticesCriteria;
 import com.example.back.service.inquiry.InquiryService;
@@ -40,10 +42,14 @@ public class AdminRestController {
         Optional<InquiryMemberReplyDTO> inquiryDetail = inquiryService.getInquiryDetail(inquiryId);
         return ResponseEntity.ok().body(inquiryDetail.orElseThrow(InquiryNotFoundException::new));
     }
-    @GetMapping("notices/{page}")
-    public ResponseEntity<NoticesCriteria> notices(@PathVariable int page) {
+    @GetMapping("notices")
+    public ResponseEntity<NoticesCriteria> notices(@RequestParam int page) {
         NoticesCriteria noticesCriteria = noticeService.getList(page);
-
         return ResponseEntity.ok().body(noticesCriteria);
+    }
+    @GetMapping("notices/{id}")
+    public ResponseEntity<NoticeDTO> notices(@PathVariable Long id) {
+        NoticeDTO notice = noticeService.getNotice(id).orElseThrow(NoticeNotFoundException::new);
+        return ResponseEntity.ok().body(notice);
     }
 }

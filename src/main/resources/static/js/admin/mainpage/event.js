@@ -10,12 +10,18 @@ document.querySelector(".boot-link.mr-3").addEventListener("click",async (e)=>{
     document.querySelectorAll("div.wide-page").forEach((divTag) => {
         divTag.style.display = "none";
     })
-    document.getElementById("inquiriesBody").innerHTML = "";
     menuBtns.forEach((btn)=>{
         btn.classList.remove("active");
     })
     document.getElementById("notices").style.display="block";
+    const contentWrap = document.getElementById("noticeBody");
+
+    contentWrap.innerHTML=`<tr><td class="text-light-grey text-center" colspan="3">조회된 공지가 없습니다.</td></tr>`;
+    loading.style.display = "block";
     await showNotices()
+    setTimeout(() => {
+        loading.style.display = "none";
+    }, 100)
 
 })
 
