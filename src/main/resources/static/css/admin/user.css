@@ -576,10 +576,6 @@ button:not(:disabled) {
     color: #4e5d6c !important;
 } */
 
-.text-danger {
-    color: #40c8bc !important;
-}
-
 .ml-1, .mr-1, .mx-1 {
     margin-right: .25rem !important;
 }
