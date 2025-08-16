@@ -37,7 +37,7 @@ public class DoctorListController{
 
 
 
-=======
+
 //package com.example.back.controller.doctor;
 //
 //import com.example.back.service.doctor.DoctorListService;
@@ -78,4 +78,3 @@ public class DoctorListController{
 //
 //
 //
->>>>>>> member/join
