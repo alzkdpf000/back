@@ -82,6 +82,7 @@ const memberLayout = (() => {
         const posts = result.consultationPosts;
         const memberEmail = result.provider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
         const memberStatus = result.memberStatus === "ACTIVE" ? "활동 중" : "탈퇴";
+        memberDetailStatus.style.color = result.memberStatus === "ACTIVE" ? "#507cf3": "#fe657e";
         memberDetailName.textContent = result.memberName;
         memberDetailPhone.textContent = result.memberPhone;
         memberDetailVita.textContent = result.memberVitaAmount;
@@ -90,18 +91,19 @@ const memberLayout = (() => {
         memberDetailEmail.textContent = memberEmail;
         memberDetailStatus.textContent = memberStatus;
         memberDetailProvider.textContent = result.provider;
-        if(posts.length ===0){
+        if (posts.length === 0) {
             text +=
                 `
-                <tr><td class="text-light-grey text-center" colspan="3">작성한 상담글이 없습니다</td></tr>
+                <tr><td class="text-light-grey text-center" colspan="4">작성한 상담글이 없습니다</td></tr>
                 `
-        }else{
+        } else {
             posts.forEach((post) => {
+                const check = post.consultationPostStatus === "ACTIVE";
                 text += `
             <tr>
                 <td>${post.consultationPostTitle}</td>
                 <td>${post.consultationPostAnswerCount}</td>
-                <td>${post.consultationPostStatus === "ACTIVE" ? "Y" : "N"}</td>
+                <td style="color :${check ? "#507cf3": "#fe657e"}">${check ? "Y" : "N"}</td>
                 <td>${post.createdDate}</td>
             </tr>`
             })
