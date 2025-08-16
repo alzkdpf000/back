@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.example.back.controller.doctor;
 
 import com.example.back.service.doctor.DoctorListService;
