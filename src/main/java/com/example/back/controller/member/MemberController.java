@@ -31,12 +31,17 @@ public class MemberController {
         return "/member/joinpeople";
     }
 
+//    회원가입 처리
     @PostMapping("join")
     public RedirectView join( MemberDTO memberDTO){
+        if (!memberService.validateMember(memberDTO)){
+            throw new IllegalArgumentException("회원가입 정보가 올바르지 않습니다.");
+        }
         memberService.join(memberDTO);
         return new RedirectView("/member/login");
     }
 
+//    로그인 페이지 이동
     @GetMapping("login")
     public String goToLoginForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
@@ -45,19 +50,14 @@ public class MemberController {
 //    이메일 중복 검사
     @PostMapping("check-email")
     @ResponseBody
-    public ResponseEntity<?> checkEmail(@RequestBody Map<String, String> member){
+    public Map<String, Object> checkEmail(@RequestBody Map<String, String> member) {
         String memberEmail = member.get("memberEmail");
         boolean isExist = memberService.isExistMemberEmail(memberEmail);
         Map<String, Object> result = new HashMap<>();
         result.put("memberEmail", memberEmail);
         result.put("isExist", isExist);
 
-        if(isExist){
-//            409 중복처리
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
-        }
-        return ResponseEntity.ok().body(result);
+        return result;
     }
-
 
 }
