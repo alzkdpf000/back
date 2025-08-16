@@ -11,7 +11,31 @@ public interface MemberService {
 
 //    이메일 검사
     public boolean isExistMemberEmail(String memberEmail);
-    
+
+//    회원가입 유효성 검사
+    default boolean validateMember(MemberDTO memberDTO){
+        if(memberDTO.getMemberName()==null||memberDTO.getMemberName().isBlank()){
+            return false;
+        }
+        if (memberDTO.getMemberEmail()==null||memberDTO.getMemberEmail().isBlank()){
+            return false;
+        }
+
+        String emailPattern = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
+        if (!memberDTO.getMemberEmail().matches(emailPattern)){
+            return false;
+        }
+
+        String pwPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$";
+        if (!memberDTO.getMemberPassword().matches(pwPattern)){
+            return false;
+        }
+
+        return true;
+
+    }
+
+
     default MemberVO toVO(MemberDTO memberDTO){
         return MemberVO.builder()
                 .memberEmail(memberDTO.getMemberEmail())
