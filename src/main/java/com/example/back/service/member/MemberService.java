@@ -19,7 +19,28 @@ public interface MemberService {
     public MemberCriteriaDTO getList(int page);
     //  status 상관없이 회원 정보 가져오기
     public Optional<MemberDTO> getMemberByIdAllStatus(Long memberId);
+//    회원가입 유효성 검사
+    default boolean validateMember(MemberDTO memberDTO){
+        if(memberDTO.getMemberName()==null||memberDTO.getMemberName().isBlank()){
+            return false;
+        }
+        if (memberDTO.getMemberEmail()==null||memberDTO.getMemberEmail().isBlank()){
+            return false;
+        }
 
+        String emailPattern = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
+        if (!memberDTO.getMemberEmail().matches(emailPattern)){
+            return false;
+        }
+
+        String pwPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$";
+        if (!memberDTO.getMemberPassword().matches(pwPattern)){
+            return false;
+        }
+
+        return true;
+
+    }
     default MemberVO toVO(MemberDTO memberDTO){
         return MemberVO.builder()
                 .memberEmail(memberDTO.getMemberEmail())
