@@ -66,14 +66,14 @@ document.addEventListener("DOMContentLoaded", function () {
     checkAllInputs();
 });
 
-// 이메일 중복 검사 블러이벤트
-// 이메일 입력 요소
+// 이메일 중복 검사
 const emailInput = document.getElementById("email");
+const check = document.querySelector(".iprukchang1");
 
-// 메시지 표시용 span 생성
 const emailCheckMessage = document.createElement("span");
 emailCheckMessage.id = "emailCheckMessage";
-emailInput.parentNode.appendChild(emailCheckMessage);
+//emailInput.parentNode.appendChild(emailCheckMessage);
+check.appendChild(emailCheckMessage);
 
 // 블러 이벤트
 emailInput.addEventListener("blur", () => {
@@ -85,7 +85,7 @@ emailInput.addEventListener("blur", () => {
         return;
     }
 
-    fetch("/member/check-email", {
+    fetch("check-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ memberEmail: email })
@@ -95,12 +95,11 @@ emailInput.addEventListener("blur", () => {
             return res.json();
         })
         .then(data => {
-            // 서버 응답 키 확인 (여기서는 isExist 사용)
             if (data.isExist) {
-                emailCheckMessage.textContent = "이미 사용 중입니다.";
+                emailCheckMessage.textContent = "사용 불가";
                 emailCheckMessage.style.color = "red";
             } else {
-                emailCheckMessage.textContent = "사용 가능합니다.";
+                emailCheckMessage.textContent = "사용 가능.";
                 emailCheckMessage.style.color = "green";
             }
         })

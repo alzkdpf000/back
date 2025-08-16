@@ -1,8 +1,11 @@
 package com.example.back.mapper.member;
 
 import com.example.back.domain.member.MemberVO;
+import com.example.back.dto.member.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.Optional;
 
 @Mapper
 public interface MemberMapper {
@@ -14,5 +17,8 @@ public interface MemberMapper {
             "from tbl_member " +
             "where member_email = #{memberEmail}")
     public boolean existMemberEmail(String memberEmail);
+
+//    로그인 (조회)
+    public Optional<MemberDTO> selectMemberForLogin(MemberDTO memberDTO);
 
 }
