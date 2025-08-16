@@ -2,7 +2,7 @@ package com.example.back.service.notice;
 
 import com.example.back.dto.notice.NoticeDTO;
 import com.example.back.dto.notice.NoticeSummaryDTO;
-import com.example.back.dto.notice.NoticesCriteria;
+import com.example.back.dto.notice.NoticesCriteriaDTO;
 import com.example.back.repository.file.FileNoticeDAO;
 import com.example.back.repository.notice.NoticeDAO;
 import com.example.back.util.Criteria;
@@ -21,8 +21,8 @@ public class NoticeServiceImpl implements NoticeService {
     private final NoticeDAO noticeDAO;
     private final FileNoticeDAO fileNoticeDAO;
     @Override
-    public NoticesCriteria getList(int page) {
-        NoticesCriteria noticesCriteria = new NoticesCriteria();
+    public NoticesCriteriaDTO getList(int page) {
+        NoticesCriteriaDTO noticesCriteriaDTO = new NoticesCriteriaDTO();
 
         Criteria criteria = new Criteria(page,noticeDAO.findCountAll());
         List<NoticeSummaryDTO> noticeSummaryDTOS = noticeDAO.findAll(criteria);
@@ -35,9 +35,9 @@ public class NoticeServiceImpl implements NoticeService {
         if(criteria.isHasMore()){
             noticeSummaryDTOS.remove(noticeSummaryDTOS.size() - 1);
         }
-        noticesCriteria.setCriteria(criteria);
-        noticesCriteria.setNoticeSummaryDTOS(noticeSummaryDTOS);
-        return noticesCriteria;
+        noticesCriteriaDTO.setCriteria(criteria);
+        noticesCriteriaDTO.setNoticeSummaryDTOS(noticeSummaryDTOS);
+        return noticesCriteriaDTO;
     }
 
     @Override

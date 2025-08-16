@@ -21,5 +21,6 @@ public class ConsultationPostDTO {
     private String consultationPostAnswerCount;
     private Long memberId;
     private String createdDatetime;
+    private String createdDate;
     private String updatedDatetime;
 }

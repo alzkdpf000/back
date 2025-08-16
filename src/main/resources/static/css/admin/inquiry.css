@@ -235,9 +235,6 @@ address, dl, ol, ul {
 }
 
 
-.text-right {
-    text-align: right !important;
-}
 .flex-grow-1 {
     flex-grow: 1 !important;
 }

@@ -2,6 +2,7 @@ package com.example.back.common.exception.handler;
 
 
 import com.example.back.common.exception.InquiryNotFoundException;
+import com.example.back.common.exception.MemberNotFoundException;
 import com.example.back.common.exception.NoticeNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,10 @@ public class GlobalRestExceptionHandler {
     }
     @ExceptionHandler(NoticeNotFoundException.class)
     public ResponseEntity<String> handleException(NoticeNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+    @ExceptionHandler(MemberNotFoundException.class)
+    public ResponseEntity<String> handleException(MemberNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }

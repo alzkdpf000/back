@@ -1,7 +1,7 @@
 const noticeLayout =(()=>{
     const showList = async (result)=>{
         const notices = result.noticeSummaryDTOS;
-        const pageWrap = document.querySelector(".pagination.bootpay-pagination");
+        const pageWrap = document.querySelector(".pagination.bootpay-pagination.notice-pagination");
         const contentWrap = document.getElementById("noticeBody");
         const criteria = result.criteria;
         let text= ``;

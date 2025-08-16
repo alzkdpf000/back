@@ -5,4 +5,39 @@
         insert into tbl_member(member_email, member_password, member_name, member_phone)
         values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberPhone})
     </insert>
+    <select id="selectMembers">
+        select id,
+               member_email,
+
+               member_name,
+               member_phone,
+               member_status,
+               member_provider as provider,
+               member_kakao_email as kakao_email,
+               created_datetime
+        from tbl_member
+        where member_role = 'member'
+        order by id desc
+        limit #{criteria.count} offset #{criteria.offset}
+    </select>
+
+    <select id="selectCountAll">
+        select count(id)
+        from tbl_member
+    </select>
+
+    <select id="selectMemberByIdAllStatus">
+        select id,
+               member_email,
+               member_password,
+               member_name,
+               member_phone,
+               member_status,
+               member_provider as provider,
+               member_kakao_email as kakao_email,
+               member_vita_amount,
+               created_datetime
+        from tbl_member
+        where id = #{id}
+    </select>
 </mapper>

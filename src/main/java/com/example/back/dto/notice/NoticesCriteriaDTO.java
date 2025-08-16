@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode(of="id")
-public class NoticesCriteria {
+public class NoticesCriteriaDTO {
     private List<NoticeSummaryDTO>  noticeSummaryDTOS;
     private Criteria criteria;
 }

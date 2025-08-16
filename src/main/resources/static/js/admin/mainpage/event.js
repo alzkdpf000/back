@@ -1,12 +1,11 @@
 // 사이드바 메뉴 토글
 const menuBtns = document.querySelectorAll(".menu-btn");
-const allSubMenus = document.querySelectorAll(".menu-sub-list");
-
-
+const allSubMenu = document.querySelector(".menu-sub-list");
 
 document.querySelector(".boot-link.mr-3").addEventListener("click",async (e)=>{
     e.preventDefault();
     inquiryScroll = false;
+    allSubMenu.style.display = "none";
     document.querySelectorAll("div.wide-page").forEach((divTag) => {
         divTag.style.display = "none";
     })
@@ -29,21 +28,30 @@ document.querySelector(".boot-link.mr-3").addEventListener("click",async (e)=>{
 menuBtns.forEach((btn) => {
 
     btn.addEventListener("click", async () => {
-        document.getElementById("notices").style.display="none";
-        allSubMenus.forEach((submenu) => (submenu.style.display = "none"));
+        inquiryScroll = false;
+        allSubMenu.style.display = "none";
         menuBtns.forEach((b) => b.classList.remove("active"));
-        let clickId = btn.classList[2];
+        let clickId = btn.classList[btn.classList.length-1];
         console.log(clickId);
         document.querySelectorAll("div.wide-page").forEach((divTag) => {
+            console.log(clickId);
+            console.log(divTag);
+            if(clickId !== "member")
             divTag.style.display = "none";
         })
-        document.getElementById(`${clickId}`).style.display = "block";
+
         if (clickId === "inquiry") {
+            document.getElementById(`${clickId}`).style.display = "block";
             page = 1;
             document.getElementById("inquiriesBody").innerHTML = "";
+            document.getElementById("countAmount").textContent =0;
+            document.getElementById("replyCount").textContent =0;
+            document.getElementById("noReplyCount").textContent =0;
             await showList();
             console.log("클릭 이벤트야")
             inquiryScroll = true;
+        }else if(clickId==="members"){
+
         }
         btn.classList.add("active");
 

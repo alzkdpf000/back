@@ -1,6 +1,6 @@
 -- 1. 멤버 1명 등록
 INSERT INTO tbl_member (member_email, member_password, member_name, member_phone)
-VALUES ('testuser@example.com', '1234', '테스트유저', '010-1234-5678');
+VALUES ('testuser1512321q@example.com', '1234', '테스트유저', '010-1234-5678');
 
 -- 2. 카카오 멤버 1명 등록
 INSERT INTO tbl_member (member_name, member_phone, member_provider, member_kakao_profile_url, member_kakao_email)

@@ -2,12 +2,11 @@ package com.example.back.mapper.notice;
 
 
 import com.example.back.dto.notice.NoticeSummaryDTO;
-import com.example.back.dto.notice.NoticesCriteria;
+import com.example.back.dto.notice.NoticesCriteriaDTO;
 import com.example.back.repository.notice.NoticeDAO;
 import com.example.back.service.notice.NoticeService;
 import com.example.back.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,8 +42,8 @@ public class NoticeTests {
 
     @Test
     public void testServiceGetList(){
-        NoticesCriteria noticesCriteria = noticeService.getList(1);
-        assertNotNull(noticesCriteria);
+        NoticesCriteriaDTO noticesCriteriaDTO = noticeService.getList(1);
+        assertNotNull(noticesCriteriaDTO);
     }
     @Test
     public void testMapperSelectCountAll(){
