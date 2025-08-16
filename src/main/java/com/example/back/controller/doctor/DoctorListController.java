@@ -11,16 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/doctor/**")
-public class DoctorListController{
+public class DoctorListController {
     private final DoctorListService doctorListService;
 
     //    의사 목록
     @GetMapping("list/{page}")
-    public String list(@PathVariable int page, Model model){
+    public String list(@PathVariable int page, Model model) {
         model.addAttribute("doctorsListCriteriaDTO", doctorListService.getList(page));
         return "doctor/doctor-list";
     }
-
-
 
 }

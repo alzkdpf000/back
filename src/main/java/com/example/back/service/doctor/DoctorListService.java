@@ -4,13 +4,12 @@ import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.dto.doctor.DoctorListCriteriaDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
 
-
 public interface DoctorListService {
     //  목록
     public DoctorListCriteriaDTO getList(int page);
 
 
-    default DoctorVO toDoctorVO(DoctorListDTO doctorListDTO){
+    default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){
         return DoctorVO.builder()
                 .id(doctorListDTO.getId())
                 .doctorSpecialty(doctorListDTO.getDoctorSpecialty())
@@ -20,8 +19,8 @@ public interface DoctorListService {
                 .hospitalName(doctorListDTO.getHospitalName())
                 .hospitalPhone(doctorListDTO.getHospitalPhone())
                 .hospitalAddress(doctorListDTO.getHospitalAddress())
-//                .createdDate(doctorListDTO.getCreatedDatetime())
-//                .updatedDate(doctorListDTO.getUpdatedDatetime())
+                .createdDatetime(doctorListDTO.getCreatedDatetime())
+                .updatedDatetime(doctorListDTO.getUpdatedDatetime())
                 .build();
     }
 }
