@@ -291,9 +291,6 @@ ul {
     margin-left: 12px;
 }
 
-.text-right {
-    text-align: right !important;
-}
 
 .mdi-chevron-right:before {
     content: "\F0142";
@@ -568,9 +565,6 @@ button:not(:disabled) {
     justify-content: space-between !important;
 }
 
-.text-right {
-    text-align: right !important;
-}
 
 .text-center {
     text-align: center !important;
@@ -1359,10 +1353,21 @@ button.btn .comp-icon {
     background-color: #f7fafc;
 }
 
-.page-content .table-layout table.member-table td.td-name {
-    max-width: 400px;
-    min-width: 200px;
+td.td-title{
+    width: 845px;
 }
+td.td-date{
+    width: 75px;
+}
+td.td-writer{
+    width: 56px;
+}
+
+
+/*.page-content .table-layout table.member-table td.td-name {*/
+/*    max-width: 400px;*/
+/*    min-width: 200px;*/
+/*}*/
 
 .badge {
     border-radius: .25rem;
@@ -1832,7 +1837,7 @@ button.btn.btn-outline-filter {
 }
 
 .notice-index .table-wrapper {
-    min-height: 70vh;
+    min-height: 561px;
 }
 .border-top {
     border-top: 1px solid #dee2e6 !important;

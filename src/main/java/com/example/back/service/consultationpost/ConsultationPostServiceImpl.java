@@ -2,6 +2,7 @@ package com.example.back.service.consultationpost;
 
 import com.example.back.dto.consultationpost.ConsultationPostCategoryFileUserDTO;
 import com.example.back.dto.consultationpost.ConsultationPostCriteria;
+import com.example.back.dto.consultationpost.ConsultationPostDTO;
 import com.example.back.dto.file.FileDTO;
 import com.example.back.repository.category.CategoryDAO;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;

@@ -1,9 +1,9 @@
-
 package com.example.back.service.doctor;
 
 import com.example.back.dto.doctor.DoctorListCriteriaDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.repository.doctor.DoctorListDAO;
+import com.example.back.service.doctor.DoctorListService;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +31,8 @@ public class DoctorListServiceImpl implements DoctorListService {
         if(criteria.isHasMore()){
             doctorsList.remove(doctorsList.size() - 1);
         }
-
         doctorListCriteriaDTO.setDoctorsList(doctorsList);
         doctorListCriteriaDTO.setCriteria(criteria);
-
-
         return doctorListCriteriaDTO;
     }
 }
-

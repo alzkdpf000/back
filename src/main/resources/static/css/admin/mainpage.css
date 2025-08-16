@@ -292,9 +292,6 @@ ul {
     margin-left: 12px;
 }
 
-.text-right {
-    text-align: right !important;
-}
 
 .mdi-chevron-right:before {
     content: "\F0142";
@@ -575,9 +572,8 @@ button:not(:disabled) {
     justify-content: space-between !important;
 }
 
-.text-right {
-    text-align: right !important;
-}
+
+
 
 .text-center {
     text-align: center !important;

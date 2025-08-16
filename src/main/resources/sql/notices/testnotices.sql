@@ -31,3 +31,25 @@ VALUES
 select notices_title, created_datetime
     from tbl_notices
 where notices_status = 'active';
+
+
+
+explain select id,notices_title, created_datetime
+from tbl_notices
+where notices_status = 'active'
+order by id desc
+limit 5 offset 0;
+
+explain select id,notices_title, notices_content, created_datetime
+from tbl_notices
+where notices_status = 'active' and id = 10;
+
+explain update tbl_notices
+set notices_view_count = notices_view_count + 1
+where id =10;
+
+explain select id,notices_title, created_datetime
+        from tbl_notices
+        where notices_status = 'active'
+        order by id desc
+        limit 10 offset 0;
