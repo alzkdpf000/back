@@ -24,6 +24,7 @@
     <select id="selectCountAll">
         select count(id)
         from tbl_member
+        where member_role = 'member'
     </select>
 
     <select id="selectMemberByIdAllStatus">
