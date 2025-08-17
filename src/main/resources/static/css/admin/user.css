@@ -1990,3 +1990,8 @@ table.approval-table thead{
 /*.approval-tab.tab-view-header, .tab-view .approval-tab.tab-view-header .tab-switch-row{*/
 /*     !important;*/
 /*}*/
+
+.col-lg-3{
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+}
