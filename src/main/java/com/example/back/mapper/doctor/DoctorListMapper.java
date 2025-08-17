@@ -23,9 +23,9 @@ public interface DoctorListMapper {
 
 
 //  멤버 status 상관없는 의사 목록
-    List<DoctorDTO> selectAllStatus(@Param("criteria") Criteria criteria);
+    List<DoctorDTO> selectDoctorsByStatus(@Param("criteria") Criteria criteria, @Param("doctorStatus") String doctorStatus);
 //  멤버 status 상관없는 의사 전체 수
-    int selectCountAllStatus();
+    int selectDoctorCountByStatus(@Param("doctorStatus") String doctorStatus);
 //  관리자페이지 의사 상세 보기
     Optional<DoctorHospitalDTO> selectDoctorById(Long doctorId);
 

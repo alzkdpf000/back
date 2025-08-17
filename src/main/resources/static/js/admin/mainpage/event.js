@@ -50,8 +50,9 @@ menuBtns.forEach((btn) => {
             await showList();
             console.log("클릭 이벤트야")
             inquiryScroll = true;
-        }else if(clickId==="members"){
-
+        }else if(clickId==="approval"){
+            document.getElementById(`${clickId}`).style.display = "block";
+            await showPendingDoctors();
         }
         btn.classList.add("active");
 

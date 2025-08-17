@@ -83,14 +83,20 @@ public class AdminRestController {
     @GetMapping("doctors")
     public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestParam int page,
                                                      @RequestParam String query) {
-        DoctorCriteriaDTO doctors = doctorListService.getListAllStatus(page);
+        DoctorCriteriaDTO doctors = doctorListService.getListAllStatus(page,"active");
         return ResponseEntity.ok().body(doctors);
     }
 
 
-    @GetMapping("doctors/{doctorId}")
+    @GetMapping({"doctors/{doctorId}","doctors/pending/{doctorId}"})
     public ResponseEntity<DoctorHospitalDTO> doctorDetail(@PathVariable Long doctorId) {
         DoctorHospitalDTO doctor = doctorListService.getDoctorAdminById(doctorId).orElseThrow(DoctorNotFoundException::new);
         return ResponseEntity.ok().body(doctor);
+    }
+
+    @GetMapping("doctors/pending")
+    public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestParam int page) {
+        DoctorCriteriaDTO doctors = doctorListService.getListAllStatus(page, "inactive");
+        return ResponseEntity.ok().body(doctors);
     }
 }

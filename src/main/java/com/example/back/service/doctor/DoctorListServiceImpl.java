@@ -40,11 +40,11 @@ public class DoctorListServiceImpl implements DoctorListService {
     }
 
     @Override
-    public DoctorCriteriaDTO getListAllStatus(int page) {
+    public DoctorCriteriaDTO getListAllStatus(int page,String doctorStatus) {
         DoctorCriteriaDTO doctorCriteriaDTO = new DoctorCriteriaDTO();
-        int total = doctorListDAO.findCountAllStatus();
+        int total = doctorListDAO.findCountAllStatus(doctorStatus);
         Criteria criteria = new Criteria(page, total);
-        List<DoctorDTO> doctorsList = doctorListDAO.findAllStatus(criteria);
+        List<DoctorDTO> doctorsList = doctorListDAO.findAllStatus(criteria,doctorStatus);
         doctorsList.forEach(doctor ->{
             doctor.setCreatedDate(DateUtils.getCreatedDate(doctor.getCreatedDatetime()));
         });

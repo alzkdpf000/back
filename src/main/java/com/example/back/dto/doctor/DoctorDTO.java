@@ -29,11 +29,5 @@ public class DoctorDTO {
     private String kakaoEmail;
     private String createdDatetime;
     private String createdDate;
-    private String zipCode;
-    private String hospitalHomepageUrl;
-    private String roadAddress;
-    private String detailAddress;
-    private String hospitalName;
-    private String hospitalPhone;
     private int memberVitaAmount;
 }

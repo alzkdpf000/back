@@ -24,21 +24,21 @@ public class DoctorListTests {
     @Test
     public void testSelectAllStatus(){
         Criteria criteria = new Criteria(1,10);
-        log.info("{}",doctorListMapper.selectAllStatus(criteria));
+        log.info("{}",doctorListMapper.selectDoctorsByStatus(criteria,"active"));
     }
     @Test
     public void testFindAllStatus(){
         Criteria criteria = new Criteria(1,10);
-        log.info("{}",doctorListDAO.findAllStatus(criteria));
+        log.info("{}",doctorListDAO.findAllStatus(criteria,"inactive"));
     }
 
     @Test
     public void testSelectCountAllStatus(){
-        log.info("{}",doctorListMapper.selectCountAllStatus());
+        log.info("{}",doctorListMapper.selectDoctorCountByStatus("active"));
     }
     @Test
     public void testFindCountAllStatus(){
-        log.info("{}",doctorListDAO.findCountAllStatus());
+        log.info("{}",doctorListDAO.findCountAllStatus("inactive"));
     }
 
     @Test

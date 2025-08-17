@@ -13,7 +13,7 @@ public interface DoctorListService {
     public DoctorListCriteriaDTO getList(int page);
 
     // 멤버 Status 상관없이 목록 출력
-    public DoctorCriteriaDTO getListAllStatus(int page);
+    public DoctorCriteriaDTO getListAllStatus(int page,String doctorStatus);
 
     //  관리자페이지 의사 상세 보기
     public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId);
