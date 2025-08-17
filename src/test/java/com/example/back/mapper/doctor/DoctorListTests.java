@@ -7,9 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Slf4j
+
 public class DoctorListTests {
 
     @Autowired
@@ -47,8 +49,28 @@ public class DoctorListTests {
     }
 
     @Test
-    public void testFindDoctorById(){
-        log.info("{}",doctorListDAO.findDoctorById(60L));
+    public void testFindDoctorById() {
+        log.info("{}", doctorListDAO.findDoctorById(60L));
+    }
+
+    @Test
+    @Transactional
+    public void testUpdateDoctorStatusToApproved(){
+        doctorListMapper.updateDoctorStatusToApproved(69L);
+        log.info("{}",doctorListMapper.selectDoctorById(69L));
+    }
+
+    @Test
+    @Transactional
+    public void testApproveDoctor(){
+        doctorListDAO.approveDoctor(69L);
+        log.info("{}",doctorListDAO.findDoctorById(69L));
+    }
+
+    @Test
+    @Transactional
+    public void testApprove(){
+        log.info("{}",doctorListService.approve(69L));
     }
 
 

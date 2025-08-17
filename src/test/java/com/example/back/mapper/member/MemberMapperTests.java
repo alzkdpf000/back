@@ -9,6 +9,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @SpringBootTest
@@ -78,5 +79,23 @@ public class MemberMapperTests {
         log.info("{}",memberService.getMemberByIdAllStatus(1L));
         Assertions.assertThat(memberDAO.findMemberByIdAllStatus(1L)).isNotNull();
     }
+    @Test
+    @Transactional
+    public void testUpdateDoctorStatusToRejected(){
+        memberMapper.updateDoctorStatusToRejected(10L);
+        log.info("{}",memberMapper.selectMemberByIdAllStatus(10L));
+    }
 
+    @Test
+    @Transactional
+    public void testRejectDoctor(){
+        memberDAO.rejectDoctor(11L);
+        log.info("{}",memberDAO.findMemberByIdAllStatus(11L));
+    }
+
+    @Test
+    @Transactional
+    public void testReject(){
+        log.info("{}",memberService.reject(11L));
+    }
 }

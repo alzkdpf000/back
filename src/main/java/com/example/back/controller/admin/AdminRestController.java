@@ -21,6 +21,7 @@ import com.example.back.service.notice.NoticeService;
 import com.example.back.util.ScrollCriteria;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -98,5 +99,23 @@ public class AdminRestController {
     public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestParam int page) {
         DoctorCriteriaDTO doctors = doctorListService.getListAllStatus(page, "inactive");
         return ResponseEntity.ok().body(doctors);
+    }
+
+    @PutMapping("doctors/{doctorId}/approve")
+    public ResponseEntity<String> approveDoctor(@PathVariable Long doctorId) {
+        boolean isDoctorExist = doctorListService.approve(doctorId);
+        if (isDoctorExist) {
+            return ResponseEntity.ok().body("승인되었습니다.");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("의사가 존재하지 않습니다.");
+    }
+
+    @PutMapping("doctors/{doctorId}/reject")
+    public ResponseEntity<String> rejectDoctor(@PathVariable Long doctorId) {
+        boolean isDoctorExist = memberService.reject(doctorId);
+        if (isDoctorExist) {
+            return ResponseEntity.ok().body("거절되었습니다.");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("의사가 존재하지 않습니다.");
     }
 }

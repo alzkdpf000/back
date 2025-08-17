@@ -36,4 +36,8 @@ public class DoctorListDAO {
     public Optional<DoctorHospitalDTO> findDoctorById(Long doctorId){
         return doctorListMapper.selectDoctorById(doctorId);
     }
+    //  의사 가입 승인
+    public int approveDoctor(Long doctorId){
+        return doctorListMapper.updateDoctorStatusToApproved(doctorId);
+    }
 }

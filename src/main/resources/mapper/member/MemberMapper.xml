@@ -41,4 +41,10 @@
         from tbl_member
         where id = #{id}
     </select>
+
+    <update id="updateDoctorStatusToRejected">
+        update tbl_member
+        set member_status = 'inactive'
+        where id=#{memberId}
+    </update>
 </mapper>

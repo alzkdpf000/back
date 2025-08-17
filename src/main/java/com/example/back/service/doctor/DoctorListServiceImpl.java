@@ -70,4 +70,9 @@ public class DoctorListServiceImpl implements DoctorListService {
         });
         return doctor;
     }
+
+    @Override
+    public boolean approve(Long doctorId) {
+        return doctorListDAO.approveDoctor(doctorId) > 0;
+    }
 }

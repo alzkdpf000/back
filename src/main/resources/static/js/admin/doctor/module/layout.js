@@ -18,11 +18,11 @@ const doctorLayout = (() => {
             doctors.forEach((doctor) => {
                 let checkStatus;
                 let memberStatus;
-                if (result.memberStatus === "INACTIVE" && result.doctorStatus === "INACTIVE") {
+                if (doctor.memberStatus === "INACTIVE" && doctor.doctorStatus === "INACTIVE") {
                     memberStatus = "승인 거절";
                     checkStatus = false
-                } else if (result.memberStatus === "ACTIVE") {
-                    memberStatus = "활동 중";
+                } else if (doctor.memberStatus === "ACTIVE" && doctor.doctorStatus ==="INACTIVE") {
+                    memberStatus = "승인 대기";
                     checkStatus = true;
                 } else {
                     memberStatus = "탈퇴";
@@ -96,8 +96,8 @@ const doctorLayout = (() => {
         let memberStatus;
         if (result.memberStatus === "INACTIVE" && result.doctorStatus === "INACTIVE") {
             memberStatus = "승인 거절";
-        } else if (result.memberStatus === "ACTIVE") {
-            memberStatus = "활동 중";
+        } else if (result.memberStatus === "ACTIVE" && result.doctorStatus ==="INACTIVE") {
+            memberStatus = "승인 대기";
         } else {
             memberStatus = "탈퇴";
         }

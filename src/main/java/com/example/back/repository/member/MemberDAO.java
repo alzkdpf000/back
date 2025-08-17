@@ -42,4 +42,8 @@ public class MemberDAO {
     public Optional<MemberDTO> findMemberByIdAllStatus(Long memberId) {
         return memberMapper.selectMemberByIdAllStatus(memberId);
     }
+//  의사 가입 거절
+    public int rejectDoctor(Long memberId) {
+        return memberMapper.updateDoctorStatusToRejected(memberId);
+    }
 }
