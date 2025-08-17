@@ -41,4 +41,56 @@
         select count(*) from tbl_doctor
         where doctor_status = 'active'
     </select>
+
+<!-- 의사 전체 목록 가져오기 -->
+    <select id="selectAllStatus">
+        select id,
+               member_email,
+               member_name,
+               member_phone,
+               member_status,
+               member_provider as provider,
+               doctor_license_number,
+               member_kakao_email,
+               member_vita_amount,
+               created_datetime
+        from view_member_doctor
+        where member_role = 'doctor'
+          and doctor_status = 'active'
+        limit #{criteria.count} offset #{criteria.offset}
+
+    </select>
+
+    <select id="selectCountAllStatus">
+        select count(id)
+        from view_member_doctor
+        where member_role = 'doctor'
+          and doctor_status = 'active'
+    </select>
+
+    <select id="selectDoctorById">
+        select vmd.id,
+               vmd.member_email,
+               vmd.member_name,
+               vmd.member_phone,
+               vmd.member_status,
+               vmd.member_provider,
+               vmd.member_kakao_email,
+               vmd.member_vita_amount,
+               vmd.created_datetime,
+               vmd.doctor_status,
+               vmd.doctor_license_number,
+               vmd.doctor_specialty,
+               th.hospital_name,
+               th.hospital_phone,
+               th.hospital_homepage_url,
+               tha.road_address,
+               tha.detail_address,
+               tha.zip_code
+        from view_member_doctor vmd
+                 join tbl_hospital th
+                      on vmd.hospital_id = th.id
+                 join tbl_hospital_address tha on th.id = tha.hospital_id
+        where vmd.id= #{doctorId}
+    </select>
 </mapper>

@@ -146,6 +146,7 @@ select tm.id,
        tm.member_vita_amount,
        tm.created_datetime,
        tm.updated_datetime,
+       td.doctor_status,
        td.doctor_license_number,
        td.doctor_specialty,
        td.hospital_id

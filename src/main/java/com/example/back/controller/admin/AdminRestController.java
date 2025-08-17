@@ -3,12 +3,16 @@ package com.example.back.controller.admin;
 import com.example.back.common.exception.InquiryNotFoundException;
 import com.example.back.common.exception.MemberNotFoundException;
 import com.example.back.common.exception.NoticeNotFoundException;
+import com.example.back.dto.doctor.DoctorCriteriaDTO;
+import com.example.back.dto.doctor.DoctorDTO;
+import com.example.back.dto.doctor.DoctorListCriteriaDTO;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.notice.NoticeDTO;
 import com.example.back.dto.notice.NoticesCriteriaDTO;
+import com.example.back.service.doctor.DoctorListService;
 import com.example.back.service.inquiry.InquiryService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.notice.NoticeService;
@@ -18,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +34,7 @@ public class AdminRestController {
     private final InquiryService inquiryService;
     private final NoticeService noticeService;
     private final MemberService memberService;
+    private final DoctorListService doctorListService;
 
     @GetMapping("inquires")
     public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
@@ -68,4 +75,14 @@ public class AdminRestController {
         log.info("출력을 잘됨");
         return ResponseEntity.ok().body(member);
     }
+
+    @GetMapping
+    public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestParam int page,
+                                                         @RequestParam String query) {
+        List<DoctorDTO> a = new ArrayList<>();
+        DoctorCriteriaDTO doctors = doctorListService.getListAllStatus(page);
+//        doctors.setDoctorsList(a);
+        return ResponseEntity.ok().body(doctors);
+    }
+
 }

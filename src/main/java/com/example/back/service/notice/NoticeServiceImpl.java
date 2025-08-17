@@ -10,6 +10,7 @@ import com.example.back.util.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +42,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Optional<NoticeDTO> getNotice(Long id) {
         noticeDAO.updateNoticeReadCount(id);
         Optional<NoticeDTO> notice = noticeDAO.findById(id);

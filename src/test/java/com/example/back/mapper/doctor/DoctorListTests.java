@@ -1,6 +1,10 @@
 package com.example.back.mapper.doctor;
 
+import com.example.back.repository.doctor.DoctorListDAO;
+import com.example.back.service.doctor.DoctorListService;
+import com.example.back.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,6 +17,29 @@ public class DoctorListTests {
 
     @Autowired
     private DoctorListMapper doctorListMapper;
+
+    @Autowired
+    private DoctorListDAO doctorListDAO;
+
+    @Test
+    public void testSelectAllStatus(){
+        Criteria criteria = new Criteria(1,10);
+        log.info("{}",doctorListMapper.selectAllStatus(criteria));
+    }
+    @Test
+    public void testFindAllStatus(){
+        Criteria criteria = new Criteria(1,10);
+        log.info("{}",doctorListDAO.findAllStatus(criteria));
+    }
+
+    @Test
+    public void testSelectCountAllStatus(){
+        log.info("{}",doctorListMapper.selectCountAllStatus());
+    }
+    @Test
+    public void testFindCountAllStatus(){
+        log.info("{}",doctorListDAO.findCountAllStatus());
+    }
 
 
 //    @Test
