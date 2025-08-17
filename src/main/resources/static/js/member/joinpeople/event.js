@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
     const passwordConfirmInput = document.getElementById("passwordConfirm");
-    const addressInput = document.getElementById("address");
     const signupBtn = document.getElementById("loginBtn");
 
     // 이메일 중복체크 상태 저장
@@ -69,14 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
             passwordConfirmInput.style.borderColor = "blue";
         }
 
-        // 주소
-        if (addressInput.value.trim() === "") {
-            addressInput.style.borderColor = "red";
-            allValid = false;
-
-        } else {
-            addressInput.style.borderColor = "blue";
-        }
 
         // 핸드폰
         const phoneCheck = (input, maxLen) => {
@@ -92,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
         phoneCheck(phone2, 4);
         phoneCheck(phone3, 4);
 
-        // 버튼 활성화
         signupBtn.disabled = !allValid;
         signupBtn.style.backgroundColor = allValid ? "blue" : "";
         signupBtn.style.color = allValid ? "white" : "";
@@ -104,8 +94,8 @@ document.addEventListener("DOMContentLoaded", function () {
     autoTab(phone2, phone3);
     autoTab(phone3, null);
 
-    // 필드 입력 감지
-    [nameInput, emailInput, passwordInput, passwordConfirmInput, addressInput, phone1, phone2, phone3]
+
+    [nameInput, emailInput, passwordInput, passwordConfirmInput, phone1, phone2, phone3]
         .forEach(input => input.addEventListener("input", checkAllInputs));
 
     // 이메일 중복 체크 (블러 이벤트)
@@ -146,57 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 checkAllInputs();
             });
     });
-
-    // 초기 상태 체크
+    
     checkAllInputs();
 });
-
-// 이메일 중복 검사
-const emailInput = document.getElementById("email");
-const check = document.querySelector(".iprukchang1");
-
-const emailCheckMessage = document.createElement("span");
-emailCheckMessage.id = "emailCheckMessage";
-//emailInput.parentNode.appendChild(emailCheckMessage);
-check.appendChild(emailCheckMessage);
-
-// 블러 이벤트
-emailInput.addEventListener("blur", () => {
-    const email = emailInput.value.trim();
-
-    if (!email) {
-        emailCheckMessage.textContent = "";
-        emailCheckMessage.style.color = "";
-        return;
-    }
-
-    fetch("check-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ memberEmail: email })
-    })
-        .then(res => {
-            if (!res.ok) throw new Error("서버 오류");
-            return res.json();
-        })
-        .then(data => {
-            if (data.isExist) {
-                emailCheckMessage.textContent = "사용 불가";
-                emailCheckMessage.style.color = "red";
-            } else {
-                emailCheckMessage.textContent = "사용 가능.";
-                emailCheckMessage.style.color = "green";
-            }
-        })
-        .catch(() => {
-            emailCheckMessage.textContent = "이메일 확인 중 오류가 발생했습니다.";
-            emailCheckMessage.style.color = "orange";
-        });
-});
-
-
-
-
-
-
-
