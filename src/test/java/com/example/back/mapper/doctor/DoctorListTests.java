@@ -41,6 +41,16 @@ public class DoctorListTests {
         log.info("{}",doctorListDAO.findCountAllStatus());
     }
 
+    @Test
+    public void testSelectDoctorById(){
+        log.info("{}",doctorListMapper.selectDoctorById(60L));
+    }
+
+    @Test
+    public void testFindDoctorById(){
+        log.info("{}",doctorListDAO.findDoctorById(60L));
+    }
+
 
 //    @Test
 //    public void testInsertDoctorList(){

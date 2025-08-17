@@ -98,7 +98,7 @@ const memberLayout = (() => {
                 `
         } else {
             posts.forEach((post) => {
-                const check = post.consultationPostStatus === "ACTIVE";
+                const check = post.consultationPostStatus === "INACTIVE";
                 text += `
             <tr>
                 <td>${post.consultationPostTitle}</td>

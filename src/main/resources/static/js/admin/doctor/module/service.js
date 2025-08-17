@@ -21,7 +21,6 @@ const doctorService = (() => {
 
     const getDetailDoctor = async (callback, doctorId) => {
         try {
-            console.log(memberId)
             const response = await fetch(`/api/admin/doctors/${doctorId}`)
             const result = await response.json();
             console.log(result);

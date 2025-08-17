@@ -1,6 +1,7 @@
 package com.example.back.repository.doctor;
 
 import com.example.back.dto.doctor.DoctorDTO;
+import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.mapper.doctor.DoctorListMapper;
 import com.example.back.util.Criteria;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,5 +32,9 @@ public class DoctorListDAO {
     //  멤버 status 상관없는 의사 전체 수
     public int findCountAllStatus(){
         return doctorListMapper.selectCountAllStatus();
+    }
+    //  관리자페이지 의사 상세 보기
+    public Optional<DoctorHospitalDTO> findDoctorById(Long doctorId){
+        return doctorListMapper.selectDoctorById(doctorId);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.back.domain.counselreply;
 
 import com.example.back.audit.Period;
+import com.example.back.common.enumeration.Accpetance;
 import com.example.back.common.enumeration.Status;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,10 +11,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @ToString(callSuper = true)
 @Getter @EqualsAndHashCode(of = "id")
-public class CounselReply extends Period {
+public class CounselReplyVO extends Period {
     private Long id;
     private String counselReplyContent;
     private Status counselReplyStatus;
+    private Accpetance counselReplyAccpetance;
     private Long doctorId;
     private Long consultationPostId;
 

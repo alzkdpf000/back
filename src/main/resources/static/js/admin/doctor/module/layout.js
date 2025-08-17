@@ -70,46 +70,48 @@ const doctorLayout = (() => {
     }
     const showDoctorDetail = async (result) => {
         let text = ``;
-        const memberDetailName = document.getElementById("memberDetailName");
-        const memberDetailPhone = document.getElementById("memberDetailPhone");
-        const memberDetailVita = document.getElementById("memberDetailVita");
-        const memberDetailCreatedDatetime = document.getElementById("memberDetailCreatedDatetime");
-        const memberDetailId = document.getElementById("memberDetailId");
-        const memberDetailEmail = document.getElementById("memberDetailEmail");
-        const memberDetailStatus = document.getElementById("memberDetailStatus");
-        const memberDetailProvider = document.getElementById("memberDetailProvider");
-        const memberDetailPost = document.getElementById("memberDetailPost");
-        const posts = result.consultationPosts;
-        const memberEmail = result.provider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
+        const doctorDetailName = document.getElementById("doctorDetailName");
+        const doctorDetailPhone = document.getElementById("doctorDetailPhone");
+        const doctorDetailVita = document.getElementById("doctorDetailVita");
+        const doctorDetailDatetime = document.getElementById("doctorDetailDatetime");
+        const doctorDetailId = document.getElementById("doctorDetailId");
+        const doctorDetailEmail = document.getElementById("doctorDetailEmail");
+        const doctorDetailStatus = document.getElementById("doctorDetailStatus");
+        const doctorDetailSpecialty = document.getElementById("doctorDetailSpecialty");
+        const repliesWrap = document.getElementById("doctorDetailReplies");
+        const replies = result.replies;
+        const memberEmail = result.memberProvider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
         const memberStatus = result.memberStatus === "ACTIVE" ? "활동 중" : "탈퇴";
-        memberDetailStatus.style.color = result.memberStatus === "ACTIVE" ? "#507cf3": "#fe657e";
-        memberDetailName.textContent = result.memberName;
-        memberDetailPhone.textContent = result.memberPhone;
-        memberDetailVita.textContent = result.memberVitaAmount;
-        memberDetailCreatedDatetime.textContent = result.createdDatetime;
-        memberDetailId.textContent = result.id;
-        memberDetailEmail.textContent = memberEmail;
-        memberDetailStatus.textContent = memberStatus;
-        memberDetailProvider.textContent = result.provider;
-        if (posts.length === 0) {
+        doctorDetailStatus.style.color = result.memberStatus === "ACTIVE" ? "#507cf3": "#fe657e";
+        doctorDetailName.textContent = result.memberName;
+        doctorDetailPhone.textContent = result.memberPhone;
+        doctorDetailVita.textContent = result.memberVitaAmount;
+        doctorDetailDatetime.textContent = result.createdDatetime;
+        doctorDetailId.textContent = result.id;
+        doctorDetailSpecialty.textContent = result.doctorSpecialty;
+        doctorDetailEmail.textContent = memberEmail;
+        doctorDetailStatus.textContent = memberStatus;
+        // memberDetailProvider.textContent = result.memberProvider;
+        if (replies.length === 0) {
             text +=
                 `
-                <tr><td class="text-light-grey text-center" colspan="4">작성한 상담글이 없습니다</td></tr>
+                <tr><td class="text-light-grey text-center" colspan="4">작성한 답변이 없습니다</td></tr>
                 `
         } else {
-            posts.forEach((post) => {
-                const check = post.consultationPostStatus === "ACTIVE";
+            replies.forEach((reply) => {
+                const check1 = reply.consultationPostStatus === "INACTIVE";
+                const check2 = reply.counselReplyStatus === "INACTIVE";
                 text += `
             <tr>
-                <td>${post.consultationPostTitle}</td>
-                <td>${post.consultationPostAnswerCount}</td>
-                <td style="color :${check ? "#507cf3": "#fe657e"}">${check ? "Y" : "N"}</td>
-                <td>${post.createdDate}</td>
+                <td>${reply.consultationPostTitle}</td>
+                <td style="color :${check1 ? "#507cf3": "#fe657e"}">${check1 ? "Y" : "N"}</td>
+                <td style="color :${check2 ? "#507cf3": "#fe657e"}">${check2 ? "Y" : "N"}</td>
+                <td>${reply.createdDate}</td>
             </tr>`
             })
         }
 
-        memberDetailPost.innerHTML = text;
+        repliesWrap.innerHTML = text;
     }
     return {showDoctors: showDoctors, showDoctorDetail: showDoctorDetail};
 })();

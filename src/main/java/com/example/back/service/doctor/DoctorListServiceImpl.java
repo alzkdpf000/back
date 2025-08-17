@@ -1,9 +1,8 @@
 package com.example.back.service.doctor;
 
-import com.example.back.dto.doctor.DoctorCriteriaDTO;
-import com.example.back.dto.doctor.DoctorDTO;
-import com.example.back.dto.doctor.DoctorListCriteriaDTO;
-import com.example.back.dto.doctor.DoctorListDTO;
+import com.example.back.dto.counselreply.CounselReplyDTO;
+import com.example.back.dto.doctor.*;
+import com.example.back.repository.counselreply.CounselReplyDAO;
 import com.example.back.repository.doctor.DoctorListDAO;
 import com.example.back.service.doctor.DoctorListService;
 import com.example.back.util.Criteria;
@@ -14,12 +13,14 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Primary
 public class DoctorListServiceImpl implements DoctorListService {
     private final DoctorListDAO doctorListDAO;
+    private final CounselReplyDAO counselReplyDAO;
 
     @Override
     public DoctorListCriteriaDTO getList(int page) {
@@ -55,5 +56,18 @@ public class DoctorListServiceImpl implements DoctorListService {
         doctorCriteriaDTO.setCriteria(criteria);
         doctorCriteriaDTO.setTotal(total);
         return doctorCriteriaDTO;
+    }
+
+    @Override
+    public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId) {
+        Optional<DoctorHospitalDTO> doctor = doctorListDAO.findDoctorById(doctorId);
+        doctor.ifPresent(data -> {
+            List<CounselReplyDTO> replies = counselReplyDAO.findTop3ConsultationPostsWithReplies(doctorId);
+            replies.forEach(reply -> {
+                reply.setCreatedDate(DateUtils.getCreatedDate(reply.getCreatedDatetime()));
+            });
+            data.setReplies(replies);
+        });
+        return doctor;
     }
 }

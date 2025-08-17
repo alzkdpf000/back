@@ -60,8 +60,9 @@ const doctorsTbody = document.getElementById("doctorsTbody");
 doctorsTbody.addEventListener("click", async (e) => {
     const memberDetailBtn = e.target.closest(".member-detail-btn");
     if (memberDetailBtn) {
-        const memberId = memberDetailBtn.dataset.memberid;
+        const doctorId = memberDetailBtn.dataset.doctorid;
         loading.style.display = "block";
+        await doctorService.getDetailDoctor(doctorLayout.showDoctorDetail,doctorId);
         // await memberService.getDetailMember(memberLayout.showMemberDetail, memberId);
         setTimeout(() => {
             loading.style.display = "none";

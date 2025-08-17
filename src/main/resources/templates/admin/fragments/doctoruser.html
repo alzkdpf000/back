@@ -125,19 +125,23 @@
                                                         <tbody>
                                                         <tr>
                                                             <th>이름</th>
-                                                            <td>테스트01</td>
+                                                            <td id="doctorDetailName">테스트01</td>
                                                         </tr>
                                                         <tr>
                                                             <th>핸드폰 번호</th>
-                                                            <td>010-1234-5678</td>
+                                                            <td id="doctorDetailPhone">010-1234-5678</td>
                                                         </tr>
                                                         <tr>
                                                             <th>가입일</th>
-                                                            <td>2025-06-12</td>
+                                                            <td id="doctorDetailDatetime">2025-06-12</td>
                                                         </tr>
                                                         <tr>
                                                             <th>병원</th>
-                                                            <td>강남세브란스병원</td>
+                                                            <td id="doctorDetailHospital">강남세브란스병원</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>보유 비타</th>
+                                                            <td id="doctorDetailVita">강남세브란스병원</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -148,23 +152,23 @@
                                                         <tbody>
                                                         <tr>
                                                             <th>회원ID</th>
-                                                            <td>TestId01</td>
+                                                            <td id="doctorDetailId">TestId01</td>
                                                         </tr>
                                                         <tr>
                                                             <th>이메일</th>
-                                                            <td>test01@gmail.com</td>
+                                                            <td id="doctorDetailEmail">test01@gmail.com</td>
                                                         </tr>
                                                         <tr>
                                                             <th>상태</th>
-                                                            <td>2025-07-29</td>
+                                                            <td id="doctorDetailStatus">2025-07-29</td>
                                                         </tr>
                                                         <tr>
                                                             <th>진료과</th>
-                                                            <td>남</td>
+                                                            <td id="doctorDetailSpecialty">남</td>
                                                         </tr>
                                                         <tr>
                                                             <th>면허번호</th>
-                                                            <td>123456</td>
+                                                            <td id="doctorDetailLicense">123456</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -176,11 +180,9 @@
                                             <div class="info-title justify-content-between">
                                                 <div class="flex-left d-flex">
                                                     <!-- 작성 게시글 클릭 시 콘텐츠 관리 내 게시글 페이지로 이동 -->
-                                                    <a href="" class="info-detail">
-                                                        <div class="title">작성 게시글
+                                                        <div class="title">최근 작성한 답변(3개)
                                                             <i class="mdi mdi-menu-left ml-2"></i>
                                                         </div>
-                                                    </a>
                                                 </div>
                                                 <div class="flex-right"></div>
                                             </div>
@@ -188,27 +190,13 @@
                                                 <table class="info-table">
                                                     <thead>
                                                     <tr>
-                                                        <th>게시글 제목</th>
-                                                        <th>게시글 내용</th>
-                                                        <th>게시글 작성 일자</th>
+                                                        <th>상담글 제목</th>
+                                                        <th>상당글 삭제(Y/N)</th>
+                                                        <th>답변 삭제(Y/N)</th>
+                                                        <th>답변 작성 일자</th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>test-title</td>
-                                                        <td>test-context</td>
-                                                        <td>2025-08-01</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>test-title</td>
-                                                        <td>test-context</td>
-                                                        <td>2025-08-01</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>test-title</td>
-                                                        <td>test-context</td>
-                                                        <td>2025-08-01</td>
-                                                    </tr>
+                                                    <tbody id="doctorDetailReplies">
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -218,9 +206,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-close btn btn-outline-filter">닫기</button>
                 </div>
             </div>
         </div>

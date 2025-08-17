@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface DoctorListMapper {
@@ -25,7 +26,7 @@ public interface DoctorListMapper {
     List<DoctorDTO> selectAllStatus(@Param("criteria") Criteria criteria);
 //  멤버 status 상관없는 의사 전체 수
     int selectCountAllStatus();
-
-    List<DoctorHospitalDTO> selectDoctorById(Long doctorId);
+//  관리자페이지 의사 상세 보기
+    Optional<DoctorHospitalDTO> selectDoctorById(Long doctorId);
 
 }

@@ -1911,3 +1911,6 @@ element.style {
 #memberModal.modal>.modal-dialog>.modal-content>.modal-body {
     padding: 50px;
 }
+#doctorDetailReplies tr td{
+    text-align: center;
+}

@@ -1,10 +1,12 @@
 package com.example.back.controller.admin;
 
+import com.example.back.common.exception.DoctorNotFoundException;
 import com.example.back.common.exception.InquiryNotFoundException;
 import com.example.back.common.exception.MemberNotFoundException;
 import com.example.back.common.exception.NoticeNotFoundException;
 import com.example.back.dto.doctor.DoctorCriteriaDTO;
 import com.example.back.dto.doctor.DoctorDTO;
+import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.doctor.DoctorListCriteriaDTO;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
@@ -40,24 +42,26 @@ public class AdminRestController {
     public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
                                                       @RequestParam String query,
                                                       @RequestParam String answerStatus) {
-        log.info("{},{},{}",page,query,answerStatus);
-        ScrollCriteria scrollCriteria = new ScrollCriteria(page,query,answerStatus);
+        log.info("{},{},{}", page, query, answerStatus);
+        ScrollCriteria scrollCriteria = new ScrollCriteria(page, query, answerStatus);
         InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(scrollCriteria);
         return ResponseEntity.ok().body(inquiryListWithAnswerStats);
     }
 
     @GetMapping("inquires/{inquiryId}")
-    public ResponseEntity<InquiryMemberReplyDTO> inquires(@PathVariable Long inquiryId) {
+    public ResponseEntity<InquiryMemberReplyDTO> inquiryDetail(@PathVariable Long inquiryId) {
         Optional<InquiryMemberReplyDTO> inquiryDetail = inquiryService.getInquiryDetail(inquiryId);
         return ResponseEntity.ok().body(inquiryDetail.orElseThrow(InquiryNotFoundException::new));
     }
+
     @GetMapping("notices")
     public ResponseEntity<NoticesCriteriaDTO> notices(@RequestParam int page) {
         NoticesCriteriaDTO noticesCriteriaDTO = noticeService.getList(page);
         return ResponseEntity.ok().body(noticesCriteriaDTO);
     }
+
     @GetMapping("notices/{id}")
-    public ResponseEntity<NoticeDTO> notices(@PathVariable Long id) {
+    public ResponseEntity<NoticeDTO> noticeDetail(@PathVariable Long id) {
         NoticeDTO notice = noticeService.getNotice(id).orElseThrow(NoticeNotFoundException::new);
         return ResponseEntity.ok().body(notice);
     }
@@ -70,19 +74,23 @@ public class AdminRestController {
     }
 
     @GetMapping("members/{memberId}")
-    public ResponseEntity<MemberDTO> members(@PathVariable Long memberId) {
+    public ResponseEntity<MemberDTO> memberDetail(@PathVariable Long memberId) {
         MemberDTO member = memberService.getMemberByIdAllStatus(memberId).orElseThrow(MemberNotFoundException::new);
         log.info("출력을 잘됨");
         return ResponseEntity.ok().body(member);
     }
 
-    @GetMapping
+    @GetMapping("doctors")
     public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestParam int page,
-                                                         @RequestParam String query) {
-        List<DoctorDTO> a = new ArrayList<>();
+                                                     @RequestParam String query) {
         DoctorCriteriaDTO doctors = doctorListService.getListAllStatus(page);
-//        doctors.setDoctorsList(a);
         return ResponseEntity.ok().body(doctors);
     }
 
+
+    @GetMapping("doctors/{doctorId}")
+    public ResponseEntity<DoctorHospitalDTO> doctorDetail(@PathVariable Long doctorId) {
+        DoctorHospitalDTO doctor = doctorListService.getDoctorAdminById(doctorId).orElseThrow(DoctorNotFoundException::new);
+        return ResponseEntity.ok().body(doctor);
+    }
 }
