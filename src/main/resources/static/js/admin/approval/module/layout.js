@@ -13,6 +13,7 @@ const approvalLayout = (() => {
             `
         } else {
             doctors.forEach((doctor) => {
+                let check = doctor.doctorStatus ==="INACTIVE" && doctor.memberStatus === "ACTIVE";
                 text += `
             <tr>
                                 <td class="td-member text-center">
@@ -23,6 +24,7 @@ const approvalLayout = (() => {
                                     ${doctor.doctorLicenseNumber}
                                 </td>
                                 <td class="td-time text-center">${doctor.createdDate}</td>
+                                <td class="text-center" style="color:${check ? "#507cf3":"#fe657e"}">${check ? "승인 대기" : "승인 거절"}</td>
                                 <td class="td-mng text-center">
                                     <button class="btn btn-light-danger btn-sm edit-btn action-btn" data-doctorid="${doctor.id}">
                                         <i class="mdi mdi-chevron-right"></i>
@@ -62,7 +64,6 @@ const approvalLayout = (() => {
 
     }
     const showPendingDoctor = async (result) => {
-        let text = ``;
         const pendingName = document.getElementById("pendingName");
         const pendingHospitalPhone = document.getElementById("pendingHospitalPhone");
         const pendingHospital = document.getElementById("pendingHospital");

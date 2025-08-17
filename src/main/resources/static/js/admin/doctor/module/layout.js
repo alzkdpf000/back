@@ -18,15 +18,19 @@ const doctorLayout = (() => {
             doctors.forEach((doctor) => {
                 let checkStatus;
                 let memberStatus;
+                console.log(doctor.memberStatus,doctor.doctorStatus);
                 if (doctor.memberStatus === "INACTIVE" && doctor.doctorStatus === "INACTIVE") {
                     memberStatus = "승인 거절";
-                    checkStatus = false
+                    checkStatus = false;
                 } else if (doctor.memberStatus === "ACTIVE" && doctor.doctorStatus ==="INACTIVE") {
                     memberStatus = "승인 대기";
                     checkStatus = true;
-                } else {
+                } else if (doctor.memberStatus === "INACTIVE" && doctor.doctorStatus ==="ACTIVE"){
                     memberStatus = "탈퇴";
-                    checkStatus = false
+                    checkStatus = false;
+                }else{
+                    memberStatus ="활동 중";
+                    checkStatus = true;
                 }
                 text += `
             <tr>
@@ -94,14 +98,21 @@ const doctorLayout = (() => {
         const replies = result.replies;
         const memberEmail = result.memberProvider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
         let memberStatus;
+        let checkStatus;
         if (result.memberStatus === "INACTIVE" && result.doctorStatus === "INACTIVE") {
             memberStatus = "승인 거절";
+            checkStatus = false;
         } else if (result.memberStatus === "ACTIVE" && result.doctorStatus ==="INACTIVE") {
             memberStatus = "승인 대기";
-        } else {
+            checkStatus = true;
+        } else if (result.memberStatus === "INACTIVE" && result.doctorStatus ==="ACTIVE"){
             memberStatus = "탈퇴";
+            checkStatus = false;
+        }else{
+            memberStatus ="활동 중";
+            checkStatus = true;
         }
-        doctorDetailStatus.style.color = result.memberStatus === "ACTIVE" ? "#507cf3": "#fe657e";
+        doctorDetailStatus.style.color =  checkStatus ? "#507cf3": "#fe657e";
         doctorDetailName.textContent = result.memberName;
         doctorDetailPhone.textContent = result.memberPhone;
         doctorDetailHospital.textContent = result.hospitalName;
