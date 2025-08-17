@@ -36,6 +36,8 @@ public class DoctorHospitalDTO {
     private String hospitalPhone;
     private String roadAddress;
     private String detailAddress;
+    private String zipCode;
+    private String hospitalHomepageUrl;
     private List<CounselReplyDTO> replies;
 
 }

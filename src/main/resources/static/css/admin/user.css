@@ -1539,12 +1539,7 @@ Body 태그에 class로 추가됌 */
     width: auto;
 }
 
-@media (min-width: 800px) {
-    .modal-dialog {
-        margin: 1.75rem auto;
-        max-width: 500px;
-    }
-}
+
 
 .modal>.modal-dialog {
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;

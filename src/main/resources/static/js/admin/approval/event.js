@@ -1,6 +1,6 @@
 // 일반회원 상세 모달 창 열고 닫는 이벤트
 const approvalModal = document.querySelector(".approval-modal");
-const closeApprovalButton = document.getElementById("approval-modal-close");
+const closeApprovalButton = document.getElementById("approvalModalClose");
 
 
 closeApprovalButton.addEventListener("click", (e) => {
@@ -20,11 +20,38 @@ const showPendingDoctors = async (page = 1) => {
         loading.style.display = "none";
     }, 1000)
 }
+const paginationApproval = document.querySelector(".pagination.bootpay-pagination.approval-pagination");
+paginationApproval.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("paging")) {
+        e.preventDefault();
+        await showPendingDoctors(e.target.dataset.page);
+
+    }
+})
+
+const approvalTbody = document.getElementById("approvalTbody");
+
+approvalTbody.addEventListener("click",async (e)=>{
+    const pendingBtn = e.target.closest("button.action-btn");
+    if (pendingBtn) {
+        const doctorId = pendingBtn.dataset.doctorid;
+        loading.style.display = "block";
+        await approvalService.getPendingDoctor(approvalLayout.showPendingDoctor,doctorId);
+        setTimeout(() => {
+            loading.style.display = "none";
+            approvalModal.classList.add("show")
+            approvalModal.style.display = "block"
+        }, 1000)
+    }
+})
+
+
+
 
 
 // // 승인 여부
-// const acceptBtn = document.querySelectorAll(".accept");
-// const refuseBtn = document.querySelectorAll(".refuse");
+const acceptBtn = document.getElementById("accept");
+const refuseBtn = document.getElementById("refuse");
 //
 // // 승인 버튼
 // acceptBtn.forEach((btn) => {

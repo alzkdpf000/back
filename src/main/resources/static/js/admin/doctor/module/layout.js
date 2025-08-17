@@ -16,7 +16,18 @@ const doctorLayout = (() => {
             `
         } else {
             doctors.forEach((doctor) => {
-                const checkStatus = doctor.memberStatus === "ACTIVE";
+                let checkStatus;
+                let memberStatus;
+                if (result.memberStatus === "INACTIVE" && result.doctorStatus === "INACTIVE") {
+                    memberStatus = "승인 거절";
+                    checkStatus = false
+                } else if (result.memberStatus === "ACTIVE") {
+                    memberStatus = "활동 중";
+                    checkStatus = true;
+                } else {
+                    memberStatus = "탈퇴";
+                    checkStatus = false
+                }
                 text += `
             <tr>
                             <td class="td-name" style="width: 10%;  text-align: center;">
@@ -30,7 +41,7 @@ const doctorLayout = (() => {
                             <td class="td-phone" style="width: 10%">${doctor.memberPhone}</td>
                             <td class="td-phone" style="width: 10%">${doctor.doctorLicenseNumber}</td>
                             <td class="td-start" style="width: 10%" >${doctor.createdDate}</td>
-                            <td class="td-recent" style="width: 5%; color : ${checkStatus ? "#507cf3" : "#fe657e"}">${checkStatus ? "활동 중" : "탈퇴"}</td>
+                            <td class="td-recent" style="width: 5%; color : ${checkStatus ? "#507cf3" : "#fe657e"}">${memberStatus}</td>
                             <td class="td-action text-center" style="width: 5%;">
                                 <div class="action-btn member-detail-btn" data-doctorid = ${doctor.id}>
                                     <i class="mdi mdi-chevron-right"></i>
@@ -79,12 +90,21 @@ const doctorLayout = (() => {
         const doctorDetailStatus = document.getElementById("doctorDetailStatus");
         const doctorDetailSpecialty = document.getElementById("doctorDetailSpecialty");
         const repliesWrap = document.getElementById("doctorDetailReplies");
+        const doctorDetailHospital = document.getElementById("doctorDetailHospital");
         const replies = result.replies;
         const memberEmail = result.memberProvider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
-        const memberStatus = result.memberStatus === "ACTIVE" ? "활동 중" : "탈퇴";
+        let memberStatus;
+        if (result.memberStatus === "INACTIVE" && result.doctorStatus === "INACTIVE") {
+            memberStatus = "승인 거절";
+        } else if (result.memberStatus === "ACTIVE") {
+            memberStatus = "활동 중";
+        } else {
+            memberStatus = "탈퇴";
+        }
         doctorDetailStatus.style.color = result.memberStatus === "ACTIVE" ? "#507cf3": "#fe657e";
         doctorDetailName.textContent = result.memberName;
         doctorDetailPhone.textContent = result.memberPhone;
+        doctorDetailHospital.textContent = result.hospitalName;
         doctorDetailVita.textContent = result.memberVitaAmount;
         doctorDetailDatetime.textContent = result.createdDatetime;
         doctorDetailId.textContent = result.id;

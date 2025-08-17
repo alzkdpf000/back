@@ -24,7 +24,7 @@ const approvalLayout = (() => {
                                 </td>
                                 <td class="td-time text-center">${doctor.createdDate}</td>
                                 <td class="td-mng text-center">
-                                    <button class="btn btn-light-danger btn-sm edit-btn action-btn" data-doctorid="${dcotor.id}">
+                                    <button class="btn btn-light-danger btn-sm edit-btn action-btn" data-doctorid="${doctor.id}">
                                         <i class="mdi mdi-chevron-right"></i>
                                     </button>
                                 </td>
@@ -63,48 +63,34 @@ const approvalLayout = (() => {
     }
     const showPendingDoctor = async (result) => {
         let text = ``;
-        const doctorDetailName = document.getElementById("doctorDetailName");
-        const doctorDetailPhone = document.getElementById("doctorDetailPhone");
-        const doctorDetailVita = document.getElementById("doctorDetailVita");
-        const doctorDetailDatetime = document.getElementById("doctorDetailDatetime");
-        const doctorDetailId = document.getElementById("doctorDetailId");
-        const doctorDetailEmail = document.getElementById("doctorDetailEmail");
-        const doctorDetailStatus = document.getElementById("doctorDetailStatus");
-        const doctorDetailSpecialty = document.getElementById("doctorDetailSpecialty");
-        const repliesWrap = document.getElementById("doctorDetailReplies");
-        const replies = result.replies;
+        const pendingName = document.getElementById("pendingName");
+        const pendingHospitalPhone = document.getElementById("pendingHospitalPhone");
+        const pendingHospital = document.getElementById("pendingHospital");
+        const pendingDetailAddress = document.getElementById("pendingDetailAddress");
+        const pendingZipCode = document.getElementById("pendingZipCode");
+        const pendingId = document.getElementById("pendingId");
+        const pendingEmail = document.getElementById("pendingEmail");
+        const pendingRoadAddress = document.getElementById("pendingRoadAddress");
+        const pendingDatetime = document.getElementById("pendingDatetime");
+        const pendingUrl = document.getElementById("pendingUrl");
+        const pendingSpecialty = document.getElementById("pendingSpecialty");
+        const pendingLicense = document.getElementById("pendingLicense");
         const memberEmail = result.memberProvider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
-        const memberStatus = result.memberStatus === "ACTIVE" ? "활동 중" : "탈퇴";
-        doctorDetailStatus.style.color = result.memberStatus === "ACTIVE" ? "#507cf3": "#fe657e";
-        doctorDetailName.textContent = result.memberName;
-        doctorDetailPhone.textContent = result.memberPhone;
-        doctorDetailVita.textContent = result.memberVitaAmount;
-        doctorDetailDatetime.textContent = result.createdDatetime;
-        doctorDetailId.textContent = result.id;
-        doctorDetailSpecialty.textContent = result.doctorSpecialty;
-        doctorDetailEmail.textContent = memberEmail;
-        doctorDetailStatus.textContent = memberStatus;
-        // memberDetailProvider.textContent = result.memberProvider;
-        if (replies.length === 0) {
-            text +=
-                `
-                <tr><td class="text-light-grey text-center" colspan="4">작성한 답변이 없습니다</td></tr>
-                `
-        } else {
-            replies.forEach((reply) => {
-                const check1 = reply.consultationPostStatus === "INACTIVE";
-                const check2 = reply.counselReplyStatus === "INACTIVE";
-                text += `
-            <tr>
-                <td>${reply.consultationPostTitle}</td>
-                <td style="color :${check1 ? "#507cf3": "#fe657e"}">${check1 ? "Y" : "N"}</td>
-                <td style="color :${check2 ? "#507cf3": "#fe657e"}">${check2 ? "Y" : "N"}</td>
-                <td>${reply.createdDate}</td>
-            </tr>`
-            })
-        }
+        pendingName.textContent = result.memberName;
+        pendingRoadAddress.textContent = result.roadAddress;
+        pendingDatetime.textContent = result.createdDatetime;
+        pendingHospital.textContent = result.hospitalName;
+        pendingDetailAddress.textContent = result.detailAddress;
+        pendingZipCode.textContent = result.zipCode;
+        pendingLicense.textContent = result.doctorLicenseNumber;
+        pendingUrl.textContent = result.hospitalHomepageUrl ? result.hospitalHomepageUrl : "존재 안함"  ;
+        pendingHospitalPhone.textContent = result.memberPhone;
+        pendingId.textContent = result.id;
+        pendingSpecialty.textContent = result.doctorSpecialty;
+        pendingEmail.textContent = memberEmail;
 
-        repliesWrap.innerHTML = text;
+
+
     }
     return {showPendingDoctors: showPendingDoctors, showPendingDoctor: showPendingDoctor};
 })();

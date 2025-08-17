@@ -48,6 +48,7 @@
                member_name,
                member_phone,
                member_status,
+               doctor_status,
                member_provider as provider,
                doctor_license_number,
                member_kakao_email,

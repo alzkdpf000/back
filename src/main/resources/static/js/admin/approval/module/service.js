@@ -7,7 +7,9 @@ const approvalService = (() => {
             console.log(result);
             if (response.ok) {
                 console.log("승인 대기 의사  잘나옴")
-                callback(result, load);
+                setTimeout(() => {
+                    callback(result);
+                }, 1000)
             } else {
                 const errorText = await response.text();
                 console.log(response.status);

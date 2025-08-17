@@ -17,7 +17,7 @@
         <div class="tab-view">
             <div class="tab-view-body" style="padding-top: 34px">
                 <div class="page-contents">
-                    <div class="table-layout white-panel">
+                    <div class="table-layout white-panel" style="padding-bottom: 10px">
                         <table class="table grey-header-table w-100 approval-table">
                             <thead>
                             <tr>
@@ -30,40 +30,25 @@
                                 <th class="text-center">상세</th>
                             </tr>
                             </thead>
-                            <tbody id="approvalTbody">
+                                <tbody id="approvalTbody">
                             <!-- 의사회원 -->
-                            <tr>
-                                <td class="td-member text-center">
-                                    123412
-                                </td>
-                                <td class="approval-status text-center">이름</td>
-                                <td class="td-role text-center">
-                                    의사회원
-                                </td>
-                                <td class="td-time text-center">2025-08-03</td>
-                                <td class="td-mng text-center">
-                                    <button class="btn btn-light-danger btn-sm edit-btn action-btn">
-                                        <i class="mdi mdi-chevron-right"></i>
-                                    </button>
-                                </td>
-
-                            </tr>
                             </tbody>
                         </table>
+                        <nav class="bootpay-pagination-wrapper mt-5 mb-4">
+                            <ul class="pagination bootpay-pagination approval-pagination">
+                            </ul>
+                        </nav>
                     </div>
-                    <nav class="bootpay-pagination-wrapper mt-5 mb-4">
-                        <ul class="pagination bootpay-pagination approval-pagination">
-                        </ul>
-                    </nav>
+
                     <!-- 일반회원 상세 모달 창 -->
                     <!-- 모달 창이 떠 있을 때 -->
                     <!-- <div class="modal fade member-modal show" style="display: block;" aria-modal="true" role="dialog"> -->
                     <!-- 모달 창이 뜨지 않을 때 -->
                     <div class="modal fade approval-modal" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
+                        <div class="modal-dialog modal-lg" style="width: 880px;">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button class="close" id="approval-modal-close">
+                                    <button class="close" id="approvalModalClose">
                                         <i class="mdi mdi-close"></i>
                                         <div class="action-btn"></div>
                                     </button>
@@ -90,26 +75,31 @@
                                                                         <tbody>
                                                                         <tr>
                                                                             <th>이름</th>
-                                                                            <td id="doctorDetailName">테스트01</td>
+                                                                            <td id="pendingName">테스트01</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>병원 번호</th>
-                                                                            <td id="doctorDetailHospitalPhone">
+                                                                            <td id="pendingHospitalPhone">
                                                                                 010-1234-5678
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>병원</th>
-                                                                            <td id="doctorDetailHospital">강남세브란스병원</td>
+                                                                            <td id="pendingHospital">강남세브란스병원</td>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>도로명</th>
+                                                                            <td id="pendingRoadAddress">강남세브란스병원</td>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>상세 주소</th>
-                                                                            <td id="doctorDetailAddress">2025-06-12
+                                                                            <td id="pendingDetailAddress">2025-06-12
                                                                         </tr>
                                                                         <tr>
                                                                             <th>우편 번호</th>
-                                                                            <td id="doctorDetailZipCode">강남세브란스병원</td>
+                                                                            <td id="pendingZipCode">강남세브란스병원</td>
                                                                         </tr>
                                                                         </tbody>
                                                                     </table>
@@ -120,25 +110,30 @@
                                                                         <tbody>
                                                                         <tr>
                                                                             <th>회원ID</th>
-                                                                            <td id="doctorDetailId">TestId01</td>
+                                                                            <td id="pendingId">TestId01</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>이메일</th>
-                                                                            <td id="doctorDetailEmail">
+                                                                            <td id="pendingEmail">
                                                                                 test01@gmail.com
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>병원 url</th>
-                                                                            <td id="doctorDetailUrl">2025-07-29</td>
+                                                                            <td id="pendingUrl">2025-07-29</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>가입 일자</th>
+                                                                            <td id="pendingDatetime">강남세브란스병원</td>
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>진료과</th>
-                                                                            <td id="doctorDetailSpecialty">남</td>
+                                                                            <td id="pendingSpecialty">남</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>면허번호</th>
-                                                                            <td id="doctorDetailLicense">123456</td>
+                                                                            <td id="pendingLicense">123456</td>
                                                                         </tr>
                                                                         </tbody>
                                                                     </table>
@@ -152,8 +147,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-outline-primary h45 mr-3 accept">승인</button>
-                                    <button class="btn btn-primary h45 refuse">거절</button>
+                                    <button id="accept" class="btn btn-primary btn-outline-primary h45 mr-3 accept" style="color:white;">승인</button>
+                                    <button id="refuse" class="btn btn-outline-primary h45 refuse" style="color:#fe657e;border: 1px solid #fe657e;">거절</button>
                                 </div>
                             </div>
                         </div>

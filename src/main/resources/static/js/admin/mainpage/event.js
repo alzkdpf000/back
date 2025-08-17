@@ -52,6 +52,7 @@ menuBtns.forEach((btn) => {
             inquiryScroll = true;
         }else if(clickId==="approval"){
             document.getElementById(`${clickId}`).style.display = "block";
+            document.getElementById("approvalTbody").innerHTML = "";
             await showPendingDoctors();
         }
         btn.classList.add("active");
