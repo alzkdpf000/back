@@ -292,6 +292,9 @@ ul {
     margin-left: 12px;
 }
 
+.text-right {
+    text-align: right !important;
+}
 
 .mdi-chevron-right:before {
     content: "\F0142";
@@ -572,8 +575,9 @@ button:not(:disabled) {
     justify-content: space-between !important;
 }
 
-
-
+.text-right {
+    text-align: right !important;
+}
 
 .text-center {
     text-align: center !important;
@@ -1411,14 +1415,3 @@ td {
 
 /* 관리자  */
 
-div#loading{
-    display: none;
-    width: 100px;
-    z-index: 100;
-    height: 100px;
-    margin: 0px auto;
-    position: fixed;
-    right: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}

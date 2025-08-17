@@ -1,124 +1,117 @@
-const btnFilterStatus = document.getElementById("btn-filter-status");
-const allChecked = document.getElementById("allchecked1");
-const allCanclechecked = document.getElementById("allflasechecked1");
-const checkBoxActive1 = document.getElementById("checkboxactive1");
-const checkBoxActive2 = document.getElementById("checkboxactive2");
-const popMenubtn = document.getElementById("pop-menu-bt2");
-const modalClose = document.getElementById("close");
+const menubtn1 = document.getElementById("menubtn1");
+const sublist1 = document.getElementById("sublist1");
+const menubtn2 = document.getElementById("menubtn2");
+const sublist2 = document.getElementById("sublist2");
+const menubtn3 = document.getElementById("menubtn3");
+const sublist3 = document.getElementById("sublist3");
+const menubtn4 = document.getElementById("menubtn4");
+const sublist4 = document.getElementById("sublist4");
+const submenus = document.querySelectorAll(".boot-link");
+const btnfilterstatus = document.getElementById("btn-filter-status");
+const allchecked1 = document.getElementById("allchecked1");
+const allflasechecked1 = document.getElementById("allflasechecked1");
+const allchecked2 = document.getElementById("allchecked2");
+const allflasechecked2 = document.getElementById("allflasechecked2");
+const checkboxactive1 = document.getElementById("checkboxactive1");
+const checkboxactive2 = document.getElementById("checkboxactive2");
+const bootpopbtn1 = document.getElementById("btn-filter-pm");
+const popmenubt1 = document.getElementById("pop-menu-bt1");
+const popmenubt2 = document.getElementById("pop-menu-bt2");
+const modalclose = document.getElementById("close");
+const body = document.getElementById("body");
 const modal = document.getElementById("modal");
-const modalOpen = document.getElementById("modal-open");
-const userMenuBtn = document.getElementById("usermenubtn");
-const userMenu = document.getElementById("usermenu");
+const modalopen = document.getElementById("modal-open");
+const usermenubtn = document.getElementById("usermenubtn");
+const usermenu = document.getElementById("usermenu");
 
-// 유저 메뉴 버튼
-userMenuBtn?.addEventListener("click", (e) => {
-    userMenu.classList.toggle("show");
-});
-
-// 답변 있는 체크박스 토글
-checkBoxActive1?.addEventListener("click", () => {
-    checkBoxActive1.classList.toggle("active");
-});
-// 답변 없음 체크 박스 토글
-checkBoxActive2?.addEventListener("click", () => {
-    checkBoxActive2.classList.toggle("active");
-});
-
-// 전체 선택 / 해제
-allChecked?.addEventListener("click", () => {
-    checkBoxActive1?.classList.add("active");
-    checkBoxActive2?.classList.add("active");
-});
-// 전체 해제
-allCanclechecked?.addEventListener("click", () => {
-    checkBoxActive1?.classList.remove("active");
-    checkBoxActive2?.classList.remove("active");
-});
-
-// 필터 팝업 토글
-btnFilterStatus?.addEventListener("click", () => {
-    popMenubtn.classList.toggle("show");
-});
-
-
-const inquiriesBody = document.getElementById("inquiriesBody");
-// 모달 열기/닫기
-
-inquiriesBody.addEventListener("click", async (e) => {
-    const inquiryDetailBtn = e.target.closest("div#modal-open");
-    console.log(e.target);
-    if (inquiryDetailBtn) {
-        const inquiryId = inquiryDetailBtn.dataset.inquiryid
-        loading.style.display = "block";
-        await inquiryService.getDetailInquiry(inquiryLayout.showDetailInquiry,inquiryId);
-        setTimeout(() => {
-            loading.style.display = "none";
-            modal.classList.add("show");
-            modal.style.display = "block";
-        }, 1000)
-
-
-    }
-})
-modalClose?.addEventListener("click", () => {
-    modal.classList.remove("show");
-    modal.style.display = "none";
-});
-
-
-
-let query = "";
-let answerStatus = "all";
-const scrollBox = document.getElementById("bootpay-main")
-let checkMore = true;
-let inquires;
-let inquiryScroll = false;
-let page = 1;
-const showList = async (page = 1, query = "", answerStatus = "all", load = false) => {
-    const loading = document.getElementById("loading");
-
-    loading.style.display = "block";
-    const inquiresList = await inquiryService.getInquiries(inquiryLayout.showInquiries, page, query, answerStatus, load);
-
-    setTimeout(() => {
-        loading.style.display = "none";
-    }, 1000)
-    checkMore = inquiresList.inquiryMemberReplyDTOs.length === inquiresList.scrollCriteria.rowCount;
-    return inquiresList;
+// 메뉴 버튼 이벤트
+if (menubtn1) {
+    menubtn1.addEventListener("click", (e) => {
+        sublist1?.classList.toggle("show");
+        e.preventDefault();
+    });
+}
+if (menubtn2) {
+    menubtn2.addEventListener("click", (e) => {
+        sublist2?.classList.toggle("show");
+        e.preventDefault();
+    });
+}
+if (menubtn3) {
+    menubtn3.addEventListener("click", (e) => {
+        sublist3?.classList.toggle("show");
+        e.preventDefault();
+    });
+}
+if (menubtn4) {
+    menubtn4.addEventListener("click", (e) => {
+        sublist4?.classList.toggle("show");
+        e.preventDefault();
+    });
 }
 
+// 유저 메뉴 버튼
+if (usermenubtn && usermenu) {
+    usermenubtn.addEventListener("click", (e) => {
+        usermenu.classList.toggle("show");
+    });
+}
 
+// 서브메뉴 active 토글
+submenus.forEach((submenu) => {
+    submenu.addEventListener("click", (e) => {
+        e.preventDefault();
+        submenus.forEach((active) => active.classList.remove("active"));
+        submenu.classList.add("active");
+    });
+});
 
+// 체크박스 토글
+if (checkboxactive1) {
+    checkboxactive1.addEventListener("click", () => {
+        checkboxactive1.classList.toggle("active");
+    });
+}
+if (checkboxactive2) {
+    checkboxactive2.addEventListener("click", () => {
+        checkboxactive2.classList.toggle("active");
+    });
+}
 
-scrollBox.addEventListener("scroll", async (e) => {
-    if (!inquiryScroll) {
-        return;
-    }
-    if (!checkMore) {
-        return;
-    }
+// 전체 선택 / 해제
+if (allchecked1) {
+    allchecked1.addEventListener("click", () => {
+        checkboxactive1?.classList.add("active");
+        checkboxactive2?.classList.add("active");
+    });
+}
+if (allflasechecked1) {
+    allflasechecked1.addEventListener("click", () => {
+        checkboxactive1?.classList.remove("active");
+        checkboxactive2?.classList.remove("active");
+    });
+}
 
-    const scrollTop = scrollBox.scrollTop;
-    // div의 보이는 높이
-    const clientHeight = scrollBox.clientHeight;
-    // div의 전체 콘텐츠 높이
-    const scrollHeight = scrollBox.scrollHeight;
+// 필터 팝업 토글
+if (btnfilterstatus && popmenubt2) {
+    btnfilterstatus.addEventListener("click", () => {
+        popmenubt2.classList.toggle("show");
+    });
+}
 
-    if (scrollTop + clientHeight >= scrollHeight - 1) {
-        //     바닥에 닿았을 때
-        if (inquiryScroll) {
-            inquires = await showList(++page, query, answerStatus, true);
-            console.log("스크롤 이벤트야");
-            inquiryScroll = false;
-        }
-        checkMore = inquires.inquiryMemberReplyDTOs.length === inquires.scrollCriteria.rowCount;
-        setTimeout(() => {
-            if (inquires !== null && checkMore) {
-                inquiryScroll = true
-            }
-        }, 2000);
-    }
-})
+// 모달 열기/닫기
+if (modalopen && modal && body) {
+    modalopen.addEventListener("click", () => {
+        modal.classList.add("show");
+        modal.style.display = "block";
+        body.classList.add("modal-open");
+    });
+}
 
-
-
+if (modalclose && modal && body) {
+    modalclose.addEventListener("click", () => {
+        modal.classList.remove("show");
+        modal.style.display = "none";
+        body.classList.remove("modal-open");
+    });
+}
