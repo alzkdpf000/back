@@ -4,7 +4,7 @@ let memberResponse = null;
 // 페이지 번호 클릭 이벤트(데이터를 받아와야 하는 곳이라 주석 처리)
 const paginationMember = document.querySelector(".pagination.bootpay-pagination.member-pagination");
 
-const showMembers = async (page = 1,keyword = "") => {
+const showMembers = async (page = 1, keyword = "") => {
     memberResponse = await memberService.getMembers(memberLayout.showMembers, page, keyword)
     memberResponse = memberResponse.search;
 }
@@ -67,13 +67,13 @@ const memberKeywordInput = document.getElementById("memberKeyword");
 const memberKeywordBtn = document.getElementById("memberKeywordBtn");
 
 
-memberKeywordInput.addEventListener("keydown",async (e)=>{
-    if(memberKeywordInput.value.trim() !== "" && e.key === "Enter"){
-        await showMembers(1,memberKeywordInput.value);
+memberKeywordInput.addEventListener("keydown", async (e) => {
+    if (e.key === "Enter") {
+        await showMembers(1, memberKeywordInput.value.trim());
     }
 })
-memberKeywordBtn.addEventListener("click",async (e)=>{
-    if(memberKeywordInput.value.trim() !== ""){
-        await showMembers(1,memberKeywordInput.value);
-    }
+memberKeywordBtn.addEventListener("click", async (e) => {
+
+    await showMembers(1, memberKeywordInput.value.trim());
+
 })

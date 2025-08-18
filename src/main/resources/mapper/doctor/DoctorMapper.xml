@@ -60,7 +60,8 @@
             </if>
             <if test='search.keyword !=null and search.keyword !=""'>
                 ( member_name like concat('%', #{search.keyword}, '%') or
-                member_email like concat('%', #{search.keyword}, '%')
+                member_email like concat('%', #{search.keyword}, '%') or
+                member_kakao_email like concat('%', #{search.keyword}, '%')
                 )
             </if>
         </where>
@@ -74,7 +75,8 @@
         <where>
             <if test='search.keyword !=null and search.keyword !=""'>
                 ( member_name like concat('%', #{search.keyword}, '%') or
-                member_email like concat('%', #{search.keyword}, '%')
+                member_email like concat('%', #{search.keyword}, '%') or
+                member_kakao_email like concat('%', #{search.keyword}, '%')
                 )
             </if>
         </where>

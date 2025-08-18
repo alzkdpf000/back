@@ -19,7 +19,8 @@
         where member_role = 'member'
         <if test='search.keyword !=null and search.keyword !=""'>
             and ( member_name like concat('%', #{search.keyword}, '%') or
-            member_email like concat('%', #{search.keyword}, '%')
+            member_email like concat('%', #{search.keyword}, '%') or
+            member_kakao_email like concat('%', #{search.keyword}, '%')
             )
         </if>
         order by id desc
@@ -32,7 +33,8 @@
         where member_role = 'member'
         <if test='search.keyword !=null and search.keyword !=""'>
             and ( member_name like concat('%', #{search.keyword}, '%') or
-            member_email like concat('%', #{search.keyword}, '%')
+            member_email like concat('%', #{search.keyword}, '%') or
+            member_kakao_email like concat('%', #{search.keyword}, '%')
             )
         </if>
     </select>
