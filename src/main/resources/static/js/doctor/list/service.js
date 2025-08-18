@@ -11,4 +11,5 @@ const doctorService = (() => {
     };
 
     return { getDoctors };
+    console.log(criteriaDTO);
 })();

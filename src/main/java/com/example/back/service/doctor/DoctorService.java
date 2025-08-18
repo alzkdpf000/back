@@ -4,7 +4,7 @@ import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.dto.doctor.DoctorListCriteriaDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
 
-public interface DoctorListService {
+public interface DoctorService {
     //  목록
     public DoctorListCriteriaDTO getList(int page);
 
