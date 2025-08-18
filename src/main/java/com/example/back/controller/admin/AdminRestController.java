@@ -77,10 +77,9 @@ public class AdminRestController {
         return ResponseEntity.ok().body(member);
     }
 
-    @GetMapping("doctors")
-    public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestParam int page,
-                                                     @RequestParam(required = false) Search search) {
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(page,"active");
+    @PostMapping("doctors")
+    public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestBody Search search) {
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search,"active");
         return ResponseEntity.ok().body(doctors);
     }
 
@@ -92,8 +91,9 @@ public class AdminRestController {
     }
 
     @GetMapping("doctors/pending")
-    public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestParam int page) {
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(page, "inactive");
+    public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestParam(required = false) Search search) {
+        log.info("{}",search.toString());
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, "inactive");
         return ResponseEntity.ok().body(doctors);
     }
 

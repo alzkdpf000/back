@@ -4,6 +4,7 @@ import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.util.Criteria;
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.service.doctor.DoctorService;
+import com.example.back.util.Search;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,34 @@ public class DoctorListTests {
 
     @Test
     public void testSelectAllStatus(){
+        Search search = new Search();
+        search.setPage(1);
+        search.setKeyword("test");
         Criteria criteria = new Criteria(1,10);
-        log.info("{}",doctorMapper.selectDoctorsByStatus(criteria,"active"));
+        log.info("{}",doctorMapper.selectDoctorsByStatus(criteria,"active",search));
     }
     @Test
     public void testFindAllStatus(){
+        Search search = new Search();
+        search.setPage(1);
+        search.setKeyword("test");
         Criteria criteria = new Criteria(1,10);
-        log.info("{}", doctorDAO.findAllStatus(criteria,"inactive"));
+        log.info("{}", doctorDAO.findAllStatus(criteria,"inactive",search));
     }
 
     @Test
     public void testSelectCountAllStatus(){
-        log.info("{}",doctorMapper.selectDoctorCountByStatus("active"));
+        Search search = new Search();
+        search.setPage(1);
+        search.setKeyword("test");
+        log.info("{}",doctorMapper.selectDoctorCountByStatus(search));
     }
     @Test
     public void testFindCountAllStatus(){
-        log.info("{}", doctorDAO.findCountAllStatus("inactive"));
+        Search search = new Search();
+        search.setPage(1);
+        search.setKeyword("test");
+        log.info("{}", doctorDAO.findCountAllStatus(search));
     }
 
     @Test
@@ -64,7 +77,7 @@ public class DoctorListTests {
     @Test
     @Transactional
     public void testApproveDoctor(){
-        doctorListDAO.approveDoctor(69L);
+        doctorDAO.approveDoctor(69L);
         log.info("{}",doctorDAO.findDoctorById(69L));
     }
 

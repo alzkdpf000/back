@@ -1,11 +1,27 @@
-let doctorQuery= ""
+let responseSearch=null;
+
+const doctorKeywordInput = document.getElementById("doctorKeyword");
+const doctorKeywordBtn = document.getElementById("doctorKeywordBtn");
 
 
-
-
-const showDoctors = async (page = 1, load = false, query = "") => {
-    await doctorService.getDoctors(doctorLayout.showDoctors, page, load, query)
+const showDoctors = async (page = 1,  keyword = "") => {
+    responseSearch = await doctorService.getDoctors(doctorLayout.showDoctors, page, keyword)
+    responseSearch = responseSearch.search;
 }
+
+
+doctorKeywordInput.addEventListener("keydown",async (e)=>{
+    if(doctorKeywordInput.value.trim() !== "" && e.key === "Enter"){
+        await showDoctors(1,doctorKeywordInput.value);
+    }
+})
+doctorKeywordBtn.addEventListener("click",async (e)=>{
+    if(doctorKeywordInput.value.trim() !== ""){
+        await showDoctors(1,doctorKeywordInput.value);
+    }
+})
+
+
 
 
 // 페이지 번호 클릭 이벤트(데이터를 받아와야 하는 곳이라 주석 처리)
@@ -14,8 +30,7 @@ const paginationDoctor = document.querySelector(".pagination.bootpay-pagination.
 paginationDoctor.addEventListener("click", async (e) => {
     if (e.target.classList.contains("paging")) {
         e.preventDefault();
-        await showDoctors(e.target.dataset.page, true, doctorQuery);
-
+        await showDoctors(e.target.dataset.page,responseSearch.keyword);
     }
 })
 
