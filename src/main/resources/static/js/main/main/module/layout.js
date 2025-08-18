@@ -1,12 +1,9 @@
 const consultationMainPageLayout = (() => {
-    const showList = (consultationPost) => {
+    const showList = (result) => {
         const consultationPostContainer = document.querySelector("#intersectionObserver");
         let text = ``;
 
-        consultationPost.forEach((post,i) => {
-            if(i === consultationPost.length -1) {
-                return;
-            }
+        result.consultationPosts.forEach(post => {
             let categoryText = ``;
             let imgText = ``;
             console.log(post.consultationPostFiles);
@@ -17,11 +14,16 @@ const consultationMainPageLayout = (() => {
                 </li>
                 `
             })
-            post.categories.forEach((category, index) => {
-                categoryText += `
+            if(post.categories.length===0){
+                categoryText += "기타"
+            }else{
+                post.categories.forEach((category, index) => {
+                    categoryText += `
                 ${category}${index === post.categories.length - 1 ? '' : ' ·'}
                 `
-            })
+                })
+            }
+
             console.log(post.memberProvider)
             const providerImgSrc = post.memberProvider === "KAKAO"
                 ? post.memberFilePath

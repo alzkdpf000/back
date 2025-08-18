@@ -14,9 +14,10 @@ public class ScrollCriteria {
     private String[] answerStatus;
     private int offset;
     private int count;
-
+    private int page;
     public ScrollCriteria(int page) {
         rowCount = 7;
+        this.page = page;
         count = rowCount + 1;
         offset = (page - 1) * rowCount;
     }
