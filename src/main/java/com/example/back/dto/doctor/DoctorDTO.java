@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @EqualsAndHashCode(of = "id")
 public class DoctorDTO {
     private Long id;
+    private Long memberId;
     private String memberName;
     private String memberEmail;
     private String memberPassword;

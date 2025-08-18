@@ -41,4 +41,9 @@
         select count(*) from tbl_doctor
         where doctor_status = 'active'
     </select>
+
+    <insert id="insertDoctor">
+        insert into tbl_doctor(member_id, doctor_license_number, doctor_specialty, hospital_id)
+        values (#{memberId},#{doctorLicenseNumber}, #{doctorSpecialty}, #{hospitalId})
+    </insert>
 </mapper>
