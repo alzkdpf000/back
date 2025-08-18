@@ -1,12 +1,9 @@
 package com.example.back.mapper.doctor;
 
-<<<<<<< HEAD:src/main/java/com/example/back/mapper/doctor/DoctorListMapper.java
 import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
-=======
 import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.dto.doctor.DoctorDTO;
->>>>>>> 697d8e1f374f0a4649b9bed1063d57270175a7d6:src/main/java/com/example/back/mapper/doctor/DoctorMapper.java
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.util.Criteria;
 import org.apache.ibatis.annotations.Mapper;
