@@ -8,7 +8,7 @@ import com.example.back.dto.doctor.DoctorListDTO;
 
 import java.util.Optional;
 
-public interface DoctorListService {
+public interface DoctorService {
     //  목록
     public DoctorListCriteriaDTO getList(int page);
 
@@ -18,7 +18,7 @@ public interface DoctorListService {
     //  관리자페이지 의사 상세 보기
     public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId);
 
-//  의사 가입 승인
+    //  의사 가입 승인
     public boolean approve(Long doctorId);
 
     default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){

@@ -3,9 +3,13 @@ const consultationMainPageLayout = (() => {
         const consultationPostContainer = document.querySelector("#intersectionObserver");
         let text = ``;
 
-        consultationPost.consultationPosts.forEach((post,i) => {
+        consultationPost.forEach((post,i) => {
+            if(i === consultationPost.length -1) {
+                return;
+            }
             let categoryText = ``;
             let imgText = ``;
+            console.log(post.consultationPostFiles);
             post.consultationPostFiles.forEach((file) => {
                 imgText += `
                 <li>
@@ -18,7 +22,7 @@ const consultationMainPageLayout = (() => {
                 ${category}${index === post.categories.length - 1 ? '' : ' ·'}
                 `
             })
-
+            console.log(post.memberProvider)
             const providerImgSrc = post.memberProvider === "KAKAO"
                 ? post.memberFilePath
                 : `/api/files/profile?url=${post.memberFilePath}`;

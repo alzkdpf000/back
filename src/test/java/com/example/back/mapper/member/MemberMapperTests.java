@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 @SpringBootTest
 @Slf4j
@@ -18,9 +17,9 @@ public class MemberMapperTests {
     @Autowired
     private MemberMapper memberMapper;
     @Autowired
-    private MemberDAO memberDAO;
-    @Autowired
     private MemberService memberService;
+    @Autowired
+    private MemberDAO memberDAO;
 
     @Test
     public void testInsertMember(){

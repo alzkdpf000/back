@@ -1,8 +1,9 @@
 package com.example.back.mapper.doctor;
 
-import com.example.back.repository.doctor.DoctorListDAO;
-import com.example.back.service.doctor.DoctorListService;
+import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.util.Criteria;
+import com.example.back.dto.doctor.DoctorListDTO;
+import com.example.back.service.doctor.DoctorService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,62 +16,64 @@ import org.springframework.transaction.annotation.Transactional;
 public class DoctorListTests {
 
     @Autowired
-    private DoctorListService doctorListService;
+    private DoctorService doctorService;
 
     @Autowired
-    private DoctorListMapper doctorListMapper;
+    private DoctorMapper doctorMapper;
 
     @Autowired
-    private DoctorListDAO doctorListDAO;
+    private DoctorDAO doctorDAO;
 
     @Test
     public void testSelectAllStatus(){
         Criteria criteria = new Criteria(1,10);
-        log.info("{}",doctorListMapper.selectDoctorsByStatus(criteria,"active"));
+        log.info("{}",doctorMapper.selectDoctorsByStatus(criteria,"active"));
     }
     @Test
     public void testFindAllStatus(){
         Criteria criteria = new Criteria(1,10);
-        log.info("{}",doctorListDAO.findAllStatus(criteria,"inactive"));
+        log.info("{}", doctorDAO.findAllStatus(criteria,"inactive"));
     }
 
     @Test
     public void testSelectCountAllStatus(){
-        log.info("{}",doctorListMapper.selectDoctorCountByStatus("active"));
+        log.info("{}",doctorMapper.selectDoctorCountByStatus("active"));
     }
     @Test
     public void testFindCountAllStatus(){
-        log.info("{}",doctorListDAO.findCountAllStatus("inactive"));
+        log.info("{}", doctorDAO.findCountAllStatus("inactive"));
     }
 
     @Test
     public void testSelectDoctorById(){
-        log.info("{}",doctorListMapper.selectDoctorById(60L));
+        log.info("{}",doctorMapper.selectDoctorById(60L));
     }
 
     @Test
     public void testFindDoctorById() {
-        log.info("{}", doctorListDAO.findDoctorById(60L));
+        log.info("{}", doctorDAO.findDoctorById(60L));
     }
 
     @Test
     @Transactional
     public void testUpdateDoctorStatusToApproved(){
-        doctorListMapper.updateDoctorStatusToApproved(69L);
-        log.info("{}",doctorListMapper.selectDoctorById(69L));
+        doctorMapper.updateDoctorStatusToApproved(69L);
+        log.info("{}",doctorMapper.selectDoctorById(69L));
     }
 
     @Test
     @Transactional
     public void testApproveDoctor(){
         doctorListDAO.approveDoctor(69L);
-        log.info("{}",doctorListDAO.findDoctorById(69L));
+        log.info("{}",doctorDAO.findDoctorById(69L));
     }
 
     @Test
     @Transactional
     public void testApprove(){
-        log.info("{}",doctorListService.approve(69L));
+        log.info("{}",doctorService.approve(69L));
+//        public void testFindDoctorById(){
+            log.info("{}", doctorDAO.findDoctorById(60L));
     }
 
 
@@ -87,15 +90,15 @@ public class DoctorListTests {
 //
 //            doctorListMapper.insertDoctor(doctor);
 //    }
-//
-//    @Test
-//    public void testSelectDoctorList(){
-//        DoctorListDTO doctorListDTO = new DoctorListDTO();
-//        log.info("doctorListDTO = {}", doctorListDTO);
-//        doctorListMapper.selectDoctorList(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
+
+    @Test
+    public void testSelectDoctorList(){
+        DoctorListDTO doctorListDTO = new DoctorListDTO();
+        log.info("doctorListDTO = {}", doctorListDTO);
+//        doctorMapper.selectAll(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
 
 
 
 
-//    }
+    }
 }

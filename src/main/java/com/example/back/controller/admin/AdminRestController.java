@@ -5,16 +5,14 @@ import com.example.back.common.exception.InquiryNotFoundException;
 import com.example.back.common.exception.MemberNotFoundException;
 import com.example.back.common.exception.NoticeNotFoundException;
 import com.example.back.dto.doctor.DoctorCriteriaDTO;
-import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
-import com.example.back.dto.doctor.DoctorListCriteriaDTO;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.notice.NoticeDTO;
 import com.example.back.dto.notice.NoticesCriteriaDTO;
-import com.example.back.service.doctor.DoctorListService;
+import com.example.back.service.doctor.DoctorService;
 import com.example.back.service.inquiry.InquiryService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.notice.NoticeService;
@@ -25,8 +23,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -37,7 +33,7 @@ public class AdminRestController {
     private final InquiryService inquiryService;
     private final NoticeService noticeService;
     private final MemberService memberService;
-    private final DoctorListService doctorListService;
+    private final DoctorService doctorService;
 
     @GetMapping("inquires")
     public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
@@ -84,26 +80,26 @@ public class AdminRestController {
     @GetMapping("doctors")
     public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestParam int page,
                                                      @RequestParam String query) {
-        DoctorCriteriaDTO doctors = doctorListService.getListAllStatus(page,"active");
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(page,"active");
         return ResponseEntity.ok().body(doctors);
     }
 
 
     @GetMapping({"doctors/{doctorId}","doctors/pending/{doctorId}"})
     public ResponseEntity<DoctorHospitalDTO> doctorDetail(@PathVariable Long doctorId) {
-        DoctorHospitalDTO doctor = doctorListService.getDoctorAdminById(doctorId).orElseThrow(DoctorNotFoundException::new);
+        DoctorHospitalDTO doctor = doctorService.getDoctorAdminById(doctorId).orElseThrow(DoctorNotFoundException::new);
         return ResponseEntity.ok().body(doctor);
     }
 
     @GetMapping("doctors/pending")
     public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestParam int page) {
-        DoctorCriteriaDTO doctors = doctorListService.getListAllStatus(page, "inactive");
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(page, "inactive");
         return ResponseEntity.ok().body(doctors);
     }
 
     @PutMapping("doctors/{doctorId}/approve")
     public ResponseEntity<String> approveDoctor(@PathVariable Long doctorId) {
-        boolean isDoctorExist = doctorListService.approve(doctorId);
+        boolean isDoctorExist = doctorService.approve(doctorId);
         if (isDoctorExist) {
             return ResponseEntity.ok().body("승인되었습니다.");
         }
