@@ -1,11 +1,13 @@
-# create fulltext index member_name_full_index on tbl_member (member_name)
-#     with parser ngram;
-# # member_email, member_kakao_email
-# create fulltext index member_email_full_index on tbl_member (member_email)
-#     with parser ngram;
-#
-# create fulltext index member_kakao_email_full_index on tbl_member (member_kakao_email)
-#     with parser ngram;
+/*create fulltext index member_name_full_index on tbl_member (member_name)
+    with parser ngram;
+# member_email, member_kakao_email
+create fulltext index member_email_full_index on tbl_member (member_email)
+    with parser ngram;
+
+create fulltext index member_kakao_email_full_index on tbl_member (member_kakao_email)
+    with parser ngram;*/
+
+/*내일 질문*/
 create fulltext index member_full_index on tbl_member (member_name,member_email,member_kakao_email)
     with parser ngram;
 
