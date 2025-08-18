@@ -18,6 +18,9 @@ public interface DoctorService {
     //  관리자페이지 의사 상세 보기
     public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId);
 
+    //  의사 가입 승인
+    public boolean approve(Long doctorId);
+
     default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){
         return DoctorVO.builder()
                 .id(doctorListDTO.getId())

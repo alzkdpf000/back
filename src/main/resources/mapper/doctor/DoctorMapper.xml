@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.back.mapper.doctor.DoctorListMapper">
-    <insert id="insertDoctor">
-        insert into tbl_doctor(member_id, doctor_license_number, doctor_specialty, hospital_id)
-        values (#{id},#{doctorLicenseNumber}, #{doctorSpecialty}, #{hospitalId})
-    </insert>
+<mapper namespace="com.example.back.mapper.doctor.DoctorMapper">
     <insert id="insertDoctor" parameterType="com.example.back.dto.doctor.DoctorListDTO">
         insert into tbl_doctor (
             member_id,
@@ -21,7 +17,7 @@
                    #{doctorStatus}
                )
     </insert>
-    <select id="selectAll" parameterType="com.example.back.util.Criteria"
+    <select id="selectDoctorList" parameterType="com.example.back.util.Criteria"
             resultType="com.example.back.dto.doctor.DoctorListDTO">
         SELECT
             d.member_id        AS memberId,
@@ -100,4 +96,9 @@
                  join tbl_hospital_address tha on th.id = tha.hospital_id
         where vmd.id= #{doctorId}
     </select>
+    <update id="updateDoctorStatusToApproved">
+        update tbl_doctor
+        set doctor_status = 'active'
+        where member_id = #{doctorId}
+    </update>
 </mapper>

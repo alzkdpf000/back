@@ -21,7 +21,7 @@ public class DoctorDAO {
     }
 
     public List<DoctorListDTO> findDoctorList(Criteria criteria) {
-        return doctorMapper.selectAll(criteria);
+        return doctorMapper.selectDoctorList(criteria);
     }
 
     //  멤버 status 상관없는 의사 목록
@@ -35,5 +35,9 @@ public class DoctorDAO {
     //  관리자페이지 의사 상세 보기
     public Optional<DoctorHospitalDTO> findDoctorById(Long doctorId){
         return doctorMapper.selectDoctorById(doctorId);
+    }
+    //  의사 가입 승인
+    public int approveDoctor(Long doctorId){
+        return doctorMapper.updateDoctorStatusToApproved(doctorId);
     }
 }

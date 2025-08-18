@@ -3,10 +3,6 @@ package com.example.back.service.doctor;
 import com.example.back.dto.counselreply.CounselReplyDTO;
 import com.example.back.dto.doctor.*;
 import com.example.back.repository.counselreply.CounselReplyDAO;
-import com.example.back.repository.doctor.DoctorListDAO;
-import com.example.back.service.doctor.DoctorListService;
-import com.example.back.dto.doctor.DoctorListCriteriaDTO;
-import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
@@ -20,7 +16,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Primary
-
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorDAO doctorDAO;
     private final CounselReplyDAO counselReplyDAO;

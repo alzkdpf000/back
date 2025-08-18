@@ -1,13 +1,9 @@
 package com.example.back.mapper.doctor;
 
-<<<<<<< HEAD
-import com.example.back.repository.doctor.DoctorListDAO;
-import com.example.back.service.doctor.DoctorListService;
+import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.util.Criteria;
-=======
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.service.doctor.DoctorService;
->>>>>>> 697d8e1f374f0a4649b9bed1063d57270175a7d6
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,36 +20,36 @@ public class DoctorListTests {
     private DoctorMapper doctorMapper;
 
     @Autowired
-    private DoctorListDAO doctorListDAO;
+    private DoctorDAO doctorDAO;
 
     @Test
     public void testSelectAllStatus(){
         Criteria criteria = new Criteria(1,10);
-        log.info("{}",doctorListMapper.selectDoctorsByStatus(criteria,"active"));
+        log.info("{}",doctorMapper.selectDoctorsByStatus(criteria,"active"));
     }
     @Test
     public void testFindAllStatus(){
         Criteria criteria = new Criteria(1,10);
-        log.info("{}",doctorListDAO.findAllStatus(criteria,"inactive"));
+        log.info("{}", doctorDAO.findAllStatus(criteria,"inactive"));
     }
 
     @Test
     public void testSelectCountAllStatus(){
-        log.info("{}",doctorListMapper.selectDoctorCountByStatus("active"));
+        log.info("{}",doctorMapper.selectDoctorCountByStatus("active"));
     }
     @Test
     public void testFindCountAllStatus(){
-        log.info("{}",doctorListDAO.findCountAllStatus("inactive"));
+        log.info("{}", doctorDAO.findCountAllStatus("inactive"));
     }
 
     @Test
     public void testSelectDoctorById(){
-        log.info("{}",doctorListMapper.selectDoctorById(60L));
+        log.info("{}",doctorMapper.selectDoctorById(60L));
     }
 
     @Test
     public void testFindDoctorById(){
-        log.info("{}",doctorListDAO.findDoctorById(60L));
+        log.info("{}", doctorDAO.findDoctorById(60L));
     }
 
 
@@ -75,7 +71,7 @@ public class DoctorListTests {
     public void testSelectDoctorList(){
         DoctorListDTO doctorListDTO = new DoctorListDTO();
         log.info("doctorListDTO = {}", doctorListDTO);
-        doctorMapper.selectAll(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
+//        doctorMapper.selectAll(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
 
 
 

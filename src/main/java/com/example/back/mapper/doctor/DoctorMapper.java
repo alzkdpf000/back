@@ -18,7 +18,7 @@ public interface DoctorMapper {
     public void insertDoctor(DoctorListDTO doctorListDTO);
 
 //  목록
-    public List<DoctorListDTO> selectAll(Criteria criteria);
+    public List<DoctorListDTO> selectDoctorList(Criteria criteria);
 
 //  전체 개수
     public int selectCountAll();
@@ -29,7 +29,6 @@ public interface DoctorMapper {
     int selectDoctorCountByStatus(@Param("doctorStatus") String doctorStatus);
 //  관리자페이지 의사 상세 보기
     Optional<DoctorHospitalDTO> selectDoctorById(Long doctorId);
-//    회원가입 추가
-    public void insertDoctor(DoctorDTO doctorDTO);
-
+    //  의사 가입 승인
+    public int updateDoctorStatusToApproved(Long doctorId);
 }
