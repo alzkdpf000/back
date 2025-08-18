@@ -291,9 +291,6 @@ ul {
     margin-left: 12px;
 }
 
-.text-right {
-    text-align: right !important;
-}
 
 .mdi-chevron-right:before {
     content: "\F0142";
@@ -568,9 +565,7 @@ button:not(:disabled) {
     justify-content: space-between !important;
 }
 
-.text-right {
-    text-align: right !important;
-}
+
 
 .text-center {
     text-align: center !important;
@@ -580,10 +575,6 @@ button:not(:disabled) {
 /* .text-dark {
     color: #4e5d6c !important;
 } */
-
-.text-danger {
-    color: #40c8bc !important;
-}
 
 .ml-1, .mr-1, .mx-1 {
     margin-right: .25rem !important;
@@ -1053,6 +1044,7 @@ button:not(:disabled) {
     width: auto;
 }
 
+
 .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
     padding-left: 15px;
     padding-right: 15px;
@@ -1361,10 +1353,6 @@ button.btn .comp-icon {
     background-color: #f7fafc;
 }
 
-.page-content .table-layout table.member-table td.td-name {
-    max-width: 400px;
-    min-width: 200px;
-}
 
 .badge {
     border-radius: .25rem;
@@ -1551,12 +1539,7 @@ Body 태그에 class로 추가됌 */
     width: auto;
 }
 
-@media (min-width: 800px) {
-    .modal-dialog {
-        margin: 1.75rem auto;
-        max-width: 500px;
-    }
-}
+
 
 .modal>.modal-dialog {
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
@@ -1914,4 +1897,136 @@ element.style {
 
 #bootpay-header .header-menu-group {
     padding: 20px 30px 0 0;
+}
+
+#doctorMenu.checked,#memberMenu.checked{
+    color: #507cf3 !important;
+}
+
+#memberModal.modal>.modal-dialog>.modal-content>.modal-body {
+    padding: 50px;
+}
+#doctorDetailReplies tr td{
+    text-align: center;
+}
+
+.project-setting-index .page-body .tab-view .tab-view-header {
+    padding-left: 30px;
+    padding-top: 14px;
+}
+.project-setting-index .page-body .tab-view .tab-view-header ul.tab-switch-row li.tab-switch.tab-project:not(.tab-label) {
+    background-color: rgba(80, 124, 243, .07);
+}
+
+.project-setting-index .page-body .tab-view .tab-view-header ul.tab-switch-row li.tab-switch {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.project-setting-index .tab-wrapper.tab-project-setting-member {
+    display: flex;
+    flex-direction: column;
+    font-size: .9rem;
+    min-height: 500px;
+}
+
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles {
+    margin-top: 20px;
+}
+
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td, .project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles th {
+    padding: 10px 20px;
+}
+
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td.td-member{
+    width: 280px;
+}
+
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td {
+    padding: 10px 20px;
+}
+
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td.td-member .member-name {
+    vertical-align: middle;
+}
+
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td.td-member .member-name span {
+    display: inline-block;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td.td-member .member-email {
+    color: #afb7ba;
+}
+
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td.td-role span.badge.badge-label {
+    font-size: .8rem;
+    padding: 8px 10px;
+}
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td.td-time {
+    color: #d6d6d6;
+    font-size: .8rem;
+}
+.project-setting-index .tab-wrapper.tab-project-setting-member table.table-roles td.td-mng button.btn.edit-btn {
+    padding: 0 4px;
+}
+
+.project-setting-index .member-role-modal .modal-body {
+    padding: 30px 40px;
+}
+.project-setting-index .member-role-modal .modal-body .form-group label {
+    font-weight: 700;
+    line-height: 40px;
+}
+
+.project-setting-index{
+    width: 1000px;
+}
+
+table.approval-table thead{
+    background-color: #f5f5f5;
+}
+
+/*.approval-tab.tab-view-header, .tab-view .approval-tab.tab-view-header .tab-switch-row{*/
+/*     !important;*/
+/*}*/
+
+.col-lg-3{
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+}
+
+
+
+div.modal-approval-check{
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    inset: 0px;
+    z-index: 1200;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #8586898a;
+}
+
+div.warn-modal-approval-check {
+    box-sizing: border-box;
+    position: unset;
+    width: 288px;
+    margin: 20vh 0px;
+    padding: 24px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgb(33 35 41 / 12%) 0px 2px 12px;
+    border-radius: 8px;
+}
+
+div.warn-modal-approval-check div#content-wrap span{
+    display: block;
+}
+
+div.modal-footer-approval{
+    display: flex;
+    margin-top: 12px;
+    justify-content: center;
 }

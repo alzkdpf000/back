@@ -296,9 +296,7 @@ ul {
     margin-left: 12px;
 }
 
-.text-right {
-    text-align: right !important;
-}
+
 
 .mdi-chevron-right:before {
     content: "\F0142";
@@ -573,9 +571,6 @@ button:not(:disabled) {
     justify-content: space-between !important;
 }
 
-.text-right {
-    text-align: right !important;
-}
 
 .text-center {
     text-align: center !important;
@@ -996,11 +991,21 @@ button:not(:disabled) {
 .page.wide-page {
     max-width: 1800px;
 }
-
+#notices,#noticeDetail{
+    max-width: 1000px;
+}
 .page .page-header {
     padding-bottom: 20px;
 }
-
+#noticeDetailImgWrap{
+    display: flex;
+    margin-bottom: 34px;
+    gap: 20px;
+}
+#noticeDetailImgWrap img{
+    width: 150px;
+    height: 150px;
+}
 .page .page-header .page-title {
     font-size: 1.2rem;
     font-weight: 700;
@@ -1554,12 +1559,7 @@ Body 태그에 class로 추가됌 */
     width: auto;
 }
 
-@media (min-width: 800px) {
-    .modal-dialog {
-        margin: 1.75rem auto;
-        max-width: 500px;
-    }
-}
+
 
 .modal>.modal-dialog {
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;

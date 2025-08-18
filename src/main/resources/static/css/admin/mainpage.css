@@ -292,9 +292,6 @@ ul {
     margin-left: 12px;
 }
 
-.text-right {
-    text-align: right !important;
-}
 
 .mdi-chevron-right:before {
     content: "\F0142";
@@ -575,9 +572,8 @@ button:not(:disabled) {
     justify-content: space-between !important;
 }
 
-.text-right {
-    text-align: right !important;
-}
+
+
 
 .text-center {
     text-align: center !important;
@@ -1075,12 +1071,7 @@ element.style {
     width: 100%;
 }
 
-@media (min-width: 1200px) {
-    .col-lg-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-}
+
 
 .col-lg-6 {
     padding-left: 15px;
@@ -1201,12 +1192,7 @@ element.style {
     padding-top: 15px;
 }
 
-@media (min-width: 1200px) {
-    .col-lg-3 {
-        flex: 0 0 25%;
-        max-width: 25%;
-    }
-}
+
 
 .col-12 .col-lg-3 .col-md-6 {
     padding-left: 15px;
@@ -1274,12 +1260,7 @@ element.style {
     color: #7366ff;
 }
 
-@media (min-width: 1200px) {
-    .col-lg-12 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-}
+
 
 .chart-box .box-header {
     padding: 20px 20px 0;
@@ -1415,3 +1396,14 @@ td {
 
 /* 관리자  */
 
+div#loading{
+    display: none;
+    width: 100px;
+    z-index: 2000;
+    height: 100px;
+    margin: 0px auto;
+    position: fixed;
+    right: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

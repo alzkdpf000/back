@@ -1,5 +1,7 @@
 package com.example.back.mapper.doctor;
 
+import com.example.back.repository.doctor.DoctorDAO;
+import com.example.back.util.Criteria;
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.service.doctor.DoctorService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,39 @@ public class DoctorListTests {
 
     @Autowired
     private DoctorMapper doctorMapper;
+
+    @Autowired
+    private DoctorDAO doctorDAO;
+
+    @Test
+    public void testSelectAllStatus(){
+        Criteria criteria = new Criteria(1,10);
+        log.info("{}",doctorMapper.selectDoctorsByStatus(criteria,"active"));
+    }
+    @Test
+    public void testFindAllStatus(){
+        Criteria criteria = new Criteria(1,10);
+        log.info("{}", doctorDAO.findAllStatus(criteria,"inactive"));
+    }
+
+    @Test
+    public void testSelectCountAllStatus(){
+        log.info("{}",doctorMapper.selectDoctorCountByStatus("active"));
+    }
+    @Test
+    public void testFindCountAllStatus(){
+        log.info("{}", doctorDAO.findCountAllStatus("inactive"));
+    }
+
+    @Test
+    public void testSelectDoctorById(){
+        log.info("{}",doctorMapper.selectDoctorById(60L));
+    }
+
+    @Test
+    public void testFindDoctorById(){
+        log.info("{}", doctorDAO.findDoctorById(60L));
+    }
 
 
 //    @Test
@@ -36,7 +71,7 @@ public class DoctorListTests {
     public void testSelectDoctorList(){
         DoctorListDTO doctorListDTO = new DoctorListDTO();
         log.info("doctorListDTO = {}", doctorListDTO);
-        doctorMapper.selectAll(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
+//        doctorMapper.selectAll(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
 
 
 

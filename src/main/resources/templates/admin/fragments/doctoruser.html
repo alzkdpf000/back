@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임 관리자</title>
+    <link rel="stylesheet" href="/css/admin/font.css">
+    <link rel="stylesheet" href="/css/admin/doctoruser.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png">
+</head>
+<body>
+<div class="page ana-user-index wide-page" th:fragment="doctors" style="display: none" id="doctors">
+    <div class="page-header">
+        <div class="page-title">회원 관리</div>
+        <div class="page-subtitle"></div>
+    </div>
+    <div class="page-body">
+        <div class="tab-box">
+            <div class="tab-row white-panel">
+                <div class="row">
+                    <div class="col col-auto">
+                        <ul class="tab-name-list list-unstyled list-inline">
+                            <!-- 클릭 한 부분은 active -->
+                            <li class="tab-name" id="memberTab">일반 회원</li>
+                            <li class="tab-name active">의사 회원</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="table-layout white-panel">
+                <div class="filter-section">
+                    <div class="row">
+                        <div class="col-auto">
+                                        <span class="member-count">총
+                                            <span class="count-amount" id="doctorCount">0</span>명
+                                        </span>
+                        </div>
+                        <!-- PG 선택, 결제방식선택, 결제상태선택 버튼 -->
+                        <!-- <div class="col-auto"></div> -->
+                        <div class="col-auto"></div>
+                        <div class="col-auto"></div>
+                        <div class="col-auto"></div>
+                        <div class="col text-right"></div>
+                        <div class="col-auto">
+                            <div class="filter-wrapper filter-search ml-1">
+                                <div class="input-group">
+                                    <input class="form-control flex-grow-1" type="text" placeholder="이름/ID" value="">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-search">
+                                                        <span class="comp-icon icon-magnify" id="icons/ico-search.svg">
+                                                            <svg class="icon-img" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path class="icon-color fill" d="m13.523 12.463 3.212 3.211-1.06 1.061-3.212-3.212A6.72 6.72 0 0 1 8.25 15 6.752 6.752 0 0 1 1.5 8.25 6.752 6.752 0 0 1 8.25 1.5 6.752 6.752 0 0 1 15 8.25a6.72 6.72 0 0 1-1.477 4.213zm-1.504-.557A5.233 5.233 0 0 0 13.5 8.25C13.5 5.349 11.15 3 8.25 3A5.248 5.248 0 0 0 3 8.25c0 2.9 2.349 5.25 5.25 5.25a5.233 5.233 0 0 0 3.656-1.481l.113-.113z" fill="#292929"></path>
+                                                            </svg>
+                                                        </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fill-table-layout">
+                    <table class="table grey-header-table w-100 member-table">
+                        <thead>
+                        <tr>
+                            <th class="td-name">의사 고유 번호</th>
+                            <th class="td-amount text-right pr-4">이름</th>
+                            <th class="td-email">이메일</th>
+                            <th class="td-phone">핸드폰 번호</th>
+                            <th class="td-phone">의사 면허 번호</th>
+                            <th class="td-start">가입일</th>
+                            <th class="td-recent">상태</th>
+                            <th class="td-action">상세</th>
+                        </tr>
+                        </thead>
+                        <!-- 회원 목록 페이지 당 10명 -->
+                        <!-- 첫 번째 회원 -->
+                        <tbody id="doctorsTbody">
+
+                        </tbody>
+
+                    </table>
+                </div>
+                <!-- 페이지 번호 -->
+                <nav class="bootpay-pagination-wrapper mt-5 mb-4">
+                    <ul class="pagination bootpay-pagination doctor-pagination">
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- 의사회원 상세 모달 창 -->
+    <!-- 모달 창이 떠 있을 때 -->
+    <!-- <div class="modal fade member-modal show" style="display: block;" aria-modal="true" role="dialog"> -->
+    <!-- 모달 창이 뜨지 않을 때 -->
+    <div class="modal fade member-modal" id="doctorModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" id="doctorModalClose">
+                        <i class="mdi mdi-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="divider">
+                        <div class="tab-view">
+                            <div class="tab-view-header"></div>
+                            <div class="tab-view-body">
+                                <div style="    display: block;">
+                                    <div class="tab-inner tab-detail">
+                                        <!-- 의사회원 상세정보 -->
+                                        <div class="info-layout detail-info">
+                                            <div class="info-title justify-content-between">
+                                                <div class="flex-left d-flex">
+                                                    <div class="title">의사 상세정보</div>
+                                                </div>
+                                                <div class="flex-right"></div>
+                                            </div>
+                                            <div class="d-table w-100">
+                                                <!-- 테이블 왼쪽 -->
+                                                <div class="d-table-cell">
+                                                    <table class="info-table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <th>이름</th>
+                                                            <td id="doctorDetailName">테스트01</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>핸드폰 번호</th>
+                                                            <td id="doctorDetailPhone">010-1234-5678</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>가입일</th>
+                                                            <td id="doctorDetailDatetime">2025-06-12</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>병원</th>
+                                                            <td id="doctorDetailHospital">강남세브란스병원</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>보유 비타</th>
+                                                            <td id="doctorDetailVita">강남세브란스병원</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- 테이블 오른쪽 -->
+                                                <div class="d-table-cell">
+                                                    <table class="info-table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <th>회원ID</th>
+                                                            <td id="doctorDetailId">TestId01</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>이메일</th>
+                                                            <td id="doctorDetailEmail">test01@gmail.com</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>상태</th>
+                                                            <td id="doctorDetailStatus">2025-07-29</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>진료과</th>
+                                                            <td id="doctorDetailSpecialty">남</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>면허번호</th>
+                                                            <td id="doctorDetailLicense">123456</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 회원 작성 게시글 -->
+                                        <div class="info-layout detail-info">
+                                            <div class="info-title justify-content-between">
+                                                <div class="flex-left d-flex">
+                                                    <!-- 작성 게시글 클릭 시 콘텐츠 관리 내 게시글 페이지로 이동 -->
+                                                        <div class="title">최근 작성한 답변(3개)
+                                                            <i class="mdi mdi-menu-left ml-2"></i>
+                                                        </div>
+                                                </div>
+                                                <div class="flex-right"></div>
+                                            </div>
+                                            <div class="d-table w-100">
+                                                <table class="info-table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>상담글 제목</th>
+                                                        <th>상당글 삭제(Y/N)</th>
+                                                        <th>답변 삭제(Y/N)</th>
+                                                        <th>답변 작성 일자</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="doctorDetailReplies">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/js/admin/doctor/event.js"></script>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.counselreply.CounselReplyMapper">
+    <select id="selectTop3ConsultationPostsWithReplies">
+        select tcp.consultation_post_title,
+               tcp.consultation_post_status,
+               tcr.counsel_reply_status,
+               tcr.created_datetime
+        from tbl_consultation_post tcp
+                 join tbl_counsel_reply tcr
+                      on tcp.id = tcr.consultation_post_id
+        where doctor_id = #{doctorId}
+        order by tcr.id desc
+        limit 3;
+    </select>
+</mapper>

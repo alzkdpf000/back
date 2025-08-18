@@ -1,6 +1,7 @@
 package com.example.back.common.exception.handler;
 
 
+import com.example.back.common.exception.DoctorNotFoundException;
 import com.example.back.common.exception.InquiryNotFoundException;
 import com.example.back.common.exception.MemberNotFoundException;
 import com.example.back.common.exception.NoticeNotFoundException;
@@ -21,6 +22,10 @@ public class GlobalRestExceptionHandler {
     }
     @ExceptionHandler(MemberNotFoundException.class)
     public ResponseEntity<String> handleException(MemberNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+    @ExceptionHandler(DoctorNotFoundException.class)
+    public ResponseEntity<String> handleException(DoctorNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }
