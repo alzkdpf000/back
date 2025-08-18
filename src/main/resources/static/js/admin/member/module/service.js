@@ -1,13 +1,19 @@
 const memberService = (() => {
-    const getMembers = async (callback, page = 1, load = false, query = "") => {
+    const getMembers = async (callback, page = 1,keyword="") => {
         console.log(page)
         try {
-            const response = await fetch(`/api/admin/members?page=${page}&query=${query}`)
+            const response = await fetch(`/api/admin/members`,{
+                method:"POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({keyword: keyword, page: page})
+            })
             const result = await response.json();
             console.log(result);
             if (response.ok) {
                 console.log("사용자 잘나옴")
-                callback(result, load);
+                callback(result);
             } else {
                 const errorText = await response.text();
                 console.log(response.status);

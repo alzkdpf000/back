@@ -23,7 +23,7 @@ public class MainPageRestController {
     @GetMapping("{page}")
     public ResponseEntity<ConsultationPostCriteria> mainPage(@PathVariable int page) {
         ConsultationPostCriteria consultationPostCriteria = consultationPostService.get5PostsByViews(page);
-
+        log.info("{}",consultationPostCriteria.getScrollCriteria().toString());
 //        consultationPostService5PostsByViews.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
         if (consultationPostCriteria.getConsultationPosts().isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(consultationPostCriteria);

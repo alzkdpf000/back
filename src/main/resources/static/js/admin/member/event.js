@@ -1,16 +1,17 @@
 const doctorMenuBtn = document.getElementById("doctorMenu");
 const memberMenuBtn = document.getElementById("memberMenu");
-let memberQuery = "";
+let memberResponse = null;
 // 페이지 번호 클릭 이벤트(데이터를 받아와야 하는 곳이라 주석 처리)
 const paginationMember = document.querySelector(".pagination.bootpay-pagination.member-pagination");
 
-const showMembers = async (page = 1, load = false, query = "") => {
-    await memberService.getMembers(memberLayout.showMembers, page, load, query)
+const showMembers = async (page = 1, keyword = "") => {
+    memberResponse = await memberService.getMembers(memberLayout.showMembers, page, keyword)
+    memberResponse = memberResponse.search;
 }
 paginationMember.addEventListener("click", async (e) => {
     if (e.target.classList.contains("paging")) {
         e.preventDefault();
-        await showMembers(e.target.dataset.page, true, memberQuery);
+        await showMembers(e.target.dataset.page, memberResponse.keyword);
 
     }
 })
@@ -62,7 +63,17 @@ closeButtonMember.addEventListener("click", (e) => {
         memberModal.style.display = "none";
     }, 100);
 });
+const memberKeywordInput = document.getElementById("memberKeyword");
+const memberKeywordBtn = document.getElementById("memberKeywordBtn");
 
 
+memberKeywordInput.addEventListener("keydown", async (e) => {
+    if (e.key === "Enter") {
+        await showMembers(1, memberKeywordInput.value.trim());
+    }
+})
+memberKeywordBtn.addEventListener("click", async (e) => {
 
+    await showMembers(1, memberKeywordInput.value.trim());
 
+})

@@ -7,6 +7,7 @@ import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.member.MemberDAO;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
+import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -32,17 +33,18 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberCriteriaDTO getList(int page) {
+    public MemberCriteriaDTO getListAllStatus(Search search) {
         MemberCriteriaDTO memberCriteriaDTO = new MemberCriteriaDTO();
-        int total = memberDAO.findCountAll();
-        Criteria criteria = new Criteria(page,total);
-        List<MemberDTO> members = memberDAO.findAll(criteria);
+        int total = memberDAO.findCountAllStatus(search);
+        Criteria criteria = new Criteria(search.getPage(),total);
+        List<MemberDTO> members = memberDAO.findAll(criteria,search);
         members.forEach(member -> {
             member.setCreatedDate(DateUtils.getCreatedDate(member.getCreatedDatetime()));
         });
         memberCriteriaDTO.setMembers(members);
         memberCriteriaDTO.setTotal(total);
         memberCriteriaDTO.setCriteria(criteria);
+        memberCriteriaDTO.setSearch(search);
         return memberCriteriaDTO;
     }
 

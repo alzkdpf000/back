@@ -1,6 +1,7 @@
 package com.example.back.dto.doctor;
 
 import com.example.back.util.Criteria;
+import com.example.back.util.Search;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,5 +16,6 @@ import java.util.List;
 public class DoctorCriteriaDTO {
     private List<DoctorDTO> doctorsList;
     private Criteria criteria;
+    private Search search;
     private int total;
 }
