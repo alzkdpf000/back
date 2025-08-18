@@ -28,6 +28,7 @@ public interface MemberMapper {
 
 //  status 상관없이 회원 정보 가져오기
     public Optional<MemberDTO> selectMemberByIdAllStatus(Long memberId);
-    //  의사 가입 거절
+
+//  의사 가입 거절
     public int updateDoctorStatusToRejected(Long memberId);
 }

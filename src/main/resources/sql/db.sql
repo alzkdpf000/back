@@ -81,7 +81,7 @@ create table tbl_category
 (
     id                   bigint unsigned auto_increment primary key,
     category_name        varchar(255),
-    category_post_status enum ('active','inactive') default 'active',
+    category_status enum ('active','inactive') default 'active',
     created_datetime     datetime                   default current_timestamp,
     updated_datetime     datetime                   default current_timestamp
 );

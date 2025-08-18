@@ -9,7 +9,7 @@ const approvalLayout = (() => {
         if (doctors.length === 0) {
             text +=
                 `
-            <td class="text-center font-weight-bold" colspan="5" >대기 중인 의사가 없습니다</td>
+            <td class="text-center font-weight-bold" colspan="7" >대기 중인 의사가 없습니다</td>
             `
         } else {
             doctors.forEach((doctor) => {

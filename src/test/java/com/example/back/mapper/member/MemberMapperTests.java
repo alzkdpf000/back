@@ -1,16 +1,25 @@
 package com.example.back.mapper.member;
 
 import com.example.back.domain.member.MemberVO;
+import com.example.back.repository.member.MemberDAO;
+import com.example.back.service.member.MemberService;
+import com.example.back.util.Criteria;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Slf4j
 public class MemberMapperTests {
     @Autowired
     private MemberMapper memberMapper;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private MemberDAO memberDAO;
 
     @Test
     public void testInsertMember(){
@@ -31,4 +40,61 @@ public class MemberMapperTests {
         log.info("isExist: {}", isExist);
     }
 
+    @Test
+    public void testSelectCountAll(){
+        log.info("{}",memberMapper.selectCountAll());
+    }
+    @Test
+    public void testSelectMembers(){
+        Criteria criteria = new Criteria(1,memberMapper.selectCountAll());
+        log.info("{}",memberMapper.selectMembers(criteria));
+    }
+
+    @Test
+    public void testFindCountAll(){
+        log.info("{}",memberDAO.findCountAll());
+    }
+
+    @Test
+    public void testFindAll(){
+        Criteria criteria = new Criteria(1,memberDAO.findCountAll());
+        log.info("{}",memberDAO.findAll(criteria));
+    }
+
+    @Test
+    public void testGetList(){
+        log.info(memberService.getList(1).toString());
+    }
+    @Test
+    public void testSelectMemberByIdAllStatus(){
+        log.info("{}",memberMapper.selectMemberByIdAllStatus(1L));
+    }
+    @Test
+    public void testFindMemberByIdAllStatus(){
+        log.info("{}",memberDAO.findMemberByIdAllStatus(1L));
+    }
+    @Test
+    public void testFindById(){
+        log.info("{}",memberService.getMemberByIdAllStatus(1L));
+        Assertions.assertThat(memberDAO.findMemberByIdAllStatus(1L)).isNotNull();
+    }
+    @Test
+    @Transactional
+    public void testUpdateDoctorStatusToRejected(){
+        memberMapper.updateDoctorStatusToRejected(10L);
+        log.info("{}",memberMapper.selectMemberByIdAllStatus(10L));
+    }
+
+    @Test
+    @Transactional
+    public void testRejectDoctor(){
+        memberDAO.rejectDoctor(11L);
+        log.info("{}",memberDAO.findMemberByIdAllStatus(11L));
+    }
+
+    @Test
+    @Transactional
+    public void testReject(){
+        log.info("{}",memberService.reject(11L));
+    }
 }

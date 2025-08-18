@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper
 public interface FileInquiryMapper {
     // 상담글 번호로 해당 상담글 이미지파일 목록 조회
-    List<FileDTO> selectFilesByInquiryId(Long inquiryId);
+    public List<FileDTO> selectFilesByInquiryId(Long inquiryId);
 }

@@ -59,7 +59,9 @@
                created_datetime
         from view_member_doctor
         where member_role = 'doctor'
-          and doctor_status = #{doctorStatus}
+        <if test="doctorStatus != null and doctorStatus == 'inactive'">
+            and doctor_status = #{doctorStatus}
+        </if>
         limit #{criteria.count} offset #{criteria.offset}
 
     </select>

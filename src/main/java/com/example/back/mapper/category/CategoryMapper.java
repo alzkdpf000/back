@@ -7,5 +7,5 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
     // 상담글 번호로 해당 상담글 카테고리 목록 조회
-    List<String> selectCategoryByPostId(Long consultationPostId);
+    public List<String> selectCategoryByPostId(Long consultationPostId);
 }

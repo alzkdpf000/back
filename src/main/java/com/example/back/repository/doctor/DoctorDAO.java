@@ -40,4 +40,5 @@ public class DoctorDAO {
     public int approveDoctor(Long doctorId){
         return doctorMapper.updateDoctorStatusToApproved(doctorId);
     }
+
 }

@@ -60,9 +60,9 @@ public class MemberServiceImpl implements MemberService{
         return member;
     }
 
+    @Override
     public boolean reject(Long memberId) {
         return memberDAO.rejectDoctor(memberId) > 0;
     }
-
 
 }
