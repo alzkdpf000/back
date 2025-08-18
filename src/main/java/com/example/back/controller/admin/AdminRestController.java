@@ -63,10 +63,9 @@ public class AdminRestController {
         return ResponseEntity.ok().body(notice);
     }
 
-    @GetMapping("members")
-    public ResponseEntity<MemberCriteriaDTO> members(@RequestParam int page,
-                                                     @RequestParam(required = false) Search search) {
-        MemberCriteriaDTO members = memberService.getList(page);
+    @PostMapping("members")
+    public ResponseEntity<MemberCriteriaDTO> members(@RequestBody Search search) {
+        MemberCriteriaDTO members = memberService.getListAllStatus(search);
         return ResponseEntity.ok().body(members);
     }
 

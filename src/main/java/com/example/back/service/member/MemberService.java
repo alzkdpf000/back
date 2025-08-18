@@ -4,6 +4,7 @@ package com.example.back.service.member;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.util.Search;
 
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public interface MemberService {
     public boolean isExistMemberEmail(String memberEmail);
 
 //   관리자 페이지 유저 목록들 가져오기
-    public MemberCriteriaDTO getList(int page);
+    public MemberCriteriaDTO getListAllStatus(Search search);
     //  status 상관없이 회원 정보 가져오기
     public Optional<MemberDTO> getMemberByIdAllStatus(Long memberId);
 

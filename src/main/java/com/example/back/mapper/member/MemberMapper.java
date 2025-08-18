@@ -3,6 +3,7 @@ package com.example.back.mapper.member;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.util.Criteria;
+import com.example.back.util.Search;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -22,9 +23,9 @@ public interface MemberMapper {
     public boolean existMemberEmail(String memberEmail);
 
 //  회원 전체 수
-    public int selectCountAll();
+    public int selectCountAllStatus(@Param("search")Search search);
 //  회원 정보 페이지 당
-    public List<MemberDTO> selectMembers(@Param("criteria")Criteria criteria);
+    public List<MemberDTO> selectMembers(@Param("criteria")Criteria criteria, @Param("search")Search search);
 
 //  status 상관없이 회원 정보 가져오기
     public Optional<MemberDTO> selectMemberByIdAllStatus(Long memberId);

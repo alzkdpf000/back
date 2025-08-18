@@ -1,12 +1,12 @@
-let responseSearch=null;
+let doctorResponse=null;
 
 const doctorKeywordInput = document.getElementById("doctorKeyword");
 const doctorKeywordBtn = document.getElementById("doctorKeywordBtn");
 
 
 const showDoctors = async (page = 1,  keyword = "") => {
-    responseSearch = await doctorService.getDoctors(doctorLayout.showDoctors, page, keyword)
-    responseSearch = responseSearch.search;
+    doctorResponse = await doctorService.getDoctors(doctorLayout.showDoctors, page, keyword)
+    doctorResponse = doctorResponse.search;
 }
 
 
@@ -30,7 +30,7 @@ const paginationDoctor = document.querySelector(".pagination.bootpay-pagination.
 paginationDoctor.addEventListener("click", async (e) => {
     if (e.target.classList.contains("paging")) {
         e.preventDefault();
-        await showDoctors(e.target.dataset.page,responseSearch.keyword);
+        await showDoctors(e.target.dataset.page,doctorResponse.keyword);
     }
 })
 

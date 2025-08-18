@@ -1,5 +1,5 @@
 const memberLayout = (() => {
-    const showMembers = async (result, load) => {
+    const showMembers = async (result) => {
         let text = ``;
 
         const members = result.members;
@@ -8,11 +8,12 @@ const memberLayout = (() => {
         const memberCount = document.getElementById("memberCount");
         const pageWrap = document.querySelector(".pagination.bootpay-pagination.member-pagination");
         const tbody = document.getElementById("membersTbody");
+        document.getElementById("memberKeyword").value = result.search.keyword;
         memberCount.textContent = total;
-        if (members.length === 0 && !load) {
+        if (members.length === 0) {
             text +=
                 `
-            <td class="text-center font-weight-bold" colspan="6" >회원이 존재하지 않습니다</td>
+            <td class="text-center font-weight-bold" colspan="8" >회원이 존재하지 않습니다</td>
             `
         } else {
             members.forEach((member) => {

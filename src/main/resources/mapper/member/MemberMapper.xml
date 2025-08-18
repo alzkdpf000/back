@@ -17,14 +17,24 @@
                created_datetime
         from tbl_member
         where member_role = 'member'
+        <if test='search.keyword !=null and search.keyword !=""'>
+            and ( member_name like concat('%', #{search.keyword}, '%') or
+            member_email like concat('%', #{search.keyword}, '%')
+            )
+        </if>
         order by id desc
         limit #{criteria.count} offset #{criteria.offset}
     </select>
 
-    <select id="selectCountAll">
+    <select id="selectCountAllStatus">
         select count(id)
         from tbl_member
         where member_role = 'member'
+        <if test='search.keyword !=null and search.keyword !=""'>
+            and ( member_name like concat('%', #{search.keyword}, '%') or
+            member_email like concat('%', #{search.keyword}, '%')
+            )
+        </if>
     </select>
 
     <select id="selectMemberByIdAllStatus">
