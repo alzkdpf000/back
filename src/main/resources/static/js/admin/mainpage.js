@@ -8,7 +8,7 @@ menuBtns.forEach((btn) => {
         menuBtns.forEach((b) => b.classList.remove("active"));
 
         this.classList.add("active");
-
+        console.log(btn.classList.contains("inquiry"));
         const targetId = this.getAttribute("aria-controls");
         const targetMenu = document.getElementById(targetId);
         if (targetMenu) targetMenu.style.display = "block";

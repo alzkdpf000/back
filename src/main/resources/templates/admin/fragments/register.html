@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임 관리자</title>
+    <link rel="stylesheet" href="/css/admin/register.css">
+    <link rel="stylesheet" href="/css/admin/font.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png">
+</head>
+<body>
+<div class="project-setting-index page wide-page" style="display: none" th:fragment="approval" id="approval">
+    <div class="page-header">
+        <div class="page-title">가입승인</div>
+    </div>
+    <div class="page-body">
+        <div class="tab-view">
+            <div class="tab-view-body" style="padding-top: 34px">
+                <div class="page-contents">
+                    <div class="table-layout white-panel" style="padding-bottom: 10px">
+                        <table class="table grey-header-table w-100 approval-table">
+                            <thead>
+                            <tr>
+                                <th class="text-center">의사 고유 번호</th>
+                                <th class="text-center">이름</th>
+                                <th class="text-center">
+                                    회원 면허 번호
+                                </th>
+                                <th class="text-center">승인 요청 일자</th>
+                                <th class="text-center">승인 상태</th>
+                                <th class="text-center">상세</th>
+                            </tr>
+                            </thead>
+                                <tbody id="approvalTbody">
+                            <!-- 의사회원 -->
+                            </tbody>
+                        </table>
+                        <nav class="bootpay-pagination-wrapper mt-5 mb-4">
+                            <ul class="pagination bootpay-pagination approval-pagination">
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- 일반회원 상세 모달 창 -->
+                    <!-- 모달 창이 떠 있을 때 -->
+                    <!-- <div class="modal fade member-modal show" style="display: block;" aria-modal="true" role="dialog"> -->
+                    <!-- 모달 창이 뜨지 않을 때 -->
+                    <div class="modal fade approval-modal" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" style="width: 880px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close" id="approvalModalClose">
+                                        <i class="mdi mdi-close"></i>
+                                        <div class="action-btn"></div>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="divider">
+                                        <div class="tab-view">
+                                            <div class="approval-tab tab-view-header"></div>
+                                            <div class="tab-view-body">
+                                                <div style="display: block;">
+                                                    <div class="tab-inner tab-detail">
+                                                        <!-- 일반회원 상세정보 -->
+                                                        <div class="info-layout detail-info">
+                                                            <div class="info-title justify-content-between">
+                                                                <div class="flex-left d-flex">
+                                                                    <div class="title">의사 상세정보</div>
+                                                                </div>
+                                                                <div class="flex-right"></div>
+                                                            </div>
+                                                            <div class="d-table w-100">
+                                                                <!-- 테이블 왼쪽 -->
+                                                                <div class="d-table-cell">
+                                                                    <table class="info-table">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <th>이름</th>
+                                                                            <td id="pendingName">테스트01</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>병원 번호</th>
+                                                                            <td id="pendingHospitalPhone">
+                                                                                010-1234-5678
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>병원</th>
+                                                                            <td id="pendingHospital">강남세브란스병원</td>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>도로명</th>
+                                                                            <td id="pendingRoadAddress">강남세브란스병원</td>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>상세 주소</th>
+                                                                            <td id="pendingDetailAddress">2025-06-12
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>우편 번호</th>
+                                                                            <td id="pendingZipCode">강남세브란스병원</td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <!-- 테이블 오른쪽 -->
+                                                                <div class="d-table-cell">
+                                                                    <table class="info-table">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <th>회원ID</th>
+                                                                            <td id="pendingId">TestId01</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>이메일</th>
+                                                                            <td id="pendingEmail">
+                                                                                test01@gmail.com
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>병원 url</th>
+                                                                            <td id="pendingUrl">2025-07-29</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>가입 일자</th>
+                                                                            <td id="pendingDatetime">강남세브란스병원</td>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>진료과</th>
+                                                                            <td id="pendingSpecialty">남</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>면허번호</th>
+                                                                            <td id="pendingLicense">123456</td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="accept" class="btn btn-primary btn-outline-primary h45 mr-3 accept" style="color:white;">승인</button>
+                                    <button id="refuse" class="btn btn-outline-primary h45 refuse" style="color:#fe657e;border: 1px solid #fe657e;">거절</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-approval-check">
+                    <div class="warn-modal-approval-check">
+                        <div id="content-wrap"></div>
+                        <div class="modal-footer-approval">
+                            <button id="yes" class="btn btn-primary btn-outline-primary h45 mr-3" style="color:white">확인</button>
+                            <button id="no" class="btn btn-outline-primary h45" style="color:#fe657e;border: 1px solid #fe657e;">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/js/admin/approval/event.js"></script>
+</html>

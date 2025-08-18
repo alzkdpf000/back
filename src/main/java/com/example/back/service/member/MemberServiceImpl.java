@@ -60,4 +60,9 @@ public class MemberServiceImpl implements MemberService{
         return member;
     }
 
+    public boolean reject(Long memberId) {
+        return memberDAO.rejectDoctor(memberId) > 0;
+    }
+
+
 }

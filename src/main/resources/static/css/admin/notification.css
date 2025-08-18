@@ -291,9 +291,6 @@ ul {
     margin-left: 12px;
 }
 
-.text-right {
-    text-align: right !important;
-}
 
 .mdi-chevron-right:before {
     content: "\F0142";
@@ -568,9 +565,6 @@ button:not(:disabled) {
     justify-content: space-between !important;
 }
 
-.text-right {
-    text-align: right !important;
-}
 
 .text-center {
     text-align: center !important;
@@ -1061,10 +1055,6 @@ button:not(:disabled) {
     width: 100%;
 }
 
-/* 일반회원 목록 시작 */
-.page-content {
-    min-width: 1000px;
-}
 
 .page-content .table-layout {
     background-color: #fff;
@@ -1314,12 +1304,13 @@ button.btn .comp-icon {
 
 .page-content .table-layout table.member-table thead {
     background-color: #f5f5f5;
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1;
 }
-
+.notice-title{
+    color: #212529;
+}
 .fill-table-layout>table.table>thead tr th:first-child {
     border-radius: 5px 0 0 5px;
     -moz-border-radius: 5px 0 0 5px;
@@ -1362,10 +1353,21 @@ button.btn .comp-icon {
     background-color: #f7fafc;
 }
 
-.page-content .table-layout table.member-table td.td-name {
-    max-width: 400px;
-    min-width: 200px;
+td.td-title{
+    width: 845px;
 }
+td.td-date{
+    width: 75px;
+}
+td.td-writer{
+    width: 56px;
+}
+
+
+/*.page-content .table-layout table.member-table td.td-name {*/
+/*    max-width: 400px;*/
+/*    min-width: 200px;*/
+/*}*/
 
 .badge {
     border-radius: .25rem;
@@ -1552,12 +1554,7 @@ Body 태그에 class로 추가됌 */
     width: auto;
 }
 
-@media (min-width: 800px) {
-    .modal-dialog {
-        margin: 1.75rem auto;
-        max-width: 500px;
-    }
-}
+
 
 .modal>.modal-dialog {
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
@@ -1815,4 +1812,43 @@ button.btn.btn-outline-filter {
 /* 상단 관리자 이메일 회원정보 이미지 추가 */
 .mdi-account-box-outline:before {
     content: "\F0007";
+}
+.notice.notice-index{
+    max-width: 1000px;
+}
+
+.notice-index table.table-notice td {
+    border-bottom-color: #f3f3f7;
+    font-size: 13px;
+    height: 56px;
+}
+
+.notice-index table.table-notice td.td-title {
+    font-size: 15px;
+}
+
+.p-5 {
+    padding: 3rem !important;
+}
+
+.notice-index .table-wrapper {
+    min-height: 561px;
+}
+.border-top {
+    border-top: 1px solid #dee2e6 !important;
+}
+
+.table td, .table th {
+    border-top: 1px solid #dee2e6;
+    padding: .75rem;
+    vertical-align: top;
+}
+.text-grey {
+    color: #afb7ba;
+}
+#noticeBody tr td.td-title{
+    width: 484px;
+}
+a.paging,td.td-title a.detail-notice{
+    cursor: pointer;
 }

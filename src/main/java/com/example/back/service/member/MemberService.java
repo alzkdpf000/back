@@ -19,6 +19,10 @@ public interface MemberService {
     public MemberCriteriaDTO getList(int page);
     //  status 상관없이 회원 정보 가져오기
     public Optional<MemberDTO> getMemberByIdAllStatus(Long memberId);
+
+    //   의사 가입 거절
+    public boolean reject(Long memberId);
+
 //    회원가입 유효성 검사
     default boolean validateMember(MemberDTO memberDTO){
         if(memberDTO.getMemberName()==null||memberDTO.getMemberName().isBlank()){

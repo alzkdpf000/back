@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.doctor.DoctorMapper">
+    <insert id="insertDoctor" parameterType="com.example.back.dto.doctor.DoctorListDTO">
+        insert into tbl_doctor (
+            member_id,
+            doctor_license_number,
+            doctor_specialty,
+            hospital_id,
+            doctor_status
+        )
+        values (
+                   #{memberId},
+                   #{doctorLicenseNumber},
+                   #{doctorSpecialty},
+                   #{hospitalId},
+                   #{doctorStatus}
+               )
+    </insert>
+    <select id="selectDoctorList" parameterType="com.example.back.util.Criteria"
+            resultType="com.example.back.dto.doctor.DoctorListDTO">
+        SELECT
+            d.member_id        AS memberId,
+            m.member_name      AS memberName,
+            d.doctor_specialty AS doctorSpecialty,
+            d.doctor_status    AS doctorStatus,
+            m.id               AS id,
+            m.created_datetime AS createdDatetime,
+            m.updated_datetime AS updatedDatetime,
+            h.hospital_name    AS hospitalName,
+            h.hospital_phone   AS hospitalPhone,
+            ha.road_address    AS roadAddress,
+            ha.detail_address  AS detailAddress
+        FROM tbl_doctor d
+                 JOIN tbl_member m ON d.member_id = m.id
+                 JOIN tbl_hospital h ON d.hospital_id = h.id
+                 JOIN tbl_hospital_address ha ON h.id = ha.hospital_id
+        WHERE d.doctor_status = 'active'
+        ORDER BY d.member_id DESC
+        LIMIT #{rowCount} OFFSET #{offset}
+    </select>
+
+    <select id="selectCountAll">
+        select count(*) from tbl_doctor
+        where doctor_status = 'active'
+    </select>
+
+    <select id="selectDoctorsByStatus">
+        select id,
+               member_email,
+               member_name,
+               member_phone,
+               member_status,
+               doctor_status,
+               member_provider as provider,
+               doctor_license_number,
+               member_kakao_email,
+               member_vita_amount,
+               created_datetime
+        from view_member_doctor
+        where member_role = 'doctor'
+          and doctor_status = #{doctorStatus}
+        limit #{criteria.count} offset #{criteria.offset}
+
+    </select>
+
+    <select id="selectDoctorCountByStatus">
+        select count(id)
+        from view_member_doctor
+        where member_role = 'doctor'
+          and doctor_status = #{doctorStatus}
+    </select>
+
+    <select id="selectDoctorById">
+        select vmd.id,
+               vmd.member_email,
+               vmd.member_name,
+               vmd.member_phone,
+               vmd.member_status,
+               vmd.member_provider,
+               vmd.member_kakao_email,
+               vmd.member_vita_amount,
+               vmd.created_datetime,
+               vmd.doctor_status,
+               vmd.doctor_license_number,
+               vmd.doctor_specialty,
+               th.hospital_name,
+               th.hospital_phone,
+               th.hospital_homepage_url,
+               tha.road_address,
+               tha.detail_address,
+               tha.zip_code
+        from view_member_doctor vmd
+                 join tbl_hospital th
+                      on vmd.hospital_id = th.id
+                 join tbl_hospital_address tha on th.id = tha.hospital_id
+        where vmd.id= #{doctorId}
+    </select>
+    <update id="updateDoctorStatusToApproved">
+        update tbl_doctor
+        set doctor_status = 'active'
+        where member_id = #{doctorId}
+    </update>
+</mapper>

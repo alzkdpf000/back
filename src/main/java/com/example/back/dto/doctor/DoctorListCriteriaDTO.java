@@ -1,6 +1,5 @@
 package com.example.back.dto.doctor;
 
-import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.util.Criteria;
 import lombok.Getter;
 import lombok.Setter;
