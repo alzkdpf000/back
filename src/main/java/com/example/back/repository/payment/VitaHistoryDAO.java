@@ -14,10 +14,11 @@ import java.util.List;
 public class VitaHistoryDAO {
     private final VitaHistoryMapper vitaHistoryMapper;
 
-
+    //    관리자 페이지 충전 사용 내역들
     public List<VitaHistoryDTO> findVitaHistories(Criteria criteria, Search search){
         return vitaHistoryMapper.searchVitaHistories(criteria,search);
     }
+    //    관리자 페이지 결제 수
     public int findCountVitaHistory(Search search){
         return vitaHistoryMapper.searchCountVitaHistory(search);
     }

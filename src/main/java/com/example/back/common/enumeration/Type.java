@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public enum Type {
-    CHARGE("charge"), USE("use");
+    CHARGE("charge"), SPEND("spend");
 
     private final String value;
     private static final Map<String, Type> TYPE_MAP =

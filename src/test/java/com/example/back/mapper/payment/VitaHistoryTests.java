@@ -5,6 +5,7 @@ import com.example.back.common.enumeration.Type;
 import com.example.back.dto.payment.VitaHistoryDTO;
 import com.example.back.dto.payment.VitaHistoryTypeDTO;
 import com.example.back.repository.payment.VitaHistoryDAO;
+import com.example.back.service.payment.VitaHistoryService;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,8 @@ public class VitaHistoryTests {
     private VitaHistoryMapper vitaHistoryMapper;
     @Autowired
     private VitaHistoryDAO vitaHistoryDAO;
+    @Autowired
+    private VitaHistoryService vitaHistoryService;
 
     @Test
     public void testSearchVitaHistories(){
@@ -67,5 +70,36 @@ public class VitaHistoryTests {
         List<VitaHistoryDTO> vitaHistories =
                 vitaHistoryDAO.findVitaHistories(criteria, search);
         log.info("vitaHistories:{}",vitaHistories);
+    }
+
+    @Test
+    public void testFindCountVitaHistory(){
+        Search search = new Search();
+        List<VitaHistoryTypeDTO>  types = new ArrayList<>();
+        search.setKeyword("test");
+        VitaHistoryTypeDTO vitaHistoryTypeDTO = new VitaHistoryTypeDTO();
+        vitaHistoryTypeDTO.setResult(Result.DONE);
+        vitaHistoryTypeDTO.setType(Type.SPEND);
+        types.add(vitaHistoryTypeDTO);
+        search.setTypes(types);
+        int i = vitaHistoryDAO.findCountVitaHistory(search);
+        log.info("i:{}",i);
+    }
+    @Test
+    public void testGetVitaHistories(){
+        Search search = new Search();
+        List<VitaHistoryTypeDTO>  types = new ArrayList<>();
+        search.setKeyword("test");
+        search.setPage(1);
+        VitaHistoryTypeDTO vitaHistoryTypeDTO = new VitaHistoryTypeDTO();
+        vitaHistoryTypeDTO.setResult(Result.DONE);
+        vitaHistoryTypeDTO.setType(Type.CHARGE);
+        types.add(vitaHistoryTypeDTO);
+        vitaHistoryTypeDTO.setResult(Result.CANCEL);
+        vitaHistoryTypeDTO.setType(Type.CHARGE);
+        types.add(vitaHistoryTypeDTO);
+        search.setTypes(types);
+
+        log.info("{}",vitaHistoryService.getVitaHistories(search));
     }
 }

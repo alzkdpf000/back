@@ -22,7 +22,7 @@ public class TypeHandler implements org.apache.ibatis.type.TypeHandler<Type> {
     @Override
     public Type getResult(ResultSet rs, String columnName) throws SQLException {
         return switch (rs.getString(columnName)) {
-            case "user" -> Type.USE;
+            case "spend" -> Type.SPEND;
             case "charge" -> Type.CHARGE;
             default -> null;
         };
@@ -31,7 +31,7 @@ public class TypeHandler implements org.apache.ibatis.type.TypeHandler<Type> {
     @Override
     public Type getResult(ResultSet rs, int columnIndex) throws SQLException {
         return switch (rs.getString(columnIndex)) {
-            case "user" -> Type.USE;
+            case "spend" -> Type.SPEND;
             case "charge" -> Type.CHARGE;
             default -> null;
         };
@@ -40,7 +40,7 @@ public class TypeHandler implements org.apache.ibatis.type.TypeHandler<Type> {
     @Override
     public Type getResult(CallableStatement cs, int columnIndex) throws SQLException {
         return switch (cs.getString(columnIndex)) {
-            case "user" -> Type.USE;
+            case "spend" -> Type.SPEND;
             case "charge" -> Type.CHARGE;
             default -> null;
         };

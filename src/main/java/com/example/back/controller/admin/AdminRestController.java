@@ -12,10 +12,12 @@ import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.notice.NoticeDTO;
 import com.example.back.dto.notice.NoticesCriteriaDTO;
+import com.example.back.dto.payment.VitaHistoryCriteriaDTO;
 import com.example.back.service.doctor.DoctorService;
 import com.example.back.service.inquiry.InquiryService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.notice.NoticeService;
+import com.example.back.service.payment.VitaHistoryService;
 import com.example.back.util.ScrollCriteria;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class AdminRestController {
     private final InquiryService inquiryService;
     private final NoticeService noticeService;
     private final MemberService memberService;
+    private final VitaHistoryService vitaHistoryService;
     private final DoctorService doctorService;
 
     @GetMapping("inquires")
@@ -112,5 +115,13 @@ public class AdminRestController {
             return ResponseEntity.ok().body("거절되었습니다.");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("의사가 존재하지 않습니다.");
+    }
+
+
+    @PostMapping("payment")
+    public ResponseEntity<VitaHistoryCriteriaDTO> vitaHistories(@RequestBody Search search) {
+        VitaHistoryCriteriaDTO vitaHistories = vitaHistoryService.getVitaHistories(search);
+        return ResponseEntity.ok().body(vitaHistories);
+
     }
 }
