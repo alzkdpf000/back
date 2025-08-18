@@ -5,10 +5,12 @@ import com.example.back.dto.doctor.*;
 import com.example.back.repository.counselreply.CounselReplyDAO;
 import com.example.back.repository.doctor.DoctorListDAO;
 import com.example.back.service.doctor.DoctorListService;
+import com.example.back.dto.doctor.DoctorListCriteriaDTO;
+import com.example.back.dto.doctor.DoctorListDTO;
+import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +20,16 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Primary
-public class DoctorListServiceImpl implements DoctorListService {
-    private final DoctorListDAO doctorListDAO;
+
+public class DoctorServiceImpl implements DoctorService {
+    private final DoctorDAO doctorDAO;
     private final CounselReplyDAO counselReplyDAO;
 
     @Override
     public DoctorListCriteriaDTO getList(int page) {
         DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
-        Criteria criteria = new Criteria(page, doctorListDAO.findCountDoctorList());
-        List<DoctorListDTO> doctorsList = doctorListDAO.findDoctorList(criteria);
+        Criteria criteria = new Criteria(page, doctorDAO.findCountDoctorList());
+        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria);
 
         //        11개 가져왔으면, 마지막 1개 삭제
         criteria.setHasMore(doctorsList.size() > criteria.getRowCount());
@@ -42,9 +45,9 @@ public class DoctorListServiceImpl implements DoctorListService {
     @Override
     public DoctorCriteriaDTO getListAllStatus(int page,String doctorStatus) {
         DoctorCriteriaDTO doctorCriteriaDTO = new DoctorCriteriaDTO();
-        int total = doctorListDAO.findCountAllStatus(doctorStatus);
+        int total = doctorDAO.findCountAllStatus(doctorStatus);
         Criteria criteria = new Criteria(page, total);
-        List<DoctorDTO> doctorsList = doctorListDAO.findAllStatus(criteria,doctorStatus);
+        List<DoctorDTO> doctorsList = doctorDAO.findAllStatus(criteria,doctorStatus);
         doctorsList.forEach(doctor ->{
             doctor.setCreatedDate(DateUtils.getCreatedDate(doctor.getCreatedDatetime()));
         });
@@ -60,7 +63,7 @@ public class DoctorListServiceImpl implements DoctorListService {
 
     @Override
     public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId) {
-        Optional<DoctorHospitalDTO> doctor = doctorListDAO.findDoctorById(doctorId);
+        Optional<DoctorHospitalDTO> doctor = doctorDAO.findDoctorById(doctorId);
         doctor.ifPresent(data -> {
             List<CounselReplyDTO> replies = counselReplyDAO.findTop3ConsultationPostsWithReplies(doctorId);
             replies.forEach(reply -> {
@@ -69,5 +72,10 @@ public class DoctorListServiceImpl implements DoctorListService {
             data.setReplies(replies);
         });
         return doctor;
+    }
+
+    @Override
+    public boolean approve(Long doctorId) {
+        return doctorDAO.approveDoctor(doctorId) > 0;
     }
 }

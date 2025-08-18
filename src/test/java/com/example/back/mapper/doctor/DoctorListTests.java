@@ -1,8 +1,13 @@
 package com.example.back.mapper.doctor;
 
+<<<<<<< HEAD
 import com.example.back.repository.doctor.DoctorListDAO;
 import com.example.back.service.doctor.DoctorListService;
 import com.example.back.util.Criteria;
+=======
+import com.example.back.dto.doctor.DoctorListDTO;
+import com.example.back.service.doctor.DoctorService;
+>>>>>>> 697d8e1f374f0a4649b9bed1063d57270175a7d6
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class DoctorListTests {
 
     @Autowired
-    private DoctorListService doctorListService;
+    private DoctorService doctorService;
 
     @Autowired
-    private DoctorListMapper doctorListMapper;
+    private DoctorMapper doctorMapper;
 
     @Autowired
     private DoctorListDAO doctorListDAO;
@@ -65,15 +70,15 @@ public class DoctorListTests {
 //
 //            doctorListMapper.insertDoctor(doctor);
 //    }
-//
-//    @Test
-//    public void testSelectDoctorList(){
-//        DoctorListDTO doctorListDTO = new DoctorListDTO();
-//        log.info("doctorListDTO = {}", doctorListDTO);
-//        doctorListMapper.selectDoctorList(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
+
+    @Test
+    public void testSelectDoctorList(){
+        DoctorListDTO doctorListDTO = new DoctorListDTO();
+        log.info("doctorListDTO = {}", doctorListDTO);
+        doctorMapper.selectAll(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
 
 
 
 
-//    }
+    }
 }

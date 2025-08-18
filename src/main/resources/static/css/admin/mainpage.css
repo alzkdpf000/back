@@ -1399,7 +1399,7 @@ td {
 div#loading{
     display: none;
     width: 100px;
-    z-index: 100;
+    z-index: 2000;
     height: 100px;
     margin: 0px auto;
     position: fixed;

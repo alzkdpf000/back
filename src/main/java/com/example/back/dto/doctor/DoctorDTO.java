@@ -1,9 +1,7 @@
 package com.example.back.dto.doctor;
 
 import com.example.back.common.enumeration.Provider;
-import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
-import com.example.back.domain.member.MemberVO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

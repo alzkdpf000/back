@@ -1995,3 +1995,38 @@ table.approval-table thead{
     flex: 0 0 25% !important;
     max-width: 25% !important;
 }
+
+
+
+div.modal-approval-check{
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    inset: 0px;
+    z-index: 1200;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #8586898a;
+}
+
+div.warn-modal-approval-check {
+    box-sizing: border-box;
+    position: unset;
+    width: 288px;
+    margin: 20vh 0px;
+    padding: 24px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgb(33 35 41 / 12%) 0px 2px 12px;
+    border-radius: 8px;
+}
+
+div.warn-modal-approval-check div#content-wrap span{
+    display: block;
+}
+
+div.modal-footer-approval{
+    display: flex;
+    margin-top: 12px;
+    justify-content: center;
+}

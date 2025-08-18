@@ -8,7 +8,7 @@ import com.example.back.dto.doctor.DoctorListDTO;
 
 import java.util.Optional;
 
-public interface DoctorListService {
+public interface DoctorService {
     //  목록
     public DoctorListCriteriaDTO getList(int page);
 
