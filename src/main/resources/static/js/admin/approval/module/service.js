@@ -2,7 +2,13 @@ const approvalService = (() => {
     const getPendingDoctors = async (callback, page = 1) => {
         console.log(page)
         try {
-            const response = await fetch(`/api/admin/doctors/pending?page=${page}`)
+            const response = await fetch(`/api/admin/doctors/pending`,{
+                method:"POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({page: page})
+            })
             const result = await response.json();
             console.log(result);
             if (response.ok) {

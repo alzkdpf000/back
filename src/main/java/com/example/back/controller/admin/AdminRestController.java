@@ -89,8 +89,8 @@ public class AdminRestController {
         return ResponseEntity.ok().body(doctor);
     }
 
-    @GetMapping("doctors/pending")
-    public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestParam(required = false) Search search) {
+    @PostMapping("doctors/pending")
+    public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestBody Search search) {
         log.info("{}",search.toString());
         DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, "inactive");
         return ResponseEntity.ok().body(doctors);
