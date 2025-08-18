@@ -17,6 +17,7 @@ import com.example.back.service.inquiry.InquiryService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.notice.NoticeService;
 import com.example.back.util.ScrollCriteria;
+import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,12 +38,11 @@ public class AdminRestController {
 
     @GetMapping("inquires")
     public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
-                                                      @RequestParam String query,
-                                                      @RequestParam String answerStatus) {
-        log.info("{},{},{}", page, query, answerStatus);
-        ScrollCriteria scrollCriteria = new ScrollCriteria(page, query, answerStatus);
+                                                      @RequestParam(required = false) Search search) {
+        ScrollCriteria scrollCriteria = new ScrollCriteria(page, search);
         InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(scrollCriteria);
         return ResponseEntity.ok().body(inquiryListWithAnswerStats);
+//        return null;
     }
 
     @GetMapping("inquires/{inquiryId}")
@@ -65,7 +65,7 @@ public class AdminRestController {
 
     @GetMapping("members")
     public ResponseEntity<MemberCriteriaDTO> members(@RequestParam int page,
-                                                     @RequestParam String query) {
+                                                     @RequestParam(required = false) Search search) {
         MemberCriteriaDTO members = memberService.getList(page);
         return ResponseEntity.ok().body(members);
     }
@@ -79,7 +79,7 @@ public class AdminRestController {
 
     @GetMapping("doctors")
     public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestParam int page,
-                                                     @RequestParam String query) {
+                                                     @RequestParam(required = false) Search search) {
         DoctorCriteriaDTO doctors = doctorService.getListAllStatus(page,"active");
         return ResponseEntity.ok().body(doctors);
     }
