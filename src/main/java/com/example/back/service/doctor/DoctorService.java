@@ -29,7 +29,7 @@ public interface DoctorService {
     public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO);
 
 
-    default DoctorVO gtoDoctorVO(DoctorDTO doctorDTO){
+    default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){
         return DoctorVO.builder()
 
                 .id(doctorListDTO.getId())
@@ -46,7 +46,7 @@ public interface DoctorService {
 
     }
 
-    default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){
+    default DoctorVO gtoDoctorVO(DoctorDTO doctorDTO){
         return DoctorVO.builder()
                 .id(doctorDTO.getId())
                 .doctorSpecialty(doctorDTO.getDoctorSpecialty())

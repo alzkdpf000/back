@@ -19,19 +19,6 @@
     </insert>
     <select id="selectDoctorList" parameterType="com.example.back.util.Criteria"
             resultType="com.example.back.dto.doctor.DoctorListDTO">
-<<<<<<< HEAD
-        SELECT d.member_id        AS memberId,
-               m.member_name      AS memberName,
-               d.doctor_specialty AS doctorSpecialty,
-               d.doctor_status    AS doctorStatus,
-               m.id               AS id,
-               m.created_datetime AS createdDatetime,
-               m.updated_datetime AS updatedDatetime,
-               h.hospital_name    AS hospitalName,
-               h.hospital_phone   AS hospitalPhone,
-               ha.road_address    AS roadAddress,
-               ha.detail_address  AS detailAddress
-=======
         SELECT
             d.member_id        AS memberId,
             m.member_name      AS memberName,
@@ -51,7 +38,6 @@
                    FROM tbl_likes l
                    WHERE l.doctor_id = d.member_id
                      AND l.member_id = #{currentMemberId}) AS liked
->>>>>>> doctor/list
         FROM tbl_doctor d
                  JOIN tbl_member m ON d.member_id = m.id
                  JOIN tbl_hospital h ON d.hospital_id = h.id
