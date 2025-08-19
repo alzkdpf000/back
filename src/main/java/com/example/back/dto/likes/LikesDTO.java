@@ -1,4 +1,4 @@
-package com.example.back.dto.inquiry;
+package com.example.back.dto.likes;
 
 import com.example.back.common.enumeration.Status;
 import lombok.EqualsAndHashCode;

@@ -47,9 +47,10 @@ menuBtns.forEach((btn) => {
             document.getElementById("countAmount").textContent =0;
             document.getElementById("replyCount").textContent =0;
             document.getElementById("noReplyCount").textContent =0;
-            await showList();
+            inquires = await showList();
             console.log("클릭 이벤트야")
             inquiryScroll = true;
+            console.log(inquiryScroll)
         }else if(clickId==="approval"){
             document.getElementById(`${clickId}`).style.display = "block";
             document.getElementById("approvalTbody").innerHTML = "";

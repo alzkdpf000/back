@@ -36,13 +36,12 @@ public class AdminRestController {
     private final MemberService memberService;
     private final DoctorService doctorService;
 
-    @GetMapping("inquires")
-    public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
-                                                      @RequestParam(required = false) Search search) {
-        ScrollCriteria scrollCriteria = new ScrollCriteria(page, search);
-        InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(scrollCriteria);
+    @PostMapping("inquires")
+    public ResponseEntity<InquirySummaryDTO> inquires(@RequestBody Search search) {
+        log.info("search ::::::::::::{}",search.toString());
+        ;
+        InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(search);
         return ResponseEntity.ok().body(inquiryListWithAnswerStats);
-//        return null;
     }
 
     @GetMapping("inquires/{inquiryId}")

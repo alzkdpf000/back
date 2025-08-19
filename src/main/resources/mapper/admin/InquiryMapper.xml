@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.inquiry.InquiryMapper">
+    <sql id="search">
+        <where>
+            <if test='search.keyword != null and search.keyword !=""'>
+                (sub.member_email like concat('%', #{search.keyword} , '%')
+                or sub.id = #{search.keyword})
+            </if>
+
+            <if test="search.categories.length gt 0 and search.categories[0] lte 1">
+                and sub.has_answer = #{search.categories[0]}
+            </if>
+        </where>
+    </sql>
     <select id="selectInquiriesByEmailOrId">
         select sub.id as id,
         sub.inquiries_title as inquiry_title,
@@ -10,31 +22,18 @@
         sub.has_answer as has_answer,
         sub.answer_datetime as answer_datetime
         from view_inquiry_member_reply sub
-        <where>
-            <if test='query != null and query !=""'>
-                (sub.member_email like concat('%', #{query} , '%')
-                or sub.id = #{query})
-            </if>
-            <if test='answerStatus == "no"'>
-                and sub.reply_id IS NULL
-            </if>
-
-            <if test='answerStatus == "yes"'>
-                and sub.reply_id IS NOT NULL
-            </if>
-        </where>
+        <include refid="search"/>
         order by sub.id desc
-        limit #{count} offset #{offset}
+        limit #{scrollCriteria.count} offset #{scrollCriteria.offset}
     </select>
     
     
     <select id="selectAnswerCounts">
-        select ifnull(sum(if(tir.id is not null and tir.inquiries_status = 'active', 1, 0)),0) as answer_count,
-               ifnull(sum(if(tir.id is null or tir.inquiries_status = 'inactive', 1, 0)),0)     as no_answer_count
-        from tbl_inquiries ti
-                 left outer join tbl_inquiries_reply tir
-                                 on ti.id = tir.inquiries_id
-                                     where ti.inquiries_status = 'active';
+        select
+        sum(case when sub.has_answer = 1 then 1 else 0 end) as answer_count,
+        sum(case when sub.has_answer = 0 then 1 else 0 end) as no_answer_count
+        from view_inquiry_member_reply sub
+        <include refid="search"/>
     </select>
 
     <select id="selectActiveInquiryWithReplyById">
