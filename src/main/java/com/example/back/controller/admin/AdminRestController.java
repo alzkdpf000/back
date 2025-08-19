@@ -1,5 +1,6 @@
 package com.example.back.controller.admin;
 
+import com.example.back.common.enumeration.Status;
 import com.example.back.common.exception.DoctorNotFoundException;
 import com.example.back.common.exception.InquiryNotFoundException;
 import com.example.back.common.exception.MemberNotFoundException;
@@ -77,7 +78,7 @@ public class AdminRestController {
 
     @PostMapping("doctors")
     public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestBody Search search) {
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search,"active");
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, Status.ACTIVE.getValue());
         return ResponseEntity.ok().body(doctors);
     }
 
@@ -91,7 +92,7 @@ public class AdminRestController {
     @PostMapping("doctors/pending")
     public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestBody Search search) {
         log.info("{}",search.toString());
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, "inactive");
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, Status.INACTIVE.getValue());
         return ResponseEntity.ok().body(doctors);
     }
 
