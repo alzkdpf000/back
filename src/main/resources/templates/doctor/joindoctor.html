@@ -59,7 +59,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="비밀번호를 입력" id="password" name="password" type="password" class="bms9cb" value="" />
+                                    <input placeholder="비밀번호를 입력" id="password" name="memberPassword" type="password" class="bms9cb" value="" />
                                 </div>
                             </div>
                         </div>
@@ -105,6 +105,19 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 전문 분야 -->
+                        <div class="emailpassword">
+                            <div class="iprukchang">
+                                <div class="css-k008qs egbg7lm1">
+                                    <label for="specialty" class="label1woir7p">
+                                        <span class="emailgul183o2av">전문 분야</span>
+                                    </label>
+                                </div>
+                                <div class="sbo1gjemailchang">
+                                    <input placeholder="전문 분야 입력" id="specialty" name="doctorSpecialty" type="text" class="bms9cb" value="" />
+                                </div>
+                            </div>
+                        </div>
                         <!-- 근무지 주소 -->
                         <!-- 주소 -->
                         <div class="emailpassword">
@@ -131,13 +144,15 @@
                                         <span class="emailgul183o2av">핸드폰번호</span>
                                     </label>
                                 </div>
-                                <input type="hidden" name="memberPhone" id="memberPhone">
+
                                 <div class="phone-inputa">
-                                    <input type="text" id="phone1" name="memberPhone1" maxlength="3" placeholder="010" />
+                                    <input type="hidden" id="memberPhone" name="memberPhone">
+                                    <input type="hidden" name="hospitalPhone" id="hospitalPhone" />
+                                    <input type="text" id="phone1" maxlength="3" placeholder="010" />
                                     <span>-</span>
-                                    <input type="text" id="phone2" name="memberPhone2" maxlength="4" placeholder="1234" />
+                                    <input type="text" id="phone2" maxlength="4" placeholder="1234" />
                                     <span>-</span>
-                                    <input type="text" id="phone3" name="memberPhone3" maxlength="4" placeholder="5678" />
+                                    <input type="text" id="phone3" maxlength="4" placeholder="5678" />
                                 </div>
                             </div>
                         </div>
