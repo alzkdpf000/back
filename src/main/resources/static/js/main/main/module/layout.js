@@ -25,7 +25,7 @@ const consultationMainPageLayout = (() => {
             }
 
             console.log(post.memberProvider)
-            const providerImgSrc = post.memberProvider === "KAKAO"
+            const providerImgSrc = post.memberProvider === "kakao"
                 ? post.memberFilePath
                 : `/api/files/profile?url=${post.memberFilePath}`;
                 text += `

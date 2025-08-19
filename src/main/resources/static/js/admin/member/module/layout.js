@@ -17,7 +17,7 @@ const memberLayout = (() => {
             `
         } else {
             members.forEach((member) => {
-                const checkStatus = member.memberStatus === "ACTIVE";
+                const checkStatus = member.memberStatus === "active";
                 text += `
             <tr>
                             <td class="td-name" style="width: 10%;  text-align: center;">
@@ -85,9 +85,9 @@ const memberLayout = (() => {
         const memberDetailProvider = document.getElementById("memberDetailProvider");
         const memberDetailPost = document.getElementById("memberDetailPost");
         const posts = result.consultationPosts;
-        const memberEmail = result.provider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
-        const memberStatus = result.memberStatus === "ACTIVE" ? "활동 중" : "탈퇴";
-        memberDetailStatus.style.color = result.memberStatus === "ACTIVE" ? "#507cf3": "#fe657e";
+        const memberEmail = result.provider === "kakao" ? result.kakaoEmail : result.memberEmail;
+        const memberStatus = result.memberStatus === "active" ? "활동 중" : "탈퇴";
+        memberDetailStatus.style.color = result.memberStatus === "active" ? "#507cf3": "#fe657e";
         memberDetailName.textContent = result.memberName;
         memberDetailPhone.textContent = result.memberPhone;
         memberDetailVita.textContent = result.memberVitaAmount;
@@ -103,7 +103,7 @@ const memberLayout = (() => {
                 `
         } else {
             posts.forEach((post) => {
-                const check = post.consultationPostStatus === "INACTIVE";
+                const check = post.consultationPostStatus === "inactive";
                 text += `
             <tr>
                 <td>${post.consultationPostTitle}</td>
