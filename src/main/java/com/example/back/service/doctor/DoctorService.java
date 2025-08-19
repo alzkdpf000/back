@@ -1,6 +1,9 @@
 package com.example.back.service.doctor;
 
 import com.example.back.domain.doctor.DoctorVO;
+import com.example.back.domain.hospital.HospitalDTO;
+import com.example.back.dto.doctor.DoctorDTO;
+import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.doctor.DoctorCriteriaDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.doctor.DoctorListCriteriaDTO;
@@ -22,8 +25,13 @@ public interface DoctorService {
     //  의사 가입 승인
     public boolean approve(Long doctorId);
 
-    default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){
+//    의사 회원가입
+    public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO);
+
+
+    default DoctorVO gtoDoctorVO(DoctorDTO doctorDTO){
         return DoctorVO.builder()
+
                 .id(doctorListDTO.getId())
                 .doctorSpecialty(doctorListDTO.getDoctorSpecialty())
                 .doctorStatus(doctorListDTO.getDoctorStatus())
@@ -33,6 +41,23 @@ public interface DoctorService {
                 .hospitalAddress(doctorListDTO.getHospitalAddress())
                 .createdDatetime(doctorListDTO.getCreatedDatetime())
                 .updatedDatetime(doctorListDTO.getUpdatedDatetime())
+                .build();
+
+
+    }
+
+    default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){
+        return DoctorVO.builder()
+                .id(doctorDTO.getId())
+                .doctorSpecialty(doctorDTO.getDoctorSpecialty())
+                .doctorStatus(doctorDTO.getDoctorStatus())
+                .id(doctorDTO.getMemberId())
+                .hospitalId(doctorDTO.getHospitalId())
+                .hospitalName(doctorDTO.getHospitalName())
+                .hospitalPhone(doctorDTO.getHospitalPhone())
+                .createdDatetime(doctorDTO.getCreatedDatetime())
+                .updatedDatetime(doctorDTO.getUpdatedDatetime())
+
                 .build();
     }
 }
