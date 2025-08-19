@@ -8,38 +8,41 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordInput = document.getElementById("password");
     const passwordConfirmInput = document.getElementById("passwordConfirm");
     const signupBtn = document.getElementById("loginBtn");
+    const hospitalPhone = document.getElementById("hospitalPhone");
+    const addressInput = document.getElementById("address");
+    const addressDetailInput = document.getElementById("addressDetail");
+    const addressBtn = document.getElementById("addressBtn");
+    const formTag = document.getElementById("formTag");
 
-    // 이메일 중복체크 상태 저장
+    // 이메일 중복 체크 상태
     let emailAvailable = false;
 
     // 이메일 메시지 span
     const check = document.querySelector(".iprukchang1");
     const emailCheckMessage = document.createElement("span");
     emailCheckMessage.id = "emailCheckMessage";
-    check.appendChild(emailCheckMessage);
+    if(check) check.appendChild(emailCheckMessage);
 
-    // 숫자만 입력 & 자동 포커스 함수
+    // 숫자만 입력 & 자동 포커스
     function autoTab(currentInput, nextInput) {
         currentInput.addEventListener("input", function () {
             this.value = this.value.replace(/[^0-9]/g, "");
-            if (this.value.length === this.maxLength && nextInput) {
-                nextInput.focus();
-            }
+            if (this.value.length === this.maxLength && nextInput) nextInput.focus();
             checkAllInputs();
         });
     }
+
+    autoTab(phone1, phone2);
+    autoTab(phone2, phone3);
+    autoTab(phone3, null);
 
     // 유효성 검사 + 버튼 활성화
     function checkAllInputs() {
         let allValid = true;
 
         // 이름
-        if (nameInput.value.trim() === "") {
-            nameInput.style.borderColor = "red";
-            allValid = false;
-        } else {
-            nameInput.style.borderColor = "blue";
-        }
+        if (!nameInput.value.trim()) { nameInput.style.borderColor = "red"; allValid = false; }
+        else nameInput.style.borderColor = "blue";
 
         // 이메일
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,55 +53,34 @@ document.addEventListener("DOMContentLoaded", function () {
             emailInput.style.borderColor = "blue";
         }
 
-        // 비밀번호 (최소 6자리, 문자+숫자)
+        // 비밀번호
         const pwPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-        if (!pwPattern.test(passwordInput.value.trim())) {
-            passwordInput.style.borderColor = "red";
-            allValid = false;
-        } else {
-            passwordInput.style.borderColor = "blue";
-        }
+        if (!pwPattern.test(passwordInput.value.trim())) { passwordInput.style.borderColor = "red"; allValid = false; }
+        else passwordInput.style.borderColor = "blue";
 
         // 비밀번호 확인
         if (passwordInput.value !== passwordConfirmInput.value || passwordConfirmInput.value === "") {
-            passwordConfirmInput.style.borderColor = "red";
-            allValid = false;
+            passwordConfirmInput.style.borderColor = "red"; allValid = false;
+        } else passwordConfirmInput.style.borderColor = "blue";
 
-        } else {
-            passwordConfirmInput.style.borderColor = "blue";
-        }
+        // 핸드폰 번호
+        const phoneCheck = (input, maxLen) => { if (input.value.length !== maxLen) { input.style.borderColor = "red"; allValid = false; } else { input.style.borderColor = "blue"; } };
+        phoneCheck(phone1, 3); phoneCheck(phone2, 4); phoneCheck(phone3, 4);
 
-
-        // 핸드폰
-        const phoneCheck = (input, maxLen) => {
-            if (input.value.length !== maxLen) {
-                input.style.borderColor = "red";
-                allValid = false;
-
-            } else {
-                input.style.borderColor = "blue";
-            }
-        };
-        phoneCheck(phone1, 3);
-        phoneCheck(phone2, 4);
-        phoneCheck(phone3, 4);
-
+        // 버튼 활성화
         signupBtn.disabled = !allValid;
         signupBtn.style.backgroundColor = allValid ? "blue" : "";
         signupBtn.style.color = allValid ? "white" : "";
         signupBtn.style.cursor = allValid ? "pointer" : "default";
+
+        return allValid;
     }
 
-    // 핸드폰번호 자동탭
-    autoTab(phone1, phone2);
-    autoTab(phone2, phone3);
-    autoTab(phone3, null);
-
-
-    [nameInput, emailInput, passwordInput, passwordConfirmInput, phone1, phone2, phone3]
+    // 입력 이벤트에 checkAllInputs 연결
+    [phone1, phone2, phone3, nameInput, emailInput, passwordInput, passwordConfirmInput]
         .forEach(input => input.addEventListener("input", checkAllInputs));
 
-    // 이메일 중복 체크 (블러 이벤트)
+    // 이메일 중복 체크
     emailInput.addEventListener("blur", () => {
         const email = emailInput.value.trim();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -136,36 +118,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 checkAllInputs();
             });
     });
-    
+
+    // 주소 찾기
+    addressBtn.addEventListener("click", () => {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                addressInput.value = data.roadAddress;
+                addressDetailInput.focus();
+                checkAllInputs();
+            }
+        }).open();
+    });
+
+    // form submit
+    formTag.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const phoneValue = `${phone1.value}-${phone2.value}-${phone3.value}`;
+
+        // 일반회원이면 memberPhone
+        const memberPhone = document.getElementById("memberPhone");
+        if(memberPhone) memberPhone.value = phoneValue;
+
+        // 의사회원이면 hospitalPhone
+        if(hospitalPhone) hospitalPhone.value = phoneValue;
+
+        formTag.submit();
+    });
+
+
     checkAllInputs();
-});
-
-const addressInput = document.getElementById("address");
-const addressDetailInput = document.getElementById("addressDetail");
-
-const addressBtn = document.getElementById("addressBtn");
-
-addressBtn.addEventListener("click", (e) => {
-    new daum.Postcode({
-        oncomplete: function (data) {
-            // 도로명 주소 넣기
-            addressInput.value = data.roadAddress;
-            // 상세주소 input에 포커스 주기
-            addressDetailInput.focus();
-            // 유효성 검사 다시 실행
-            checkAllInputs();
-        }
-    }).open();
-});
-
-const formTag = document.getElementById("formTag");
-const memberPhone = document.getElementById(("memberPhone"));
-formTag.addEventListener("sudmit", (e) => {
-    e.preventDefault()
-
-    // 전화번호 3개를 합쳐서 히든 input에 넣기
-    memberPhone.value = `#{phone1.value}-#{phone2.value}-#{phone3.value}`;
-
-    formTag.submit();
-
 });

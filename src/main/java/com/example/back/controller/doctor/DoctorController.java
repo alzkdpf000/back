@@ -11,10 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -45,7 +42,13 @@ public class DoctorController {
     }
 //    의사 회원가입 처리
     @PostMapping("join")
-    public RedirectView joinFull(MemberDTO memberDTO, HospitalDTO hospitalDTO, DoctorDTO doctorDTO) {
+    public RedirectView joinFull(@ModelAttribute DoctorDTO doctorDTO,
+                           @ModelAttribute MemberDTO memberDTO,
+                           @ModelAttribute HospitalDTO hospitalDTO
+    ) {
+
+        memberDTO.setMemberPhone(doctorDTO.getMemberPhone());
+        hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
 
         doctorService.join(doctorDTO, memberDTO, hospitalDTO);
 

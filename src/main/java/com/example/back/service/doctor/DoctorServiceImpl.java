@@ -96,15 +96,17 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO) {
-        hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
-        log.info(doctorDTO.toString());
+
+        hospitalDTO.setHospitalStatus(Status.ACTIVE.name());
 
 //      일반회원 정보 추가
+        memberDTO.setMemberPhone(doctorDTO.getMemberPhone());
         memberService.join(memberDTO);
         doctorDTO.setMemberId(memberDTO.getId());
 
 
 //      병원 정보 추가
+        hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
         hospitalService.register(hospitalDTO);
         doctorDTO.setHospitalId(hospitalDTO.getId());
 
@@ -112,6 +114,9 @@ public class DoctorServiceImpl implements DoctorService {
 //      의사 정보 추가
         doctorDTO.setMemberStatus(Status.valueOf("ACTIVE"));
         doctorDAO.insertDoctor(doctorDTO);
+
+        log.info("회원가입 완료 => doctorId={}, memberId={}, hospitalId={}"
+        ,doctorDTO.getId(),memberDTO.getId(),hospitalDTO.getId());
 
     }
 
