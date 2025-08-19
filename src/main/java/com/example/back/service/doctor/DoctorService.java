@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface DoctorService {
     //  목록
-    public DoctorListCriteriaDTO getList(int page);
+    DoctorListCriteriaDTO getList(int page, Long currentMemberId);
 
     // 멤버 Status 상관없이 목록 출력
     public DoctorCriteriaDTO getListAllStatus(Search search, String doctorStatus);
@@ -27,7 +27,6 @@ public interface DoctorService {
                 .id(doctorListDTO.getId())
                 .doctorSpecialty(doctorListDTO.getDoctorSpecialty())
                 .doctorStatus(doctorListDTO.getDoctorStatus())
-                .id(doctorListDTO.getMemberId())
                 .hospitalId(doctorListDTO.getHospitalId())
                 .hospitalName(doctorListDTO.getHospitalName())
                 .hospitalPhone(doctorListDTO.getHospitalPhone())
