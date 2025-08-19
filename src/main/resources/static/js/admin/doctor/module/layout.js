@@ -1,5 +1,5 @@
 const doctorLayout = (() => {
-    const showDoctors = async (result, load) => {
+    const showDoctors = async (result) => {
         let text = ``;
 
         const doctors = result.doctorsList;
@@ -8,8 +8,9 @@ const doctorLayout = (() => {
         const doctorCount = document.getElementById("doctorCount");
         const pageWrap = document.querySelector(".pagination.bootpay-pagination.doctor-pagination");
         const tbody = document.getElementById("doctorsTbody");
+        document.getElementById("doctorKeyword").value = result.search.keyword;
         doctorCount.textContent = total;
-        if (doctors.length === 0 && !load) {
+        if (doctors.length === 0) {
             text +=
                 `
             <td class="text-center font-weight-bold" colspan="8" >회원이 존재하지 않습니다</td>

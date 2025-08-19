@@ -1,40 +1,53 @@
-let offset = 0;
 let checkMore = true;
-const showList = async (offset = 0) => {
+let consultationMainPage = null;
+let checkScroll = false;
+const showList = async (page = 1) => {
     const loading = document.getElementById("loading");
-
     loading.style.display = "block";
-    const consultationMainPage = await consultationMainPageService.getConsultationPost(offset, consultationMainPageLayout.showList);
+    consultationMainPage = await consultationMainPageService.getConsultationPost(page, consultationMainPageLayout.showList);
     setTimeout(() => {
         loading.style.display = "none";
     }, 1000)
-    checkMore = consultationMainPage.length === 6;
-    return consultationMainPage;
+    checkMore = consultationMainPage.consultationPosts.length === 7;
 }
-showList();
 
-let checkScroll = true;
-let consultationMainPage;
+document.addEventListener("DOMContentLoaded", async () => {
+    window.scrollTo(0, 0);
+    await showList();
+    checkScroll =true;
+    console.log(consultationMainPage);
+});
+
+
 
 window.addEventListener("scroll", async (e) => {
-    if(!checkMore) {return;}
+
+    if (!checkMore) {
+        return;
+    }
+    if(!checkScroll){
+        return;
+    }
     // 현재 스크롤 위치
     const scrollTop = window.scrollY
     // 화면 높이
     const windowHeight = window.innerHeight;
     // 문서 전체 높이
     const documentHeight = document.documentElement.scrollHeight
-    if(scrollTop + windowHeight >= documentHeight - 2) {
+    if (scrollTop + windowHeight >= documentHeight - 2) {
         //     바닥에 닿았을 때
-        if(checkScroll){
-            offset +=5;
-            consultationMainPage = await showList(offset);
-            checkScroll = false;
+        if (checkScroll && consultationMainPage !== null) {
+            checkScroll= false;
+            console.log("몇 번 실행되니")
+            console.log(consultationMainPage);
+            consultationMainPage = await showList(consultationMainPage.scrollCriteria.page + 1);
+            console.log(consultationMainPage);
+            checkMore = consultationMainPage?.consultationPosts.length === 7;
         }
-        checkMore = consultationMainPage.length === 6;
         setTimeout(() => {
-            if(consultationMainPage !== null && checkMore){
+            if (consultationMainPage !== null && checkMore) {
                 checkScroll = true
+                console.log("지금 실행")
             }
         }, 1100);
     }

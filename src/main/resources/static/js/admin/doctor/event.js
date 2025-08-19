@@ -1,11 +1,23 @@
-let doctorQuery= ""
+let doctorResponse = null;
+
+const doctorKeywordInput = document.getElementById("doctorKeyword");
+const doctorKeywordBtn = document.getElementById("doctorKeywordBtn");
 
 
-
-
-const showDoctors = async (page = 1, load = false, query = "") => {
-    await doctorService.getDoctors(doctorLayout.showDoctors, page, load, query)
+const showDoctors = async (page = 1, keyword = "") => {
+    doctorResponse = await doctorService.getDoctors(doctorLayout.showDoctors, page, keyword)
+    doctorResponse = doctorResponse.search;
 }
+
+
+doctorKeywordInput.addEventListener("keydown", async (e) => {
+    if (e.key === "Enter") {
+        await showDoctors(1, doctorKeywordInput.value.trim());
+    }
+})
+doctorKeywordBtn.addEventListener("click", async (e) => {
+    await showDoctors(1, doctorKeywordInput.value.trim());
+})
 
 
 // 페이지 번호 클릭 이벤트(데이터를 받아와야 하는 곳이라 주석 처리)
@@ -14,8 +26,7 @@ const paginationDoctor = document.querySelector(".pagination.bootpay-pagination.
 paginationDoctor.addEventListener("click", async (e) => {
     if (e.target.classList.contains("paging")) {
         e.preventDefault();
-        await showDoctors(e.target.dataset.page, true, doctorQuery);
-
+        await showDoctors(e.target.dataset.page, doctorResponse.keyword);
     }
 })
 
@@ -39,8 +50,6 @@ doctorMenuBtn.addEventListener("click", async (e) => {
 });
 
 
-
-
 const doctorMoadl = document.getElementById("doctorModal");
 const closeButtonDoctorModal = document.getElementById("doctorModalClose");
 
@@ -54,15 +63,13 @@ closeButtonDoctorModal.addEventListener("click", (e) => {
 });
 
 
-
-
 const doctorsTbody = document.getElementById("doctorsTbody");
 doctorsTbody.addEventListener("click", async (e) => {
     const memberDetailBtn = e.target.closest(".member-detail-btn");
     if (memberDetailBtn) {
         const doctorId = memberDetailBtn.dataset.doctorid;
         loading.style.display = "block";
-        await doctorService.getDetailDoctor(doctorLayout.showDoctorDetail,doctorId);
+        await doctorService.getDetailDoctor(doctorLayout.showDoctorDetail, doctorId);
         // await memberService.getDetailMember(memberLayout.showMemberDetail, memberId);
         setTimeout(() => {
             loading.style.display = "none";
@@ -78,7 +85,7 @@ const memberBody = document.getElementById("members");
 const doctorBody = document.getElementById("doctors");
 memberTab.addEventListener("click", async (e) => {
     console.log("멤버 탭을 선택햇아여")
-    doctorBody.style.display ="none";
+    doctorBody.style.display = "none";
     memberTab.classList.add("active");
     loading.style.display = "block";
     await showMembers();
@@ -102,7 +109,7 @@ doctorTab.addEventListener("click", async (e) => {
     memberTab.classList.remove("active");
     doctorMenuBtn.classList.add("checked");
     memberMenuBtn.classList.remove("checked");
-    doctorBody.style.display ="block";
+    doctorBody.style.display = "block";
 });
 
 

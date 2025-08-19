@@ -18,7 +18,7 @@
                  join tbl_consultation_post tcp on tcp.member_id = tm.id
             and tcp.consultation_post_status = 'active'
         order by consultation_post_view_count desc
-        limit #{rowCount} offset #{offset};
+        limit #{rowCount} offset #{offset}
     </select>
 
 

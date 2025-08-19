@@ -6,7 +6,9 @@ import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.mapper.doctor.DoctorMapper;
 import com.example.back.util.Criteria;
+import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,12 +29,12 @@ public class DoctorDAO {
     }
 
     //  멤버 status 상관없는 의사 목록
-    public List<DoctorDTO> findAllStatus(Criteria criteria, String doctorStatus) {
-        return doctorMapper.selectDoctorsByStatus(criteria,doctorStatus);
+    public List<DoctorDTO> findAllStatus(Criteria criteria, String doctorStatus, Search search) {
+        return doctorMapper.selectDoctorsByStatus(criteria,doctorStatus,search);
     }
     //  멤버 status 상관없는 의사 전체 수
-    public int findCountAllStatus(String doctorStatus){
-        return doctorMapper.selectDoctorCountByStatus(doctorStatus);
+    public int findCountAllStatus(Search search){
+        return doctorMapper.selectDoctorCountByStatus(search);
     }
     //  관리자페이지 의사 상세 보기
     public Optional<DoctorHospitalDTO> findDoctorById(Long doctorId){

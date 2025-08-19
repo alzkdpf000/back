@@ -17,6 +17,7 @@ import com.example.back.service.inquiry.InquiryService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.notice.NoticeService;
 import com.example.back.util.ScrollCriteria;
+import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,12 +38,11 @@ public class AdminRestController {
 
     @GetMapping("inquires")
     public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
-                                                      @RequestParam String query,
-                                                      @RequestParam String answerStatus) {
-        log.info("{},{},{}", page, query, answerStatus);
-        ScrollCriteria scrollCriteria = new ScrollCriteria(page, query, answerStatus);
+                                                      @RequestParam(required = false) Search search) {
+        ScrollCriteria scrollCriteria = new ScrollCriteria(page, search);
         InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(scrollCriteria);
         return ResponseEntity.ok().body(inquiryListWithAnswerStats);
+//        return null;
     }
 
     @GetMapping("inquires/{inquiryId}")
@@ -63,10 +63,9 @@ public class AdminRestController {
         return ResponseEntity.ok().body(notice);
     }
 
-    @GetMapping("members")
-    public ResponseEntity<MemberCriteriaDTO> members(@RequestParam int page,
-                                                     @RequestParam String query) {
-        MemberCriteriaDTO members = memberService.getList(page);
+    @PostMapping("members")
+    public ResponseEntity<MemberCriteriaDTO> members(@RequestBody Search search) {
+        MemberCriteriaDTO members = memberService.getListAllStatus(search);
         return ResponseEntity.ok().body(members);
     }
 
@@ -77,10 +76,9 @@ public class AdminRestController {
         return ResponseEntity.ok().body(member);
     }
 
-    @GetMapping("doctors")
-    public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestParam int page,
-                                                     @RequestParam String query) {
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(page,"active");
+    @PostMapping("doctors")
+    public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestBody Search search) {
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search,"active");
         return ResponseEntity.ok().body(doctors);
     }
 
@@ -91,9 +89,10 @@ public class AdminRestController {
         return ResponseEntity.ok().body(doctor);
     }
 
-    @GetMapping("doctors/pending")
-    public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestParam int page) {
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(page, "inactive");
+    @PostMapping("doctors/pending")
+    public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestBody Search search) {
+        log.info("{}",search.toString());
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, "inactive");
         return ResponseEntity.ok().body(doctors);
     }
 

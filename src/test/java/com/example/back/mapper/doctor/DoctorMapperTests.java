@@ -35,8 +35,8 @@ public class DoctorMapperTests {
         doctorDTO.setDoctorSpecialty("내과");
         doctorDTO.setHospitalId(1L);
 
-        doctorMapper.insertDoctor(doctorDTO);
-        log.info("Doctor Inserted: {}", doctorDTO);
+//        doctorMapper.insertDoctor(doctorDTO);
+//        log.info("Doctor Inserted: {}", doctorDTO);
 
 
     }

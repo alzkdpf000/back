@@ -12,6 +12,7 @@ import com.example.back.service.hospital.HospitalService;
 import com.example.back.service.member.MemberService;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
+import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -51,11 +52,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorCriteriaDTO getListAllStatus(int page,String doctorStatus) {
+    public DoctorCriteriaDTO getListAllStatus(Search search, String doctorStatus) {
         DoctorCriteriaDTO doctorCriteriaDTO = new DoctorCriteriaDTO();
-        int total = doctorDAO.findCountAllStatus(doctorStatus);
-        Criteria criteria = new Criteria(page, total);
-        List<DoctorDTO> doctorsList = doctorDAO.findAllStatus(criteria,doctorStatus);
+        int total = doctorDAO.findCountAllStatus(search);
+        Criteria criteria = new Criteria(search.getPage(), total);
+        List<DoctorDTO> doctorsList = doctorDAO.findAllStatus(criteria,doctorStatus,search);
         doctorsList.forEach(doctor ->{
             doctor.setCreatedDate(DateUtils.getCreatedDate(doctor.getCreatedDatetime()));
         });
@@ -66,6 +67,7 @@ public class DoctorServiceImpl implements DoctorService {
         doctorCriteriaDTO.setDoctorsList(doctorsList);
         doctorCriteriaDTO.setCriteria(criteria);
         doctorCriteriaDTO.setTotal(total);
+        doctorCriteriaDTO.setSearch(search);
         return doctorCriteriaDTO;
     }
 

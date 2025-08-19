@@ -11,22 +11,23 @@ public class ScrollCriteria {
     private int rowCount;
     private int limit;
     private String query;
-    private String answerStatus;
+    private String[] answerStatus;
     private int offset;
     private int count;
-
+    private int page;
     public ScrollCriteria(int page) {
         rowCount = 7;
+        this.page = page;
         count = rowCount + 1;
         offset = (page - 1) * rowCount;
     }
 
-    public ScrollCriteria(int page, String query, String answerStatus) {
+    public ScrollCriteria(int page, Search search) {
         rowCount = 7;
         offset = (page - 1) * rowCount;
         count = rowCount + 1;
-        this.query = query;
-        this.answerStatus = answerStatus;
+        this.query = search.getKeyword();
+        this.answerStatus = search.getCategories();
 
     }
 }
