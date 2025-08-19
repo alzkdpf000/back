@@ -6,7 +6,7 @@ import com.example.back.dto.doctor.DoctorListDTO;
 
 public interface DoctorService {
     //  목록
-    public DoctorListCriteriaDTO getList(int page);
+    DoctorListCriteriaDTO getList(int page, Long currentMemberId);
 
 
     default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){
@@ -14,7 +14,6 @@ public interface DoctorService {
                 .id(doctorListDTO.getId())
                 .doctorSpecialty(doctorListDTO.getDoctorSpecialty())
                 .doctorStatus(doctorListDTO.getDoctorStatus())
-                .id(doctorListDTO.getMemberId())
                 .hospitalId(doctorListDTO.getHospitalId())
                 .hospitalName(doctorListDTO.getHospitalName())
                 .hospitalPhone(doctorListDTO.getHospitalPhone())
