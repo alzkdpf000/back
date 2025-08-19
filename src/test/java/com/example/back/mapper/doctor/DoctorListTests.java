@@ -1,5 +1,6 @@
 package com.example.back.mapper.doctor;
 
+import com.example.back.common.enumeration.Status;
 import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.util.Criteria;
 import com.example.back.dto.doctor.DoctorListDTO;
@@ -31,7 +32,7 @@ public class DoctorListTests {
         search.setPage(1);
         search.setKeyword("test");
         Criteria criteria = new Criteria(1,10);
-        log.info("{}",doctorMapper.selectDoctorsByStatus(criteria,"active",search));
+        log.info("{}",doctorMapper.selectDoctorsByStatus(criteria, Status.ACTIVE.getValue(),search));
     }
     @Test
     public void testFindAllStatus(){
@@ -39,7 +40,7 @@ public class DoctorListTests {
         search.setPage(1);
         search.setKeyword("test");
         Criteria criteria = new Criteria(1,10);
-        log.info("{}", doctorDAO.findAllStatus(criteria,"inactive",search));
+        log.info("{}", doctorDAO.findAllStatus(criteria,Status.INACTIVE.getValue(),search));
     }
 
     @Test
@@ -47,14 +48,14 @@ public class DoctorListTests {
         Search search = new Search();
         search.setPage(1);
         search.setKeyword("test");
-        log.info("{}",doctorMapper.selectDoctorCountByStatus(search));
+        log.info("{}",doctorMapper.selectDoctorCountByStatus(search,Status.INACTIVE.getValue()));
     }
     @Test
     public void testFindCountAllStatus(){
         Search search = new Search();
         search.setPage(1);
         search.setKeyword("test");
-        log.info("{}", doctorDAO.findCountAllStatus(search));
+        log.info("{}", doctorDAO.findCountAllStatus(search,Status.INACTIVE.getValue()));
     }
 
     @Test

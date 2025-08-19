@@ -1,9 +1,6 @@
 package com.example.back.service.counselreply;
 
-import com.example.back.domain.consultationpost.ConsultationPostVO;
 import com.example.back.domain.counselreply.CounselReplyVO;
-import com.example.back.dto.consultationpost.ConsultationPostCriteria;
-import com.example.back.dto.consultationpost.ConsultationPostDTO;
 import com.example.back.dto.counselreply.CounselReplyDTO;
 
 public interface CounselReplyService {

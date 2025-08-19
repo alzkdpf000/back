@@ -8,12 +8,16 @@ import com.example.back.repository.file.FileInquiryDAO;
 import com.example.back.repository.inquiry.InquiryDAO;
 import com.example.back.util.DateUtils;
 import com.example.back.util.ScrollCriteria;
+import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class InquiryServiceImpl implements InquiryService {
@@ -23,9 +27,10 @@ public class InquiryServiceImpl implements InquiryService {
 
     //    문의글 목록 및 통계
     @Override
-    public InquirySummaryDTO getInquiryListWithAnswerStats(ScrollCriteria scrollCriteria) {
+    public InquirySummaryDTO getInquiryListWithAnswerStats(Search search) {
+        ScrollCriteria scrollCriteria = new ScrollCriteria(search.getPage());
         InquirySummaryDTO inquirySummaryDTO = new InquirySummaryDTO();
-        List<InquiryMemberReplyDTO> inquiriesByEmailOrId = inquiryDAO.findInquiriesByEmailOrId(scrollCriteria);
+        List<InquiryMemberReplyDTO> inquiriesByEmailOrId = inquiryDAO.findInquiriesByEmailOrId(scrollCriteria,search);
         if(inquiriesByEmailOrId.size() > scrollCriteria.getRowCount()){
             inquiriesByEmailOrId.remove(inquiriesByEmailOrId.size()-1);
         }
@@ -36,10 +41,11 @@ public class InquiryServiceImpl implements InquiryService {
             }
         });
 
-        InquiriesCountDto answerCounts = inquiryDAO.getAnswerCounts();
+        InquiriesCountDto answerCounts = inquiryDAO.getAnswerCounts(search);
         inquirySummaryDTO.setScrollCriteria(scrollCriteria);
         inquirySummaryDTO.setInquiriesCountDto(answerCounts);
         inquirySummaryDTO.setInquiryMemberReplyDTOs(inquiriesByEmailOrId);
+        inquirySummaryDTO.setSearch(search);
         return inquirySummaryDTO;
     }
 

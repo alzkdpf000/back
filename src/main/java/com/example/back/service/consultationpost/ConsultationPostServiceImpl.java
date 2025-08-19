@@ -1,8 +1,7 @@
 package com.example.back.service.consultationpost;
 
 import com.example.back.dto.consultationpost.ConsultationPostCategoryFileUserDTO;
-import com.example.back.dto.consultationpost.ConsultationPostCriteria;
-import com.example.back.dto.consultationpost.ConsultationPostDTO;
+import com.example.back.dto.consultationpost.ConsultationPostCriteriaDTO;
 import com.example.back.dto.file.FileDTO;
 import com.example.back.repository.category.CategoryDAO;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;
@@ -25,8 +24,8 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
 
     //    조회순(인기순)5개 게시글 조회 현재 임시로 3개만
     @Override
-    public ConsultationPostCriteria get5PostsByViews(int page) {
-        ConsultationPostCriteria criteria = new ConsultationPostCriteria();
+    public ConsultationPostCriteriaDTO get5PostsByViews(int page) {
+        ConsultationPostCriteriaDTO criteria = new ConsultationPostCriteriaDTO();
         ScrollCriteria scrollCriteria = new ScrollCriteria(page);
         List<ConsultationPostCategoryFileUserDTO> consultationPostDAO5OrderByViewCountDesc = consultationPostDAO.find5OrderByViewCountDesc(scrollCriteria);
         boolean hasMore = consultationPostDAO5OrderByViewCountDesc.size() > scrollCriteria.getRowCount();

@@ -1,6 +1,5 @@
 package com.example.back.repository.doctor;
 
-import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
@@ -33,8 +32,8 @@ public class DoctorDAO {
         return doctorMapper.selectDoctorsByStatus(criteria,doctorStatus,search);
     }
     //  멤버 status 상관없는 의사 전체 수
-    public int findCountAllStatus(Search search){
-        return doctorMapper.selectDoctorCountByStatus(search);
+    public int findCountAllStatus(Search search,String doctorStatus){
+        return doctorMapper.selectDoctorCountByStatus(search,doctorStatus);
     }
     //  관리자페이지 의사 상세 보기
     public Optional<DoctorHospitalDTO> findDoctorById(Long doctorId){

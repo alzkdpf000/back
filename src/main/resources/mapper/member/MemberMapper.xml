@@ -7,14 +7,13 @@
     </insert>
     <select id="selectMembers">
         select id,
-               member_email,
-
-               member_name,
-               member_phone,
-               member_status,
-               member_provider as provider,
-               member_kakao_email as kakao_email,
-               created_datetime
+        member_email,
+        member_name,
+        member_phone,
+        member_status,
+        member_provider as provider,
+        member_kakao_email as kakao_email,
+        created_datetime
         from tbl_member
         where member_role = 'member'
         <if test='search.keyword !=null and search.keyword !=""'>

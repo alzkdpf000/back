@@ -1,52 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.inquiry.InquiryMapper">
-    <select id="selectInquiriesByEmailOrId">
-        select sub.id as id,
-        sub.inquiries_title as inquiry_title,
-        sub.inquiries_content as inquiry_content,
-        sub.created_datetime as created_datetime,
-        sub.member_email as member_email,
-        sub.has_answer as has_answer,
-        sub.answer_datetime as answer_datetime
-        from view_inquiry_member_reply sub
+    <sql id="search">
         <where>
-            <if test='query != null and query !=""'>
-                (sub.member_email like concat('%', #{query} , '%')
-                or sub.id = #{query})
-            </if>
-            <if test='answerStatus == "no"'>
-                and sub.reply_id IS NULL
+            <if test='search.keyword != null and search.keyword !=""'>
+                (m.member_email like concat('%', #{search.keyword} , '%') or
+                m.member_kakao_email like concat('%', #{search.keyword} , '%')
+                or c.id = #{search.keyword})
             </if>
 
-            <if test='answerStatus == "yes"'>
-                and sub.reply_id IS NOT NULL
+            <if test="search.categories.length gt 0 and search.categories[0] lte 1">
+                and c.has_answer = #{search.categories[0]}
             </if>
         </where>
-        order by sub.id desc
-        limit #{count} offset #{offset}
+    </sql>
+    <select id="selectInquiriesByEmailOrId">
+        select i.id as id,
+        i.inquiries_title as inquiry_title,
+        i.inquiries_content as inquiry_content,
+        i.created_datetime as created_datetime,
+        m.member_email as member_email,
+        m.member_kakao_email as member_kakao_email,
+        m.member_provider as member_provider,
+        c.has_answer as has_answer,
+        c.created_datetime as answer_datetime
+        from tbl_inquiries i join tbl_member m
+        on i.member_id = m.id
+        join
+        (
+            select i.id, count(ir.id) has_answer, ir.created_datetime
+            from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+            on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+            group by i.id,ir.created_datetime
+            ) c
+        on i.id= c.id
+        <include refid="search"/>
+        order by i.id desc
+        limit #{scrollCriteria.count} offset #{scrollCriteria.offset}
     </select>
     
     
     <select id="selectAnswerCounts">
-        select ifnull(sum(if(tir.id is not null and tir.inquiries_status = 'active', 1, 0)),0) as answer_count,
-               ifnull(sum(if(tir.id is null or tir.inquiries_status = 'inactive', 1, 0)),0)     as no_answer_count
-        from tbl_inquiries ti
-                 left outer join tbl_inquiries_reply tir
-                                 on ti.id = tir.inquiries_id
-                                     where ti.inquiries_status = 'active';
+        select
+        sum(case when c.has_answer = 1 then 1 else 0 end) as answer_count,
+        sum(case when c.has_answer = 0 then 1 else 0 end) as no_answer_count
+        from tbl_inquiries i join tbl_member m
+        on i.member_id = m.id
+        join
+        (select i.id, count(ir.id) has_answer from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+        on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+        group by i.id) c
+        on i.id = c.id
+        <include refid="search"/>
     </select>
 
     <select id="selectActiveInquiryWithReplyById">
-        select id,
-               inquiries_title         AS inquiry_title,
-               inquiries_content       AS inquiry_content,
-               created_datetime,
-               member_email,
-               has_answer,
-               inquiries_reply_content AS inquiry_reply_content
-        from view_inquiry_member_reply
-        where id = #{inquiriesId}
+        select i.id,
+               i.inquiries_title         AS inquiry_title,
+               i.inquiries_content       AS inquiry_content,
+               i.created_datetime,
+               m.member_email,
+               m.member_kakao_email as member_kakao_email,
+               m.member_provider as member_provider,
+               c.has_answer,
+               tir.inquiries_reply_content AS inquiry_reply_content
+        from tbl_inquiries i join tbl_member m
+                                  on i.member_id = m.id
+                             join
+             (
+                 select i.id, count(ir.id) has_answer, ir.created_datetime
+                 from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+                                                      on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+                 group by i.id,ir.created_datetime
+             ) c
+             on i.id= c.id
+        join tbl_inquiries_reply tir on i.id = tir.inquiries_id
+        where i.id = #{inquiriesId}
 
     </select>
 </mapper>

@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.doctor.DoctorMapper">
-    <insert id="insertDoctor" parameterType="com.example.back.dto.doctor.DoctorDTO">
+    <sql id="search">
+        <where>
+            <if test='doctorStatus != null and doctorStatus == "inactive"'>
+                doctor_status = #{doctorStatus}
+            </if>
+            <if test='search.keyword !=null and search.keyword !=""'>
+                and ( member_name like concat('%', #{search.keyword}, '%') or
+                member_email like concat('%', #{search.keyword}, '%') or
+                member_kakao_email like concat('%', #{search.keyword}, '%')
+                )
+            </if>
+        </where>
+    </sql>
+
+
+
+    <insert id="insertDoctor" parameterType="com.example.back.dto.doctor.DoctorListDTO">
+        insert into tbl_doctor (member_id,
+                                doctor_license_number,
+                                doctor_specialty,
+                                hospital_id,
+                                doctor_status)
+        values (#{memberId},
+                #{doctorLicenseNumber},
+                #{doctorSpecialty},
+                #{hospitalId},
+                #{doctorStatus})
+    </insert>
+    <insert id="insertJoinDoctor" parameterType="com.example.back.dto.doctor.DoctorDTO">
         insert into tbl_doctor (
             member_id,
             doctor_license_number,
@@ -66,17 +94,7 @@
         member_vita_amount,
         created_datetime
         from view_member_doctor
-        <where>
-            <if test="doctorStatus != null and doctorStatus == 'inactive'">
-                doctor_status = #{doctorStatus}
-            </if>
-            <if test='search.keyword !=null and search.keyword !=""'>
-                ( member_name like concat('%', #{search.keyword}, '%') or
-                member_email like concat('%', #{search.keyword}, '%') or
-                member_kakao_email like concat('%', #{search.keyword}, '%')
-                )
-            </if>
-        </where>
+        <include refid="search"/>
         limit #{criteria.count} offset #{criteria.offset}
 
     </select>
@@ -84,14 +102,7 @@
     <select id="selectDoctorCountByStatus">
         select count(id)
         from view_member_doctor
-        <where>
-            <if test='search.keyword !=null and search.keyword !=""'>
-                ( member_name like concat('%', #{search.keyword}, '%') or
-                member_email like concat('%', #{search.keyword}, '%') or
-                member_kakao_email like concat('%', #{search.keyword}, '%')
-                )
-            </if>
-        </where>
+        <include refid="search"/>
     </select>
 
     <select id="selectDoctorById">

@@ -1,5 +1,6 @@
 package com.example.back.controller.admin;
 
+import com.example.back.common.enumeration.Status;
 import com.example.back.common.exception.DoctorNotFoundException;
 import com.example.back.common.exception.InquiryNotFoundException;
 import com.example.back.common.exception.MemberNotFoundException;
@@ -12,10 +13,12 @@ import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.notice.NoticeDTO;
 import com.example.back.dto.notice.NoticesCriteriaDTO;
+import com.example.back.dto.payment.VitaHistoryCriteriaDTO;
 import com.example.back.service.doctor.DoctorService;
 import com.example.back.service.inquiry.InquiryService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.notice.NoticeService;
+import com.example.back.service.payment.VitaHistoryService;
 import com.example.back.util.ScrollCriteria;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
@@ -34,15 +37,15 @@ public class AdminRestController {
     private final InquiryService inquiryService;
     private final NoticeService noticeService;
     private final MemberService memberService;
+    private final VitaHistoryService vitaHistoryService;
     private final DoctorService doctorService;
 
-    @GetMapping("inquires")
-    public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
-                                                      @RequestParam(required = false) Search search) {
-        ScrollCriteria scrollCriteria = new ScrollCriteria(page, search);
-        InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(scrollCriteria);
+    @PostMapping("inquires")
+    public ResponseEntity<InquirySummaryDTO> inquires(@RequestBody Search search) {
+        log.info("search ::::::::::::{}",search.toString());
+        ;
+        InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(search);
         return ResponseEntity.ok().body(inquiryListWithAnswerStats);
-//        return null;
     }
 
     @GetMapping("inquires/{inquiryId}")
@@ -78,7 +81,7 @@ public class AdminRestController {
 
     @PostMapping("doctors")
     public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestBody Search search) {
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search,"active");
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, Status.ACTIVE.getValue());
         return ResponseEntity.ok().body(doctors);
     }
 
@@ -92,7 +95,7 @@ public class AdminRestController {
     @PostMapping("doctors/pending")
     public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestBody Search search) {
         log.info("{}",search.toString());
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, "inactive");
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, Status.INACTIVE.getValue());
         return ResponseEntity.ok().body(doctors);
     }
 
@@ -112,5 +115,13 @@ public class AdminRestController {
             return ResponseEntity.ok().body("거절되었습니다.");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("의사가 존재하지 않습니다.");
+    }
+
+
+    @PostMapping("payment")
+    public ResponseEntity<VitaHistoryCriteriaDTO> vitaHistories(@RequestBody Search search) {
+        VitaHistoryCriteriaDTO vitaHistories = vitaHistoryService.getVitaHistories(search);
+        return ResponseEntity.ok().body(vitaHistories);
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.back.mapper.doctor;
 
+import com.example.back.common.enumeration.Status;
 import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
@@ -16,7 +17,7 @@ public interface DoctorMapper {
 //  추가
 //    public void insertDoctor(DoctorListDTO doctorListDTO);
 
-    public void insertDoctor(DoctorDTO doctorDTO);
+    public void insertJoinDoctor(DoctorDTO doctorDTO);
 
 //  목록
     public List<DoctorListDTO> selectDoctorList(Criteria criteria);
@@ -28,7 +29,7 @@ public interface DoctorMapper {
 //  멤버 status 상관없는 의사 목록
     public List<DoctorDTO> selectDoctorsByStatus(@Param("criteria") Criteria criteria, @Param("doctorStatus") String doctorStatus, @Param("search") Search search);
 //  멤버 status 상관없는 의사 전체 수
-    public int selectDoctorCountByStatus(@Param("search") Search search);
+    public int selectDoctorCountByStatus(@Param("search") Search search,@Param("doctorStatus") String doctorStatus);
 //  관리자페이지 의사 상세 보기
     public Optional<DoctorHospitalDTO> selectDoctorById(Long doctorId);
 //  의사 가입 승인

@@ -59,7 +59,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorCriteriaDTO getListAllStatus(Search search, String doctorStatus) {
         DoctorCriteriaDTO doctorCriteriaDTO = new DoctorCriteriaDTO();
-        int total = doctorDAO.findCountAllStatus(search);
+        int total = doctorDAO.findCountAllStatus(search,doctorStatus);
         Criteria criteria = new Criteria(search.getPage(), total);
         List<DoctorDTO> doctorsList = doctorDAO.findAllStatus(criteria,doctorStatus,search);
         doctorsList.forEach(doctor ->{

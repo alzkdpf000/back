@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.payment.VitaHistoryMapper">
+    <sql id="search">
+        <if test="search.types != null">
+            and
+            <trim prefix="(" prefixOverrides="or" suffix=")">
+                <foreach item="type" collection="search.types">
+                    or (vita_history_result = #{type.result} AND vita_history_type = #{type.type})
+                </foreach>
+            </trim>
+        </if>
+        <if test="search.keyword != null">
+            and (
+            tm.member_email like concat('%', #{search.keyword}, '%') or
+            tm.member_kakao_email like concat('%', #{search.keyword}, '%') or
+            tm.member_name like concat('%', #{search.keyword}, '%') or
+            tvh.id = #{search.keyword}
+            )
+        </if>
+    </sql>
+    <select id="searchVitaHistories">
+        select
+        tm.member_email,
+        tm.member_name,
+        tm.member_provider,
+        tm.member_kakao_email,
+        tvh.id,
+        tvh.vita_history_amount,
+        tvh.vita_history_result,
+        tvh.vita_history_type,
+        tvh.vita_history_status,
+        tvh.vita_history_description,
+        tvh.member_id,
+        tvh.created_datetime,
+        tvh.updated_datetime
+        from tbl_member tm
+        join tbl_vita_history tvh on tm.id = tvh.member_id
+        <include refid="search"/>
+        order by tvh.id desc
+        limit #{criteria.count} offset #{criteria.offset}
+    </select>
+
+    <select id="searchCountVitaHistory">
+        select
+        count(tvh.id)
+        from tbl_member tm
+        join tbl_vita_history tvh on tm.id = tvh.member_id
+        <include refid="search"/>
+    </select>
+</mapper>

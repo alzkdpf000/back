@@ -20,13 +20,13 @@ const doctorLayout = (() => {
                 let checkStatus;
                 let memberStatus;
                 console.log(doctor.memberStatus,doctor.doctorStatus);
-                if (doctor.memberStatus === "INACTIVE" && doctor.doctorStatus === "INACTIVE") {
+                if (doctor.memberStatus === "inactive" && doctor.doctorStatus === "inactive") {
                     memberStatus = "승인 거절";
                     checkStatus = false;
-                } else if (doctor.memberStatus === "ACTIVE" && doctor.doctorStatus ==="INACTIVE") {
+                } else if (doctor.memberStatus === "active" && doctor.doctorStatus ==="inactive") {
                     memberStatus = "승인 대기";
                     checkStatus = true;
-                } else if (doctor.memberStatus === "INACTIVE" && doctor.doctorStatus ==="ACTIVE"){
+                } else if (doctor.memberStatus === "inactive" && doctor.doctorStatus ==="active"){
                     memberStatus = "탈퇴";
                     checkStatus = false;
                 }else{
@@ -42,7 +42,11 @@ const doctorLayout = (() => {
                             <td class="td-amount text-right pr-4 font-weight-bold" style=" text-align: center; width: 10%">${doctor.memberName}
                                 <span class="amount-unit"> 님</span>
                             </td>
-                            <td class="td-email" style="width: 10%">${doctor.provider === "KAKAO" ? doctor.kakaoEmail : doctor.memberEmail}</td>
+                            <td class="td-email" style="width: 10%">
+                            <span>${!doctor.memberEmail ? "없음" : doctor.memberEmail}</span>
+                            <br>
+                            <span>${!doctor.memberKakaoEmail ? "없음" : doctor.memberKakaoEmail}</span>
+                            </td>
                             <td class="td-phone" style="width: 10%">${doctor.memberPhone}</td>
                             <td class="td-phone" style="width: 10%">${doctor.doctorLicenseNumber}</td>
                             <td class="td-start" style="width: 10%" >${doctor.createdDate}</td>
@@ -100,13 +104,13 @@ const doctorLayout = (() => {
         const memberEmail = result.memberProvider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
         let memberStatus;
         let checkStatus;
-        if (result.memberStatus === "INACTIVE" && result.doctorStatus === "INACTIVE") {
+        if (result.memberStatus === "inactive" && result.doctorStatus === "inactive") {
             memberStatus = "승인 거절";
             checkStatus = false;
-        } else if (result.memberStatus === "ACTIVE" && result.doctorStatus ==="INACTIVE") {
+        } else if (result.memberStatus === "active" && result.doctorStatus ==="inactive") {
             memberStatus = "승인 대기";
             checkStatus = true;
-        } else if (result.memberStatus === "INACTIVE" && result.doctorStatus ==="ACTIVE"){
+        } else if (result.memberStatus === "inactive" && result.doctorStatus ==="active"){
             memberStatus = "탈퇴";
             checkStatus = false;
         }else{
@@ -131,8 +135,8 @@ const doctorLayout = (() => {
                 `
         } else {
             replies.forEach((reply) => {
-                const check1 = reply.consultationPostStatus === "INACTIVE";
-                const check2 = reply.counselReplyStatus === "INACTIVE";
+                const check1 = reply.consultationPostStatus === "inactive";
+                const check2 = reply.counselReplyStatus === "inactive";
                 text += `
             <tr>
                 <td>${reply.consultationPostTitle}</td>

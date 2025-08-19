@@ -17,7 +17,7 @@ const memberLayout = (() => {
             `
         } else {
             members.forEach((member) => {
-                const checkStatus = member.memberStatus === "ACTIVE";
+                const checkStatus = member.memberStatus === "active";
                 text += `
             <tr>
                             <td class="td-name" style="width: 10%;  text-align: center;">
@@ -28,7 +28,11 @@ const memberLayout = (() => {
                             <td class="td-amount text-right pr-4 font-weight-bold" style=" text-align: center; width: 10%">${member.memberName}
                                 <span class="amount-unit"> 님</span>
                             </td>
-                            <td class="td-email" style="width: 10%">${member.provider === "KAKAO" ? member.kakaoEmail : member.memberEmail}</td>
+                            <td class="td-email" style="width: 10%">
+                            <span>${!member.memberEmail ? "없음" : member.memberEmail}</span>
+                            <br>
+                            <span>${!member.kakaoEmail ? "없음" : member.kakaoEmail}</span>
+                            </td>
                             <td class="td-phone" style="width: 10%">${member.memberPhone}</td>
                             <td class="td-start" style="width: 10%" >${member.createdDate}</td>
                             <td class="td-recent" style="width: 5%; color : ${checkStatus ? "#507cf3" : "#fe657e"}">${checkStatus ? "활동 중" : "탈퇴"}</td>
@@ -81,9 +85,9 @@ const memberLayout = (() => {
         const memberDetailProvider = document.getElementById("memberDetailProvider");
         const memberDetailPost = document.getElementById("memberDetailPost");
         const posts = result.consultationPosts;
-        const memberEmail = result.provider === "KAKAO" ? result.kakaoEmail : result.memberEmail;
-        const memberStatus = result.memberStatus === "ACTIVE" ? "활동 중" : "탈퇴";
-        memberDetailStatus.style.color = result.memberStatus === "ACTIVE" ? "#507cf3": "#fe657e";
+        const memberEmail = result.provider === "kakao" ? result.kakaoEmail : result.memberEmail;
+        const memberStatus = result.memberStatus === "active" ? "활동 중" : "탈퇴";
+        memberDetailStatus.style.color = result.memberStatus === "active" ? "#507cf3": "#fe657e";
         memberDetailName.textContent = result.memberName;
         memberDetailPhone.textContent = result.memberPhone;
         memberDetailVita.textContent = result.memberVitaAmount;
@@ -99,7 +103,7 @@ const memberLayout = (() => {
                 `
         } else {
             posts.forEach((post) => {
-                const check = post.consultationPostStatus === "INACTIVE";
+                const check = post.consultationPostStatus === "inactive";
                 text += `
             <tr>
                 <td>${post.consultationPostTitle}</td>

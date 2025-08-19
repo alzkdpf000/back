@@ -259,6 +259,9 @@ create table tbl_vita_history
         references tbl_member (id)
 );
 
+ALTER TABLE tbl_vita_history
+    MODIFY vita_history_type ENUM('charge','spend') NOT NULL;
+
 
 /* 방문 진료 */
 create table tbl_house_call
