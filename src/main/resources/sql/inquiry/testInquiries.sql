@@ -43,117 +43,151 @@ VALUES ('안녕하세요, 해당 문제는 비밀번호 재설정 후 24시간 �
 
 
 /* 목록에 뿌려줄 데이터들 */
-explain
-select ti.id,
-       ti.inquiries_title                                                       as inquiries_title,
-       ti.inquiries_content                                                     as inquiries_content,
-       ti.created_datetime                                                      as created_datetime,
-       if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-       if(tir.id is not null, 1, 0)                                             as has_answer,
-       tir.created_datetime                                                     as answer_datetie
-from tbl_member tm
-         join tbl_inquiries ti on ti.member_id = tm.id
-         left outer join tbl_inquiries_reply tir on ti.id = tir.inquiries_id
-    and ti.inquiries_status = 'active' and tir.inquiries_status = 'active'
-order by ti.id desc;
+# explain
+# select ti.id,
+#        ti.inquiries_title                                                       as inquiries_title,
+#        ti.inquiries_content                                                     as inquiries_content,
+#        ti.created_datetime                                                      as created_datetime,
+#        if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+#        if(tir.id is not null, 1, 0)                                             as has_answer,
+#        tir.created_datetime                                                     as answer_datetie
+# from tbl_member tm
+#          join tbl_inquiries ti on ti.member_id = tm.id
+#          left outer join tbl_inquiries_reply tir on ti.id = tir.inquiries_id
+#     and ti.inquiries_status = 'active' and tir.inquiries_status = 'active'
+# order by ti.id desc;
+#
+#
+#
+# select ti.id                                                                    as id,
+#        ti.inquiries_title                                                       as inquiries_title,
+#        ti.inquiries_content                                                     as inquiries_content,
+#        ti.created_datetime                                                      as created_datetime,
+#        if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+#        if(tir.id is not null, 1, 0)                                             as has_answer,
+#        tir.created_datetime                                                     as answer_datetie
+# from tbl_member tm
+#          join tbl_inquiries ti on ti.member_id = tm.id
+#          left outer join tbl_inquiries_reply tir on ti.id = tir.inquiries_id
+#     and ti.inquiries_status = 'active' and tir.inquiries_status = 'active'
+# order by ti.id desc;
+#
+#
+#
+# explain
+# select sub.id                as id,
+#        sub.inquiries_title   as inquiries_title,
+#        sub.inquiries_content as inquiries_content,
+#        sub.created_datetime  as created_datetime,
+#        sub.member_email      as member_email,
+#        sub.has_answer        as has_answer,
+#        sub.answer_datetime   as answer_datetime
+# from (select ti.id,
+#              ti.inquiries_title,
+#              ti.inquiries_content,
+#              ti.created_datetime,
+#              if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+#              if(tir.id is not null, 1, 0)                                             as has_answer,
+#              tir.created_datetime                                                     as answer_datetime
+#       from tbl_member tm
+#                join tbl_inquiries ti
+#                     on ti.member_id = tm.id
+#
+#                left join tbl_inquiries_reply tir
+#                          on ti.id = tir.inquiries_id
+#       where ti.inquiries_status = 'active'
+#         and tir.inquiries_status = 'active') sub
+# order by sub.id desc;
+#
+#
+# select sum(if(tir.id is not null, 1, 0)) as answer_count,
+#        sum(if(tir.id is null, 1, 0))     as no_answer_count
+# from tbl_inquiries ti
+#          left outer join tbl_inquiries_reply tir
+#                          on ti.id = tir.inquiries_id
+#                              and ti.inquiries_status = 'active';
+#
+# explain
+# select ti.id                                                                    as id,
+#        ti.inquiries_title                                                       as inquiries_title,
+#        ti.inquiries_content                                                     as inquiries_content,
+#        ti.created_datetime                                                      as created_datetime,
+#        if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+#        tir.inquiries_reply_content                                              as inquiries_reply_content,
+#        ti.inquiries_status
+# from tbl_member tm
+#          join
+#      tbl_inquiries ti on tm.id = ti.member_id
+#          left outer join tbl_inquiries_reply tir
+#                          on ti.id = tir.inquiries_id
+# where ti.inquiries_status = 'active'
+#   and tir.inquiries_status = 'active';
+#
+#
+#
+# select ti.id as id,
+#        ti.inquiries_title as inquiry_title,
+#        ti.inquiries_content as inquiry_content,
+#        ti.created_datetime as created_datetime,
+#        if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
+#        tir.inquiries_reply_content as inquiry_reply_content
+# from tbl_member tm
+#          join
+#      tbl_inquiries ti on tm.id = ti.member_id
+#          left outer join tbl_inquiries_reply tir
+#                          on ti.id = tir.inquiries_id
+# where ti.id =7
+#   and ti.inquiries_status = 'active';
+#
+# select *
+# from view_inquiry_member_reply;
+#
+#
+#
+#
+# select sub.id as id,
+#        sub.inquiries_title as inquiry_title,
+#        sub.inquiries_content as inquiry_content,
+#        sub.created_datetime as created_datetime,
+#        sub.member_email as member_email,
+#        sub.has_answer as has_answer,
+#        sub.answer_datetime as answer_datetime
+# from view_inquiry_member_reply sub
+# order by sub.id desc
+# limit 6 offset 0;
 
 
+#
+explain  select has_answer, m.member_name, i.inquiries_title,c.created_datetime,
+from tbl_inquiries i join tbl_member m
+                          on i.member_id = m.id
+                     join
+     (select i.id, count(ir.id) has_answer,ir.created_datetime from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+                                                                                                    on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+      group by i.id,ir.created_datetime) c
+     on i.id = c.id;
 
-select ti.id                                                                    as id,
-       ti.inquiries_title                                                       as inquiries_title,
-       ti.inquiries_content                                                     as inquiries_content,
-       ti.created_datetime                                                      as created_datetime,
-       if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-       if(tir.id is not null, 1, 0)                                             as has_answer,
-       tir.created_datetime                                                     as answer_datetie
-from tbl_member tm
-         join tbl_inquiries ti on ti.member_id = tm.id
-         left outer join tbl_inquiries_reply tir on ti.id = tir.inquiries_id
-    and ti.inquiries_status = 'active' and tir.inquiries_status = 'active'
-order by ti.id desc;
-
-
-
-explain
-select sub.id                as id,
-       sub.inquiries_title   as inquiries_title,
-       sub.inquiries_content as inquiries_content,
-       sub.created_datetime  as created_datetime,
-       sub.member_email      as member_email,
-       sub.has_answer        as has_answer,
-       sub.answer_datetime   as answer_datetime
-from (select ti.id,
-             ti.inquiries_title,
-             ti.inquiries_content,
-             ti.created_datetime,
-             if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-             if(tir.id is not null, 1, 0)                                             as has_answer,
-             tir.created_datetime                                                     as answer_datetime
-      from tbl_member tm
-               join tbl_inquiries ti
-                    on ti.member_id = tm.id
-
-               left join tbl_inquiries_reply tir
-                         on ti.id = tir.inquiries_id
-      where ti.inquiries_status = 'active'
-        and tir.inquiries_status = 'active') sub
-order by sub.id desc;
+select i.id, count(ir.id) has_answer from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+                                                                          on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+group by i.id;
 
 
-select sum(if(tir.id is not null, 1, 0)) as answer_count,
-       sum(if(tir.id is null, 1, 0))     as no_answer_count
-from tbl_inquiries ti
-         left outer join tbl_inquiries_reply tir
-                         on ti.id = tir.inquiries_id
-                             and ti.inquiries_status = 'active';
-
-explain
-select ti.id                                                                    as id,
-       ti.inquiries_title                                                       as inquiries_title,
-       ti.inquiries_content                                                     as inquiries_content,
-       ti.created_datetime                                                      as created_datetime,
-       if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-       tir.inquiries_reply_content                                              as inquiries_reply_content,
-       ti.inquiries_status
-from tbl_member tm
-         join
-     tbl_inquiries ti on tm.id = ti.member_id
-         left outer join tbl_inquiries_reply tir
-                         on ti.id = tir.inquiries_id
-where ti.inquiries_status = 'active'
-  and tir.inquiries_status = 'active';
-
-
-
-select ti.id as id,
-       ti.inquiries_title as inquiry_title,
-       ti.inquiries_content as inquiry_content,
-       ti.created_datetime as created_datetime,
-       if(tm.member_provider = 'kakao', tm.member_kakao_email, tm.member_email) as member_email,
-       tir.inquiries_reply_content as inquiry_reply_content
-from tbl_member tm
-         join
-     tbl_inquiries ti on tm.id = ti.member_id
-         left outer join tbl_inquiries_reply tir
-                         on ti.id = tir.inquiries_id
-where ti.id =7
-  and ti.inquiries_status = 'active';
-
-select *
-from view_inquiry_member_reply;
-
-
-
-
-select sub.id as id,
-       sub.inquiries_title as inquiry_title,
-       sub.inquiries_content as inquiry_content,
-       sub.created_datetime as created_datetime,
-       sub.member_email as member_email,
-       sub.has_answer as has_answer,
-       sub.answer_datetime as answer_datetime
-from view_inquiry_member_reply sub
-order by sub.id desc
-limit 6 offset 0;
-
-
+select i.id as id,
+       i.inquiries_title as inquiry_title,
+       i.inquiries_content as inquiry_content,
+       i.created_datetime as created_datetime,
+       m.member_email as member_email,
+       m.member_kakao_email as member_kakao_email,
+       m.member_provider as member_provider,
+       c.has_answer as has_answer,
+       c.created_datetime as answer_datetime
+from tbl_inquiries i join tbl_member m
+                          on i.member_id = m.id
+                     join
+     (
+         select i.id, count(ir.id) has_answer, ir.created_datetime
+         from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+                                              on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+         group by i.id,ir.created_datetime
+     ) c
+     on i.id= c.id
