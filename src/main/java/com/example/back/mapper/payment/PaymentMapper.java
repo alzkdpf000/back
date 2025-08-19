@@ -1,5 +1,6 @@
 package com.example.back.mapper.payment;
 
+import com.example.back.dto.payment.PaymentAmountDTO;
 import com.example.back.dto.payment.PaymentMemberVitaDTO;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
@@ -15,4 +16,7 @@ public interface PaymentMapper {
 
     //    관리자 페이지 결제 수
     public int searchCountPayment(@Param("search") Search search);
+
+    // 관리자 페이지 결제액 정보
+    public List<PaymentAmountDTO> searchPaymentAmount(@Param("search") Search search);
 }

@@ -26,6 +26,7 @@ public class PaymentServiceImpl implements PaymentService {
         paymentCriteriaDTO.setTotal(total);
         paymentCriteriaDTO.setSearch(search);
         paymentCriteriaDTO.setPayments(payments);
+        paymentCriteriaDTO.setAmounts(paymentDAO.findPaymentAmount(search));
         return paymentCriteriaDTO;
     }
 }

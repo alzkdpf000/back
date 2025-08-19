@@ -1,5 +1,6 @@
 package com.example.back.repository.payment;
 
+import com.example.back.dto.payment.PaymentAmountDTO;
 import com.example.back.dto.payment.PaymentMemberVitaDTO;
 import com.example.back.dto.vitahistory.VitaHistoryDTO;
 import com.example.back.mapper.payment.PaymentMapper;
@@ -23,5 +24,8 @@ public class PaymentDAO {
     //    관리자 페이지 결제 수
     public int findCountPayment(Search search){
         return paymentMapper.searchCountPayment(search);
+    }
+    public List<PaymentAmountDTO> findPaymentAmount(Search search){
+        return paymentMapper.searchPaymentAmount(search);
     }
 }

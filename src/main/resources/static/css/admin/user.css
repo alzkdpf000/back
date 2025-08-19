@@ -572,9 +572,9 @@ button:not(:disabled) {
 }
 
 /* 모달 창 일반,멘토,구독 회원 표시 */
-/* .text-dark {
-    color: #4e5d6c !important;
-} */
+.text-dark {
+    color: #4e5d6c
+}
 
 .ml-1, .mr-1, .mx-1 {
     margin-right: .25rem !important;
@@ -1878,9 +1878,7 @@ element.style {
     will-change: transform;
 }
 
-.text-dark {
-    color: #4e5d6c !important;
-}
+
 
 .d-block {
     display: block !important;

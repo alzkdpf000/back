@@ -118,7 +118,7 @@ public class AdminRestController {
     }
 
 
-    @PostMapping("payment")
+    @PostMapping("payments")
     public ResponseEntity<PaymentCriteriaDTO> searchPayments(@RequestBody Search search) {
         PaymentCriteriaDTO payments = paymentService.getPayments(search);
         return ResponseEntity.ok().body(payments);

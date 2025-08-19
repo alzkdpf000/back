@@ -1,6 +1,7 @@
 
 
 // 결제 상태 선택 토글
+let paymentBtnAction = true;
 const paySelectBtn = document.getElementById("paymentBtn");
 const paySelect = document.getElementById("paymentPopMenu");
 
@@ -11,12 +12,39 @@ paySelectBtn.addEventListener("click", () => {
 // 전체 선택  전체 해제
 const selectAllBtn = document.getElementById("btn-select-all");
 const deselectAllBtn = document.getElementById("btn-deselect-all");
-const checkBoxes = document.querySelectorAll(".boot-check-box");
+const checkBoxes = document.querySelectorAll(".payment-check-box");
+console.log(checkBoxes);
+const categorySet = new Set();
+let paymentSearch = null;
 
-selectAllBtn.addEventListener("click", () => {
+
+const showPayments = async (page = 1, keyword = "", categories = []) => {
+    if(!paymentBtnAction) return;
+    paymentBtnAction = false;
+    const loading = document.getElementById("loading");
+
+    loading.style.display = "block";
+    let payments = await paymentService.getPayments(paymentLayout.showPayments, page, keyword, categories);
+
+    setTimeout(() => {
+        loading.style.display = "none";
+        paymentBtnAction = true;
+    }, 500)
+    return payments;
+}
+
+
+
+selectAllBtn.addEventListener("click", async (e) => {
+    categorySet.add("pending");
+    categorySet.add("success");
+    categorySet.add("cancel");
     checkBoxes.forEach((box) => {
         const icon = box.querySelector("i.mdi-check");
+        console.log(icon);
+        console.log(box);
         if (icon) {
+
             icon.style.display = "inline-block";
             box.classList.add("active");
         }
@@ -37,11 +65,12 @@ selectAllBtn.addEventListener("click", () => {
         },
         { once: true }
     );
-
     selectAllBtn.classList.add("active");
+    paymentSearch = await showPayments(1,paymentSearch.search.keyword,[])
 });
 
-deselectAllBtn.addEventListener("click", () => {
+deselectAllBtn.addEventListener("click", async (e) => {
+    categorySet.clear();
     checkBoxes.forEach((box) => {
         const icon = box.querySelector("i.mdi-check");
         if (icon) {
@@ -50,79 +79,60 @@ deselectAllBtn.addEventListener("click", () => {
         }
     });
     selectAllBtn.classList.remove("active");
+    paymentSearch = await showPayments(1,paymentSearch.search.keyword,[])
 });
 
 // 그룹별 상위 체크박스 관련 변수
-const checkAll = document.querySelectorAll(".all-check-btn");
-const pays = ["collapse_payloading", "collapse_payFail", "collapse_cancel"];
+const pendingBtn=document.getElementById("paymentPending");
+const successBtn = document.getElementById("paymentSuccess");
+const cancelPaymentBtn = document.getElementById("paymentCancel");
 
-const paySections = pays.map((id) => document.getElementById(id));
+const paymentAction = async (btn,category) =>{
 
-// 그룹별 전체 선택 버튼 클릭 시
-checkAll.forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-        const section = paySections[index];
-        const icons = section.querySelectorAll("i.mdi-check");
-
-        const isAnyUnchecked = Array.from(icons).some(
-            (icon) => icon.style.display !== "inline-block"
-        );
-
-        icons.forEach((icon) => {
-            icon.style.display = isAnyUnchecked ? "inline-block" : "none";
-            const box = icon.closest(".boot-check-box");
-            box?.classList.toggle("active", isAnyUnchecked);
-        });
-
-        const parentIcon = btn.querySelector("i.mdi-check");
-        if (parentIcon) {
-            parentIcon.style.display = isAnyUnchecked ? "inline-block" : "none";
-            btn.classList.toggle("active", isAnyUnchecked);
-        }
-    });
+    const icon = btn.querySelector("i.mdi-check");
+    console.log(icon)
+    console.log(icon.parentElement.parentElement);
+    if(categorySet.has(category)){
+        icon.style.display = "none";
+        icon.parentElement.parentElement.classList.remove("active");
+        categorySet.delete(category);
+    }else{
+        icon.style.display = "inline-block";
+        icon.parentElement.parentElement.classList.add("active");
+        categorySet.add(category);
+    }
+    console.log(paymentSearch);
+    paymentSearch = await showPayments(1, paymentSearch.search.keyword, Array.from(categorySet));
+}
+pendingBtn.addEventListener("click",async (e)=>{
+    await paymentAction(pendingBtn,"pending");
 });
 
-// 개별 체크박스 클릭 시 - 상위 체크 상태 자동 갱신
-document.querySelectorAll(".boot-check-box").forEach((box) => {
-    box.addEventListener("click", () => {
-        const icon = box.querySelector("i.mdi-check");
-        const isChecked = icon.style.display === "inline-block";
+successBtn.addEventListener("click",async (e)=>{
+    await paymentAction(successBtn,"success");
+});
+cancelPaymentBtn.addEventListener("click",async (e)=>{
+    await paymentAction(cancelPaymentBtn,"cancel");
 
-        icon.style.display = isChecked ? "none" : "inline-block";
-        box.classList.toggle("active", !isChecked);
-
-        // 🔁 상위 체크 상태 갱신
-        paySections.forEach((section, index) => {
-            if (section.contains(box)) {
-                const icons = section.querySelectorAll(
-                    ".boot-check-box i.mdi-check"
-                );
-                const allChecked = Array.from(icons).every(
-                    (i) => i.style.display === "inline-block"
-                );
-
-                const parentIcon = checkAll[index].querySelector("i.mdi-check");
-                if (parentIcon) {
-                    parentIcon.style.display = allChecked
-                        ? "inline-block"
-                        : "none";
-                    checkAll[index].classList.toggle("active", allChecked);
-                }
-            }
-        });
-    });
 });
 
-// 결제 상세 선택 - +버튼 토글
-const payBtnIcons = document.querySelectorAll(".mdi.mdi-plus");
+const paymentKeyword =document.getElementById("paymentKeyword");
+const paymentBtn = document.getElementById("paymentKeywordBtn");
+paymentKeyword.addEventListener("keydown",async (e)=>{
+    if (e.key === "Enter") {
+        paymentSearch = await showPayments(1,paymentKeyword.value.trim(),paymentSearch.search.categories);
+    }
+})
 
-payBtnIcons[0].addEventListener("click", () => {
-    paySections[0].classList.toggle("show");
-});
-payBtnIcons[1].addEventListener("click", () => {
-    paySections[1].classList.toggle("show");
-});
-payBtnIcons[2].addEventListener("click", () => {
-    paySections[2].classList.toggle("show");
-});
+paymentBtn.addEventListener("click", async (e) => {
 
+    paymentSearch = await showPayments(1,paymentKeyword.value.trim(),paymentSearch.search.categories);
+
+})
+
+
+const paginationPayment = document.querySelector(".payment-pagination");
+paginationPayment.addEventListener("click",async (e)=>{
+    console.log(paymentSearch.categories);
+    paymentSearch = await showPayments(e.target.dataset.page,paymentSearch.search.keyword,paymentSearch.search.categories);
+})

@@ -60,18 +60,12 @@ const showList = async (page = 1, keyword = "", categories = [], load = false) =
     setTimeout(() => {
         loading.style.display = "none";
     }, 1000)
-    console.log(inquires + ":::::: inquires");
     checkMore = inquiries.inquiryMemberReplyDTOs.length === inquiries.scrollCriteria.rowCount;
-    console.log(checkMore + ":::::: checkmore");
-    console.log(inquires);
     return inquiries;
 }
 
 
 scrollBox.addEventListener("scroll", async (e) => {
-    console.log(21123132);
-    console.log(inquiryScroll);
-    console.log(checkMore);
     if (!inquiryScroll) {
         return;
     }
@@ -111,7 +105,7 @@ scrollBox.addEventListener("scroll", async (e) => {
 // const allCanclechecked = document.getElementById("allflasechecked1"); //전체 취소 버튼
 // const checkBoxActive1 = document.getElementById("checkboxactive1"); // 답변 완료 버튼
 // const checkBoxActive2 = document.getElementById("checkboxactive2"); // 미답변 버튼
-let categories = [];
+let answerStatusSet = new Set();
 const inquiryKeywordInput = document.getElementById("inquiryKeyword");
 const inquiryKeywordBtn = document.getElementById("inquiryKeywordBtn");
 
@@ -148,13 +142,16 @@ checkBoxActive1?.addEventListener("click", async (e) => {
         return;
     }
     checkBoxActive1.classList.toggle("active");
-    if (!categories[0]) {
-        categories[0] = checkBoxActive1.dataset.count;
-    } else {
-        categories = [];
+
+    if(answerStatusSet.has(checkBoxActive1.dataset.count)){
+        answerStatusSet.delete(checkBoxActive1.dataset.count);
+    }else{
+        answerStatusSet.add(checkBoxActive1.dataset.count);
     }
+
     console.log("답변완료 입니다." + categories);
-    inquires = await actionCheckBox(1, inquires.search.keyword, categories);
+    let checkStatus = answerStatusSet.size === 2 ? [] : Array.from(answerStatusSet);
+    inquires = await actionCheckBox(1, inquires.search.keyword, checkStatus);
 
 });
 // 답변 없음 체크 박스 토글
@@ -164,13 +161,14 @@ checkBoxActive2?.addEventListener("click", async (e) => {
     }
     checkBoxActive2.classList.toggle("active");
 
-    if (!categories[0]) {
-        categories[0] = checkBoxActive2.dataset.count;
-    } else {
-        categories = [];
+    if(answerStatusSet.has(checkBoxActive2.dataset.count)){
+        answerStatusSet.delete(checkBoxActive2.dataset.count);
+    }else{
+        answerStatusSet.add(checkBoxActive2.dataset.count);
     }
     console.log("미답변 입니다." + categories);
-    inquires = await actionCheckBox(1, inquires.keyword, categories);
+    let checkStatus = answerStatusSet.size === 2 ? [] : Array.from(answerStatusSet);
+    inquires = await actionCheckBox(1, inquires.keyword, checkStatus);
 });
 
 // 전체 선택 / 해제
@@ -178,7 +176,8 @@ allChecked?.addEventListener("click", async (e) => {
     if (!actionCheck) {
         return;
     }
-    categories = [];
+    answerStatusSet.add("0");
+    answerStatusSet.add("1");
     checkBoxActive1?.classList.add("active");
     checkBoxActive2?.classList.add("active");
     inquires = await actionCheckBox(1, inquires.search.keyword, []);
@@ -189,7 +188,7 @@ allCanclechecked?.addEventListener("click", async (e) => {
     if (!actionCheck) {
         return;
     }
-    categories = [];
+    answerStatusSet.clear();
     checkBoxActive1?.classList.remove("active");
     checkBoxActive2?.classList.remove("active");
     inquires = await actionCheckBox(1, inquires.search.keyword, []);

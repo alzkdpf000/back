@@ -29,6 +29,14 @@ menuBtns.forEach((btn) => {
 
     btn.addEventListener("click", async () => {
         inquiryScroll = false;
+        categories=[];
+        document.querySelectorAll(".show").forEach((show)=>{
+            show.classList.remove("show");
+        });
+        document.querySelectorAll(".active").forEach((active)=>{
+            active.classList.remove("active");
+        });
+        categorySet.clear();
         allSubMenu.style.display = "none";
         menuBtns.forEach((b) => b.classList.remove("active"));
         document.querySelectorAll("input[type=text].form-control").forEach((input)=>{
@@ -60,7 +68,7 @@ menuBtns.forEach((btn) => {
             await showPendingDoctors();
         }else if(clickId ==="payment"){
             document.getElementById(`${clickId}`).style.display = "block";
-
+            paymentSearch = await showPayments();
         }
         btn.classList.add("active");
 

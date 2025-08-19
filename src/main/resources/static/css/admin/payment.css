@@ -451,10 +451,9 @@ a:-webkit-any-link {
     width: 100%;
 }
 
-.text-dark{
-    color: #4e5d6c !important;
+.text-dark {
+    color: #4e5d6c
 }
-
 .d-block{
     display: block !important;
 }
@@ -1897,7 +1896,7 @@ element.style {
 }
 
 .text-dark {
-    color: #4e5d6c !important;
+    color: #4e5d6c
 }
 
 .receipt-index .page-content .table-layout table.receipt-table td.td-notify {
@@ -1929,7 +1928,6 @@ element.style {
     display: none;
     font-family: "Material Design Icons";
     font-size: 16px;
-    background-color: #007bff;
     color: #fff;
     width: 16px;
     height: 16px;
@@ -2033,3 +2031,6 @@ element.style {
     text-align: center;
 }
 
+.payment-check-box.active{
+    background-color: #507cf3 !important;
+}

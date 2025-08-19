@@ -50,3 +50,14 @@ VALUES
     (65,'kakaopay',20000,'success','TXN_1048'),
     (50,'kakaopay',22000,'success','TXN_1049'),
     (51,'kakaopay',12000,'pending','TXN_1050');
+
+
+select
+    tp.payment_status,
+    sum(tp.payment_amount)
+from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
+                   join tbl_vita_history tvh on tp.id = tvh.payment_id
+
+where
+    tp.payment_status != 'pending'
+group by tp.payment_status;
