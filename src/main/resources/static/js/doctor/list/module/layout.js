@@ -1,9 +1,14 @@
-const doctorLayout = ((currentMemberId) => {
+const doctorLayout = ((currentMemberId = 1) => {
 
-    // 의사 목록 화면 표시
+    // 의사 목록 표시
     const showList = (criteriaDTO) => {
         const container = document.getElementById("intersectionObserver");
         let html = "";
+
+        if (!criteriaDTO.doctorsList || criteriaDTO.doctorsList.length === 0) {
+            container.innerHTML = "<li>의사 정보가 없습니다.</li>";
+            return;
+        }
 
         criteriaDTO.doctorsList.forEach(doctor => {
             html += `
@@ -30,13 +35,13 @@ const doctorLayout = ((currentMemberId) => {
                             </div>
                             <div class="info-container hospital-info">
                                 <span class="first">소속 병원</span>
-                                <span class="second">${doctor.hospitalName}</span>
+                                <span class="second">${doctor.hospitalName || ""}</span>
                                 <span class="first detail-address">상세 주소</span>
-                                <span class="second">${doctor.hospitalAddress}</span>
+                                <span class="second">${doctor.hospitalAddress || ""}</span>
                             </div>
                             <div class="info-container">
                                 <span class="first">병원 전화 번호</span>
-                                <span class="second">${doctor.hospitalPhone}</span>
+                                <span class="second">${doctor.hospitalPhone || ""}</span>
                             </div>
                         </div>
                     </div>
@@ -45,6 +50,7 @@ const doctorLayout = ((currentMemberId) => {
             `;
         });
 
+        console.log("memberId:", currentMemberId);
         container.innerHTML = html;
 
         // 좋아요 버튼 이벤트
@@ -87,7 +93,7 @@ const doctorLayout = ((currentMemberId) => {
     // 의사 목록 로드
     const loadDoctors = async (page = 1) => {
         try {
-            const criteriaDTO = await doctorService.getDoctors(page);
+            const criteriaDTO = await doctorService.getDoctors(page, currentMemberId);
             showList(criteriaDTO);
             showPaging(criteriaDTO.criteria);
         } catch(err) {
