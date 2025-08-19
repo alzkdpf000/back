@@ -192,6 +192,7 @@ create table tbl_likes
 );
 
 
+
 /* 답변글 테이블 */
 create table tbl_counsel_reply
 (
