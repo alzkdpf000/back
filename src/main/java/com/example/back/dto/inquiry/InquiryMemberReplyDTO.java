@@ -21,6 +21,8 @@ public class InquiryMemberReplyDTO {
     private String createdDateTime;
     private String createdDateTimeInquiry;
     private String memberEmail;
+    private String memberProvider;
+    private String memberKakaoEmail;
     private String inquiryReplyContent;
     private boolean hasAnswer;
     private String answerDatetime;

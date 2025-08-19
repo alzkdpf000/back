@@ -6,13 +6,14 @@ import com.example.back.dto.inquiry.InquiryDTO;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
 import com.example.back.util.ScrollCriteria;
+import com.example.back.util.Search;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface InquiryService {
     //    문의글 목록
-    public InquirySummaryDTO getInquiryListWithAnswerStats(ScrollCriteria scrollCriteria);
+    public InquirySummaryDTO getInquiryListWithAnswerStats(Search search);
     //  문의글 상세보기
     public Optional<InquiryMemberReplyDTO> getInquiryDetail(Long inquiryId);
 

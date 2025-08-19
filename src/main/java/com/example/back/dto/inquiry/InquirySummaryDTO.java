@@ -1,6 +1,7 @@
 package com.example.back.dto.inquiry;
 
 import com.example.back.util.ScrollCriteria;
+import com.example.back.util.Search;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +19,5 @@ public class InquirySummaryDTO {
     private List<InquiryMemberReplyDTO> inquiryMemberReplyDTOs;
     private InquiriesCountDto inquiriesCountDto;
     private ScrollCriteria scrollCriteria;
+    private Search search;
 }

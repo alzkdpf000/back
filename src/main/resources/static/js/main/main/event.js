@@ -36,7 +36,7 @@ window.addEventListener("scroll", async (e) => {
     const documentHeight = document.documentElement.scrollHeight
     if (scrollTop + windowHeight >= documentHeight - 2) {
         //     바닥에 닿았을 때
-        if (checkScroll && consultationMainPage !== null) {
+        if (checkScroll && consultationMainPage) {
             checkScroll= false;
             console.log("몇 번 실행되니")
             console.log(consultationMainPage);
