@@ -2,7 +2,7 @@ package com.example.back.service.doctor;
 
 import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.domain.hospital.HospitalDTO;
-import com.example.back.dto.doctor.*;
+import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.doctor.DoctorCriteriaDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public interface DoctorService {
     //  목록
-    public DoctorListCriteriaDTO getList(int page);
+    DoctorListCriteriaDTO getList(int page, Long currentMemberId);
 
     // 멤버 Status 상관없이 목록 출력
     public DoctorCriteriaDTO getListAllStatus(Search search, String doctorStatus);
@@ -29,6 +29,23 @@ public interface DoctorService {
     public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO);
 
 
+    default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){
+        return DoctorVO.builder()
+
+                .id(doctorListDTO.getId())
+                .doctorSpecialty(doctorListDTO.getDoctorSpecialty())
+                .doctorStatus(doctorListDTO.getDoctorStatus())
+                .hospitalId(doctorListDTO.getHospitalId())
+                .hospitalName(doctorListDTO.getHospitalName())
+                .hospitalPhone(doctorListDTO.getHospitalPhone())
+                .hospitalAddress(doctorListDTO.getHospitalAddress())
+                .createdDatetime(doctorListDTO.getCreatedDatetime())
+                .updatedDatetime(doctorListDTO.getUpdatedDatetime())
+                .build();
+
+
+    }
+
     default DoctorVO gtoDoctorVO(DoctorDTO doctorDTO){
         return DoctorVO.builder()
                 .id(doctorDTO.getId())
@@ -40,6 +57,7 @@ public interface DoctorService {
                 .hospitalPhone(doctorDTO.getHospitalPhone())
                 .createdDatetime(doctorDTO.getCreatedDatetime())
                 .updatedDatetime(doctorDTO.getUpdatedDatetime())
+
                 .build();
     }
 }

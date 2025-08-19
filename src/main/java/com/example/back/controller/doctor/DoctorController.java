@@ -21,18 +21,21 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequiredArgsConstructor
 @RequestMapping("/doctor")
 public class DoctorController {
+
     private final DoctorService doctorService;
     private final MemberService memberService;
     private final HospitalService hospitalService;
     private final MemberDTO memberDTO;
     private final DoctorDTO doctorDTO;
 
-    //    의사 목록
-    @GetMapping("/list/{page}")
-    public String list(@PathVariable int page, Model model) {
-        model.addAttribute("doctorsListCriteriaDTO", doctorService.getList(page));
+    // 의사 목록 페이지
+    @GetMapping("/list")
+    public String listPage(Model model) {
+
+        model.addAttribute("pageTitle", "의사 목록");
         return "doctor/doctor-list";
     }
+
 
 //    의사 회원가입
     @GetMapping("join")

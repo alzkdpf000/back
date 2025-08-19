@@ -1,6 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.example.back.mapper.likes.LikesMapper">
 
+    <insert id="insert" parameterType="com.example.back.dto.likes.LikesDTO">
+        INSERT INTO tbl_likes (member_id, doctor_id, created_datetime, updated_datetime)
+        VALUES (#{memberId}, #{doctorId}, NOW(), NOW())
+    </insert>
+
+    <delete id="deleteByMemberAndDoctor" parameterType="com.example.back.dto.likes.LikesDTO">
+        DELETE FROM tbl_likes
+        WHERE member_id = #{memberId} AND doctor_id = #{doctorId}
+    </delete>
+
+    <select id="selectByMemberIdAndDoctorId" resultType="int" parameterType="com.example.back.dto.likes.LikesDTO">
+        SELECT COUNT(*) FROM tbl_likes
+        WHERE member_id = #{memberId} AND doctor_id = #{doctorId}
+    </select>
+
+    <select id="countByDoctorId" resultType="int">
+        SELECT COUNT(*) FROM tbl_likes
+        WHERE doctor_id = #{doctorId}
+    </select>
 
 </mapper>

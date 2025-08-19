@@ -27,6 +27,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Primary
 public class DoctorServiceImpl implements DoctorService {
+
     private final DoctorDAO doctorDAO;
     private final CounselReplyDAO counselReplyDAO;
     private final DoctorDTO doctorDTO;
@@ -35,19 +36,23 @@ public class DoctorServiceImpl implements DoctorService {
     private final MemberDTO memberDTO;
 
     @Override
-    public DoctorListCriteriaDTO getList(int page) {
-        DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
+    public DoctorListCriteriaDTO getList(int page, Long currentMemberId) {
         Criteria criteria = new Criteria(page, doctorDAO.findCountDoctorList());
+        criteria.setCurrentMemberId(currentMemberId);
+
         List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria);
 
-        //        11개 가져왔으면, 마지막 1개 삭제
-        criteria.setHasMore(doctorsList.size() > criteria.getRowCount());
-
-        if(criteria.isHasMore()){
+        // 1개 더 가져왔으면 마지막 제거
+        boolean hasMore = doctorsList.size() > criteria.getRowCount();
+        if(hasMore) {
             doctorsList.remove(doctorsList.size() - 1);
         }
+        criteria.setHasMore(hasMore);
+
+        DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
         doctorListCriteriaDTO.setDoctorsList(doctorsList);
         doctorListCriteriaDTO.setCriteria(criteria);
+
         return doctorListCriteriaDTO;
     }
 

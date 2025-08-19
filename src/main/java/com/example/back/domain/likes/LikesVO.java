@@ -12,6 +12,6 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(of = "id")
 public class LikesVO extends Period {
     private Long id;
-    private Long member_id;
-    private Long doctor_id;
+    private Long memberId;
+    private Long doctorId;
 }
