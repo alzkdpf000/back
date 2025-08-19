@@ -7,8 +7,8 @@ const inquiryLayout = (() => {
         const noReplyCount = document.getElementById("noReplyCount");
         let text = ``;
         const inquiryMemberReplyDTOs = result.inquiryMemberReplyDTOs;
-        replyCount.textContent = result.inquiriesCountDto.answerCount;
-        noReplyCount.textContent = result.inquiriesCountDto.noAnswerCount;
+        replyCount.textContent = result.inquiriesCountDto ? result.inquiriesCountDto.answerCount : 0 ;
+        noReplyCount.textContent = result.inquiriesCountDto ? result.inquiriesCountDto.noAnswerCount : 0;
         totalInquires.textContent = Number(replyCount.textContent) + Number(noReplyCount.textContent);
         if (inquiryMemberReplyDTOs.length === 0 && !load) {
             text += `
@@ -16,11 +16,15 @@ const inquiryLayout = (() => {
             `
             inquiriesBody.innerHTML = text;
         } else {
-            inquiryMemberReplyDTOs.forEach((inquiryMemberReplyDTO, i) => {
+            inquiryMemberReplyDTOs.forEach(inquiryMemberReplyDTO => {
+
+                const email = inquiryMemberReplyDTO.memberProvider === "goldentime" ? inquiryMemberReplyDTO.memberEmail : inquiryMemberReplyDTO.memberKakaoEmail;
                 text += `
                 <tr>
                     <td class="text-list">${inquiryMemberReplyDTO.id}</td>
                     <td>${inquiryMemberReplyDTO.inquiryTitle}</td>
+
+                    <td>${email}</td>
                     <td>${inquiryMemberReplyDTO.createdDateTimeInquiry}</td>
                     <td>${inquiryMemberReplyDTO.hasAnswer ? "답변 완료" : "미답변"}</td>
                     <td>${inquiryMemberReplyDTO.hasAnswer ? inquiryMemberReplyDTO.answerDatetimeReply : "-"}</td>
@@ -44,21 +48,22 @@ const inquiryLayout = (() => {
         const memberEmailTag = document.getElementById("memberEmail");
         const contentTag = document.getElementById("content");
         const replyContentTag = document.getElementById("replyContent");
-        const modalFooter =  document.getElementById("modalFooter");
+        const modalFooter = document.getElementById("modalFooter");
         const inquiryDetailDiv = document.getElementById("inquiryDetailDiv")
         const imgContainer = document.getElementById("imgContainer");
-        let text= ``;
-        result.files.forEach((file)=>{
-            text +=`
+        let text = ``;
+        result.files.forEach((file) => {
+            text += `
             <div><img src="/api/files/display?filePath=${file.filePath}&fileName=${file.fileName}" width="150" height="150"></div>
             `
         });
+        const email = result.memberProvider === "goldentime" ? result.memberEmail : result.memberKakaoEmail;
         imgContainer.innerHTML = text;
         hasAnswerTag.textContent = result.hasAnswer ? "답변 완료" : "미답변"
         inquiryIdTag.textContent = result.id;
         createdDateTag.textContent = result.createdDateTimeInquiry;
         titleTag.textContent = result.inquiryTitle;
-        memberEmailTag.textContent = result.memberEmail;
+        memberEmailTag.textContent = email;
         contentTag.textContent = result.inquiryContent;
 
         if (result.hasAnswer) {
@@ -66,13 +71,13 @@ const inquiryLayout = (() => {
             hasAnswerTag.classList.remove("text-danger");
             hasAnswerTag.classList.add("text-primary");
             inquiryDetailDiv.style.display = "block";
-            replyContentTag.textContent =result.inquiryReplyContent;
+            replyContentTag.textContent = result.inquiryReplyContent;
         } else {
             hasAnswerTag.classList.remove("text-primary");
             hasAnswerTag.classList.add("text-danger");
             inquiryDetailDiv.style.display = "none";
-            replyContentTag.textContent ="";
-            modalFooter.style.display ="flex"
+            replyContentTag.textContent = "";
+            modalFooter.style.display = "flex"
         }
 
 

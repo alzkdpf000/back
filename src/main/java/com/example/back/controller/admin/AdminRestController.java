@@ -1,5 +1,6 @@
 package com.example.back.controller.admin;
 
+import com.example.back.common.enumeration.Status;
 import com.example.back.common.exception.DoctorNotFoundException;
 import com.example.back.common.exception.InquiryNotFoundException;
 import com.example.back.common.exception.MemberNotFoundException;
@@ -39,13 +40,12 @@ public class AdminRestController {
     private final VitaHistoryService vitaHistoryService;
     private final DoctorService doctorService;
 
-    @GetMapping("inquires")
-    public ResponseEntity<InquirySummaryDTO> inquires(@RequestParam int page,
-                                                      @RequestParam(required = false) Search search) {
-        ScrollCriteria scrollCriteria = new ScrollCriteria(page, search);
-        InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(scrollCriteria);
+    @PostMapping("inquires")
+    public ResponseEntity<InquirySummaryDTO> inquires(@RequestBody Search search) {
+        log.info("search ::::::::::::{}",search.toString());
+        ;
+        InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(search);
         return ResponseEntity.ok().body(inquiryListWithAnswerStats);
-//        return null;
     }
 
     @GetMapping("inquires/{inquiryId}")
@@ -81,7 +81,7 @@ public class AdminRestController {
 
     @PostMapping("doctors")
     public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestBody Search search) {
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search,"active");
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, Status.ACTIVE.getValue());
         return ResponseEntity.ok().body(doctors);
     }
 
@@ -95,7 +95,7 @@ public class AdminRestController {
     @PostMapping("doctors/pending")
     public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestBody Search search) {
         log.info("{}",search.toString());
-        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, "inactive");
+        DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, Status.INACTIVE.getValue());
         return ResponseEntity.ok().body(doctors);
     }
 

@@ -1,9 +1,15 @@
 const inquiryService = (() => {
 
-    const getInquiries = async (callback, page, query, answerStatus, load) => {
+    const getInquiries = async (callback, page, keyword, categories, load) => {
         console.log(page)
         try {
-            const response = await fetch(`/api/admin/inquires?page=${page}&query=${query}&answerStatus=${answerStatus}`)
+            const response = await fetch(`/api/admin/inquires`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({keyword: keyword, page: page, categories: categories})
+            })
             const result = await response.json();
             console.log(result);
             if (response.ok) {

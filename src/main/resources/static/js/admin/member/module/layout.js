@@ -28,7 +28,11 @@ const memberLayout = (() => {
                             <td class="td-amount text-right pr-4 font-weight-bold" style=" text-align: center; width: 10%">${member.memberName}
                                 <span class="amount-unit"> 님</span>
                             </td>
-                            <td class="td-email" style="width: 10%">${member.provider === "KAKAO" ? member.kakaoEmail : member.memberEmail}</td>
+                            <td class="td-email" style="width: 10%">
+                            <span>${!member.memberEmail ? "없음" : member.memberEmail}</span>
+                            <br>
+                            <span>${!member.kakaoEmail ? "없음" : member.kakaoEmail}</span>
+                            </td>
                             <td class="td-phone" style="width: 10%">${member.memberPhone}</td>
                             <td class="td-start" style="width: 10%" >${member.createdDate}</td>
                             <td class="td-recent" style="width: 5%; color : ${checkStatus ? "#507cf3" : "#fe657e"}">${checkStatus ? "활동 중" : "탈퇴"}</td>

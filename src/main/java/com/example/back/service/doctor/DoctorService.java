@@ -1,5 +1,6 @@
 package com.example.back.service.doctor;
 
+import com.example.back.common.enumeration.Status;
 import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.dto.doctor.DoctorCriteriaDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;

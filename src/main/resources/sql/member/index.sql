@@ -11,18 +11,18 @@ create fulltext index member_kakao_email_full_index on tbl_member (member_kakao_
 create fulltext index member_full_index on tbl_member (member_name,member_email,member_kakao_email)
     with parser ngram;
 
+/*전달한 문자열도 모두 토크나이징하기 때문에 통합 검색 이외 정확한 검색에서 사용하기 어렵다.*/
 explain select id,
-       member_email,
-
-       member_name,
-       member_phone,
-       member_status,
-       member_provider as provider,
-       member_kakao_email,
-       created_datetime
-from tbl_member
-where member_role = 'member'
-            and MATCH(member_name,member_email,member_kakao_email) AGAINST('테스트유저');
+               member_email,
+               member_name,
+               member_phone,
+               member_status,
+               member_provider as provider,
+               member_kakao_email,
+               created_datetime
+        from tbl_member
+        where member_role = 'member'
+          and MATCH(member_name,member_email,member_kakao_email) AGAINST('테스트유저');
 
 
 SHOW INDEX FROM tbl_member;
@@ -67,3 +67,22 @@ INSERT INTO tbl_member (
       (NULL, NULL, '카카오유저19', '010-1000-0019', 'active', 'kakao', 'kakao19@kakao.com', 'https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp', 'member', 0, '2025-08-18 10:18:00', '2025-08-18 10:18:00'),
       (NULL, NULL, '카카오유저20', '010-1000-0020', 'active', 'kakao', 'kakao20@kakao.com', 'https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp', 'member', 0, '2025-08-18 10:19:00', '2025-08-18 10:19:00');
 
+
+select i.id as id,
+       i.inquiries_title as inquiry_title,
+       i.inquiries_content as inquiry_content,
+       i.created_datetime as created_datetime,
+       m.member_email as member_email,
+       m.member_kakao_email as member_kakao_email,
+       m.member_provider as member_provider,
+       c.has_answer as has_answer,
+       c.created_datetime as answer_datetime
+from tbl_inquiries i join tbl_member m
+                          on i.member_id = m.id
+                     join
+     (
+         select i.id, count(ir.id) has_answer, ir.created_datetime
+         from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+                                              on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+         group by i.id,ir.created_datetime
+     ) c on i.id =  c.id;
