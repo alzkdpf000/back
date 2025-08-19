@@ -13,7 +13,9 @@ import java.util.Optional;
 @Mapper
 public interface DoctorMapper {
 //  추가
-    public void insertDoctor(DoctorListDTO doctorListDTO);
+//    public void insertDoctor(DoctorListDTO doctorListDTO);
+
+    public void insertDoctor(DoctorDTO doctorDTO);
 
 //  목록
     public List<DoctorListDTO> selectDoctorList(Criteria criteria);
