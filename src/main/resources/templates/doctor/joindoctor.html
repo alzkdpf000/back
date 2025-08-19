@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>골든타임 회원가입</title>
     <link rel="stylesheet" href="/css/member/joinpeople.css" />
-    <body>
+
 </head>
+<body>
     <div class="full">
         <div class="1n28uzs">
             <!-- 기존 헤더 주석 처리 -->
@@ -18,7 +19,7 @@
                     <span class="css-1202cko">의사 회원가입</span>
                 </div>
 
-                <form action="submit">
+                <form action="/doctor/join" method="post" id="formTag">
                     <div class="sub01emailpasswordgap">
 
                         <!-- 이름 -->
@@ -31,7 +32,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="이름을 입력" id="name" name="name" type="text" class="bms9cb" value="" />
+                                    <input placeholder="이름을 입력" id="name" name="memberName" type="text" class="bms9cb" value="" />
                                 </div>
                             </div>
                         </div>
@@ -44,7 +45,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="이메일 주소를 입력" id="email" name="email" type="email" class="bms9cb" value="" />
+                                    <input placeholder="이메일 주소를 입력" id="email" name="memberEmail" type="email" class="bms9cb" value="" />
                                 </div>
                             </div>
                         </div>
@@ -86,7 +87,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="비밀번호를 입력" id="password" name="password" type="password" class="bms9cb" value="" />
+                                    <input placeholder="의사 면허번호 입력" id="doctorLicenseNumber" name="doctorLicenseNumber" type="text" class="bms9cb" value="" />
                                 </div>
                             </div>
                         </div>
@@ -100,30 +101,25 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="주소를 입력" id="address" name="address" type="text" class="bms9cb" value="" />
+                                    <input placeholder="주소를 입력" id="hospital" name="hospitalName" type="text" class="bms9cb" value="" />
                                 </div>
                             </div>
                         </div>
                         <!-- 근무지 주소 -->
+                        <!-- 주소 -->
                         <div class="emailpassword">
                             <div class="iprukchang">
-                                <div class="sub04k008qsemailgulssi">
+                                <div class="k008qs">
                                     <label for="address" class="label1woir7p">
-                                        <span class="emailgul183o2av">근무지 주소</span>
+                                        <span class="emailgul183o2av">주소</span>
                                         <img src="//img.echosting.cafe24.com/skin/base/common/ico_required_blue.gif" alt="필수" />
                                     </label>
                                 </div>
-                                
-                                <div class="sbo1gjemailchang zip">
-                                    
-                                    <input placeholder="도로명 주소" id="address" name="address" type="text" class="bms9cb input-address" value="">
-                                    
-                                    <button type="button"class="address-btn request-reg-btn">주소찾기</button>
+                                <div class="sbo1gjemailchang">
+                                    <input placeholder="주소를 입력" id="address" name="hospitalRoadAddress" type="text" class="bms9cb" value="" readonly/>
+                                    <button type="button" id="addressBtn">주소</button>
                                 </div>
-                                    
-                                     <div class="sbo1gjemailchang">
-                                    <input placeholder="주소를 입력" id="address" name="address" type="text" class="bms9cb" value="" />
-                                </div>
+                                <input placeholder="상세주소 입력" id="addressDetail" name="hospitalDetailAddress" type="text" class="bms9cb" value="" />
                             </div>
                         </div>
 
@@ -135,12 +131,13 @@
                                         <span class="emailgul183o2av">핸드폰번호</span>
                                     </label>
                                 </div>
+                                <input type="hidden" name="memberPhone" id="memberPhone">
                                 <div class="phone-inputa">
-                                    <input type="text" id="phone1" name="phone1" maxlength="3" placeholder="010" />
+                                    <input type="text" id="phone1" name="memberPhone1" maxlength="3" placeholder="010" />
                                     <span>-</span>
-                                    <input type="text" id="phone2" name="phone2" maxlength="4" placeholder="1234" />
+                                    <input type="text" id="phone2" name="memberPhone2" maxlength="4" placeholder="1234" />
                                     <span>-</span>
-                                    <input type="text" id="phone3" name="phone3" maxlength="4" placeholder="5678" />
+                                    <input type="text" id="phone3" name="memberPhone3" maxlength="4" placeholder="5678" />
                                 </div>
                             </div>
                         </div>
@@ -148,7 +145,8 @@
                     </div>
 
                     <div class="subrs70ns">
-                        <button id="loginBtn" disabled>회원가입</button>
+<!--                        disable-->
+                        <button id="loginBtn" >회원가입</button>
                         <a class="css-1n1yjq2" href="/auth/reset-password">
                             <button type="button" color="grey" height="54" class="box5p3r3q">
                                 <span class="h2tnj">비밀번호를 잊어버리셨나요?</span>
@@ -161,4 +159,7 @@
         <div class="16y2swjfooter"></div>
     </div>  
 
-<script src="/js/member/join/event.js"></script>
+<script src="/js/member/joinpeople/event.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</body>
+</html>
