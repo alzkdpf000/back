@@ -25,7 +25,8 @@ public class InquiryTests {
         Search search = new Search();
         search.setKeyword("");
         search.setPage(1);
-        String[] s = {""};
+
+        String[] s = {};
         search.setCategories(s);
         ScrollCriteria scrollCriteria = new ScrollCriteria(search.getPage());
         log.info("testMapperSelectInquiriesByEmailOrId{}",inquiryMapper.selectInquiriesByEmailOrId(scrollCriteria,search));

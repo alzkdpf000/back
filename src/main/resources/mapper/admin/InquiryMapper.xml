@@ -4,48 +4,78 @@
     <sql id="search">
         <where>
             <if test='search.keyword != null and search.keyword !=""'>
-                (sub.member_email like concat('%', #{search.keyword} , '%')
-                or sub.id = #{search.keyword})
+                (m.member_email like concat('%', #{search.keyword} , '%') or
+                m.member_kakao_email like concat('%', #{search.keyword} , '%')
+                or c.id = #{search.keyword})
             </if>
 
             <if test="search.categories.length gt 0 and search.categories[0] lte 1">
-                and sub.has_answer = #{search.categories[0]}
+                and c.has_answer = #{search.categories[0]}
             </if>
         </where>
     </sql>
     <select id="selectInquiriesByEmailOrId">
-        select sub.id as id,
-        sub.inquiries_title as inquiry_title,
-        sub.inquiries_content as inquiry_content,
-        sub.created_datetime as created_datetime,
-        sub.member_email as member_email,
-        sub.has_answer as has_answer,
-        sub.answer_datetime as answer_datetime
-        from view_inquiry_member_reply sub
+        select i.id as id,
+        i.inquiries_title as inquiry_title,
+        i.inquiries_content as inquiry_content,
+        i.created_datetime as created_datetime,
+        m.member_email as member_email,
+        m.member_kakao_email as member_kakao_email,
+        m.member_provider as member_provider,
+        c.has_answer as has_answer,
+        c.created_datetime as answer_datetime
+        from tbl_inquiries i join tbl_member m
+        on i.member_id = m.id
+        join
+        (
+            select i.id, count(ir.id) has_answer, ir.created_datetime
+            from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+            on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+            group by i.id,ir.created_datetime
+            ) c
+        on i.id= c.id
         <include refid="search"/>
-        order by sub.id desc
+        order by i.id desc
         limit #{scrollCriteria.count} offset #{scrollCriteria.offset}
     </select>
     
     
     <select id="selectAnswerCounts">
         select
-        sum(case when sub.has_answer = 1 then 1 else 0 end) as answer_count,
-        sum(case when sub.has_answer = 0 then 1 else 0 end) as no_answer_count
-        from view_inquiry_member_reply sub
+        sum(case when c.has_answer = 1 then 1 else 0 end) as answer_count,
+        sum(case when c.has_answer = 0 then 1 else 0 end) as no_answer_count
+        from tbl_inquiries i join tbl_member m
+        on i.member_id = m.id
+        join
+        (select i.id, count(ir.id) has_answer from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+        on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+        group by i.id) c
+        on i.id = c.id
         <include refid="search"/>
     </select>
 
     <select id="selectActiveInquiryWithReplyById">
-        select id,
-               inquiries_title         AS inquiry_title,
-               inquiries_content       AS inquiry_content,
-               created_datetime,
-               member_email,
-               has_answer,
-               inquiries_reply_content AS inquiry_reply_content
-        from view_inquiry_member_reply
-        where id = #{inquiriesId}
+        select i.id,
+               i.inquiries_title         AS inquiry_title,
+               i.inquiries_content       AS inquiry_content,
+               i.created_datetime,
+               m.member_email,
+               m.member_kakao_email as member_kakao_email,
+               m.member_provider as member_provider,
+               c.has_answer,
+               tir.inquiries_reply_content AS inquiry_reply_content
+        from tbl_inquiries i join tbl_member m
+                                  on i.member_id = m.id
+                             join
+             (
+                 select i.id, count(ir.id) has_answer, ir.created_datetime
+                 from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+                                                      on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+                 group by i.id,ir.created_datetime
+             ) c
+             on i.id= c.id
+        join tbl_inquiries_reply tir on i.id = tir.inquiries_id
+        where i.id = #{inquiriesId}
 
     </select>
 </mapper>

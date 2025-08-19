@@ -17,11 +17,14 @@ const inquiryLayout = (() => {
             inquiriesBody.innerHTML = text;
         } else {
             inquiryMemberReplyDTOs.forEach(inquiryMemberReplyDTO => {
+
+                const email = inquiryMemberReplyDTO.memberProvider === "goldentime" ? inquiryMemberReplyDTO.memberEmail : inquiryMemberReplyDTO.memberKakaoEmail;
                 text += `
                 <tr>
                     <td class="text-list">${inquiryMemberReplyDTO.id}</td>
                     <td>${inquiryMemberReplyDTO.inquiryTitle}</td>
-                    <td>${inquiryMemberReplyDTO.memberEmail}</td>
+
+                    <td>${email}</td>
                     <td>${inquiryMemberReplyDTO.createdDateTimeInquiry}</td>
                     <td>${inquiryMemberReplyDTO.hasAnswer ? "답변 완료" : "미답변"}</td>
                     <td>${inquiryMemberReplyDTO.hasAnswer ? inquiryMemberReplyDTO.answerDatetimeReply : "-"}</td>
@@ -54,12 +57,13 @@ const inquiryLayout = (() => {
             <div><img src="/api/files/display?filePath=${file.filePath}&fileName=${file.fileName}" width="150" height="150"></div>
             `
         });
+        const email = result.memberProvider === "goldentime" ? result.memberEmail : result.memberKakaoEmail;
         imgContainer.innerHTML = text;
         hasAnswerTag.textContent = result.hasAnswer ? "답변 완료" : "미답변"
         inquiryIdTag.textContent = result.id;
         createdDateTag.textContent = result.createdDateTimeInquiry;
         titleTag.textContent = result.inquiryTitle;
-        memberEmailTag.textContent = result.memberEmail;
+        memberEmailTag.textContent = email;
         contentTag.textContent = result.inquiryContent;
 
         if (result.hasAnswer) {
