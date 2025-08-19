@@ -1,5 +1,6 @@
 package com.example.back.service.member;
 
+import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.consultationpost.ConsultationPostDTO;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
@@ -23,9 +24,13 @@ public class MemberServiceImpl implements MemberService{
     private final MemberDAO memberDAO;
     private final ConsultationPostDAO  consultationPostDAO;
     @Override
-    public void join(MemberDTO memberDTO) {
-        memberDAO.save(toVO(memberDTO));
+    public MemberDTO join(MemberDTO memberDTO) {
+        MemberVO memberVO = toVO(memberDTO);
+        memberDAO.save(memberVO);              // insert 후 memberVO.getId()에 DB PK가 들어감
+        memberDTO.setId(memberVO.getId());     // VO의 ID를 DTO에 복사
+        return memberDTO;
     }
+
 
     @Override
     public boolean isExistMemberEmail(String memberEmail) {

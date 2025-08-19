@@ -46,6 +46,6 @@ public class DoctorDAO {
 
 //    의사 회원가입 회원추가
     public void insertDoctor(DoctorDTO doctorDTO){
-
+        doctorMapper.insertJoinDoctor(doctorDTO);
     }
 }

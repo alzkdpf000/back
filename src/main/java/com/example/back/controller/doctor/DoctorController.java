@@ -9,11 +9,12 @@ import com.example.back.service.hospital.HospitalService;
 import com.example.back.service.member.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/doctor")
@@ -22,8 +23,6 @@ public class DoctorController {
     private final DoctorService doctorService;
     private final MemberService memberService;
     private final HospitalService hospitalService;
-    private final MemberDTO memberDTO;
-    private final DoctorDTO doctorDTO;
 
     // 의사 목록 페이지
     @GetMapping("/list")
@@ -43,9 +42,8 @@ public class DoctorController {
 //    의사 회원가입 처리
     @PostMapping("join")
     public RedirectView joinFull(@ModelAttribute DoctorDTO doctorDTO,
-                           @ModelAttribute MemberDTO memberDTO,
-                           @ModelAttribute HospitalDTO hospitalDTO
-    ) {
+                                 @ModelAttribute MemberDTO memberDTO,
+                                 @ModelAttribute HospitalDTO hospitalDTO) {
 
         memberDTO.setMemberPhone(doctorDTO.getMemberPhone());
         hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
@@ -54,6 +52,7 @@ public class DoctorController {
 
         return new RedirectView("/doctor/login");
     }
+
 
 
 //    로그인 페이지 이동
