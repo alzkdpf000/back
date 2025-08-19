@@ -1,6 +1,5 @@
 package com.example.back.repository.doctor;
 
-import com.example.back.common.enumeration.Status;
 import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
@@ -18,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DoctorDAO {
     private final DoctorMapper doctorMapper;
+    private final DoctorDTO doctorDTO;
 
     public int findCountDoctorList(){
         return doctorMapper.selectCountAll();
@@ -44,4 +44,8 @@ public class DoctorDAO {
         return doctorMapper.updateDoctorStatusToApproved(doctorId);
     }
 
+//    의사 회원가입 회원추가
+    public void insertDoctor(DoctorDTO doctorDTO){
+
+    }
 }

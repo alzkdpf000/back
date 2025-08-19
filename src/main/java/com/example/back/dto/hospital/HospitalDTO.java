@@ -1,14 +1,15 @@
 package com.example.back.domain.hospital;
 
 import com.example.back.audit.Period;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
 @ToString(callSuper = true)
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class HospitalDTO {
     private Long id;

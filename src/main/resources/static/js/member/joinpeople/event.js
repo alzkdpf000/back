@@ -139,3 +139,33 @@ document.addEventListener("DOMContentLoaded", function () {
     
     checkAllInputs();
 });
+
+const addressInput = document.getElementById("address");
+const addressDetailInput = document.getElementById("addressDetail");
+
+const addressBtn = document.getElementById("addressBtn");
+
+addressBtn.addEventListener("click", (e) => {
+    new daum.Postcode({
+        oncomplete: function (data) {
+            // 도로명 주소 넣기
+            addressInput.value = data.roadAddress;
+            // 상세주소 input에 포커스 주기
+            addressDetailInput.focus();
+            // 유효성 검사 다시 실행
+            checkAllInputs();
+        }
+    }).open();
+});
+
+const formTag = document.getElementById("formTag");
+const memberPhone = document.getElementById(("memberPhone"));
+formTag.addEventListener("sudmit", (e) => {
+    e.preventDefault()
+
+    // 전화번호 3개를 합쳐서 히든 input에 넣기
+    memberPhone.value = `#{phone1.value}-#{phone2.value}-#{phone3.value}`;
+
+    formTag.submit();
+
+});

@@ -33,6 +33,8 @@ public class DoctorListDTO {
     private String detailAddress;
 //  + 병원 정보
     private List<LikesDTO> likes;
+    private Integer likesCount;  // 좋아요 수
+    private Boolean liked;
 //  관심 정보
 
     public String getHospitalAddress() {

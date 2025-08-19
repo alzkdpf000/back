@@ -1,41 +1,58 @@
 package com.example.back.service.doctor;
 
 import com.example.back.common.enumeration.Status;
+import com.example.back.domain.doctor.DoctorVO;
+import com.example.back.domain.hospital.HospitalDTO;
 import com.example.back.dto.counselreply.CounselReplyDTO;
 import com.example.back.dto.doctor.*;
+import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.counselreply.CounselReplyDAO;
 import com.example.back.repository.doctor.DoctorDAO;
+import com.example.back.service.hospital.HospitalService;
+import com.example.back.service.member.MemberService;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Primary
 public class DoctorServiceImpl implements DoctorService {
+
     private final DoctorDAO doctorDAO;
     private final CounselReplyDAO counselReplyDAO;
+    private final DoctorDTO doctorDTO;
+    private final MemberService memberService;
+    private final HospitalService hospitalService;
+    private final MemberDTO memberDTO;
 
     @Override
-    public DoctorListCriteriaDTO getList(int page) {
-        DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
+    public DoctorListCriteriaDTO getList(int page, Long currentMemberId) {
         Criteria criteria = new Criteria(page, doctorDAO.findCountDoctorList());
+        criteria.setCurrentMemberId(currentMemberId);
+
         List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria);
 
-        //        11개 가져왔으면, 마지막 1개 삭제
-        criteria.setHasMore(doctorsList.size() > criteria.getRowCount());
-
-        if(criteria.isHasMore()){
+        // 1개 더 가져왔으면 마지막 제거
+        boolean hasMore = doctorsList.size() > criteria.getRowCount();
+        if(hasMore) {
             doctorsList.remove(doctorsList.size() - 1);
         }
+        criteria.setHasMore(hasMore);
+
+        DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
         doctorListCriteriaDTO.setDoctorsList(doctorsList);
         doctorListCriteriaDTO.setCriteria(criteria);
+
         return doctorListCriteriaDTO;
     }
 
@@ -76,4 +93,27 @@ public class DoctorServiceImpl implements DoctorService {
     public boolean approve(Long doctorId) {
         return doctorDAO.approveDoctor(doctorId) > 0;
     }
+
+    @Override
+    public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO) {
+        hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
+        log.info(doctorDTO.toString());
+
+//      일반회원 정보 추가
+        memberService.join(memberDTO);
+        doctorDTO.setMemberId(memberDTO.getId());
+
+
+//      병원 정보 추가
+        hospitalService.register(hospitalDTO);
+        doctorDTO.setHospitalId(hospitalDTO.getId());
+
+
+//      의사 정보 추가
+        doctorDTO.setMemberStatus(Status.valueOf("ACTIVE"));
+        doctorDAO.insertDoctor(doctorDTO);
+
+    }
+
+
 }

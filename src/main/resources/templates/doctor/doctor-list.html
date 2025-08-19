@@ -289,7 +289,12 @@
 <form id="doctorForm" name="doctorForm" style="display: none;"></form>
 <!-- form 2 -->
 <form id="mailForm" name="mailForm" style="display: none;"></form>
+        <script src="/js/doctor/list/module/service.js"></script>
+        <script src="/js/doctor/list/module/layout.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                doctorLayout.loadDoctors(1);
+            });
+        </script>
     </body>
-    <script src="/js/doctor/list/layout.js"></script>
-    <script src="/js/doctor/list/service.js"></script>
 </html>

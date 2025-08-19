@@ -28,4 +28,11 @@ public class DoctorDTO {
     private String createdDatetime;
     private String createdDate;
     private int memberVitaAmount;
+    private Long memberId;
+    private String hospitalName;
+    private String hospitalPhone;
+    private String hospitalRoadAddress;
+    private String hospitalDetailAddress;
+    private String updatedDatetime;
+    private String updatedDate;
 }
