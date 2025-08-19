@@ -42,7 +42,11 @@ const doctorLayout = (() => {
                             <td class="td-amount text-right pr-4 font-weight-bold" style=" text-align: center; width: 10%">${doctor.memberName}
                                 <span class="amount-unit"> 님</span>
                             </td>
-                            <td class="td-email" style="width: 10%">${doctor.provider === "KAKAO" ? doctor.kakaoEmail : doctor.memberEmail}</td>
+                            <td class="td-email" style="width: 10%">
+                            <span>${!doctor.memberEmail ? "없음" : doctor.memberEmail}</span>
+                            <br>
+                            <span>${!doctor.memberKakaoEmail ? "없음" : doctor.memberKakaoEmail}</span>
+                            </td>
                             <td class="td-phone" style="width: 10%">${doctor.memberPhone}</td>
                             <td class="td-phone" style="width: 10%">${doctor.doctorLicenseNumber}</td>
                             <td class="td-start" style="width: 10%" >${doctor.createdDate}</td>

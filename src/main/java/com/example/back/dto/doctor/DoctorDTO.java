@@ -24,7 +24,7 @@ public class DoctorDTO {
     private String memberPhone;
     private Status memberStatus;
     private Provider provider;
-    private String kakaoEmail;
+    private String memberKakaoEmail;
     private String createdDatetime;
     private String createdDate;
     private int memberVitaAmount;
