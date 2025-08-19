@@ -105,17 +105,14 @@ public class DoctorListTests {
 //            doctorListMapper.insertDoctor(doctor);
 //    }
 
-<<<<<<< HEAD
     @Test
     public void testSelectDoctorList(){
         DoctorListDTO doctorListDTO = new DoctorListDTO();
         log.info("doctorListDTO = {}", doctorListDTO);
-=======
 //    @Test
 //    public void testSelectDoctorList(){
 //        DoctorListDTO doctorListDTO = new DoctorListDTO();
 //        log.info("doctorListDTO = {}", doctorListDTO);
->>>>>>> doctor/list
 //        doctorMapper.selectAll(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
 
 

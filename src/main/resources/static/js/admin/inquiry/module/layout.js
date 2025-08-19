@@ -59,14 +59,14 @@ const inquiryLayout = (() => {
         });
         const email = result.memberProvider === "goldentime" ? result.memberEmail : result.memberKakaoEmail;
         imgContainer.innerHTML = text;
-        hasAnswerTag.textContent = result.hasAnswer ? "답변 완료" : "미답변"
+        hasAnswerTag.textContent = result.inquiryReplyContent ? "답변 완료" : "미답변"
         inquiryIdTag.textContent = result.id;
         createdDateTag.textContent = result.createdDateTimeInquiry;
         titleTag.textContent = result.inquiryTitle;
         memberEmailTag.textContent = email;
         contentTag.textContent = result.inquiryContent;
 
-        if (result.hasAnswer) {
+        if (result.inquiryReplyContent) {
             modalFooter.style.display = "none";
             hasAnswerTag.classList.remove("text-danger");
             hasAnswerTag.classList.add("text-primary");

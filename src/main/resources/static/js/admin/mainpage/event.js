@@ -31,6 +31,9 @@ menuBtns.forEach((btn) => {
         inquiryScroll = false;
         allSubMenu.style.display = "none";
         menuBtns.forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll("input[type=text].form-control").forEach((input)=>{
+            input.value="";
+        })
         let clickId = btn.classList[btn.classList.length-1];
         console.log(clickId);
         document.querySelectorAll("div.wide-page").forEach((divTag) => {
@@ -55,6 +58,9 @@ menuBtns.forEach((btn) => {
             document.getElementById(`${clickId}`).style.display = "block";
             document.getElementById("approvalTbody").innerHTML = "";
             await showPendingDoctors();
+        }else if(clickId ==="payment"){
+            document.getElementById(`${clickId}`).style.display = "block";
+
         }
         btn.classList.add("active");
 

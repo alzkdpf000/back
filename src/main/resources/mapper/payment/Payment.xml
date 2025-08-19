@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.back.mapper.payment.VitaHistoryMapper">
+<mapper namespace="com.example.back.mapper.payment.PaymentMapper">
     <sql id="search">
-        <if test="search.types != null">
+        <if test="search.categories != null">
             and
             <trim prefix="(" prefixOverrides="or" suffix=")">
-                <foreach item="type" collection="search.types">
-                    or (vita_history_result = #{type.result} AND vita_history_type = #{type.type})
+                <foreach item="category" collection="search.categories">
+                    or payment_status = #{category}
                 </foreach>
             </trim>
         </if>
@@ -15,37 +15,35 @@
             tm.member_email like concat('%', #{search.keyword}, '%') or
             tm.member_kakao_email like concat('%', #{search.keyword}, '%') or
             tm.member_name like concat('%', #{search.keyword}, '%') or
-            tvh.id = #{search.keyword}
+            tp.payment_transaction_id = #{search.keyword}
             )
         </if>
     </sql>
-    <select id="searchVitaHistories">
+    <select id="searchPayments">
         select
+        tp.id,
         tm.member_email,
         tm.member_name,
         tm.member_provider,
         tm.member_kakao_email,
-        tvh.id,
-        tvh.vita_history_amount,
-        tvh.vita_history_result,
-        tvh.vita_history_type,
-        tvh.vita_history_status,
-        tvh.vita_history_description,
-        tvh.member_id,
-        tvh.created_datetime,
-        tvh.updated_datetime
-        from tbl_member tm
-        join tbl_vita_history tvh on tm.id = tvh.member_id
+        tp.created_datetime,
+        tp.payment_amount,
+        tp.payment_method,
+        tp.payment_transaction_id,
+        tp.payment_status,
+        tvh.vita_history_product_name
+        from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
+        join tbl_vita_history tvh on tp.id = tvh.payment_id
         <include refid="search"/>
-        order by tvh.id desc
+        order by tp.id desc
         limit #{criteria.count} offset #{criteria.offset}
     </select>
 
-    <select id="searchCountVitaHistory">
+    <select id="searchCountPayment">
         select
-        count(tvh.id)
-        from tbl_member tm
-        join tbl_vita_history tvh on tm.id = tvh.member_id
+        count(tm.id)
+        from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
+        join tbl_vita_history tvh on tp.id = tvh.payment_id
         <include refid="search"/>
     </select>
 </mapper>

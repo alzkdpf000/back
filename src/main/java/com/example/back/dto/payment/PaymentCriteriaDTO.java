@@ -1,6 +1,6 @@
 package com.example.back.dto.payment;
 
-import com.example.back.dto.notice.NoticeSummaryDTO;
+import com.example.back.dto.vitahistory.VitaHistoryDTO;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
 import lombok.EqualsAndHashCode;
@@ -14,8 +14,8 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode(of="id")
-public class VitaHistoryCriteriaDTO {
-    private List<VitaHistoryDTO> vitaHistories;
+public class PaymentCriteriaDTO {
+    private List<PaymentMemberVitaDTO> payments;
     private Criteria criteria;
     private Search search;
     private int total;
