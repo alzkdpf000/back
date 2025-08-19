@@ -1,5 +1,8 @@
 package com.example.back.common.enumeration;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
@@ -15,9 +18,11 @@ public enum Status {
     Status(String value) {
         this.value = value;
     }
+    @JsonValue
     public String getValue() {
         return this.value;
     }
+    @JsonCreator
     public static Status getStatusFromValue(String value) {
         return Optional.ofNullable(STATUS_MAP.get(value)).orElseThrow(IllegalArgumentException::new);
     }
