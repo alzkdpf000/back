@@ -39,11 +39,11 @@ public class DoctorServiceImpl implements DoctorService {
     private final com.example.back.dao.likes.LikesDAO likesDAO;
 
     @Override
-    public DoctorListCriteriaDTO getList(int page, Long currentMemberId) {
+    public DoctorListCriteriaDTO getList(int page, Long currentMemberId, Search search) {
         Criteria criteria = new Criteria(page, doctorDAO.findCountDoctorList());
         criteria.setCurrentMemberId(currentMemberId);
 
-        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria);
+        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria, );
         doctorsList.forEach(doctor -> {
             doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));
         });
