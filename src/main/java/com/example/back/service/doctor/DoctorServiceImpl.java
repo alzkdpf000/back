@@ -11,6 +11,7 @@ import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.counselreply.CounselReplyDAO;
 import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.service.hospital.HospitalService;
+import com.example.back.service.likes.LikesService;
 import com.example.back.service.member.MemberService;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
@@ -34,6 +35,8 @@ public class DoctorServiceImpl implements DoctorService {
     private final CounselReplyDAO counselReplyDAO;
     private final MemberService memberService;
     private final HospitalService hospitalService;
+    private final LikesService likesService;
+    private final com.example.back.dao.likes.LikesDAO likesDAO;
 
     @Override
     public DoctorListCriteriaDTO getList(int page, Long currentMemberId) {
@@ -41,6 +44,9 @@ public class DoctorServiceImpl implements DoctorService {
         criteria.setCurrentMemberId(currentMemberId);
 
         List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria);
+        doctorsList.forEach(doctor -> {
+            doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));
+        });
 
         // 1개 더 가져왔으면 마지막 제거
         boolean hasMore = doctorsList.size() > criteria.getRowCount();

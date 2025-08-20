@@ -263,6 +263,8 @@ create table tbl_vita_history
 
 ALTER TABLE tbl_vita_history
     MODIFY vita_history_type ENUM('charge','spend') NOT NULL;
+ALTER TABLE tbl_vita_history
+    ADD COLUMN vita_history_product_name VARCHAR(255);
 
 
 /* 방문 진료 */
