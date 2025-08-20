@@ -33,7 +33,7 @@ public class DoctorController {
     @GetMapping("list/{page}")
     public String listPage(@PathVariable int page,
                            Model model,
-                           Search search) {
+                           @RequestParam(required = false) Search search) {
 
         model.addAttribute("pageTitle", "의사 목록");
         model.addAttribute("search", search);
