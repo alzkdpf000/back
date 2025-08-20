@@ -97,20 +97,20 @@ public class MemberController {
             rememberMemberEmailCookie.setMaxAge(60 * 60 * 24 * 30);
             response.addCookie(rememberMemberEmailCookie);
 
-//            30일 유지
+//
             rememberCookie.setMaxAge(60 * 60 * 24 * 30);
             response.addCookie(rememberCookie);
         }else {
-//            30일 유지
+//            쿠키 삭제
             rememberMemberEmailCookie.setMaxAge(0);
             response.addCookie(rememberMemberEmailCookie);
 
-//            30일 유지
+//
             rememberCookie.setMaxAge(0);
             response.addCookie(rememberCookie);
         }
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/member/main");
 
     }
 //    메인페이지로 이동
