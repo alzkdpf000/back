@@ -104,7 +104,8 @@ div.emailpassword {
      display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 10px;
+    gap: 12px;
+    padding: 10px;
     }
 
 
@@ -385,6 +386,47 @@ input[type="text"].input-address{
     box-shadow: rgb(229, 232, 235) 0px 0px 0px 1px inset;
     border-radius: 12px;
     width: 60%
+}
+
+
+/* 주소 api 버튼 */
+
+/* 버튼 디자인 */
+#addressBtn {
+    padding: 15px 14px;
+    background-color: #007BFF; /* 파란색 */
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    white-space: nowrap;
+}
+
+#addressBtn:hover {
+    background-color: #0056b3;
+}
+
+#addressBtn:active {
+    transform: scale(0.97);
+}
+
+input .bms9cb {
+    width: 100%;
+    padding: 12px 12px 12px 16px;
+    border: none;
+    background: transparent;
+    color: rgb(25, 31, 40);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    caret-color: rgb(37, 83, 229);
+    resize: none;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
 }
 
 
