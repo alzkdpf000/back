@@ -2,10 +2,12 @@ package com.example.back.service.member;
 
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.consultationpost.ConsultationPostDTO;
+import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.member.MemberDAO;
+import com.example.back.repository.membervisited.MemberVisitedDAO;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import com.example.back.util.Search;
@@ -23,11 +25,12 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberDAO memberDAO;
     private final ConsultationPostDAO  consultationPostDAO;
+    private final MemberVisitedDAO memberVisitedDAO;
     @Override
     public MemberDTO join(MemberDTO memberDTO) {
         MemberVO memberVO = toVO(memberDTO);
-        memberDAO.save(memberVO);              // insert 후 memberVO.getId()에 DB PK가 들어감
-        memberDTO.setId(memberVO.getId());     // VO의 ID를 DTO에 복사
+        memberDAO.save(memberVO);
+        memberDTO.setId(memberVO.getId());
         return memberDTO;
     }
 
@@ -70,6 +73,23 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean reject(Long memberId) {
         return memberDAO.rejectDoctor(memberId) > 0;
+    }
+
+
+//    로그인
+    @Override
+    public Optional<MemberDTO> login(MemberDTO memberDTO) {
+        return memberDAO.findMemberEmailAndPassword(memberDTO);
+
+    @Override
+    public MemberAdminStatics getStatics() {
+        MemberAdminStatics statics = new MemberAdminStatics();
+        statics.setTodayVisited(memberVisitedDAO.findCountTodayVisits());
+        statics.setMonthlyJoins(memberDAO.findMonthlyJoin());
+        statics.setMonthlyVisited(memberVisitedDAO.findMonthlyVisits());
+        statics.setMonthlyJoins(memberDAO.findMonthlyJoin());
+        return statics;
+
     }
 
 }

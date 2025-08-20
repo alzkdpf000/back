@@ -28,6 +28,7 @@ public class DoctorListDTO {
     private String memberKakaoProfileUrl;
 //  의사 이미지
     private Long hospitalId;
+    private String[] categoryNames;
     private String hospitalName;
     private String hospitalPhone;
     private String roadAddress;

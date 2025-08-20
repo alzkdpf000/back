@@ -1,6 +1,7 @@
 package com.example.back.mapper.member;
 
 import com.example.back.domain.member.MemberVO;
+import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.member.MemberDAO;
 import com.example.back.service.member.MemberService;
 import com.example.back.util.Criteria;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -112,5 +115,38 @@ public class MemberMapperTests {
     @Transactional
     public void testReject(){
         log.info("{}",memberService.reject(11L));
+    }
+
+    @Test
+    public void testSelectMemberForLogin(){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMemberEmail("test@naver.com");
+        memberDTO.setMemberPassword("1234");
+
+        Optional<MemberDTO> foundMember = memberMapper.selectMemberForLogin(memberDTO);
+        foundMember.ifPresent(member -> {
+            log.info("member:{}",member);
+        });
+
+
+    public void testSelectMonthlyJoin(){
+        log.info(memberMapper.selectMonthlyJoin().toString());
+    }
+    @Test
+    public void testSelectTodayJoin(){
+        log.info("{}",memberMapper.selectCountTodayJoin());
+    }
+    @Test
+    public void testFindMonthlyJoin(){
+        log.info(memberDAO.findMonthlyJoin().toString());
+    }
+    @Test
+    public void testFindTodayJoin(){
+        log.info("{}",memberDAO.findCountTodayJoin());
+    }
+
+    @Test
+    public void testGetStatics(){
+        log.info("{}",memberService.getStatics());
     }
 }

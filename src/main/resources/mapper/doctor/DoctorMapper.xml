@@ -69,9 +69,14 @@
                  JOIN tbl_member m ON d.member_id = m.id
                  JOIN tbl_hospital h ON d.hospital_id = h.id
                  JOIN tbl_hospital_address ha ON h.id = ha.hospital_id
-        WHERE d.doctor_status = 'ACTIVE'
+        where d.doctor_status = 'ACTIVE'
+        and (
+            m.member_name like concat('%' #{keyword}, '%') or
+            d.doctor_specialty like concat('%' #{keyword}, '%') or
+            h.hospital_name like concat('%' #{keyword}, '%')
+            )
         ORDER BY d.member_id DESC
-        LIMIT #{rowCount} OFFSET #{offset}
+        LIMIT #{criteria.rowCount} OFFSET #{criteria.offset}
     </select>
 
     <select id="selectCountAll">

@@ -191,3 +191,40 @@ from tbl_inquiries i join tbl_member m
          group by i.id,ir.created_datetime
      ) c
      on i.id= c.id
+
+
+
+
+
+select i.id,
+       i.inquiries_title         AS inquiry_title,
+       i.inquiries_content       AS inquiry_content,
+       i.created_datetime,
+       m.member_email,
+       m.member_kakao_email as member_kakao_email,
+       m.member_provider as member_provider,
+       c.has_answer,
+       tir.inquiries_reply_content AS inquiry_reply_content
+from tbl_inquiries i join tbl_member m
+                          on i.member_id = m.id
+                     join
+     (
+         select i.id, count(ir.id) has_answer, ir.created_datetime
+         from tbl_inquiries i left outer join app.tbl_inquiries_reply ir
+                                              on i.id = ir.inquiries_id and ir.inquiries_status = 'active'
+         group by i.id,ir.created_datetime
+     ) c
+     on i.id= c.id
+                     join tbl_inquiries_reply tir on i.id = tir.inquiries_id;
+
+
+select i.id,
+       i.inquiries_title         AS inquiry_title,
+       i.inquiries_content       AS inquiry_content,
+       i.created_datetime,
+       m.member_email,
+       m.member_kakao_email as member_kakao_email,
+       m.member_provider as member_provider,
+       ir.inquiries_reply_content AS inquiry_reply_content
+from tbl_member m join tbl_inquiries i on m.id = i.member_id
+left join tbl_inquiries_reply ir on i.id = ir.inquiries_id and ir.inquiries_status ='active';

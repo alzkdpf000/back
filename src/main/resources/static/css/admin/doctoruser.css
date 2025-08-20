@@ -1034,11 +1034,13 @@ button:not(:disabled) {
     cursor: pointer;
 }
 
-.tab-box ul.tab-name-list li.tab-name.active {
+.tab-box ul.tab-name-list li.tab-name.checked {
     background-color: #507cf3;
     box-shadow: inset 0 -2px 4px rgba(41, 41, 41, .1);
     color: #fff;
 }
+
+
 
 .tab-box .tab-row .filter-col {
     text-align: right;

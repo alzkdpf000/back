@@ -25,7 +25,7 @@ memberMenuBtn.addEventListener("click", async (e) => {
     document.getElementById("members").style.display = "block";
     e.preventDefault();
     memberMenuBtn.classList.add("checked");
-    doctorTab.classList.remove("active");
+    doctorTab.classList.remove("checked");
     loading.style.display = "block";
     await showMembers();
     setTimeout(async () => {

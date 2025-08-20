@@ -1,10 +1,14 @@
 package com.example.back.controller.member;
 
+import com.example.back.common.exception.LoginFailException;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.service.member.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import jakarta.servlet.http.Cookie;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -47,6 +51,8 @@ public class MemberController {
         model.addAttribute("memberDTO", memberDTO);
         return "/member/login";
     }
+
+
 //    이메일 중복 검사
     @PostMapping("check-email")
     @ResponseBody
@@ -60,4 +66,57 @@ public class MemberController {
         return result;
     }
 
+//    이메일 로그인 페이지 이동 (이메일 저장 - 쿠키)
+    @GetMapping("emaillogin")
+    public String goToLoginForm(@CookieValue(name = "remember",  required = false) boolean remember,
+                                @CookieValue(name = "remember_member_email", required = false) String rememberdEmail,
+                                HttpServletRequest request,
+                                MemberDTO memberDTO,
+                                Model model){
+        memberDTO.setRemember(remember);
+        memberDTO.setMemberEmail(rememberdEmail);
+        model.addAttribute("memberDTO", memberDTO);
+        return "/member/emaillogin";
+    }
+
+//    로그인 조회
+    @PostMapping("emaillogin")
+    public RedirectView login(MemberDTO memberDTO, HttpServletResponse response){
+
+        MemberDTO member = memberService.login(memberDTO).orElseThrow(LoginFailException::new);
+        session.setAttribute("member", member);
+
+        Cookie rememberMemberEmailCookie = new Cookie("remember_member_email", memberDTO.getMemberEmail());
+        Cookie rememberCookie = new Cookie("remember", String.valueOf(memberDTO.isRemember()));
+
+        rememberMemberEmailCookie.setPath("/");
+        rememberCookie.setPath("/");
+
+        if (memberDTO.isRemember()) {
+//            30일 유지
+            rememberMemberEmailCookie.setMaxAge(60 * 60 * 24 * 30);
+            response.addCookie(rememberMemberEmailCookie);
+
+//            30일 유지
+            rememberCookie.setMaxAge(60 * 60 * 24 * 30);
+            response.addCookie(rememberCookie);
+        }else {
+//            30일 유지
+            rememberMemberEmailCookie.setMaxAge(0);
+            response.addCookie(rememberMemberEmailCookie);
+
+//            30일 유지
+            rememberCookie.setMaxAge(0);
+            response.addCookie(rememberCookie);
+        }
+
+        return new RedirectView("/main/main");
+
+    }
+//    메인페이지로 이동
+    @GetMapping("main")
+    public String goToMainForm(Model model){
+        model.addAttribute("memberDTO", new MemberDTO());
+        return "/main/main";
+    }
 }
