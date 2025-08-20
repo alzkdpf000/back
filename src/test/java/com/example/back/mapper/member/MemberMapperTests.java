@@ -1,6 +1,7 @@
 package com.example.back.mapper.member;
 
 import com.example.back.domain.member.MemberVO;
+import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.member.MemberDAO;
 import com.example.back.service.member.MemberService;
 import com.example.back.util.Criteria;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -115,6 +118,17 @@ public class MemberMapperTests {
     }
 
     @Test
+    public void testSelectMemberForLogin(){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMemberEmail("test@naver.com");
+        memberDTO.setMemberPassword("1234");
+
+        Optional<MemberDTO> foundMember = memberMapper.selectMemberForLogin(memberDTO);
+        foundMember.ifPresent(member -> {
+            log.info("member:{}",member);
+        });
+
+
     public void testSelectMonthlyJoin(){
         log.info(memberMapper.selectMonthlyJoin().toString());
     }

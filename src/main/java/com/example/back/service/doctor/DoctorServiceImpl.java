@@ -102,28 +102,25 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO) {
-        // 1. 병원 상태 활성화
+        // 병원 상태 활성화
         hospitalDTO.setHospitalStatus(Status.ACTIVE.name());
 
-        // 2. 일반회원 정보 처리
+        // 일반회원 정보 처리
         if (memberDTO != null && memberDTO.getId() != null) {
-            // 기존 회원이면 ID만 연결
+
             doctorDTO.setMemberId(memberDTO.getId());
         } else {
-            // 신규 회원이면 DTO 그대로 넘김
+
             memberDTO = memberService.join(memberDTO);
             doctorDTO.setMemberId(memberDTO.getId());
         }
 
-        log.info("Member ID after join: {}", doctorDTO.getMemberId());
-
-        // 3. 병원 정보 추가
+        //  병원 정보 추가
         Long hospitalId = hospitalService.register(hospitalDTO);
         doctorDTO.setHospitalId(hospitalId);
 
-        log.info("Hospital ID after register: {}", doctorDTO.getHospitalId());
 
-        // 4. 의사 정보 추가
+        // 의사 정보 추가
         doctorDTO.setMemberStatus(Status.ACTIVE);
         doctorDTO.setDoctorStatus(Status.ACTIVE);
         doctorDAO.insertDoctor(doctorDTO);

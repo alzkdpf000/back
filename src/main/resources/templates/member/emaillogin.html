@@ -19,7 +19,7 @@
                         <img alt="이메일 이미지" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/v2/auth/auth-email.png" style="color: transparent;">
                         <span class="css-1202cko">이메일 로그인</span>
                     </div>
-                    <form action="submit">
+                    <form action="member/emaillogin" method="post">
                         <!--  -->
                         <div class="sub01emailpasswordgap">
                             <div class="emailpassword">
@@ -44,6 +44,11 @@
                                     <div class="sbo1gjemailchang">
                                         <input placeholder="비밀번호를 입력" id="password" name="password"  rows="5" type="password" class="bms9cb" value="">
                                     </div>
+<!--                                    이메일 저장-->
+                                    <label class="remember-me">
+                                        <input type="checkbox" name="remember" th:value="true" th:checked="*{remember}">
+                                        <span>이메일 저장</span>
+                                    </label>
                                 </div>
                             </div>
                         </div>

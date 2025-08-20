@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }).open();
     });
 
-    // form submit
+
     formTag.addEventListener("submit", (e) => {
         e.preventDefault();
 

@@ -15,6 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -64,6 +68,20 @@ public class DoctorController {
     public String goToLoginForm(DoctorDTO doctorDTO ,Model model) {
         model.addAttribute("doctorDTO",doctorDTO);
         return "doctor/login";
+    }
+
+
+    //    이메일 중복 검사
+    @PostMapping("check-email")
+    @ResponseBody
+    public Map<String, Object> checkEmail(@RequestBody Map<String, String> member) {
+        String memberEmail = member.get("memberEmail");
+        boolean isExist = memberService.isExistMemberEmail(memberEmail);
+        Map<String, Object> result = new HashMap<>();
+        result.put("memberEmail", memberEmail);
+        result.put("isExist", isExist);
+
+        return result;
     }
 
 }

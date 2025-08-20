@@ -25,6 +25,9 @@ public interface MemberService {
     //   의사 가입 거절(회원 상태 자체를 inactive로)
     public boolean reject(Long memberId);
 
+//    로그인
+    public Optional<MemberDTO> login(MemberDTO memberDTO);
+
 //    관리자 페이지 회원들 통계 자료들
     public MemberAdminStatics getStatics();
 

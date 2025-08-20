@@ -60,6 +60,19 @@
     </update>
 
 
+    <select id="selectMemberForLogin">
+        select id,
+               member_email,
+               member_password,
+               member_name,
+               member_status,
+               member_provider,
+               member_role,
+               created_datetime,
+               updated_datetime
+        from tbl_member
+        where member_email = #{memberEmail} and member_password = #{memberPassword} and member_status = 'active'
+
     <select id="selectMonthlyJoin">
         with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM
                              union all

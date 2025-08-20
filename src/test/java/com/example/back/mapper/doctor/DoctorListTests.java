@@ -105,7 +105,6 @@ public class DoctorListTests {
 //            doctorListMapper.insertDoctor(doctor);
 //    }
 
-<<<<<<< HEAD
     @Test
     public void testSelectDoctorList(){
         DoctorListDTO doctorListDTO = new DoctorListDTO();

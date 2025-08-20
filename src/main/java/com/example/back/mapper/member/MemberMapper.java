@@ -35,10 +35,14 @@ public interface MemberMapper {
     //   의사 가입 거절(회원 상태 자체를 inactive로)
     public int updateDoctorStatusToRejected(Long memberId);
 
+//    로그인
+    public Optional<MemberDTO> selectMemberForLogin(MemberDTO memberDTO);
+
     //  월 별 가입자 수
     public List<MemberStatics> selectMonthlyJoin();
 
     //  오늘 가입자 수
     public int selectCountTodayJoin();
+
 
 }
