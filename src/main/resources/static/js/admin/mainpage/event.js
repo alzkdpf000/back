@@ -78,6 +78,7 @@ menuBtns.forEach((btn) => {
             await showPendingDoctors();
         } else if (clickId === "payment") {
             document.getElementById(`${clickId}`).style.display = "block";
+
             paymentSearch = await showPayments();
         } else if (clickId === "mainPage"){
             document.getElementById(`${clickId}`).style.display = "block";
