@@ -1,4 +1,4 @@
-package com.example.back.domain.payment;
+package com.example.back.domain.vitahistory;
 
 import com.example.back.audit.Period;
 import com.example.back.common.enumeration.Result;
@@ -20,5 +20,6 @@ public class VitaHistoryVO extends Period {
     private Type vitaHistoryType;
     private Status vitaHistoryStatus;
     private String vitaHistoryDescription;
+    private Long paymentId;
     private Long memberId;
 }

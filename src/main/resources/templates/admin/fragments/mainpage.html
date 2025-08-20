@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/admin/inquiry.css">
     <link rel="shortcut icon" href="/images/golden-time-favicon.png">
 <body>
-                <div th:fragment="main-page" class="page ana-user-index wide-page" id="main-page">
+                <div th:fragment="main-page" class="page ana-user-index wide-page" id="mainPage">
                     <div class="page-header">
                         <div class="page-title">HOME</div>
                         <div class="page-subtitle"></div>
@@ -22,7 +22,7 @@
                                     <div class="col col-auto">
                                         <ul class="tab-name-list list-unstyled list-inline">
                                             <!-- 클릭 한 부분은 active -->
-                                            <li class="tab-name active">회원 분석</li>
+                                            <li class="tab-name checked">회원 분석</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -33,57 +33,25 @@
                                         <div class="col-12 col-xl-8">
                                             <div class="chart-row row">
                                                 <!-- 일반회원 방문자, 게시글 수 -->
-                                                <div class="col-12 col-lg-6">
+                                                <div class="col-12 col-lg-6 statics-graph">
                                                     <div class="chart-box">
                                                         <div class="chart-wrapper">
-                                                            <div class="echarts-for-react boot-chart height-300"
+                                                            <div id="joinChart" class="echarts-for-react boot-chart height-300"
                                                                  _echarts_instance_="ec_1754465654340"
                                                                  size-sensor-id="97"
                                                                  style="height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;">
-                                                                <div style="position: relative; width: 790px; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
-                                                                    <!-- 막대 그래프 신규 일반회원 회원가입 수 , 다른 그래프로 일반회원 방문횟수 -->
-                                                                    <canvas data-zr-dom-id="zr_0" width="790"
-                                                                            height="300"
-                                                                            style="position: absolute; left: 0px; top: 0px; width: 790px; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
-                                                                </div>
-                                                                <div class=""
-                                                                     style="position: absolute; display: block; border-style: solid; white-space: nowrap; z-index: 9999999; box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgb(255, 255, 255); border-width: 1px; border-radius: 4px; color: rgb(102, 102, 102); font: 14px / 21px sans-serif; padding: 10px; top: 0px; left: 0px; transform: translate3d(364px, 100px, 0px); border-color: rgb(255, 255, 255); pointer-events: none; visibility: hidden; opacity: 0;">
-                                                                    <div style="font-size: 11px">2025-08-06
-                                                                        <span style="color: #839099">수</span>
-                                                                    </div>
-                                                                    <span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#6387f9;"></span>
-                                                                    방문:
-                                                                    <span style="font-weight: bold">0명</span>
-                                                                </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- 희사회원 방문자, 답글 횟수 -->
-                                                <div class="col-12 col-lg-6">
+                                                <div class="col-12 col-lg-6 statics-graph">
                                                     <div class="chart-box">
                                                         <div class="chart-wrapper">
-                                                            <div class="echarts-for-react boot-chart height-300"
+                                                            <div id="visitedChart" class="echarts-for-react boot-chart height-300"
                                                                  _echarts_instance_="ec_1754465654340"
                                                                  size-sensor-id="97"
                                                                  style="height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;">
-                                                                <div style="position: relative; width: 790px; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
-                                                                    <!-- canvas: 그래프 내용 -->
-                                                                    <!-- 막대 그래프로 의사회원 신규 회원가입 수, 다른 그래프는 의사회원 방문횟수 -->
-                                                                    <canvas data-zr-dom-id="zr_0" width="790"
-                                                                            height="300"
-                                                                            style="position: absolute; left: 0px; top: 0px; width: 790px; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
-                                                                </div>
-                                                                <div class=""
-                                                                     style="position: absolute; display: block; border-style: solid; white-space: nowrap; z-index: 9999999; box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgb(255, 255, 255); border-width: 1px; border-radius: 4px; color: rgb(102, 102, 102); font: 14px / 21px sans-serif; padding: 10px; top: 0px; left: 0px; transform: translate3d(364px, 100px, 0px); border-color: rgb(255, 255, 255); pointer-events: none; visibility: hidden; opacity: 0;">
-                                                                    <div style="font-size: 11px">2025-08-06
-                                                                        <span style="color: #839099">수</span>
-                                                                    </div>
-                                                                    <span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#6387f9;"></span>
-                                                                    방문:
-                                                                    <span style="font-weight: bold">0개</span>
-                                                                </div>
                                                             </div>
 
                                                         </div>
@@ -94,49 +62,49 @@
                                                 <div class="row">
                                                     <div class="col-12 col-md-6 col-lg-3">
                                                         <div class="access-data data-member-time">
-                                                            <div class="title">[일반회원] 평균 접속시간</div>
+                                                            <div class="title">오늘 방문자 수</div>
                                                             <div class="value">
                                                             <span class="icon">
                                                                 <i class="mdi mdi-timer-outline"></i>
                                                             </span>
-                                                                -
-                                                                <span class="unit">초</span>
+                                                                <span class="unit" id="todayVisitCount"></span>
+                                                                <span class="unit">명</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-md-6 col-lg-3">
                                                         <div class="access-data data-member-page">
-                                                            <div class="title">[일반회원] 평균 게시글 작성 수</div>
+                                                            <div class="title">이번 달 방문자 수</div>
                                                             <div class="value">
                                                             <span class="icon">
                                                                 <i class="mdi mdi-file-send-outline"></i>
                                                             </span>
-                                                                -
-                                                                <span class="unit">회</span>
+                                                                <span class="unit" id="monthlyVisitCount"></span>
+                                                                <span class="unit">명</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-md-6 col-lg-3">
                                                         <div class="access-data data-non-member-time">
-                                                            <div class="title">[의사회원] 평균 접속시간</div>
+                                                            <div class="title">오늘 가입자 수</div>
                                                             <div class="value">
                                                             <span class="icon">
                                                                 <i class="mdi mdi-timer-outline"></i>
                                                             </span>
-                                                                0.0
-                                                                <span class="unit">초</span>
+                                                                <span class="unit" id="todayJoinCount"></span>
+                                                                <span class="unit">명</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-md-6 col-lg-3">
                                                         <div class="access-data data-member-page">
-                                                            <div class="title">[의사회원] 평균 답글 작성 수</div>
+                                                            <div class="title">이번 달 가입자 수</div>
                                                             <div class="value">
                                                             <span class="icon">
                                                                 <i class="mdi mdi-file-send-outline"></i>
                                                             </span>
-                                                                -
-                                                                <span class="unit">회</span>
+                                                                <span class="unit" id="monthlyJoinCount"></span>
+                                                                <span class="unit">명</span>
                                                             </div>
                                                         </div>
                                                     </div>

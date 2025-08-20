@@ -37,7 +37,6 @@ create table tbl_member
 select *
 from tbl_member;
 
-select * from tbl_doctor;
 
 /*의사 테이블*/
 create table tbl_doctor
@@ -193,7 +192,6 @@ create table tbl_likes
 );
 
 
-
 /* 답변글 테이블 */
 create table tbl_counsel_reply
 (
@@ -248,24 +246,24 @@ create table tbl_hospital_file
 /* 충전내역, 사용내역 */
 create table tbl_vita_history
 (
-    id                       bigint unsigned auto_increment primary key,
-    vita_history_amount      int                        default 0,
-    vita_history_result      enum ('done', 'cancel')    default 'done',
-    vita_history_type        enum ('charge','use') not null,
-    vita_history_status      enum ('active','inactive') default 'active',
-    vita_history_description varchar(255)          not null,
-    member_id                bigint unsigned,
-    created_datetime         datetime                   default current_timestamp,
-    updated_datetime         datetime                   default current_timestamp,
+    id                        bigint unsigned auto_increment primary key,
+    vita_history_amount       int                        default 0,
+    vita_history_product_name VARCHAR(255)          not null,
+    vita_history_result       enum ('done', 'cancel')    default 'done',
+    vita_history_type         enum ('charge','use') not null,
+    vita_history_status       enum ('active','inactive') default 'active',
+    vita_history_description  varchar(255)          not null,
+    member_id                 bigint unsigned,
+    created_datetime          datetime                   default current_timestamp,
+    updated_datetime          datetime                   default current_timestamp,
     constraint fk_charge_history_member foreign key (member_id)
         references tbl_member (id)
 );
 
 ALTER TABLE tbl_vita_history
-    MODIFY vita_history_type ENUM('charge','spend') NOT NULL;
+    MODIFY vita_history_type ENUM ('charge','spend') NOT NULL;
 ALTER TABLE tbl_vita_history
     ADD COLUMN vita_history_product_name VARCHAR(255);
-
 
 /* 방문 진료 */
 create table tbl_house_call
@@ -378,3 +376,37 @@ create table tbl_house_call_address
     constraint fk_house_call_address_hospital foreign key (house_call_id)
         references tbl_house_call (id)
 );
+
+
+create table tbl_payment
+(
+    id                     bigint unsigned auto_increment primary key,
+    member_id              bigint unsigned,                                       -- 결제한 회원
+    payment_method         varchar(50)    not null,                               -- 결제 수단 (우리는 카카오페이만 존재)
+    payment_amount         decimal(10, 2) not null,                               -- 결제 금액 (실제 원화/달러)
+    payment_status         enum ('pending','success','cancel') default 'pending', -- pending, success, cancel
+    payment_transaction_id varchar(100) unique,                                   -- pg사에서 내려오는 결제 번호
+    created_datetime       datetime                            default current_timestamp,
+    updated_datetime       datetime                            default current_timestamp,
+    constraint fk_payment_member foreign key (member_id)
+        references tbl_member (id)
+);
+alter table tbl_vita_history
+    add column payment_id bigint unsigned null after member_id,
+    add constraint fk_vita_payment foreign key (payment_id)
+        references tbl_payment (id);
+
+
+
+create table tbl_member_visited
+(
+    id           bigint unsigned auto_increment primary key,
+    member_id    bigint unsigned,
+    visited_datetime datetime default current_timestamp,
+    created_datetime datetime default current_timestamp,
+    updated_datetime datetime default current_timestamp,
+    constraint fk_member_visited_member foreign key (member_id)
+        references tbl_member (id)
+);
+
+drop table tbl_member_visited;

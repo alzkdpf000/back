@@ -13,7 +13,7 @@ const approvalLayout = (() => {
             `
         } else {
             doctors.forEach((doctor) => {
-                let check = doctor.doctorStatus ==="INACTIVE" && doctor.memberStatus === "ACTIVE";
+                let check = doctor.doctorStatus ==="inactive" && doctor.memberStatus === "active";
                 text += `
             <tr>
                                 <td class="td-member text-center">
