@@ -17,16 +17,17 @@ import java.util.List;
 @EqualsAndHashCode(of="id")
 public class DoctorListDTO {
     private Long id;
+    private Long memberId;
     private String memberName;
     private String doctorLicenseNumber;
     private String doctorSpecialty;
     private Status doctorStatus;
-    private Long memberId;
-    private Long hospitalId;
     private String createdDatetime;
     private String updatedDatetime;
 //  의사 기본정보
+    private String memberKakaoProfileUrl;
 //  의사 이미지
+    private Long hospitalId;
     private String hospitalName;
     private String hospitalPhone;
     private String roadAddress;

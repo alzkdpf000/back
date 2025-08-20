@@ -48,6 +48,7 @@
         SELECT
             d.member_id        AS memberId,
             m.member_name      AS memberName,
+            m.member_kakao_profile_url AS memberKakaoProfileUrl,
             d.doctor_specialty AS doctorSpecialty,
             d.doctor_status    AS doctorStatus,
             m.id               AS id,

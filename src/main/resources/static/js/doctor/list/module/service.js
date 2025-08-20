@@ -7,21 +7,16 @@ const doctorService = (() => {
         return await res.json();
     };
 
-    const toggleLike = async (doctorId, memberId = 42) => {
+    const toggleLike = async (doctorId, memberId = 1) => {
         const res = await fetch('/likes/toggle', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ doctorId, memberId: 1 })
         });
         if (!res.ok) throw new Error("좋아요 토글 실패");
-        return await res.text(); // "liked" or "unliked"
+        return await res.text();
     };
 
-    const getLikesCount = async (doctorId) => {
-        const res = await fetch(`/likes/count/${doctorId}`);
-        if (!res.ok) throw new Error("좋아요 수 조회 실패");
-        return await res.json();
-    };
 
-    return { getDoctors, toggleLike, getLikesCount };
+    return { getDoctors: getDoctors, toggleLike: toggleLike };
 })();
