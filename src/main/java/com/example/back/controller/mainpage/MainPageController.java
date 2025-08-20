@@ -15,6 +15,7 @@ public class MainPageController {
     @GetMapping
     public String goMainPage() {
         session.setAttribute("member", "tempMember");
+        session.removeAttribute("member");
         return "/main/main";
     }
 
