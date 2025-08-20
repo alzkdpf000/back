@@ -79,11 +79,11 @@ create table tbl_consultation_post
 
 create table tbl_category
 (
-    id               bigint unsigned auto_increment primary key,
-    category_name    varchar(255),
-    category_status  enum ('active','inactive') default 'active',
-    created_datetime datetime                   default current_timestamp,
-    updated_datetime datetime                   default current_timestamp
+    id                   bigint unsigned auto_increment primary key,
+    category_name        varchar(255),
+    category_status enum ('active','inactive') default 'active',
+    created_datetime     datetime                   default current_timestamp,
+    updated_datetime     datetime                   default current_timestamp
 );
 
 create table tbl_consultation_post_category

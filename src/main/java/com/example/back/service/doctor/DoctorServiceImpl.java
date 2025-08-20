@@ -3,12 +3,15 @@ package com.example.back.service.doctor;
 import com.example.back.common.enumeration.Status;
 import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.domain.hospital.HospitalDTO;
+import com.example.back.domain.hospital.HospitalVO;
+import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.counselreply.CounselReplyDTO;
 import com.example.back.dto.doctor.*;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.counselreply.CounselReplyDAO;
 import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.service.hospital.HospitalService;
+import com.example.back.service.likes.LikesService;
 import com.example.back.service.member.MemberService;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
@@ -30,10 +33,10 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorDAO doctorDAO;
     private final CounselReplyDAO counselReplyDAO;
-    private final DoctorDTO doctorDTO;
     private final MemberService memberService;
     private final HospitalService hospitalService;
-    private final MemberDTO memberDTO;
+    private final LikesService likesService;
+    private final com.example.back.dao.likes.LikesDAO likesDAO;
 
     @Override
     public DoctorListCriteriaDTO getList(int page, Long currentMemberId) {
@@ -41,10 +44,13 @@ public class DoctorServiceImpl implements DoctorService {
         criteria.setCurrentMemberId(currentMemberId);
 
         List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria);
+        doctorsList.forEach(doctor -> {
+            doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));
+        });
 
         // 1개 더 가져왔으면 마지막 제거
         boolean hasMore = doctorsList.size() > criteria.getRowCount();
-        if(hasMore) {
+        if (hasMore) {
             doctorsList.remove(doctorsList.size() - 1);
         }
         criteria.setHasMore(hasMore);
@@ -59,14 +65,14 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorCriteriaDTO getListAllStatus(Search search, String doctorStatus) {
         DoctorCriteriaDTO doctorCriteriaDTO = new DoctorCriteriaDTO();
-        int total = doctorDAO.findCountAllStatus(search,doctorStatus);
+        int total = doctorDAO.findCountAllStatus(search, doctorStatus);
         Criteria criteria = new Criteria(search.getPage(), total);
-        List<DoctorDTO> doctorsList = doctorDAO.findAllStatus(criteria,doctorStatus,search);
-        doctorsList.forEach(doctor ->{
+        List<DoctorDTO> doctorsList = doctorDAO.findAllStatus(criteria, doctorStatus, search);
+        doctorsList.forEach(doctor -> {
             doctor.setCreatedDate(DateUtils.getCreatedDate(doctor.getCreatedDatetime()));
         });
         criteria.setHasMore(doctorsList.size() > criteria.getRowCount());
-        if(criteria.isHasMore()){
+        if (criteria.isHasMore()) {
             doctorsList.remove(doctorsList.size() - 1);
         }
         doctorCriteriaDTO.setDoctorsList(doctorsList);
@@ -96,24 +102,40 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO) {
-        hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
-        log.info(doctorDTO.toString());
+        // 1. 병원 상태 활성화
+        hospitalDTO.setHospitalStatus(Status.ACTIVE.name());
 
-//      일반회원 정보 추가
-        memberService.join(memberDTO);
-        doctorDTO.setMemberId(memberDTO.getId());
+        // 2. 일반회원 정보 처리
+        if (memberDTO != null && memberDTO.getId() != null) {
+            // 기존 회원이면 ID만 연결
+            doctorDTO.setMemberId(memberDTO.getId());
+        } else {
+            // 신규 회원이면 DTO 그대로 넘김
+            memberDTO = memberService.join(memberDTO);
+            doctorDTO.setMemberId(memberDTO.getId());
+        }
 
+        log.info("Member ID after join: {}", doctorDTO.getMemberId());
 
-//      병원 정보 추가
-        hospitalService.register(hospitalDTO);
-        doctorDTO.setHospitalId(hospitalDTO.getId());
+        // 3. 병원 정보 추가
+        Long hospitalId = hospitalService.register(hospitalDTO);
+        doctorDTO.setHospitalId(hospitalId);
 
+        log.info("Hospital ID after register: {}", doctorDTO.getHospitalId());
 
-//      의사 정보 추가
-        doctorDTO.setMemberStatus(Status.valueOf("ACTIVE"));
+        // 4. 의사 정보 추가
+        doctorDTO.setMemberStatus(Status.ACTIVE);
+        doctorDTO.setDoctorStatus(Status.ACTIVE);
         doctorDAO.insertDoctor(doctorDTO);
 
+        log.info("Doctor 가입 완료 => memberId={}, hospitalId={}, license={}, specialty={}",
+                doctorDTO.getMemberId(),
+                doctorDTO.getHospitalId(),
+                doctorDTO.getDoctorLicenseNumber(),
+                doctorDTO.getDoctorSpecialty());
     }
 
 
+
 }
+

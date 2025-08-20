@@ -15,8 +15,6 @@
         </where>
     </sql>
 
-
-
     <insert id="insertDoctor" parameterType="com.example.back.dto.doctor.DoctorListDTO">
         insert into tbl_doctor (member_id,
                                 doctor_license_number,
@@ -29,7 +27,7 @@
                 #{hospitalId},
                 #{doctorStatus})
     </insert>
-    <insert id="insertJoinDoctor" parameterType="com.example.back.dto.doctor.DoctorDTO">
+    <insert id="insertJoinDoctor" parameterType="com.example.back.dto.doctor.DoctorDTO" useGeneratedKeys="true" keyProperty="id">
         insert into tbl_doctor (
             member_id,
             doctor_license_number,
@@ -50,6 +48,7 @@
         SELECT
             d.member_id        AS memberId,
             m.member_name      AS memberName,
+            m.member_kakao_profile_url AS memberKakaoProfileUrl,
             d.doctor_specialty AS doctorSpecialty,
             d.doctor_status    AS doctorStatus,
             m.id               AS id,

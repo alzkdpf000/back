@@ -135,7 +135,14 @@ select * from tbl_member;
 select * from tbl_doctor;
 select * from tbl_hospital;
 select * from tbl_hospital_address;
-<<<<<<< HEAD
+
+SELECT * FROM tbl_likes WHERE doctor_id = 30 AND member_id = 1;
+SELECT * FROM tbl_doctor WHERE tbl_doctor.member_id = 30;
+SELECT * FROM tbl_member WHERE id = 1;
+
+SELECT * FROM tbl_doctor WHERE member_id = 30;
+SELECT * FROM tbl_member WHERE id = 1;
+SELECT * FROM tbl_likes WHERE doctor_id = 30 AND member_id = 1;
 
 select id,
        member_email,
@@ -149,5 +156,4 @@ select id,
 from view_member_doctor
 where member_role = 'doctor';
 #   and doctor_status = 'active';
-=======
->>>>>>> doctor/list
+

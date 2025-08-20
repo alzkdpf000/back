@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface MemberService {
 
 //    회원가입
-    public void join(MemberDTO memberDTO);
+    public MemberDTO join(MemberDTO memberDTO);
 
 //    이메일 검사
     public boolean isExistMemberEmail(String memberEmail);

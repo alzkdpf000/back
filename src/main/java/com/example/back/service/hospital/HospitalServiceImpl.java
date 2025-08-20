@@ -16,7 +16,9 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     public Long register(HospitalDTO hospitalDTO) {
-        hospitalDAO.save(gtoVO(hospitalDTO));
+        HospitalVO vo = gtoVO(hospitalDTO);
+        hospitalDAO.save(vo);
+        hospitalDTO.setId(vo.getId());
         return hospitalDTO.getId();
     }
 }
