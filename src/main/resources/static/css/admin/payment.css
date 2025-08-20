@@ -180,11 +180,7 @@ a, a:active, a:focus, a:hover {
     text-decoration: none !important;
 }
 
-a:-webkit-any-link {
-    color: -webkit-link;
-    cursor: pointer;
-    text-decoration: underline;
-}
+
 
 i {
     font-style: italic;

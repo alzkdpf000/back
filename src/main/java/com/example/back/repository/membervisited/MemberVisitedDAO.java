@@ -1,6 +1,7 @@
 package com.example.back.repository.membervisited;
 
 import com.example.back.dto.membervisited.MemberVisitedDTO;
+import com.example.back.dto.membervisited.MemberVisitedStaticDTO;
 import com.example.back.mapper.membervisited.MemberVisitedMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +14,7 @@ import java.util.List;
 public class MemberVisitedDAO {
     private final MemberVisitedMapper memberVisitedMapper;
     // 월 별 방문자 수
-    public List<MemberVisitedDTO> findMonthlyVisits(){
+    public List<MemberVisitedStaticDTO> findMonthlyVisits(){
         return memberVisitedMapper.selectMonthlyVisits();
     }
     // 오늘 방문자 수

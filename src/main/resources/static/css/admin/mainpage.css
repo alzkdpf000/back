@@ -875,6 +875,13 @@ button:not(:disabled) {
     padding: 0 12px;
 }
 
+#userMenu.toggle{
+    display: block;
+    top:46px;
+    left: auto;
+}
+
+
 element.style {
     position: absolute;
     transform: translate3d(1468px, 58px, 0px);
@@ -1406,4 +1413,14 @@ div#loading{
     right: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+.statics-graph{
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+#joinChart, #visitedChart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

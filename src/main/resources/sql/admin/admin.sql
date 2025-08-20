@@ -55,6 +55,7 @@ INSERT INTO tbl_member_visited (member_id, visited_datetime) VALUES
 /* 월 별 가입자 수 */
 select date_format(created_datetime,'%Y-%m') as date,count(date_format(created_datetime,'%Y-%m')) as count
 from tbl_member
+where date_format(created_datetime,'%Y-%m')
 group by date_format(created_datetime,'%Y-%m')
 order by date desc;
 
@@ -75,3 +76,40 @@ where datediff(visited_datetime,current_timestamp) = 0;
 
 select datediff(visited_datetime,current_timestamp)
 from tbl_member_visited;
+
+select date_format(visited_datetime, '%Y-%m') as date, count(date_format(visited_datetime, '%Y-%m')) as count
+from tbl_member_visited
+where visited_datetime >= date_sub(curdate(), interval 3 month)
+group by date_format(visited_datetime, '%Y-%m')
+order by date ;
+
+WITH RECURSIVE T AS (
+    SELECT month(date_sub(curdate(), interval 2 month)) AS NUM
+    UNION ALL
+    SELECT NUM+1
+    FROM T
+    WHERE  NUM < month(curdate())
+)
+SELECT NUM
+     , IFNULL(B.CNT, 0) AS CNT
+FROM T
+         LEFT OUTER JOIN (
+    SELECT COUNT(*) AS CNT
+         , date_format(visited_datetime,'%m') as DATE
+    FROM tbl_member_visited
+    WHERE DATE_FORMAT(visited_datetime, '%Y') = DATE_FORMAT(curdate(), '%Y')
+    group by date_format(visited_datetime,'%m')
+    ORDER BY DATE desc ) B
+                         ON T.NUM = DATE;
+
+select month(date_sub(curdate(), interval 2 month)) , month(curdate())  from dual;
+
+
+
+SELECT
+     DATE_FORMAT(visited_datetime, '%Y-%m') AS DATE
+,month(str_to_date(DATE_FORMAT(tbl_member_visited.visited_datetime, '%Y-%m'),'%Y-%m'))
+FROM tbl_member_visited
+WHERE DATE_FORMAT(visited_datetime, '%Y') = DATE_FORMAT(curdate(), '%Y')
+
+ORDER BY DATE desc

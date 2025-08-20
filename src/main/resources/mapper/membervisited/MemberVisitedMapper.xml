@@ -2,15 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.membervisited.MemberVisitedMapper">
     <select id="selectMonthlyVisits">
-        select date_format(visited_datetime,'%Y-%m') as date,count(date_format(visited_datetime,'%Y-%m')) as count
-        from tbl_member_visited
-        group by date_format(visited_datetime,'%Y-%m')
-        order by date desc
-        limit 3;
+        with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM
+                             union all
+                             select NUM + 1
+                             from T
+                             where NUM &lt; month(curdate()))
+        select NUM                as date
+             , ifnull(B.count, 0) as count
+        from T
+                 left outer join (select COUNT(id)                           as count
+                                       , date_format(visited_datetime, '%m') as date
+                                  from tbl_member_visited
+                                  where DATE_FORMAT(visited_datetime, '%Y') = DATE_FORMAT(curdate(), '%Y')
+                                  group by date_format(visited_datetime, '%m')
+                                  order by DATE desc) B
+                                 on T.NUM = B.date;
     </select>
     <select id="selectCountTodayVisits">
         select count(id)
         from tbl_member_visited
-        where datediff(visited_datetime,current_timestamp) = 0;
+        where datediff(visited_datetime,current_timestamp) = 0
     </select>
 </mapper>

@@ -7,13 +7,6 @@ const popMenubtn = document.getElementById("pop-menu-bt2");
 const modalClose = document.getElementById("close");
 const modal = document.getElementById("modal");
 const modalOpen = document.getElementById("modal-open");
-const userMenuBtn = document.getElementById("usermenubtn");
-const userMenu = document.getElementById("usermenu");
-
-// 유저 메뉴 버튼
-userMenuBtn?.addEventListener("click", (e) => {
-    userMenu.classList.toggle("show");
-});
 
 
 // 필터 팝업 토글
