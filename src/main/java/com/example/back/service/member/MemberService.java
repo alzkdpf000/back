@@ -24,6 +24,9 @@ public interface MemberService {
     //   의사 가입 거절
     public boolean reject(Long memberId);
 
+//    로그인
+    public Optional<MemberDTO> login(MemberDTO memberDTO);
+
 //    회원가입 유효성 검사
     default boolean validateMember(MemberDTO memberDTO){
         if(memberDTO.getMemberName()==null||memberDTO.getMemberName().isBlank()){

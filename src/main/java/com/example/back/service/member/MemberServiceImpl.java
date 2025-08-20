@@ -26,8 +26,8 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberDTO join(MemberDTO memberDTO) {
         MemberVO memberVO = toVO(memberDTO);
-        memberDAO.save(memberVO);              // insert 후 memberVO.getId()에 DB PK가 들어감
-        memberDTO.setId(memberVO.getId());     // VO의 ID를 DTO에 복사
+        memberDAO.save(memberVO);
+        memberDTO.setId(memberVO.getId());
         return memberDTO;
     }
 
@@ -70,6 +70,12 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean reject(Long memberId) {
         return memberDAO.rejectDoctor(memberId) > 0;
+    }
+
+//    로그인
+    @Override
+    public Optional<MemberDTO> login(MemberDTO memberDTO) {
+        return memberDAO.findMemberEmailAndPassword(memberDTO);
     }
 
 }

@@ -27,6 +27,11 @@ public class MemberDAO {
         return memberMapper.existMemberEmail(memberEmail);
     }
 
+//    로그인
+    public Optional<MemberDTO> findMemberEmailAndPassword(MemberDTO memberDTO) {
+        return memberMapper.selectMemberForLogin(memberDTO);
+    }
+
     //  회원 전체 수
     //  전체 개수 조회
     public int findCountAllStatus(Search search) {

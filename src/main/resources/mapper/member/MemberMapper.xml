@@ -58,4 +58,21 @@
         set member_status = 'inactive'
         where id=#{memberId}
     </update>
+
+    <select id="selectMemberForLogin">
+        select id,
+               member_email,
+               member_password,
+               member_name,
+               member_phone,
+               member_status,
+               member_provider,
+               member_kakao_email,
+               member_kakao_profile_url,
+               member_role,
+               created_datetime,
+               updated_datetime
+        from tbl_member
+        where id = #{id}
+    </select>
 </mapper>

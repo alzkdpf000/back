@@ -32,4 +32,7 @@ public interface MemberMapper {
 
 //  의사 가입 거절
     public int updateDoctorStatusToRejected(Long memberId);
+
+//    로그인
+    public Optional<MemberDTO> selectMemberForLogin(MemberDTO memberDTO);
 }

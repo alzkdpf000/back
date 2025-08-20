@@ -60,4 +60,7 @@ public class MemberController {
         return result;
     }
 
+//    로그인
+    @GetMapping("login")
+    public String goToLoginForm(@CookieValue(name = "")){}
 }
