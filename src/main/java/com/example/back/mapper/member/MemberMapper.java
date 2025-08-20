@@ -2,6 +2,7 @@ package com.example.back.mapper.member;
 
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.dto.member.MemberStatics;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,23 +14,31 @@ import java.util.Optional;
 
 @Mapper
 public interface MemberMapper {
-//    회원 가입 추가
+    //    회원 가입 추가
     public void insertMember(MemberVO memberVO);
 
-//    이메일 검사
+    //    이메일 검사
     @Select("select count(*) > 0 " +
             "from tbl_member " +
             "where member_email = #{memberEmail}")
     public boolean existMemberEmail(String memberEmail);
 
-//  회원 전체 수
-    public int selectCountAllStatus(@Param("search")Search search);
-//  회원 정보 페이지 당
-    public List<MemberDTO> selectMembers(@Param("criteria")Criteria criteria, @Param("search")Search search);
+    //  회원 전체 수
+    public int selectCountAllStatus(@Param("search") Search search);
 
-//  status 상관없이 회원 정보 가져오기
+    //  회원 정보 페이지 당
+    public List<MemberDTO> selectMembers(@Param("criteria") Criteria criteria, @Param("search") Search search);
+
+    //  status 상관없이 회원 정보 가져오기
     public Optional<MemberDTO> selectMemberByIdAllStatus(Long memberId);
 
-//  의사 가입 거절
+    //   의사 가입 거절(회원 상태 자체를 inactive로)
     public int updateDoctorStatusToRejected(Long memberId);
+
+    //  월 별 가입자 수
+    public List<MemberStatics> selectMonthlyJoin();
+
+    //  오늘 가입자 수
+    public int selectCountTodayJoin();
+
 }

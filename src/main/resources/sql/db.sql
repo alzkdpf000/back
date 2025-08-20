@@ -380,16 +380,33 @@ create table tbl_house_call_address
 
 create table tbl_payment
 (
-    id               bigint  unsigned auto_increment primary key,
-    member_id        bigint         not null, -- 결제한 회원
-    payment_method   varchar(50)    not null, -- 결제 수단 (우리는 카카오페이만 존재)
-    payment_amount   decimal(10, 2) not null, -- 결제 금액 (실제 원화/달러)
-    payment_status   enum('pending','success','cancel')   default 'pending', -- pending, success, cancel
-    payment_transaction_id   varchar(100) unique,     -- pg사에서 내려오는 결제 번호
-    created_datetime datetime default current_timestamp,
-    updated_datetime datetime default current_timestamp
+    id                     bigint unsigned auto_increment primary key,
+    member_id              bigint unsigned,                                       -- 결제한 회원
+    payment_method         varchar(50)    not null,                               -- 결제 수단 (우리는 카카오페이만 존재)
+    payment_amount         decimal(10, 2) not null,                               -- 결제 금액 (실제 원화/달러)
+    payment_status         enum ('pending','success','cancel') default 'pending', -- pending, success, cancel
+    payment_transaction_id varchar(100) unique,                                   -- pg사에서 내려오는 결제 번호
+    created_datetime       datetime                            default current_timestamp,
+    updated_datetime       datetime                            default current_timestamp,
+    constraint fk_payment_member foreign key (member_id)
+        references tbl_member (id)
 );
 alter table tbl_vita_history
     add column payment_id bigint unsigned null after member_id,
     add constraint fk_vita_payment foreign key (payment_id)
         references tbl_payment (id);
+
+
+
+create table tbl_member_visited
+(
+    id           bigint unsigned auto_increment primary key,
+    member_id    bigint unsigned,
+    visited_datetime datetime default current_timestamp,
+    created_datetime datetime default current_timestamp,
+    updated_datetime datetime default current_timestamp,
+    constraint fk_member_visited_member foreign key (member_id)
+        references tbl_member (id)
+);
+
+drop table tbl_member_visited;

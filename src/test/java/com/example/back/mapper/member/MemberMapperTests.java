@@ -113,4 +113,26 @@ public class MemberMapperTests {
     public void testReject(){
         log.info("{}",memberService.reject(11L));
     }
+
+    @Test
+    public void testSelectMonthlyJoin(){
+        log.info(memberMapper.selectMonthlyJoin().toString());
+    }
+    @Test
+    public void testSelectTodayJoin(){
+        log.info("{}",memberMapper.selectCountTodayJoin());
+    }
+    @Test
+    public void testFindMonthlyJoin(){
+        log.info(memberDAO.findMonthlyJoin().toString());
+    }
+    @Test
+    public void testFindTodayJoin(){
+        log.info("{}",memberDAO.findCountTodayJoin());
+    }
+
+    @Test
+    public void testGetStatics(){
+        log.info("{}",memberService.getStatics());
+    }
 }

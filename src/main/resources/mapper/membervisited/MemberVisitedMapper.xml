@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.membervisited.MemberVisitedMapper">
+    <select id="selectMonthlyVisits">
+        select date_format(visited_datetime,'%Y-%m') as date,count(date_format(visited_datetime,'%Y-%m')) as count
+        from tbl_member_visited
+        group by date_format(visited_datetime,'%Y-%m')
+        order by date desc
+        limit 3;
+    </select>
+    <select id="selectCountTodayVisits">
+        select count(id)
+        from tbl_member_visited
+        where datediff(visited_datetime,current_timestamp) = 0;
+    </select>
+</mapper>

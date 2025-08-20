@@ -1,10 +1,12 @@
 package com.example.back.service.member;
 
 import com.example.back.dto.consultationpost.ConsultationPostDTO;
+import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.member.MemberDAO;
+import com.example.back.repository.membervisited.MemberVisitedDAO;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import com.example.back.util.Search;
@@ -22,6 +24,7 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberDAO memberDAO;
     private final ConsultationPostDAO  consultationPostDAO;
+    private final MemberVisitedDAO memberVisitedDAO;
     @Override
     public void join(MemberDTO memberDTO) {
         memberDAO.save(toVO(memberDTO));
@@ -65,6 +68,17 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean reject(Long memberId) {
         return memberDAO.rejectDoctor(memberId) > 0;
+    }
+
+    @Override
+    public MemberAdminStatics getStatics() {
+        MemberAdminStatics statics = new MemberAdminStatics();
+        statics.setTodayVisited(memberVisitedDAO.findCountTodayVisits());
+        statics.setMonthlyJoins(memberDAO.findMonthlyJoin());
+        statics.setMonthlyVisited(memberVisitedDAO.findMonthlyVisits());
+        statics.setMonthlyJoins(memberDAO.findMonthlyJoin());
+        return statics;
+
     }
 
 }

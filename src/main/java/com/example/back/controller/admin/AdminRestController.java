@@ -9,6 +9,7 @@ import com.example.back.dto.doctor.DoctorCriteriaDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
+import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.notice.NoticeDTO;
@@ -39,6 +40,14 @@ public class AdminRestController {
     private final MemberService memberService;
     private final PaymentService paymentService;
     private final DoctorService doctorService;
+
+    @GetMapping("")
+    public ResponseEntity<MemberAdminStatics> goStatics(){
+        MemberAdminStatics statics = memberService.getStatics();
+        return ResponseEntity.ok().body(statics);
+    }
+
+
 
     @PostMapping("inquires")
     public ResponseEntity<InquirySummaryDTO> searchInquiries(@RequestBody Search search) {
@@ -122,6 +131,5 @@ public class AdminRestController {
     public ResponseEntity<PaymentCriteriaDTO> searchPayments(@RequestBody Search search) {
         PaymentCriteriaDTO payments = paymentService.getPayments(search);
         return ResponseEntity.ok().body(payments);
-
     }
 }

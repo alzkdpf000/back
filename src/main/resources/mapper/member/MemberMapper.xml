@@ -58,4 +58,18 @@
         set member_status = 'inactive'
         where id=#{memberId}
     </update>
+
+
+    <select id="selectMonthlyJoin">
+        select date_format(created_datetime,'%Y-%m') as date,count(date_format(created_datetime,'%Y-%m')) as count
+        from tbl_member
+        group by date_format(created_datetime,'%Y-%m')
+        order by date desc
+        limit 3;
+    </select>
+    <select id="selectCountTodayJoin">
+        select count(id)
+        from tbl_member
+        where datediff(created_datetime,current_timestamp) = 0;
+    </select>
 </mapper>
