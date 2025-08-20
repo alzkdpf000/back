@@ -10,7 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-@Getter @Setter @ToString(callSuper=true)
+@Getter @ToString(callSuper=true)
 @SuperBuilder
 @EqualsAndHashCode(of = "id")
 
