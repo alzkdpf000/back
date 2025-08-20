@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.payment.PaymentMapper">
+    <sql id="search">
+        <if test="search.categories != null and search.categories.length gt 0 ">
+            and
+            <trim prefix="(" prefixOverrides="or" suffix=")">
+                <foreach item="category" collection="search.categories">
+                    or tp.payment_status = #{category}
+                </foreach>
+            </trim>
+        </if>
+        <if test='search.keyword != null and search.keyword !=""'>
+            and (
+            tm.member_email like concat('%', #{search.keyword}, '%') or
+            tm.member_kakao_email like concat('%', #{search.keyword}, '%') or
+            tm.member_name like concat('%', #{search.keyword}, '%') or
+            tp.payment_transaction_id = #{search.keyword} or
+            tvh.vita_history_product_name like concat('%', #{search.keyword}, '%')
+            )
+        </if>
+    </sql>
+    <select id="searchPayments">
+        select
+        tp.id,
+        tm.member_email,
+        tm.member_name,
+        tm.member_provider,
+        tm.member_kakao_email,
+        tp.created_datetime,
+        tp.payment_amount,
+        tp.payment_method,
+        tp.payment_transaction_id,
+        tp.payment_status,
+        tvh.vita_history_product_name
+        from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
+        join tbl_vita_history tvh on tp.id = tvh.payment_id
+        <include refid="search"/>
+        order by tp.id desc
+        limit #{criteria.count} offset #{criteria.offset}
+    </select>
+
+    <select id="searchCountPayment">
+        select
+        count(tm.id)
+        from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
+        join tbl_vita_history tvh on tp.id = tvh.payment_id
+        <include refid="search"/>
+    </select>
+
+    <select id="searchPaymentAmount">
+        select
+        tp.payment_status,
+        sum(tp.payment_amount) as payment_amount
+        from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
+        join tbl_vita_history tvh on tp.id = tvh.payment_id
+        <include refid="search"/>
+        where
+            tp.payment_status != 'pending'
+        group by tp.payment_status
+    </select>
+</mapper>

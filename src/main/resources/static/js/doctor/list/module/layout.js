@@ -1,9 +1,14 @@
-const doctorLayout = ((currentMemberId) => {
+const doctorLayout = ((currentMemberId = 1) => {
 
-    // 의사 목록 화면 표시
+    // 의사 목록 표시
     const showList = (criteriaDTO) => {
         const container = document.getElementById("intersectionObserver");
         let html = "";
+
+        if (!criteriaDTO.doctorsList || criteriaDTO.doctorsList.length === 0) {
+            container.innerHTML = "<li>의사 정보가 없습니다.</li>";
+            return;
+        }
 
         criteriaDTO.doctorsList.forEach(doctor => {
             html += `
@@ -11,7 +16,7 @@ const doctorLayout = ((currentMemberId) => {
                 <a>
                     <div class="content-info">
                         <img class="contentInfoImg img-doc-tag" 
-                             src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" 
+                             src="${doctor.memberKakaoProfileUrl || 'https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp'}" 
                              width="48" height="48" alt="">
                         <div class="content-info-text">
                             <div class="doctor-info">
@@ -19,7 +24,7 @@ const doctorLayout = ((currentMemberId) => {
                                 <div class="docterinfo-favorite-wrapper">
                                     <img class="like-btn" 
                                          data-doctor-id="${doctor.id}" 
-                                         src="${doctor.liked ? '/images/heart-filled.png' : '/images/heart-empty.png'}" 
+                                         src="${doctor.liked ? '/images/heart.png' : '/images/heart-empty.png'}" 
                                          style="cursor:pointer; width:15px; height:15px;">
                                     <span class="doctorinfo-favoriteCount">${doctor.likesCount || 0}</span><span class="unit">명</span>
                                 </div>
@@ -30,13 +35,13 @@ const doctorLayout = ((currentMemberId) => {
                             </div>
                             <div class="info-container hospital-info">
                                 <span class="first">소속 병원</span>
-                                <span class="second">${doctor.hospitalName}</span>
+                                <span class="second">${doctor.hospitalName || ""}</span>
                                 <span class="first detail-address">상세 주소</span>
-                                <span class="second">${doctor.hospitalAddress}</span>
+                                <span class="second">${doctor.hospitalAddress || ""}</span>
                             </div>
                             <div class="info-container">
                                 <span class="first">병원 전화 번호</span>
-                                <span class="second">${doctor.hospitalPhone}</span>
+                                <span class="second">${doctor.hospitalPhone || ""}</span>
                             </div>
                         </div>
                     </div>
@@ -53,15 +58,23 @@ const doctorLayout = ((currentMemberId) => {
                 const doctorId = Number(btn.dataset.doctorId);
                 try {
                     const result = await doctorService.toggleLike(doctorId, currentMemberId);
-                    btn.src = result === "liked" ? '/images/heart-filled.png' : '/images/heart-empty.png';
-                    const count = await doctorService.getLikesCount(doctorId);
-                    btn.nextElementSibling.textContent = count;
+                    btn.src = result === "liked" ? '/images/heart.png' : '/images/heart-empty.png';
+                    console.log("toggleLike result:", result);
                 } catch(err) {
                     console.error("좋아요 토글 실패:", err);
                 }
             });
         });
     };
+
+    // 선택한 카테고리 정보 담기
+    document.querySelectorAll(".category-btn").forEach(btn => {
+        btn.addEventListener("click", e => {
+            const category = e.target.innerText; // 버튼 안 텍스트 가져오기 (ex. 피부과)
+            document.getElementById("selectedCategory").value = category; // hidden input에 값 세팅
+            document.getElementById("search").submit(); // 검색 폼 전송
+        });
+    });
 
     // 페이징
     const showPaging = (criteria) => {
@@ -87,15 +100,14 @@ const doctorLayout = ((currentMemberId) => {
     // 의사 목록 로드
     const loadDoctors = async (page = 1) => {
         try {
-            const criteriaDTO = await doctorService.getDoctors(page);
+            const criteriaDTO = await doctorService.getDoctors(page, currentMemberId);
             showList(criteriaDTO);
             showPaging(criteriaDTO.criteria);
         } catch(err) {
             console.error("의사 목록 로드 실패:", err);
         }
     };
-
-    return { loadDoctors };
+    return { loadDoctors: loadDoctors };
 })(1);
 
 document.addEventListener("DOMContentLoaded", () => {

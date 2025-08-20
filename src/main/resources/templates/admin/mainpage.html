@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>골든타임 관리자</title>
-
     <link rel="stylesheet" href="/css/admin/font.css">
     <link rel="stylesheet" href="/css/admin/mainpage.css">
+    <link rel="stylesheet" href="/css/admin/payment.css">
     <link rel="stylesheet" href="/css/admin/notification.css">
     <link rel="stylesheet" href="/css/admin/notificationDetail.css">
     <link rel="stylesheet" href="/css/admin/inquiry.css">
@@ -27,7 +27,7 @@
                             </span>
 
                     </div>
-                    <a class="app-name d-flex justify-content-between align-items-center " href="">
+                    <a class="app-name d-flex justify-content-between align-items-center " href="/" id="asd">
                         <span>골든타임</span>
                         <i class="mdi mdi-apps"></i>
                     </a>
@@ -37,7 +37,7 @@
             <div class="menu-wrapper flex-grow-1">
                 <ul class="menu-list">
                     <li class="menu menu-item d-flex flex-column">
-                        <a class="boot-link menu-btn main-page active " href="">
+                        <a class="menu-btn active mainPage">
                             <span class="menu-name">Home</span>
                         </a>
 
@@ -69,20 +69,20 @@
                         </ul>
                     </li>
                     <li class="menu menu-item d-flex flex-column">
-                        <a class="boot-link menu-btn approval" href="">
+                        <a class="boot-link menu-btn approval" >
                             <span class="menu-name">가입승인</span>
                         </a>
 
                     </li>
                     <li class="menu menu-item d-flex flex-column">
-                        <a class="boot-link menu-btn payment" href="">
+                        <a class="boot-link menu-btn payment" >
                             <span class="menu-name">결제내역조회</span>
                         </a>
 
                     </li>
                     <li class="menu menu-item d-flex flex-column">
                         <!--  -->
-                        <a class="boot-link menu-btn inquiry" href="">
+                        <a class="boot-link menu-btn inquiry" >
                             <span class="menu-name">문의</span>
 
                         </a>
@@ -112,10 +112,10 @@
                                 <div class="user-avatar">T</div>
                                 <div class="user-menu-email">test@gamil.com</div>
                             </div>
-                            <div id="usermenu" class="user-menu-content dropdown-menu dropdown-menu-right">
+                            <div id="userMenu" class="user-menu-content dropdown-menu dropdown-menu-right">
                                 <ul class="menu-body list-unstyled">
                                     <li>
-                                        <a class="boot-link d-block text-dark" href="">
+                                        <a class="boot-link d-block text-dark" >
                                             <i class="mdi mdi-bell-outline mr-2 mdi-18px"></i>
                                             알림
                                         </a>
@@ -149,6 +149,7 @@
         <img src="/images/loading.gif">
     </div>
 </body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/js/admin/inquiry/module/service.js"></script>
 <script src="/js/admin/inquiry/module/layout.js"></script>
 <script src="/js/admin/inquiry/event.js"></script>
@@ -167,6 +168,11 @@
 <script src="/js/admin/approval/module/service.js"></script>
 <script src="/js/admin/approval/module/layout.js"></script>
 <script src="/js/admin/approval/event.js"></script>
+<script src="/js/admin/payment/module/service.js"></script>
+<script src="/js/admin/payment/module/layout.js"></script>
+<script src="/js/admin/payment/event.js"></script>
+<script src="/js/admin/mainpage/module/service.js"></script>
+<script src="/js/admin/mainpage/module/layout.js"></script>
 <script src="/js/admin/mainpage/event.js"></script>
 
 </html>

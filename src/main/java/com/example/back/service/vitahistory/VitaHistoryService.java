@@ -1,15 +1,10 @@
-package com.example.back.service.payment;
+package com.example.back.service.vitahistory;
 
 
-import com.example.back.domain.payment.VitaHistoryVO;
-import com.example.back.dto.payment.VitaHistoryCriteriaDTO;
-import com.example.back.dto.payment.VitaHistoryDTO;
-import com.example.back.util.Search;
+import com.example.back.domain.vitahistory.VitaHistoryVO;
+import com.example.back.dto.vitahistory.VitaHistoryDTO;
 
 public interface VitaHistoryService {
-
-    //    관리자 페이지 충전 사용 내역들
-    public VitaHistoryCriteriaDTO getVitaHistories(Search search);
 
 
 
@@ -24,6 +19,7 @@ public interface VitaHistoryService {
                 .createdDatetime(vitaHistoryDTO.getCreatedDatetime())
                 .updatedDatetime(vitaHistoryDTO.getUpdatedDatetime())
                 .vitaHistoryResult(vitaHistoryDTO.getVitaHistoryResult())
+                .paymentId(vitaHistoryDTO.getPaymentId())
                 .vitaHistoryType(vitaHistoryDTO.getVitaHistoryType())
                 .build();
     }

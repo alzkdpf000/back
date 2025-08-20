@@ -10,7 +10,7 @@ public interface LikesMapper {
 
     void deleteByMemberAndDoctor(LikesDTO dto);
 
-    int selectByMemberAndDoctor(LikesDTO dto);
+    int selectByMemberIdAndDoctorId (LikesDTO dto);
 
     int countByDoctorId(Long doctorId);
 
