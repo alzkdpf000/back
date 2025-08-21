@@ -7,7 +7,6 @@ import com.example.back.mapper.doctor.DoctorMapper;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,12 +18,13 @@ public class DoctorDAO {
     private final DoctorMapper doctorMapper;
     private final DoctorDTO doctorDTO;
 
-    public int findCountDoctorList(){
-        return doctorMapper.selectCountAll();
+//  전체 리스트 조회
+    public List<DoctorListDTO> findDoctorList(Criteria criteria, Search search) {
+        return doctorMapper.selectDoctorList(criteria, search);
     }
-
-    public List<DoctorListDTO> findDoctorList(Criteria criteria) {
-        return doctorMapper.selectDoctorList(criteria);
+//  검색 조건 포함 전체 개수 조회
+    public int findCountDoctorList(Search search){
+        return doctorMapper.selectCountAll(search);
     }
 
     //  멤버 status 상관없는 의사 목록

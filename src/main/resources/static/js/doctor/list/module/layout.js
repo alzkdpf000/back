@@ -1,6 +1,77 @@
+// ===================== 공통 설정 =====================
+HTMLCollection.prototype.forEach = Array.prototype.forEach;
+let modalCheck;
+
+// ===================== 모달 관련 함수 =====================
+const showWarnModal = (modalMessage) => {
+    modalCheck = false;
+    document.getElementById("content-wrap").innerHTML = modalMessage;
+    document.querySelector("div.warn-modal").style.animation = "popUp 0.5s";
+    document.querySelector("div.modal").style.display = "flex";
+    setTimeout(() => { modalCheck = true; }, 500);
+};
+
+document.querySelector("div.modal").addEventListener("click", () => {
+    if (!modalCheck) return;
+    document.querySelector("div.warn-modal").style.animation = "popDown 0.5s";
+    setTimeout(() => { document.querySelector("div.modal").style.display = "none"; }, 450);
+});
+
+// ===================== 카테고리 모달 =====================
+const categoryModal = document.querySelector(".category-modal");
+const categoryModalOpenBtn = document.querySelector("button.category-container-modal-btn");
+const categoryModalOpenBtnText = categoryModalOpenBtn.querySelector("span.check-list");
+const categoryFinalSelect = document.querySelector(".category-select-fix-btn");
+const categorySelectCancelAll = document.querySelector(".category-select-btn-del");
+const categoryListBtns = document.querySelectorAll("ul.category-list-wrap li button.category-btn");
+
+let categoryList = [];
+
+categoryModalOpenBtn.addEventListener("click", () => {
+    categoryModal.style.display = "flex";
+});
+
+categoryListBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const text = btn.firstElementChild.textContent;
+        if (btn.classList.contains("checked")) {
+            btn.classList.remove("checked");
+            categoryList.splice(categoryList.indexOf(text), 1);
+        } else {
+            btn.classList.add("checked");
+            categoryList.push(text);
+        }
+    });
+});
+
+categorySelectCancelAll.addEventListener("click", () => {
+    categoryListBtns.forEach((btn) => {
+        if (btn.classList.contains("checked")) {
+            const text = btn.firstElementChild.textContent;
+            btn.classList.remove("checked");
+            categoryList.splice(categoryList.indexOf(text), 1);
+        }
+    });
+});
+
+categoryFinalSelect.addEventListener("click", () => {
+    if (categoryList.length === 0) {
+        categoryModalOpenBtnText.textContent = "전체";
+    } else if (categoryList.length === 1) {
+        categoryModalOpenBtnText.textContent = categoryList[0];
+    } else {
+        categoryModalOpenBtnText.textContent = `${categoryList[0]} 외 ${categoryList.length - 1}개`;
+    }
+    categoryModal.style.display = "none";
+
+    // 카테고리 선택 완료 후 검색 실행
+    const keyword = document.getElementById("keywordInput").value || '';
+    doctorLayout.loadDoctors(1, keyword, categoryList);
+});
+
+// ===================== 의사 목록 JS =====================
 const doctorLayout = ((currentMemberId = 1) => {
 
-    // 의사 목록 표시
     const showList = (criteriaDTO) => {
         const container = document.getElementById("intersectionObserver");
         let html = "";
@@ -56,27 +127,24 @@ const doctorLayout = ((currentMemberId = 1) => {
         container.querySelectorAll(".like-btn").forEach(btn => {
             btn.addEventListener("click", async () => {
                 const doctorId = Number(btn.dataset.doctorId);
+                const wrapper = btn.closest(".docterinfo-favorite-wrapper");
+                const countSpan = wrapper.querySelector(".doctorinfo-favoriteCount");
+
                 try {
                     const result = await doctorService.toggleLike(doctorId, currentMemberId);
                     btn.src = result === "liked" ? '/images/heart.png' : '/images/heart-empty.png';
-                    console.log("toggleLike result:", result);
+
+                    let currentCount = Number(countSpan.textContent);
+                    currentCount = result === "liked" ? currentCount + 1 : currentCount - 1;
+                    countSpan.textContent = currentCount;
                 } catch(err) {
                     console.error("좋아요 토글 실패:", err);
+                    showWarnModal("로그인 후 이용해주세요.");
                 }
             });
         });
     };
 
-    // 선택한 카테고리 정보 담기
-    document.querySelectorAll(".category-btn").forEach(btn => {
-        btn.addEventListener("click", e => {
-            const category = e.target.innerText; // 버튼 안 텍스트 가져오기 (ex. 피부과)
-            document.getElementById("selectedCategory").value = category; // hidden input에 값 세팅
-            document.getElementById("search").submit(); // 검색 폼 전송
-        });
-    });
-
-    // 페이징
     const showPaging = (criteria) => {
         const pageContainer = document.getElementById("page-container");
         let html = "";
@@ -92,24 +160,40 @@ const doctorLayout = ((currentMemberId = 1) => {
         pageContainer.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", e => {
                 e.preventDefault();
-                loadDoctors(link.dataset.page);
+                const page = Number(link.dataset.page);
+                const keyword = document.getElementById("keywordInput").value || '';
+                loadDoctors(page, keyword, categoryList);
             });
         });
     };
 
-    // 의사 목록 로드
-    const loadDoctors = async (page = 1) => {
+    const loadDoctors = async (page = 1, keyword = '', selectedCategories = []) => {
         try {
-            const criteriaDTO = await doctorService.getDoctors(page, currentMemberId);
-            showList(criteriaDTO);
-            showPaging(criteriaDTO.criteria);
-        } catch(err) {
-            console.error("의사 목록 로드 실패:", err);
+            const params = new URLSearchParams();
+            params.append('keyword', keyword);
+            selectedCategories.forEach(cat => params.append('categories', cat));
+
+            const res = await fetch(`/api/doctors/list/${page}?${params.toString()}`);
+            if (!res.ok) throw new Error("의사 목록 로드 실패");
+
+            const data = await res.json();
+            showList(data);
+            showPaging(data.criteria);
+        } catch (err) {
+            console.error(err);
         }
     };
-    return { loadDoctors: loadDoctors };
+
+    document.getElementById("searchForm").addEventListener("submit", e => {
+        e.preventDefault();
+        const keyword = document.getElementById("keywordInput").value || '';
+        loadDoctors(1, keyword, categoryList);
+    });
+
+    return { loadDoctors };
 })(1);
 
+// ===================== 초기 실행 =====================
 document.addEventListener("DOMContentLoaded", () => {
     doctorLayout.loadDoctors(1);
 });

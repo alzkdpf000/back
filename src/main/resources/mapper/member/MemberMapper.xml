@@ -72,6 +72,7 @@
                updated_datetime
         from tbl_member
         where member_email = #{memberEmail} and member_password = #{memberPassword} and member_status = 'active'
+    </select>
 
     <select id="selectMonthlyJoin">
         with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM
