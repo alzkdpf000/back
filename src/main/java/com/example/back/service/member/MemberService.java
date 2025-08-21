@@ -2,6 +2,7 @@ package com.example.back.service.member;
 
 
 import com.example.back.domain.member.MemberVO;
+import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.util.Search;
@@ -21,11 +22,14 @@ public interface MemberService {
     //  status 상관없이 회원 정보 가져오기
     public Optional<MemberDTO> getMemberByIdAllStatus(Long memberId);
 
-    //   의사 가입 거절
+    //   의사 가입 거절(회원 상태 자체를 inactive로)
     public boolean reject(Long memberId);
 
 //    로그인
     public Optional<MemberDTO> login(MemberDTO memberDTO);
+
+//    관리자 페이지 회원들 통계 자료들
+    public MemberAdminStatics getStatics();
 
 //    회원가입 유효성 검사
     default boolean validateMember(MemberDTO memberDTO){

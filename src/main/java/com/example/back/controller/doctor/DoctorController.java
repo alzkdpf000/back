@@ -7,6 +7,7 @@ import com.example.back.dto.member.MemberDTO;
 import com.example.back.service.doctor.DoctorService;
 import com.example.back.service.hospital.HospitalService;
 import com.example.back.service.member.MemberService;
+import com.example.back.util.Search;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,13 @@ public class DoctorController {
     private final HospitalService hospitalService;
 
     // 의사 목록 페이지
-    @GetMapping("/list")
-    public String listPage(Model model) {
+    @GetMapping("list/{page}")
+    public String listPage(@PathVariable int page,
+                           Model model,
+                           Search search) {
 
         model.addAttribute("pageTitle", "의사 목록");
+        model.addAttribute("search", search);
         return "doctor/doctor-list";
     }
 

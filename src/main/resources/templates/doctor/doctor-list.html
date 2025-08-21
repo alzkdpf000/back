@@ -33,10 +33,11 @@
                         <div class="category-list-wrap">
                             <div class="total-search-container">
                                 <!-- 잠시 대기 -->
-                                <form id="searchForm" name="searchForm">
+                                <form action="/doctor/list/1" method="get" id="search" th:object="${search}">
                                     <div class="total-search-input-wrap">
                                         <!-- 검색 이벤트 -->
-                                        <input type="text" class="total-search-input" placeholder="검색어를 입력해주세요." form="searchForm" name="searchContent">
+                                        <input type="text" name="keyword" th:value="*{keyword}" class="total-search-input" placeholder="검색어를 입력해주세요.">
+                                        <input type="hidden" name="category" id="selectedCategory" th:value="*{category}">
                                         <!-- /검색 이벤트 -->
                                         <img alt="search" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" src="https://media.a-ha.io/aha-qna/images/common/icons/mark/magnifying-000%20default.svg">
                                     </div>

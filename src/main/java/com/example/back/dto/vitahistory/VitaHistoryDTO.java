@@ -1,4 +1,4 @@
-package com.example.back.dto.payment;
+package com.example.back.dto.vitahistory;
 
 import com.example.back.common.enumeration.Result;
 import com.example.back.common.enumeration.Status;
@@ -25,6 +25,7 @@ public class VitaHistoryDTO {
     private String createdDatetime;
     private String updatedDatetime;
     private String memberName;
+    private Long paymentId;
     private String memberEmail;
     private String memberProvider;
     private String memberKakaoEmail;

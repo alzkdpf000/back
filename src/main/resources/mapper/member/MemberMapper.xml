@@ -59,6 +59,7 @@
         where id=#{memberId}
     </update>
 
+
     <select id="selectMemberForLogin">
         select id,
                member_email,
@@ -71,5 +72,28 @@
                updated_datetime
         from tbl_member
         where member_email = #{memberEmail} and member_password = #{memberPassword} and member_status = 'active'
+
+    <select id="selectMonthlyJoin">
+        with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM
+                             union all
+                             select NUM + 1
+                             from T
+                             where NUM &lt; month(curdate()))
+        select NUM                as date
+             , ifnull(B.count, 0) as count
+        from T
+                 left outer join (select COUNT(id)                           as count
+                                       , date_format(created_datetime, '%m') as date
+                                  from tbl_member
+                                  where DATE_FORMAT(created_datetime, '%Y') = DATE_FORMAT(curdate(), '%Y')
+                                  group by date_format(created_datetime, '%m')
+                                  order by DATE desc) B
+                                 on T.NUM = B.date;
+
+    </select>
+    <select id="selectCountTodayJoin">
+        select count(id)
+        from tbl_member
+        where datediff(created_datetime,current_timestamp) = 0
     </select>
 </mapper>

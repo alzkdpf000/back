@@ -38,7 +38,7 @@ doctorMenuBtn.addEventListener("click", async (e) => {
     })
     document.getElementById("doctors").style.display = "block";
     doctorMenuBtn.classList.add("checked");
-    memberTab.classList.remove("active");
+    memberTab.classList.remove("checked");
     loading.style.display = "block";
     await showDoctors();
     setTimeout(async () => {
@@ -86,13 +86,13 @@ const doctorBody = document.getElementById("doctors");
 memberTab.addEventListener("click", async (e) => {
     console.log("멤버 탭을 선택햇아여")
     doctorBody.style.display = "none";
-    memberTab.classList.add("active");
+    memberTab.classList.add("checked");
     loading.style.display = "block";
     await showMembers();
     setTimeout(async () => {
         loading.style.display = "none";
     }, 1000)
-    doctorTab.classList.remove("active");
+    doctorTab.classList.remove("checked");
     doctorMenuBtn.classList.remove("checked");
     memberMenuBtn.classList.add("checked");
     memberBody.style.display = "block";
@@ -100,13 +100,13 @@ memberTab.addEventListener("click", async (e) => {
 
 doctorTab.addEventListener("click", async (e) => {
     memberBody.style.display = "none";
-    doctorTab.classList.add("active");
+    doctorTab.classList.add("checked");
     loading.style.display = "block";
     await showDoctors();
     setTimeout(async () => {
         loading.style.display = "none";
     }, 1000)
-    memberTab.classList.remove("active");
+    memberTab.classList.remove("checked");
     doctorMenuBtn.classList.add("checked");
     memberMenuBtn.classList.remove("checked");
     doctorBody.style.display = "block";

@@ -20,7 +20,7 @@ public class LikesDAO {
     }
 
     public boolean isLiked(LikesDTO dto) {
-        return likesMapper.selectByMemberAndDoctor(dto) > 0;
+        return likesMapper.selectByMemberIdAndDoctorId(dto) > 0;
     }
 
     public int getLikesCount(Long doctorId) {

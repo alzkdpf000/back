@@ -9,17 +9,18 @@ import com.example.back.dto.doctor.DoctorCriteriaDTO;
 import com.example.back.dto.doctor.DoctorHospitalDTO;
 import com.example.back.dto.inquiry.InquiryMemberReplyDTO;
 import com.example.back.dto.inquiry.InquirySummaryDTO;
+import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.notice.NoticeDTO;
 import com.example.back.dto.notice.NoticesCriteriaDTO;
-import com.example.back.dto.payment.VitaHistoryCriteriaDTO;
+import com.example.back.dto.payment.PaymentCriteriaDTO;
 import com.example.back.service.doctor.DoctorService;
 import com.example.back.service.inquiry.InquiryService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.notice.NoticeService;
-import com.example.back.service.payment.VitaHistoryService;
-import com.example.back.util.ScrollCriteria;
+import com.example.back.service.payment.PaymentService;
+import com.example.back.service.vitahistory.VitaHistoryService;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,11 +38,19 @@ public class AdminRestController {
     private final InquiryService inquiryService;
     private final NoticeService noticeService;
     private final MemberService memberService;
-    private final VitaHistoryService vitaHistoryService;
+    private final PaymentService paymentService;
     private final DoctorService doctorService;
 
+    @GetMapping("")
+    public ResponseEntity<MemberAdminStatics> goStatics(){
+        MemberAdminStatics statics = memberService.getStatics();
+        return ResponseEntity.ok().body(statics);
+    }
+
+
+
     @PostMapping("inquires")
-    public ResponseEntity<InquirySummaryDTO> inquires(@RequestBody Search search) {
+    public ResponseEntity<InquirySummaryDTO> searchInquiries(@RequestBody Search search) {
         log.info("search ::::::::::::{}",search.toString());
         ;
         InquirySummaryDTO inquiryListWithAnswerStats = inquiryService.getInquiryListWithAnswerStats(search);
@@ -55,7 +64,7 @@ public class AdminRestController {
     }
 
     @GetMapping("notices")
-    public ResponseEntity<NoticesCriteriaDTO> notices(@RequestParam int page) {
+    public ResponseEntity<NoticesCriteriaDTO> searchNotices(@RequestParam int page) {
         NoticesCriteriaDTO noticesCriteriaDTO = noticeService.getList(page);
         return ResponseEntity.ok().body(noticesCriteriaDTO);
     }
@@ -67,7 +76,7 @@ public class AdminRestController {
     }
 
     @PostMapping("members")
-    public ResponseEntity<MemberCriteriaDTO> members(@RequestBody Search search) {
+    public ResponseEntity<MemberCriteriaDTO> searchMembers(@RequestBody Search search) {
         MemberCriteriaDTO members = memberService.getListAllStatus(search);
         return ResponseEntity.ok().body(members);
     }
@@ -80,7 +89,7 @@ public class AdminRestController {
     }
 
     @PostMapping("doctors")
-    public ResponseEntity<DoctorCriteriaDTO> doctors(@RequestBody Search search) {
+    public ResponseEntity<DoctorCriteriaDTO> searchDoctors(@RequestBody Search search) {
         DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, Status.ACTIVE.getValue());
         return ResponseEntity.ok().body(doctors);
     }
@@ -93,7 +102,7 @@ public class AdminRestController {
     }
 
     @PostMapping("doctors/pending")
-    public ResponseEntity<DoctorCriteriaDTO> pendingDoctors(@RequestBody Search search) {
+    public ResponseEntity<DoctorCriteriaDTO> searchPendingDoctors(@RequestBody Search search) {
         log.info("{}",search.toString());
         DoctorCriteriaDTO doctors = doctorService.getListAllStatus(search, Status.INACTIVE.getValue());
         return ResponseEntity.ok().body(doctors);
@@ -118,10 +127,9 @@ public class AdminRestController {
     }
 
 
-    @PostMapping("payment")
-    public ResponseEntity<VitaHistoryCriteriaDTO> vitaHistories(@RequestBody Search search) {
-        VitaHistoryCriteriaDTO vitaHistories = vitaHistoryService.getVitaHistories(search);
-        return ResponseEntity.ok().body(vitaHistories);
-
+    @PostMapping("payments")
+    public ResponseEntity<PaymentCriteriaDTO> searchPayments(@RequestBody Search search) {
+        PaymentCriteriaDTO payments = paymentService.getPayments(search);
+        return ResponseEntity.ok().body(payments);
     }
 }
