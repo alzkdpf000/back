@@ -22,6 +22,12 @@ public class MemberDAO {
         memberMapper.insertMember(memberVO);
     }
 
+    //    카카오 회원추가
+    public void saveKakaoMember(MemberVO memberVO) {
+        memberMapper.insertKakaoMember(memberVO);
+
+    }
+
     //    이메일 검사
     public boolean isExistMemberEmail(String memberEmail) {
 
@@ -63,5 +69,10 @@ public class MemberDAO {
     //  오늘 가입자 수
     public int findCountTodayJoin() {
         return memberMapper.selectCountTodayJoin();
+    }
+
+//    카카오 로그인
+    public Optional<MemberDTO> findMemberByKakaoEmail(String kakaoEmail) {
+        return memberMapper.selectMemberForKakaoEmail(kakaoEmail);
     }
 }

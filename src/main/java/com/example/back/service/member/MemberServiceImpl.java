@@ -106,5 +106,16 @@ public class MemberServiceImpl implements MemberService{
         return true;
     }
 
+    @Override
+    public Optional<MemberDTO> getKakaoMember(String kakaoEmail) {
+        return memberDAO.findMemberByKakaoEmail(kakaoEmail);
+    }
+
+    @Override
+    public void joinKakaoMember(MemberDTO memberDTO) {
+        memberDAO.saveKakaoMember(toVO(memberDTO));
+
+    }
+
 
 }

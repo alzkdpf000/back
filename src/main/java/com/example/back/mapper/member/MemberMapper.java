@@ -16,6 +16,8 @@ import java.util.Optional;
 public interface MemberMapper {
     //    회원 가입 추가
     public void insertMember(MemberVO memberVO);
+//    카카오 회원가입 추가
+    public void insertKakaoMember(MemberVO memberVO);
 
     //    이메일 검사
     @Select("select count(*) > 0 " +
@@ -43,6 +45,10 @@ public interface MemberMapper {
 
     //  오늘 가입자 수
     public int selectCountTodayJoin();
+
+//    카카오 로그인 - 최초 로그인인지 확인
+    public Optional<MemberDTO> selectMemberForKakaoEmail(String kakaoEmail);
+
 
 
 }

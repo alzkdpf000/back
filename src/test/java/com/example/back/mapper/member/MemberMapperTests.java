@@ -164,7 +164,14 @@ public class MemberMapperTests {
         memberVisitedMapper.insertMemberVisited(memberVisitedVO);
     }
 
+    @Test
     public void testSelectMemberVisited(){
         log.info("{}", memberVisitedMapper.selectMemberVisited());
     }
+
+    @Test
+    public void testSelectMemberForKakao(){
+        log.info("{}", memberMapper.selectMemberForKakao("kakaoEmail"));
+    }
+
 }
