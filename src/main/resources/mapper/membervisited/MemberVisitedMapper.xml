@@ -23,4 +23,10 @@
         from tbl_member_visited
         where datediff(visited_datetime,current_timestamp) = 0
     </select>
+
+    <select id="selectMemberVisited">
+        select count(member_id) > 0
+        from tbl_member_visited
+        where member_id = #{memberId}
+    </select>
 </mapper>

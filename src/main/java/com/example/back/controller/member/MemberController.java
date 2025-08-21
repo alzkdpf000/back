@@ -45,6 +45,12 @@ public class MemberController {
         return new RedirectView("/member/login");
     }
 
+//    회원가입 선택 페이지 (일반, 의사)
+    @GetMapping("joinmain")
+    public String goToJoinMainForm(){
+        return "/member/joinmain";
+    }
+
 //    로그인 페이지 이동
     @GetMapping("login")
     public String goToLoginForm(MemberDTO memberDTO ,Model model){
