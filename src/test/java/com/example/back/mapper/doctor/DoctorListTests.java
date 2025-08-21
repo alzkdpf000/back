@@ -2,6 +2,8 @@ package com.example.back.mapper.doctor;
 
 import com.example.back.common.enumeration.Status;
 import com.example.back.repository.doctor.DoctorDAO;
+import com.example.back.service.counselreply.CounselReplyService;
+import com.example.back.service.counselreply.CounselReplyServiceImpl;
 import com.example.back.util.Criteria;
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.service.doctor.DoctorService;
@@ -11,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @SpringBootTest
 @Slf4j
@@ -24,7 +28,15 @@ public class DoctorListTests {
     private DoctorMapper doctorMapper;
 
     @Autowired
+    private DoctorListMapper doctorListMapper;
+
+    @Autowired
+    private CounselReplyService counselReplyService;
+
+    @Autowired
     private DoctorDAO doctorDAO;
+    @Autowired
+    private CounselReplyServiceImpl counselReplyServiceImpl;
 
     @Test
     public void testSelectAllStatus(){
@@ -90,33 +102,17 @@ public class DoctorListTests {
             log.info("{}", doctorDAO.findDoctorById(60L));
     }
 
-
-//    @Test
-//    public void testInsertDoctorList(){
-//        DoctorListDTO doctor = DoctorListDTO.builder()
-//                .memberId(1L)
-//                .memberName("홍길동")
-//                .doctorLicenseNumber("LIC-2025-001")
-//                .doctorSpecialty("내과")
-//                .hospitalId(3L)
-//                .doctorStatus(Status.ACTIVE)
-//                .build();
-//
-//            doctorListMapper.insertDoctor(doctor);
-//    }
-
     @Test
-    public void testSelectDoctorList(){
-        DoctorListDTO doctorListDTO = new DoctorListDTO();
-        log.info("doctorListDTO = {}", doctorListDTO);
-//    @Test
-//    public void testSelectDoctorList(){
-//        DoctorListDTO doctorListDTO = new DoctorListDTO();
-//        log.info("doctorListDTO = {}", doctorListDTO);
-//        doctorMapper.selectAll(doctorListDTO).stream().map(DoctorListDTO::toString).forEach(log::info);
+    public void testSelectDoctorList() {
+        Criteria criteria = new Criteria(1, 10);
 
+        Search search = new Search();
+        search.setKeyword("test");
+        search.setCategories(new String[]{"내과", "외과"});
 
-
-
+        List<DoctorListDTO> doctorList = doctorMapper.selectDoctorList(criteria, search);
+        log.info("{}", doctorList);
     }
+
+
 }

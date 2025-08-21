@@ -118,15 +118,16 @@ public class MemberMapperTests {
     }
 
     @Test
-    public void testSelectMemberForLogin(){
+    public void testSelectMemberForLogin() {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setMemberEmail("test@naver.com");
         memberDTO.setMemberPassword("1234");
 
         Optional<MemberDTO> foundMember = memberMapper.selectMemberForLogin(memberDTO);
         foundMember.ifPresent(member -> {
-            log.info("member:{}",member);
+            log.info("member:{}", member);
         });
+    }
 
 
     public void testSelectMonthlyJoin(){

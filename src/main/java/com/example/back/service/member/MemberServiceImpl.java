@@ -80,6 +80,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Optional<MemberDTO> login(MemberDTO memberDTO) {
         return memberDAO.findMemberEmailAndPassword(memberDTO);
+    }
 
     @Override
     public MemberAdminStatics getStatics() {

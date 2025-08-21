@@ -39,23 +39,25 @@ public class DoctorServiceImpl implements DoctorService {
     private final com.example.back.dao.likes.LikesDAO likesDAO;
 
     @Override
-    public DoctorListCriteriaDTO getList(int page, Long currentMemberId, Search search) {
-        Criteria criteria = new Criteria(page, doctorDAO.findCountDoctorList());
-        criteria.setCurrentMemberId(currentMemberId);
+    public DoctorListCriteriaDTO getList(int page, Search search) {
+        DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
 
-        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria, );
+        int totalCount = doctorDAO.findCountDoctorList(search);
+        Criteria criteria = new Criteria(page, totalCount);
+        criteria.setCurrentMemberId(1L); // 현재 로그인 멤버 ID
+
+        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria, search);
+
         doctorsList.forEach(doctor -> {
+            // 좋아요 수
             doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));
         });
 
-        // 1개 더 가져왔으면 마지막 제거
-        boolean hasMore = doctorsList.size() > criteria.getRowCount();
-        if (hasMore) {
+        criteria.setHasMore(doctorsList.size() > criteria.getRowCount());
+        if (criteria.isHasMore()) {
             doctorsList.remove(doctorsList.size() - 1);
         }
-        criteria.setHasMore(hasMore);
 
-        DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
         doctorListCriteriaDTO.setDoctorsList(doctorsList);
         doctorListCriteriaDTO.setCriteria(criteria);
 
