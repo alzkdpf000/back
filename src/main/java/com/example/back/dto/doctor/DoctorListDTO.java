@@ -37,6 +37,8 @@ public class DoctorListDTO {
     private Integer likesCount;  // 좋아요 수
     private Boolean liked;
 //  관심 정보
+    private String[] categoryNames;
+//  검색용 카테고리
 
     public String getHospitalAddress() {
         String road = roadAddress != null ? roadAddress : "";

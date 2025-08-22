@@ -82,6 +82,7 @@ public class MemberServiceImpl implements MemberService{
     public Optional<MemberDTO> login(MemberDTO memberDTO) {
         return memberDAO.findMemberEmailAndPassword(memberDTO);
     }
+
     @Override
     public MemberAdminStatics getStatics() {
         MemberAdminStatics statics = new MemberAdminStatics();

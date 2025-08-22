@@ -15,6 +15,23 @@
         </where>
     </sql>
 
+    <sql id="searchDoctorList">
+        <if test="search.keyword != null and search.keyword != ''">
+            AND (
+            m.member_name LIKE CONCAT('%', #{search.keyword}, '%') OR
+            d.doctor_specialty LIKE CONCAT('%', #{search.keyword}, '%') OR
+            h.hospital_name LIKE CONCAT('%', #{search.keyword}, '%')
+            )
+        </if>
+
+        <if test="search.categories != null and search.categories.length > 0">
+            AND d.doctor_specialty IN
+            <foreach collection="search.categories" item="cat" open="(" separator="," close=")">
+                #{cat}
+            </foreach>
+        </if>
+    </sql>
+
     <insert id="insertDoctor" parameterType="com.example.back.dto.doctor.DoctorListDTO">
         insert into tbl_doctor (member_id,
                                 doctor_license_number,
@@ -43,41 +60,43 @@
                    #{doctorStatus}
                )
     </insert>
-    <select id="selectDoctorList" parameterType="com.example.back.util.Criteria"
-            resultType="com.example.back.dto.doctor.DoctorListDTO">
+    <select id="selectDoctorList" resultType="com.example.back.dto.doctor.DoctorListDTO">
         SELECT
-            d.member_id        AS memberId,
-            m.member_name      AS memberName,
-            m.member_kakao_profile_url AS memberKakaoProfileUrl,
-            d.doctor_specialty AS doctorSpecialty,
-            d.doctor_status    AS doctorStatus,
-            m.id               AS id,
-            m.created_datetime AS createdDatetime,
-            m.updated_datetime AS updatedDatetime,
-            h.hospital_name    AS hospitalName,
-            h.hospital_phone   AS hospitalPhone,
-            ha.road_address    AS roadAddress,
-            ha.detail_address  AS detailAddress,
-            (SELECT COUNT(*)
-             FROM tbl_likes l
-             WHERE l.doctor_id = d.member_id) AS likesCount,
-            EXISTS(SELECT 1
-                   FROM tbl_likes l
-                   WHERE l.doctor_id = d.member_id
-                     AND l.member_id = #{currentMemberId}) AS liked
+        d.member_id AS memberId,
+        m.member_name AS memberName,
+        m.member_kakao_profile_url AS memberKakaoProfileUrl,
+        d.doctor_specialty AS doctorSpecialty,
+        d.doctor_status AS doctorStatus,
+        m.id AS id,
+        m.created_datetime AS createdDatetime,
+        m.updated_datetime AS updatedDatetime,
+        h.hospital_name AS hospitalName,
+        h.hospital_phone AS hospitalPhone,
+        ha.road_address AS roadAddress,
+        ha.detail_address AS detailAddress,
+        (SELECT COUNT(*) FROM tbl_likes l WHERE l.doctor_id = d.member_id) AS likesCount,
+        EXISTS(
+        SELECT 1 FROM tbl_likes l
+        WHERE l.doctor_id = d.member_id
+        AND l.member_id = #{criteria.currentMemberId}
+        ) AS liked
         FROM tbl_doctor d
-                 JOIN tbl_member m ON d.member_id = m.id
-                 JOIN tbl_hospital h ON d.hospital_id = h.id
-                 JOIN tbl_hospital_address ha ON h.id = ha.hospital_id
+        JOIN tbl_member m ON d.member_id = m.id
+        JOIN tbl_hospital h ON d.hospital_id = h.id
+        JOIN tbl_hospital_address ha ON h.id = ha.hospital_id
         WHERE d.doctor_status = 'ACTIVE'
-        ORDER BY d.member_id DESC
-        LIMIT #{rowCount} OFFSET #{offset}
+        <include refid="searchDoctorList"/>
+        ORDER BY likesCount DESC, d.member_id DESC
+        LIMIT #{criteria.rowCount} OFFSET #{criteria.offset}
     </select>
 
-    <select id="selectCountAll">
-        select count(*)
-        from tbl_doctor
-        where doctor_status = 'active'
+    <select id="selectCountAll" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_doctor d
+        JOIN tbl_member m ON d.member_id = m.id
+        JOIN tbl_hospital h ON d.hospital_id = h.id
+        WHERE d.doctor_status = 'ACTIVE'
+        <include refid="searchDoctorList"/>
     </select>
 
     <select id="selectDoctorsByStatus">

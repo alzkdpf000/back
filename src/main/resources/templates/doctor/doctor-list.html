@@ -33,15 +33,17 @@
                         <div class="category-list-wrap">
                             <div class="total-search-container">
                                 <!-- 잠시 대기 -->
-                                <form action="/doctor/list/1" method="get" id="search" th:object="${search}">
+                                <form id="searchForm">
                                     <div class="total-search-input-wrap">
-                                        <!-- 검색 이벤트 -->
-                                        <input type="text" name="keyword" th:value="*{keyword}" class="total-search-input" placeholder="검색어를 입력해주세요.">
-                                        <input type="hidden" name="category" id="selectedCategory" th:value="*{category}">
-                                        <!-- /검색 이벤트 -->
-                                        <img alt="search" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" src="https://media.a-ha.io/aha-qna/images/common/icons/mark/magnifying-000%20default.svg">
+                                        <input class="total-search-input" id="keywordInput" type="text" placeholder="검색어를 입력하세요.">
+                                        <button type="submit" class="search-button">
+                                            <img src="https://media.a-ha.io/aha-qna/images/common/icons/mark/magnifying-000%20default.svg"
+                                                 alt="검색">
+                                        </button>
                                     </div>
                                 </form>
+
+                                <input type="hidden" id="selectedCategory" value="">
                                 <!-- /잠시 대기 -->
                             </div>
                             <div class="category-list-container">
@@ -102,170 +104,104 @@
                                     </div>
                                     <!-- 클릭 이벤트(안에 button쪽 일 거임)-->
                                     <ul class="category-list-wrap">
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>피부과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>피부과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>안과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>안과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>치과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>치과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>비뇨의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>비뇨의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>산부인과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>산부인과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>한방과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>한방과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>신경과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>신경과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>재활의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>재활의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>정신건강의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>정신건강의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>응급의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>응급의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>마취통증의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>마취통증의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>방사선종양학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>방사선종양학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>영상의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>영상의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>진단검사의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>진단검사의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>직업환경의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>직업환경의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>가정의학과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>가정의학과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>소아청소년과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>소아청소년과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>이비인후과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>이비인후과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>소화기내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>소화기내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>호흡기내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>호흡기내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>감염내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>감염내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>알레르기내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>알레르기내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>내분비내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>내분비내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>순환기내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>순환기내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>신장내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>신장내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>류마티스내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>류마티스내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>혈액종양내과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>혈액종양내과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>성형외과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>성형외과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>정형외과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>정형외과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>신경외과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>신경외과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>대장항문외과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>대장항문외과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>흉부외과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>흉부외과</span></button>
                                         </li>
-                                        <li>
-                                            <button class="category-btn">
-                                                <span>외과</span>
-                                            </button>
+                                        <li><button class="category-btn">
+                                            <span>외과</span></button>
                                         </li>
                                     </ul>
                                     <!-- /클릭 이벤트 -->
@@ -286,10 +222,6 @@
                 </div>
             </div>
         </div>
-        <!-- form 1 -->
-<form id="doctorForm" name="doctorForm" style="display: none;"></form>
-<!-- form 2 -->
-<form id="mailForm" name="mailForm" style="display: none;"></form>
         <script src="/js/doctor/list/module/service.js"></script>
         <script src="/js/doctor/list/module/layout.js"></script>
         <script>

@@ -30,13 +30,8 @@ public class DoctorController {
     private final HospitalService hospitalService;
 
     // 의사 목록 페이지
-    @GetMapping("list/{page}")
-    public String listPage(@PathVariable int page,
-                           Model model,
-                           Search search) {
-
-        model.addAttribute("pageTitle", "의사 목록");
-        model.addAttribute("search", search);
+    @GetMapping("/list")
+    public String listPage() {
         return "doctor/doctor-list";
     }
 

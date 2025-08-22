@@ -3,6 +3,7 @@ package com.example.back.mapper.doctor;
 import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.util.Criteria;
+import com.example.back.util.Search;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface DoctorListMapper {
     public void insertDoctor(DoctorListDTO doctorListDTO);
 
 //  목록
-    public List<DoctorListDTO> selectDoctorList(Criteria criteria);
+    public List<DoctorListDTO> selectDoctorList(Criteria criteria, Search search);
 
 //  전체 개수
     public int selectCountAll();
