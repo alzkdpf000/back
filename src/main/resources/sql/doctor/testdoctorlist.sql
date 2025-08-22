@@ -69,36 +69,36 @@ VALUES
 
 INSERT INTO tbl_doctor (member_id, doctor_license_number, doctor_specialty, doctor_status, hospital_id)
 VALUES
-#     (48,'LIC10001','내과','ACTIVE',1)
-#     (49,'LIC10002','외과','ACTIVE',2),
-#     (50,'LIC10003','소아과','INACTIVE',3),
-    (51,'LIC10004','정형외과','ACTIVE',1),
-    (52,'LIC10005','피부과','ACTIVE',2),
-    (53,'LIC10006','치과','ACTIVE',3),
-    (54,'LIC10007','내과','ACTIVE',4),
-    (55,'LIC10008','외과','ACTIVE',5),
-    (56,'LIC10009','소아과','INACTIVE',1),
-    (57,'LIC10010','정형외과','ACTIVE',2),
-    (58,'LIC10011','피부과','ACTIVE',3),
-    (59,'LIC10012','치과','ACTIVE',4),
-    (60,'LIC10013','내과','ACTIVE',5),
-    (61,'LIC10014','외과','ACTIVE',1),
-    (62,'LIC10015','소아과','ACTIVE',2),
-    (63,'LIC10016','정형외과','INACTIVE',3),
-    (64,'LIC10017','피부과','ACTIVE',4),
-    (65,'LIC10018','치과','ACTIVE',5),
-    (66,'LIC10019','내과','ACTIVE',1),
-    (67,'LIC10020','외과','ACTIVE',2),
-    (68,'LIC10021','소아과','ACTIVE',3),
-    (69,'LIC10022','정형외과','INACTIVE',4),
-    (70,'LIC10023','피부과','ACTIVE',5),
-    (71,'LIC10024','치과','ACTIVE',1),
-    (72,'LIC10025','내과','ACTIVE',2),
-    (73,'LIC10026','외과','ACTIVE',3),
-    (74,'LIC10027','소아과','ACTIVE',4),
-    (75,'LIC10028','정형외과','ACTIVE',5),
-    (76,'LIC10029','피부과','ACTIVE',1),
-    (77,'LIC10030','치과','ACTIVE',2);;
+    (1,'LIC10001','정형외과','ACTIVE',1),
+    (2,'LIC10002','피부과','ACTIVE',2),
+    (3,'LIC10003','치과','ACTIVE',3),
+    (4,'LIC10004','내과','ACTIVE',4),
+    (5,'LIC10005','외과','ACTIVE',5),
+    (6,'LIC10006','소아과','INACTIVE',1),
+    (7,'LIC10007','정형외과','ACTIVE',2),
+    (8,'LIC10008','피부과','ACTIVE',3),
+    (9,'LIC10009','치과','ACTIVE',4),
+    (10,'LIC10010','내과','ACTIVE',5),
+    (11,'LIC10011','외과','ACTIVE',1),
+    (12,'LIC10012','소아과','ACTIVE',2),
+    (13,'LIC10013','정형외과','INACTIVE',3),
+    (14,'LIC10014','피부과','ACTIVE',4),
+    (15,'LIC10015','치과','ACTIVE',5),
+    (16,'LIC10016','내과','ACTIVE',1),
+    (17,'LIC10017','외과','ACTIVE',2),
+    (18,'LIC10018','소아과','ACTIVE',3),
+    (19,'LIC10019','정형외과','INACTIVE',4),
+    (20,'LIC10020','피부과','ACTIVE',5),
+    (21,'LIC10021','치과','ACTIVE',1),
+    (22,'LIC10022','내과','ACTIVE',2),
+    (23,'LIC10023','외과','ACTIVE',3),
+    (24,'LIC10024','소아과','ACTIVE',4),
+    (25,'LIC10025','정형외과','ACTIVE',5),
+    (26,'LIC10026','피부과','ACTIVE',1),
+    (27,'LIC10027','치과','ACTIVE',2),
+    (28,'LIC10028','내과','ACTIVE',3),
+    (29,'LIC10029','외과','ACTIVE',4),
+    (30,'LIC10030','소아과','ACTIVE',5);
 
 
 
@@ -156,4 +156,5 @@ select id,
 from view_member_doctor
 where member_role = 'doctor';
 #   and doctor_status = 'active';
+
 

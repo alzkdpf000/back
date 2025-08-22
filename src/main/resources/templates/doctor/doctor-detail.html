@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임</title>
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/doctor/doctor-info.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon">
+</head>
+<body>
+<main>
+    <div class="main-container">
+        <div class="content-wrapper">
+            <div class="info-layout-container">
+                <div class="info-main-layout-wrap">
+                    <div id="doctor-detail-container"></div>
+                </div>
+            </div>
+
+            <div class="profil-content-container">
+                <div class="profil-content-title-container">
+                    <div class="profil-content-title-wrap">
+                        <div class="profil-content-section">
+                            <div class="profil-content-select" data-cnt="0">
+                                <div class="profil-content">
+                                    <span class="profil-content-text active">남긴 답변</span>
+                                </div>
+                                <div class="profil-content-selector"></div>
+                            </div>
+                            <div class="profil-content-select" data-cnt="1">
+                                <div class="profil-content">
+                                    <span class="profil-content-text">후기</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 답변 리스트 렌더링 영역 -->
+            <ul class="content-list" id="intersectionObserver">
+                <!-- JS에서 답변 반복 렌더링 -->
+            </ul>
+
+            <!-- 답변이 없을 때 메시지 -->
+            <div class="no-search-result-wrap" style="display:none;">
+                <img src="https://media.a-ha.io/aha-qna/images/v3/product/feed/message.webp" width="48" height="48" style="color:transparent">
+                <span class="no-search-result-text">남긴 답변이 없습니다!</span>
+            </div>
+
+            <!-- 스크롤 감지용 공간 -->
+            <div style="height:300px" id="intersectionObserverLayout"></div>
+        </div>
+
+        <div class="side-bar-container">
+            <div class="kakao-map"></div>
+        </div>
+    </div>
+</main>
+
+<div class="modal">
+    <div class="warn-modal">
+        <div id="content-wrap"></div>
+    </div>
+</div>
+
+<script src="/js/doctor/detail/counsel-reply/event.js"></script>
+<script src="/js/doctor/detail/counsel-reply/module/service.js"></script>
+<script src="/js/doctor/detail/counsel-reply/module/layout.js"></script>
+</body>
+</html>

@@ -190,7 +190,7 @@ const doctorLayout = ((currentMemberId = 1) => {
         loadDoctors(1, keyword, categoryList);
     });
 
-    return { loadDoctors };
+    return { loadDoctors: loadDoctors };
 })(1);
 
 // ===================== 초기 실행 =====================

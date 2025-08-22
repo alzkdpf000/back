@@ -13,4 +13,30 @@
         order by tcr.id desc
         limit 3;
     </select>
+
+    <select id="selectRepliesWithPostTitleByDoctorId" parameterType="map" resultType="com.example.back.dto.counselreply.CounselReplyDTO">
+        SELECT
+            r.id AS id,
+            r.counsel_reply_content AS counselReplyContent,
+            r.counsel_reply_status AS counselReplyStatus,
+            r.doctor_id AS doctorId,
+            r.created_datetime AS createdDatetime,
+            r.updated_datetime AS updatedDatetime,
+
+            p.id AS consultationPost_id,
+            p.consultation_post_title AS consultationPost_consultationPostTitle,
+            p.consultation_post_status AS consultationPost_consultationPostStatus
+
+        FROM tbl_counsel_reply r
+                 JOIN tbl_consultation_post p ON r.consultation_post_id = p.id
+        WHERE r.doctor_id = #{doctorId}
+        ORDER BY r.created_datetime DESC
+        LIMIT #{criteria.rowCount} OFFSET #{criteria.offset}
+    </select>
+
+    <select id="countRepliesByDoctorId" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_counsel_reply
+        WHERE doctor_id = #{doctorId}
+    </select>
 </mapper>

@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @ToString
 @Getter
@@ -23,4 +25,5 @@ public class ConsultationPostDTO {
     private String createdDatetime;
     private String createdDate;
     private String updatedDatetime;
+    private List<String> categoryNames;
 }

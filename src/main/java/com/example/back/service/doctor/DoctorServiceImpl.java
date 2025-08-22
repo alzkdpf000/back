@@ -7,7 +7,10 @@ import com.example.back.domain.hospital.HospitalVO;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.counselreply.CounselReplyDTO;
 import com.example.back.dto.doctor.*;
+import com.example.back.dto.likes.LikesDTO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.mapper.counselreply.CounselReplyMapper;
+import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.counselreply.CounselReplyDAO;
 import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.service.hospital.HospitalService;
@@ -37,6 +40,7 @@ public class DoctorServiceImpl implements DoctorService {
     private final HospitalService hospitalService;
     private final LikesService likesService;
     private final com.example.back.dao.likes.LikesDAO likesDAO;
+    private final ConsultationPostDAO consultationPostDAO;
 
     @Override
     public DoctorListCriteriaDTO getList(int page, Search search) {
@@ -62,6 +66,53 @@ public class DoctorServiceImpl implements DoctorService {
         doctorListCriteriaDTO.setCriteria(criteria);
 
         return doctorListCriteriaDTO;
+    }
+
+    @Override
+    public DoctorDetailCriteriaDTO getDoctorDetail(Long doctorId, int page) {
+        DoctorDetailCriteriaDTO detailCriteriaDTO = new DoctorDetailCriteriaDTO();
+
+        // 의사 정보 상세보기
+        DoctorListDTO doctor = doctorDAO.findDoctorDetailById(doctorId);
+
+        // 로그인 유저 ID (임시로 1L 주입)
+        Long currentMemberId = 1L;
+
+        // 좋아요 수 조회
+        doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));
+
+        // 로그인 유저가 좋아요했는지 여부
+        LikesDTO likesDTO = new LikesDTO(currentMemberId, doctor.getId());
+        doctor.setLiked(likesService.isLiked(likesDTO));
+
+        // 답변글 총 개수 조회
+        int totalReplies = counselReplyDAO.countRepliesByDoctorId(doctorId);
+
+        // 페이징 처리
+        Criteria criteria = new Criteria(page, totalReplies);
+        criteria.setCurrentMemberId(currentMemberId);
+
+        // 답변글 + 게시글 조회
+        List<CounselReplyDTO> replies = counselReplyDAO.findRepliesWithPostTitleByDoctorId(doctorId, criteria);
+
+        // 작성일 포맷 + 게시글 카테고리 세팅
+        replies.forEach(reply -> {
+            reply.setCreatedDate(DateUtils.getCreatedDate(reply.getCreatedDatetime()));
+
+            if (reply.getConsultationPost() != null && reply.getConsultationPost().getId() != null) {
+                List<String> categories = consultationPostDAO.findCategoryNamesByPostId(reply.getConsultationPost().getId());
+                reply.getConsultationPost().setCategoryNames(categories);
+            }
+        });
+        
+        DoctorDetailDTO doctorDetailDTO = new DoctorDetailDTO();
+        doctorDetailDTO.setDoctorListDTO(doctor);
+        doctorDetailDTO.setCounselReplyDTOList(replies);
+
+        detailCriteriaDTO.setDoctorsDetail(List.of(doctorDetailDTO));
+        detailCriteriaDTO.setCriteria(criteria);
+
+        return detailCriteriaDTO;
     }
 
     @Override
