@@ -1,5 +1,6 @@
 package com.example.back.repository.membervisited;
 
+import com.example.back.domain.membervisited.MemberVisitedVO;
 import com.example.back.dto.membervisited.MemberVisitedDTO;
 import com.example.back.dto.membervisited.MemberVisitedStaticDTO;
 import com.example.back.mapper.membervisited.MemberVisitedMapper;
@@ -20,5 +21,14 @@ public class MemberVisitedDAO {
     // 오늘 방문자 수
     public int findCountTodayVisits(){
         return memberVisitedMapper.selectCountTodayVisits();
+    }
+
+//    오늘 로그인 추가
+    public int insertMemberVisited(MemberVisitedVO memberVisitedVO){
+        return memberVisitedMapper.insertMemberVisited(memberVisitedVO);
+    }
+//    오늘 로그인추가 조회
+    public boolean selectMemberVisited(Long memberId){
+        return memberVisitedMapper.selectMemberVisited();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.back.service.member;
 
 import com.example.back.domain.member.MemberVO;
+import com.example.back.domain.membervisited.MemberVisitedVO;
 import com.example.back.dto.consultationpost.ConsultationPostDTO;
 import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
@@ -92,5 +93,30 @@ public class MemberServiceImpl implements MemberService{
         return statics;
 
     }
+
+    @Override
+    public int insertMemberVisited(MemberVisitedVO memberVisitedVO) {
+        memberVisitedDAO.insertMemberVisited(memberVisitedVO);
+        memberVisitedVO.setId(memberVisitedVO.getId());
+        return memberVisitedDAO.insertMemberVisited(memberVisitedVO);
+    }
+
+    @Override
+    public boolean selectMemberVisited(Long memberId) {
+        memberVisitedDAO.selectMemberVisited(memberId);
+        return true;
+    }
+
+    @Override
+    public Optional<MemberDTO> getKakaoMember(String kakaoEmail) {
+        return memberDAO.findMemberByKakaoEmail(kakaoEmail);
+    }
+
+    @Override
+    public void joinKakaoMember(MemberDTO memberDTO) {
+        memberDAO.saveKakaoMember(toVO(memberDTO));
+
+    }
+
 
 }

@@ -73,7 +73,6 @@
         from tbl_member
         where member_email = #{memberEmail} and member_password = #{memberPassword} and member_status = 'active'
     </select>
-
     <select id="selectMonthlyJoin">
         with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM
                              union all
@@ -97,4 +96,24 @@
         from tbl_member
         where datediff(created_datetime,current_timestamp) = 0
     </select>
+
+    <select id="selectMemberForKakaoEmail">
+        select id,
+               member_email,
+               member_password,
+               member_name, member_phone, member_status, member_provider,
+               member_kakao_email as kakaoEmail,
+               member_kakao_profile_url as kakaoProfileUrl,
+               member_role,
+               member_vita_amount,
+               created_datetime,
+               updated_datetime
+        from tbl_member
+        where member_kakao_email = #{memberKakaoEmail}
+    </select>
+
+    <insert id="insertKakaoMember" parameterType="com.example.back.domain.member.MemberVO" useGeneratedKeys="true" keyProperty="id">
+        insert into tbl_member(member_name, member_phone, member_provider, member_kakao_email, member_kakao_profile_url)
+        values (#{memberName}, #{memberPhone}, #{provider}, #{kakaoEmail}, #{kakaoProfileUrl})
+    </insert>
 </mapper>

@@ -35,4 +35,5 @@ public class DoctorDTO {
     private String hospitalDetailAddress;
     private String updatedDatetime;
     private String updatedDate;
+    private String memberPassword;
 }

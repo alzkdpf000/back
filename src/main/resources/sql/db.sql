@@ -408,5 +408,6 @@ create table tbl_member_visited
     constraint fk_member_visited_member foreign key (member_id)
         references tbl_member (id)
 );
+select * from tbl_member_visited;
 
 drop table tbl_member_visited;

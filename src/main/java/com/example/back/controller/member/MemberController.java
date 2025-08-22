@@ -45,10 +45,26 @@ public class MemberController {
         return new RedirectView("/member/login");
     }
 
-//    로그인 페이지 이동
-    @GetMapping("login")
+//    회원가입 선택 페이지 (일반, 의사)
+    @GetMapping("joinmain")
+    public String goToJoinMainForm(){
+        return "/member/joinmain";
+    }
+
+
+
+//    로그인 메인페이지 이동
+    @GetMapping("loginmain")
     public String goToLoginForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
+        return "/member/loginmain";
+    }
+
+    //    로그인 메인페이지 이동
+    @GetMapping("login")
+    public String goLoginForm(MemberDTO memberDTO ,String type ,Model model){
+        model.addAttribute("memberDTO", memberDTO);
+        model.addAttribute("type",type);
         return "/member/login";
     }
 
@@ -97,20 +113,20 @@ public class MemberController {
             rememberMemberEmailCookie.setMaxAge(60 * 60 * 24 * 30);
             response.addCookie(rememberMemberEmailCookie);
 
-//            30일 유지
+//
             rememberCookie.setMaxAge(60 * 60 * 24 * 30);
             response.addCookie(rememberCookie);
         }else {
-//            30일 유지
+//            쿠키 삭제
             rememberMemberEmailCookie.setMaxAge(0);
             response.addCookie(rememberMemberEmailCookie);
 
-//            30일 유지
+//
             rememberCookie.setMaxAge(0);
             response.addCookie(rememberCookie);
         }
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/member/main");
 
     }
 //    메인페이지로 이동

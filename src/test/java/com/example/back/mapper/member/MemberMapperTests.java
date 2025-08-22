@@ -1,8 +1,12 @@
 package com.example.back.mapper.member;
 
 import com.example.back.domain.member.MemberVO;
+import com.example.back.domain.membervisited.MemberVisitedVO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.dto.membervisited.MemberVisitedDTO;
+import com.example.back.mapper.membervisited.MemberVisitedMapper;
 import com.example.back.repository.member.MemberDAO;
+import com.example.back.repository.membervisited.MemberVisitedDAO;
 import com.example.back.service.member.MemberService;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
@@ -24,6 +28,8 @@ public class MemberMapperTests {
     private MemberService memberService;
     @Autowired
     private MemberDAO memberDAO;
+    @Autowired
+    private MemberVisitedMapper memberVisitedMapper;
 
     @Test
     public void testInsertMember(){
@@ -128,8 +134,7 @@ public class MemberMapperTests {
             log.info("member:{}", member);
         });
     }
-
-
+    @Test
     public void testSelectMonthlyJoin(){
         log.info(memberMapper.selectMonthlyJoin().toString());
     }
@@ -150,4 +155,23 @@ public class MemberMapperTests {
     public void testGetStatics(){
         log.info("{}",memberService.getStatics());
     }
+
+    @Test
+    public void testInsertMemberVisited(){
+        MemberVisitedVO memberVisitedVO = new MemberVisitedVO();
+        memberVisitedVO.setMemberId(1L);
+
+        memberVisitedMapper.insertMemberVisited(memberVisitedVO);
+    }
+
+    @Test
+    public void testSelectMemberVisited(){
+        log.info("{}", memberVisitedMapper.selectMemberVisited());
+    }
+
+    @Test
+    public void testSelectMemberForKakao(){
+        log.info("{}", memberMapper.selectMemberForKakao("kakaoEmail"));
+    }
+
 }

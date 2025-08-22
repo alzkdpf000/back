@@ -2,6 +2,7 @@ package com.example.back.service.member;
 
 
 import com.example.back.domain.member.MemberVO;
+import com.example.back.domain.membervisited.MemberVisitedVO;
 import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
@@ -30,6 +31,18 @@ public interface MemberService {
 
 //    관리자 페이지 회원들 통계 자료들
     public MemberAdminStatics getStatics();
+
+//    로그인 추가
+    public int insertMemberVisited(MemberVisitedVO memberVisitedVO);
+
+//    로그인 추가 조회
+    public boolean selectMemberVisited(Long memberId);
+
+//    카카오 기존 회원정보 조회
+    public Optional<MemberDTO> getKakaoMember(String kakaoEmail);
+
+//    카카오 회원가입
+    public void joinKakaoMember(MemberDTO memberDTO);
 
 //    회원가입 유효성 검사
     default boolean validateMember(MemberDTO memberDTO){
@@ -60,6 +73,8 @@ public interface MemberService {
                 .memberName(memberDTO.getMemberName())
                 .memberPhone(memberDTO.getMemberPhone())
                 .memberStatus(memberDTO.getMemberStatus())
+                .KakaoEmail(memberDTO.getKakaoEmail())
+                .KakaoProfileUrl(memberDTO.getKakaoProfileUrl())
                 .provider(memberDTO.getProvider())
                 .role(memberDTO.getRole())
                 .memberVitaAmount(memberDTO.getMemberVitaAmount())

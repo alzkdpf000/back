@@ -19,7 +19,7 @@
                     <span class="css-1202cko">의사 회원가입</span>
                 </div>
 
-                <form action="/doctor/join" method="post" id="formTag">
+                <form action="/doctor/join" method="post" id="formTag" th:object = "${doctorDTO}">
                     <div class="sub01emailpasswordgap">
 
                         <!-- 이름 -->
@@ -32,7 +32,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="이름을 입력" id="name" name="memberName" type="text" class="bms9cb" value="" />
+                                    <input placeholder="이름을 입력" id="name" name="memberName" type="text" class="bms9cb"  th:value="${member != null ? member.memberName : ''}" th:readonly="${member != null ? member.memberName : ''}" />
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="이메일 주소를 입력" id="email" name="memberEmail" type="email" class="bms9cb" value="" />
+                                    <input placeholder="이메일 주소를 입력" id="email" name="memberEmail" type="email" class="bms9cb" th:value="${member != null ? member.kakaoEmail : ''}" th:readonly="${member != null ? member.kakaoEmail : ''}" />
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="비밀번호를 입력 - 문자포함 6자리" id="password" name="memberPassword" type="password" class="bms9cb" value="" />
+                                    <input placeholder="비밀번호를 입력 - 문자포함 6자리" id="password" name="memberPassword" type="password" class="bms9cb"  th:field="*{memberPassword}" th:readonly ="${member.memberPassword != null}" />
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="비밀번호를 재입력" id="passwordConfirm" name="passwordConfirm" type="password" class="bms9cb" value="" />
+                                    <input placeholder="비밀번호를 재입력" id="passwordConfirm" name="passwordConfirm" type="password" class="bms9cb" th:value="${doctorDTO.memberPassword != null} ? ${doctorDTO.memberPassword} : ''" th:readonly="${doctorDTO.memberPassword != null}" />
                                 </div>
                             </div>
                         </div>
@@ -84,6 +84,7 @@
                                 <div class="css-k008qs egbg7lm1">
                                     <label for="password" class="label1woir7p">
                                         <span class="emailgul183o2av">의사 면허번호</span>
+                                        <img src="//img.echosting.cafe24.com/skin/base/common/ico_required_blue.gif" alt="필수" />
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
@@ -101,7 +102,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="병원명 입력" id="hospital" name="hospitalName" type="text" class="bms9cb" value="" />
+                                    <input placeholder="병원명 입력" id="hospital" name="hospitalName" type="text" class="bms9cb" value=""  />
                                 </div>
                             </div>
                         </div>
@@ -114,7 +115,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="전문 분야 입력" id="specialty" name="doctorSpecialty" type="text" class="bms9cb" value="" />
+                                    <input placeholder="전문 분야 입력" id="specialty" name="doctorSpecialty" type="text" class="bms9cb" value=""  />
                                 </div>
                             </div>
                         </div>
@@ -124,16 +125,16 @@
                             <div class="iprukchang">
                                 <div class="k008qs">
                                     <label for="address" class="label1woir7p">
-                                        <span class="emailgul183o2av">주소</span>
+                                        <span class="emailgul183o2av">병원주소</span>
                                         <img src="//img.echosting.cafe24.com/skin/base/common/ico_required_blue.gif" alt="필수" />
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="주소를 입력" id="address" name="hospitalRoadAddress" type="text" class="bms9cb" value="" readonly/>
+                                    <input placeholder="주소를 입력" id="address" name="hospitalRoadAddress" type="text" class="bms9cb" value=""  readonly/>
                                     <button type="button" id="addressBtn">주소</button>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                <input placeholder="상세주소 입력" id="addressDetail" name="hospitalDetailAddress" type="text" class="bms9cb" value="" />
+                                <input placeholder="상세주소 입력" id="addressDetail" name="hospitalDetailAddress" type="text" class="bms9cb" value=""  />
                                 </div>
                             </div>
                         </div>
@@ -149,12 +150,12 @@
 
                                 <div class="phone-inputa">
                                     <input type="hidden" id="memberPhone" name="memberPhone">
-                                    <input type="hidden" name="hospitalPhone" id="hospitalPhone" />
-                                    <input type="text" id="phone1" maxlength="3" placeholder="010" />
+                                    <input type="hidden" name="hospitalPhone" id="hospitalPhone"  />
+                                    <input type="text" id="phone1" maxlength="3" placeholder="010" value=""  />
                                     <span>-</span>
-                                    <input type="text" id="phone2" maxlength="4" placeholder="1234" />
+                                    <input type="text" id="phone2" maxlength="4" placeholder="1234" value=""  />
                                     <span>-</span>
-                                    <input type="text" id="phone3" maxlength="4" placeholder="5678" />
+                                    <input type="text" id="phone3" maxlength="4" placeholder="5678" value=""  />
                                 </div>
                             </div>
                         </div>
@@ -176,7 +177,7 @@
         <div class="16y2swjfooter"></div>
     </div>  
 
-<script src="/js/member/joinpeople/event.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/member/joinpeople/event.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

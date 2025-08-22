@@ -4,10 +4,7 @@ import com.example.back.common.enumeration.Provider;
 import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
 import com.example.back.dto.consultationpost.ConsultationPostDTO;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
 @Component
 @Getter @Setter @ToString
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
 public class MemberDTO {
     private Long id;
     private String memberEmail;

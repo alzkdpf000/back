@@ -19,8 +19,8 @@
                         <img alt="이메일 이미지" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/v2/auth/auth-email.png" style="color: transparent;">
                         <span class="css-1202cko">이메일 로그인</span>
                     </div>
-                    <form action="member/emaillogin" method="post">
-                        <!--  -->
+                    <form action="/member/emaillogin" method="post" th:object="${memberDTO}">
+                        <!-- 이메일 입력 -->
                         <div class="sub01emailpasswordgap">
                             <div class="emailpassword">
                                 <div class="iprukchang">
@@ -30,7 +30,7 @@
                                         </label>
                                     </div>
                                     <div class="sbo1gjemailchang">
-                                        <input placeholder="이메일 주소를 입력" id="email" name="emailname" rows="5" type="email" class="bms9cb" value="">
+                                        <input placeholder="이메일 주소를 입력" id="email" name="memberEmail" rows="5" type="email" class="bms9cb" value="" required autocomplete="off" th:field="*{memberEmail}">
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                         </label>
                                     </div>
                                     <div class="sbo1gjemailchang">
-                                        <input placeholder="비밀번호를 입력" id="password" name="password"  rows="5" type="password" class="bms9cb" value="">
+                                        <input placeholder="비밀번호를 입력" id="password" name="memberPassword"  rows="5" type="password" class="bms9cb"  required th:field="*{memberPassword}">
                                     </div>
 <!--                                    이메일 저장-->
                                     <label class="remember-me">
