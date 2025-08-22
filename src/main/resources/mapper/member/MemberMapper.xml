@@ -114,6 +114,6 @@
 
     <insert id="insertKakaoMember" parameterType="com.example.back.domain.member.MemberVO" useGeneratedKeys="true" keyProperty="id">
         insert into tbl_member(member_name, member_phone, member_provider, member_kakao_email, member_kakao_profile_url)
-        values (#{memberName}, #{memberPhone}, #{memberProvider}, #{memberKakaoEmail}, #{memberKakaoProfileUrl})
+        values (#{memberName}, #{memberPhone}, #{provider}, #{kakaoEmail}, #{kakaoProfileUrl})
     </insert>
 </mapper>

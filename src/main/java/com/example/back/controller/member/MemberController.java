@@ -51,10 +51,20 @@ public class MemberController {
         return "/member/joinmain";
     }
 
-//    로그인 페이지 이동
-    @GetMapping("login")
+
+
+//    로그인 메인페이지 이동
+    @GetMapping("loginmain")
     public String goToLoginForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
+        return "/member/loginmain";
+    }
+
+    //    로그인 메인페이지 이동
+    @GetMapping("login")
+    public String goLoginForm(MemberDTO memberDTO ,String type ,Model model){
+        model.addAttribute("memberDTO", memberDTO);
+        model.addAttribute("type",type);
         return "/member/login";
     }
 

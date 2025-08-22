@@ -34,36 +34,35 @@ public class KakaoService {
 
             stringBuilder.append("grant_type=authorization_code");
             stringBuilder.append("&client_id=b89acf62a1fdb8335aaec795cdc5912a");
-            stringBuilder.append("&redirect_uri=http://localhost:10000");
+            stringBuilder.append("&redirect_uri=http://localhost:10000/kakao/login");
             stringBuilder.append("&code=").append(code);
 
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
             bufferedWriter.write(stringBuilder.toString());
             bufferedWriter.close();
 
-            if (connection.getResponseCode() == 200) {
+            if(connection.getResponseCode() == 200) {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = null;
                 String result = "";
 
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
-
-                    JsonElement jsonElement = JsonParser.parseString(result);
-                    accessToken = jsonElement.getAsJsonObject().get("access_token").getAsString();
-
-                    bufferedReader.close();
                 }
-            }
-            return accessToken;
 
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
+                JsonElement jsonElement = JsonParser.parseString(result);
+                accessToken = jsonElement.getAsJsonObject().get("access_token").getAsString();
+
+                bufferedReader.close();
+            }
+
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return accessToken;
     }
 
     public Optional<MemberDTO> getKakaoInfo(String token){
@@ -76,9 +75,9 @@ public class KakaoService {
 
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
-            connection.setRequestProperty("Authorization", "Bearer" + token);
+            connection.setRequestProperty("Authorization", "Bearer " + token);
 
-            if (connection.getResponseCode() == 200) {
+            if(connection.getResponseCode() == 200) {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = null;
                 String result = "";
@@ -88,10 +87,15 @@ public class KakaoService {
                 }
                 JsonElement jsonElement = JsonParser.parseString(result);
                 JsonElement kakaoAccount = jsonElement.getAsJsonObject().get("kakao_account").getAsJsonObject();
+                log.info(kakaoAccount.getAsJsonObject().toString());
                 JsonElement profile = kakaoAccount.getAsJsonObject().get("profile");
 
                 memberDTO = new MemberDTO();
                 memberDTO.setKakaoEmail(kakaoAccount.getAsJsonObject().get("email").getAsString());
+                memberDTO.setMemberName(profile.getAsJsonObject().get("nickname").getAsString());
+//                썸네일: thumbnail_image_url
+//                원본: profile_image_url
+                memberDTO.setKakaoProfileUrl(profile.getAsJsonObject().get("profile_image_url").getAsString());
                 memberDTO.setProvider(Provider.KAKAO);
                 bufferedReader.close();
             }
@@ -103,7 +107,6 @@ public class KakaoService {
         }
 
         return Optional.ofNullable(memberDTO);
-
     }
 
 //        카카오 로그아웃
@@ -113,10 +116,9 @@ public class KakaoService {
         try {
             URL url = new URL(requestURI);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
-            connection.setRequestProperty("Authorization", "Bearer" + token);
+            connection.setRequestProperty("Authorization", "Bearer " + token);
 
             if (connection.getResponseCode() == 200) {
                 log.info("로그아웃 성공");

@@ -8,23 +8,24 @@
   <link rel="stylesheet" href="/css/member/login.css" />
 </head>
 <body>
-  <div class="ir7f">
-    <div class="yjjqs">
-      <!-- 로그인 텍스트 -->
-      <div class="gwzjin">
-        <span class="m0bel">로그인</span>
-      </div>
+<div class="ir7f">
+  <div class="yjjqs">
+    <!-- 로그인 텍스트 -->
+    <div class="gwzjin">
+      <span class="m0bel">로그인</span>
+    </div>
 
-      <!-- 중앙 콘텐츠 -->
+    <!-- 중앙 콘텐츠 -->
+    <form action="/member/login" method="post">
       <div class="yuj3">
         <!-- 소셜 로그인 버튼 -->
-        <div class="kizdzl">
-          <a class="social-btn kakao">
+        <div class="kizdzl" >
+          <a class="social-btn kakao" id="kakao-login">
             <img src="https://media.a-ha.io/aha-qna/images/common/v2/auth/logo-kakao.png" alt="카카오 로고" width="20" height="20" />
             <span class="ua8imd">카카오로 시작하기</span>
           </a>
 
-          <a class="social-btn avt0">
+          <a href="/member/emaillogin" class="social-btn avt0">
             <span class="ua8imd">이메일로 시작하기</span>
           </a>
         </div>
@@ -34,11 +35,17 @@
 
         <!-- 회원가입 / 계정 찾기 -->
         <div class="qzlw6m">
-          <button class="an0xmh"><span class="h9r0xh">회원가입</span></button>
-          <button class="an0xmh"><span class="h9r0xh">계정 찾기</span></button>
+          <button type="button" class="an0xmh" onclick="location.href='/member/joinmain'">
+            <span class="h9r0xh">회원가입</span>
+          </button>
+          <button type="button" class="an0xmh" onclick="location.href='/member/joinmain'">
+            <span class="h9r0xh">계정 찾기</span>
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
+</div>
 </body>
+<script src="/js/member/login/event.js"></script>
 </html>
