@@ -29,10 +29,17 @@ public class DoctorController {
     private final MemberService memberService;
     private final HospitalService hospitalService;
 
-    // 의사 목록 페이지
+    // 의사 전체 목록 페이지
     @GetMapping("/list")
     public String listPage() {
         return "doctor/doctor-list";
+    }
+
+    // 의사 상세보기 페이지
+    @GetMapping("/detail/{doctorId}")
+    public String doctorDetailPage(@PathVariable Long doctorId, Model model) {
+        model.addAttribute("doctorId", doctorId);
+        return "doctor/doctor-detail";
     }
 
 

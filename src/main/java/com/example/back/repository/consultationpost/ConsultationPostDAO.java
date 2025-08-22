@@ -23,4 +23,8 @@ public class ConsultationPostDAO {
         return consultationPostMapper.selectTop3ByMemberId(memberId);
     }
 
+    public List<String> findCategoryNamesByPostId(Long postId) {
+        return consultationPostMapper.selectCategoryNamesByPostId(postId);
+    }
+
 }

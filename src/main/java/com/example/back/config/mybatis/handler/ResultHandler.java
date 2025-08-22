@@ -1,6 +1,5 @@
 package com.example.back.config.mybatis.handler;
 
-import com.example.back.common.enumeration.Accpetance;
 import com.example.back.common.enumeration.Result;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;

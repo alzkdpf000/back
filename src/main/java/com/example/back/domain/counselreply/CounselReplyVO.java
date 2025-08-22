@@ -1,7 +1,7 @@
 package com.example.back.domain.counselreply;
 
 import com.example.back.audit.Period;
-import com.example.back.common.enumeration.Accpetance;
+import com.example.back.common.enumeration.Acceptance;
 import com.example.back.common.enumeration.Status;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class CounselReplyVO extends Period {
     private Long id;
     private String counselReplyContent;
     private Status counselReplyStatus;
-    private Accpetance counselReplyAccpetance;
+    private Acceptance counselReplyAcceptance;
     private Long doctorId;
     private Long consultationPostId;
 

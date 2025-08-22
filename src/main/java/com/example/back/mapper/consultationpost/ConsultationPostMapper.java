@@ -14,4 +14,7 @@ public interface ConsultationPostMapper {
 
     // 특정 회원이 최근에 작성한 게시글 3개 조회
     public List<ConsultationPostDTO> selectTop3ByMemberId(Long memberId);
+
+    // 특정 게시글의 카테고리 이름 조회
+    public List<String> selectCategoryNamesByPostId(Long postId);
 }

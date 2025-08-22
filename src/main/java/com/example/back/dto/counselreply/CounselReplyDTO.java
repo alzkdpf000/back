@@ -1,7 +1,8 @@
 package com.example.back.dto.counselreply;
 
-import com.example.back.common.enumeration.Accpetance;
+import com.example.back.common.enumeration.Acceptance;
 import com.example.back.common.enumeration.Status;
+import com.example.back.dto.consultationpost.ConsultationPostDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,11 +18,9 @@ public class CounselReplyDTO {
     private Long id;
     private String counselReplyContent;
     private Status counselReplyStatus;
-    private Accpetance counselReplyAccpetance;
+    private Acceptance counselReplyAcceptance;
     private Long doctorId;
-    private Status consultationPostStatus;
-    private Long consultationPostId;
-    private String consultationPostTitle;
+    private ConsultationPostDTO consultationPost;
     private String createdDatetime;
     private String createdDate;
     private String updatedDatetime;

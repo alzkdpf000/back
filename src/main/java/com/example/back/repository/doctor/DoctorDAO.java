@@ -27,6 +27,11 @@ public class DoctorDAO {
         return doctorMapper.selectCountAll(search);
     }
 
+    public DoctorListDTO findDoctorDetailById(Long doctorId) {
+        // Mapper 호출 시 필요하면 로그인 회원 ID 전달
+        return doctorMapper.selectDoctorDetailById(doctorId);
+    }
+
     //  멤버 status 상관없는 의사 목록
     public List<DoctorDTO> findAllStatus(Criteria criteria, String doctorStatus, Search search) {
         return doctorMapper.selectDoctorsByStatus(criteria,doctorStatus,search);

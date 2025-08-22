@@ -18,14 +18,17 @@ public interface DoctorMapper {
 
     public void insertJoinDoctor(DoctorDTO doctorDTO);
 
-//  목록
+    //  목록
     public List<DoctorListDTO> selectDoctorList(
             @Param("criteria") Criteria criteria,
             @Param("search") Search search
     );
     
-//  전체 개수 조회
+    //  전체 개수 조회
     int selectCountAll(@Param("search") Search search);
+
+    //  의사 상세보기
+    DoctorListDTO selectDoctorDetailById(Long doctorId);
 
 
 //  멤버 status 상관없는 의사 목록
