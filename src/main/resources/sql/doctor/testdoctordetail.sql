@@ -61,3 +61,4 @@ select * from tbl_category;
 select * from tbl_consultation_post;
 select * from tbl_counsel_reply;
 select * from tbl_consultation_post_category;
+

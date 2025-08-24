@@ -23,9 +23,9 @@
             r.created_datetime AS createdDatetime,
             r.updated_datetime AS updatedDatetime,
 
-            p.id AS consultationPost_id,
-            p.consultation_post_title AS consultationPost_consultationPostTitle,
-            p.consultation_post_status AS consultationPost_consultationPostStatus
+            p.id AS consultationPostId,
+            p.consultation_post_title AS consultationPostTitle,
+            p.consultation_post_status AS consultationPostStatus
 
         FROM tbl_counsel_reply r
                  JOIN tbl_consultation_post p ON r.consultation_post_id = p.id

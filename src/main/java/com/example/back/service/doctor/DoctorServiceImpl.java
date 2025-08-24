@@ -96,16 +96,22 @@ public class DoctorServiceImpl implements DoctorService {
         // 답변글 + 게시글 조회
         List<CounselReplyDTO> replies = counselReplyDAO.findRepliesWithPostTitleByDoctorId(doctorId, criteria);
 
-        // 작성일 포맷 + 게시글 카테고리 세팅
         replies.forEach(reply -> {
             reply.setCreatedDate(DateUtils.getCreatedDate(reply.getCreatedDatetime()));
 
-            if (reply.getConsultationPost() != null && reply.getConsultationPost().getId() != null) {
-                List<String> categories = consultationPostDAO.findCategoryNamesByPostId(reply.getConsultationPost().getId());
-                reply.getConsultationPost().setCategoryNames(categories);
+            if (reply.getConsultationPostId() != null) {
+                try {
+                    List<String> categories = consultationPostDAO.findCategoryNamesByPostId(reply.getConsultationPostId());
+                    reply.setCategoryNames(categories != null ? categories : List.of());
+                } catch (Exception e) {
+                    log.error("카테고리 조회 실패, postId=" + reply.getConsultationPostId(), e);
+                    reply.setCategoryNames(List.of());
+                }
+            } else {
+                reply.setCategoryNames(List.of());
             }
         });
-        
+
         DoctorDetailDTO doctorDetailDTO = new DoctorDetailDTO();
         doctorDetailDTO.setDoctorListDTO(doctor);
         doctorDetailDTO.setCounselReplyDTOList(replies);

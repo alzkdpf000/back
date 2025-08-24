@@ -5,5 +5,16 @@ const doctorService = (() => {
         return await res.json();
     };
 
-    return { getDoctorDetail: getDoctorDetail };
+    const toggleLike = async (doctorId, memberId) => {
+        const res = await fetch(`/likes/toggle`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ doctorId, memberId })
+        });
+
+        if (!res.ok) throw new Error("좋아요 토글 실패");
+        return await res.text();
+    };
+
+    return { getDoctorDetail: getDoctorDetail, toggleLike: toggleLike };
 })();
