@@ -1,8 +1,12 @@
 package com.example.back.controller.member;
 
 import com.example.back.common.exception.LoginFailException;
+import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.service.doctor.DoctorService;
+import com.example.back.service.mail.MailService;
 import com.example.back.service.member.MemberService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -18,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/member")
@@ -27,8 +32,10 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
     private final HttpSession session;
+    private final DoctorService doctorService;
+    private final MailService mailService;
 
-//    회원가입
+    //    회원가입
     @GetMapping("join")
     public String goToJoinForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
@@ -135,4 +142,52 @@ public class MemberController {
         model.addAttribute("memberDTO", new MemberDTO());
         return "/main/main";
     }
+
+//    계정 찾기 페이지 이동
+    @GetMapping("find-email")
+    public String goTofindEmailForm(){
+        return "/member/emailcheck";
+    }
+
+    @PostMapping("/find-email")
+    public RedirectView findEmail(@RequestParam("memberEmail") String memberEmail, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws MessagingException {
+        boolean exists = memberService.isExistMemberEmail(memberEmail);
+
+        if (exists) {
+//            이메일이 존재할 때
+            mailService.sendMail(memberEmail,request,response);
+            session.setAttribute("memberEmail", memberEmail);
+            return new RedirectView("/member/emailsuccess");
+        }else {
+//            이메일이 존재하지 않을 때
+            return new RedirectView("/member/emailfail");
+        }
+    }
+
+    @GetMapping("emailsuccess")
+    public String goTofindEmailSuccess(HttpSession session, Model model){
+        model.addAttribute("memberEmail", session.getAttribute("memberEmail"));
+        session.removeAttribute("memberEmail");
+
+        return "/member/emailsuccess";
+    }
+
+    @GetMapping("emailfail")
+    public String goTofindEmailFail(){
+        return "/member/emailfail";
+    }
+
+    @GetMapping("/emailcheck")
+    public RedirectView confirmEmail(@RequestParam("code") String code,
+                                     @CookieValue(value = "code", required = false) String cookieCode) {
+        if (code != null && code.equals(cookieCode)) {
+            return new RedirectView("/member/emailsuccess");
+        } else {
+            return new RedirectView("/member/emailfail");
+        }
+    }
+
+
+
+
 }
