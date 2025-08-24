@@ -12,7 +12,7 @@ public interface CounselReplyService {
                 .createdDatetime(counselReplyDTO.getCreatedDatetime())
                 .counselReplyStatus(counselReplyDTO.getCounselReplyStatus())
                 .counselReplyContent(counselReplyDTO.getCounselReplyContent())
-                .consultationPostId(counselReplyDTO.getConsultationPost() != null ? counselReplyDTO.getConsultationPost().getId() : null)
+                .consultationPostId(counselReplyDTO.getConsultationPostId())
                 .doctorId(counselReplyDTO.getDoctorId())
                 .updatedDatetime(counselReplyDTO.getUpdatedDatetime())
                 .build();
