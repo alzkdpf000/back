@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.member.MemberMapper">
     <insert id="insertMember" parameterType="com.example.back.domain.member.MemberVO" useGeneratedKeys="true" keyProperty="id">
-        insert into tbl_member(member_email, member_password, member_name, member_phone)
-        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberPhone})
+        insert into tbl_member(member_email, member_password, member_name, member_phone,member_role)
+        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberPhone}, #{role})
     </insert>
     <select id="selectMembers">
         select id,
@@ -109,7 +109,7 @@
                created_datetime,
                updated_datetime
         from tbl_member
-        where member_kakao_email = #{memberKakaoEmail}
+        where member_kakao_email = #{kakaoEmail}
     </select>
 
     <insert id="insertKakaoMember" parameterType="com.example.back.domain.member.MemberVO" useGeneratedKeys="true" keyProperty="id">

@@ -1,5 +1,6 @@
 package com.example.back.controller.doctor;
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
 import com.example.back.domain.hospital.HospitalDTO;
 import com.example.back.dto.doctor.DoctorDTO;
@@ -45,8 +46,13 @@ public class DoctorController {
 
 //    의사 회원가입
     @GetMapping("join")
-    public String goToJoinForm(DoctorDTO doctorDTO, Model model) {
+    public String goToJoinForm(DoctorDTO doctorDTO, Model model, @ModelAttribute("member")  MemberDTO memberDTO) {
         model.addAttribute("doctorDTO",doctorDTO);
+
+        if (memberDTO == null || memberDTO.getKakaoEmail() == null) {
+            memberDTO = new MemberDTO();
+        }
+        model.addAttribute("member",memberDTO);
         return "doctor/joindoctor";
     }
 //    의사 회원가입 처리
@@ -57,6 +63,8 @@ public class DoctorController {
 
         memberDTO.setMemberPhone(doctorDTO.getMemberPhone());
         hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
+
+        memberDTO.setRole(Role.DOCTOR);
 
         doctorService.join(doctorDTO, memberDTO, hospitalDTO);
 
