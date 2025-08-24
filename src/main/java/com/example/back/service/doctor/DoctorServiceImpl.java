@@ -1,5 +1,6 @@
 package com.example.back.service.doctor;
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
 import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.domain.hospital.HospitalDTO;
@@ -169,7 +170,8 @@ public class DoctorServiceImpl implements DoctorService {
 
             doctorDTO.setMemberId(memberDTO.getId());
         } else {
-
+            memberDTO.setRole(Role.DOCTOR);
+            log.info("회원가입 직전 Role = {}", memberDTO.getRole());
             memberDTO = memberService.join(memberDTO);
             doctorDTO.setMemberId(memberDTO.getId());
         }
