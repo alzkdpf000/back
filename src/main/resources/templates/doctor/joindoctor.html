@@ -32,7 +32,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="이름을 입력" id="name" name="memberName" type="text" class="bms9cb"  th:value="${member != null ? member.memberName : ''}" th:readonly="${member != null ? member.memberName : ''}" />
+                                    <input placeholder="이름을 입력" id="name" name="memberName" type="text" class="bms9cb"  th:value="${member != null and member.memberName != null ? member.memberName : ''}" th:readonly="${member != null and member.memberName != null}" />
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="이메일 주소를 입력" id="email" name="memberEmail" type="email" class="bms9cb" th:value="${member != null ? member.kakaoEmail : ''}" th:readonly="${member != null ? member.kakaoEmail : ''}" />
+                                    <input placeholder="이메일 주소를 입력" id="email" name="kakaoEmail" type="email" class="bms9cb" th:value="${member != null and member.kakaoEmail != null ? member.kakaoEmail : ''}" th:readonly="${member != null and member.kakaoEmail != null}" />
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="비밀번호를 입력 - 문자포함 6자리" id="password" name="memberPassword" type="password" class="bms9cb"  th:field="*{memberPassword}" th:readonly ="${member.memberPassword != null}" />
+                                    <input placeholder="비밀번호를 입력 - 문자포함 6자리" id="password" name="memberPassword" type="password" class="bms9cb"  th:value="${member != null and member.memberPassword != null ? member.memberPassword : ''}" th:readonly="${member != null and member.memberPassword != null}" />
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                                     </label>
                                 </div>
                                 <div class="sbo1gjemailchang">
-                                    <input placeholder="비밀번호를 재입력" id="passwordConfirm" name="passwordConfirm" type="password" class="bms9cb" th:value="${doctorDTO.memberPassword != null} ? ${doctorDTO.memberPassword} : ''" th:readonly="${doctorDTO.memberPassword != null}" />
+                                    <input placeholder="비밀번호를 재입력" id="passwordConfirm" name="passwordConfirm" type="password" class="bms9cb" th:value="${member != null and member.memberPassword != null ? member.memberPassword : ''}" th:readonly="${member != null and member.memberPassword != null}" />
                                 </div>
                             </div>
                         </div>
