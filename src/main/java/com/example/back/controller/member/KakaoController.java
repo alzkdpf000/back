@@ -41,6 +41,9 @@ public class KakaoController {
                 redirectAttributes.addFlashAttribute("member", member);
                 return new RedirectView("/doctor/join");
             }
+            if (member.getMemberPhone() == null) {
+                member.setMemberPhone("000-0000-0000");
+            }
             memberService.joinKakaoMember(member);
             foundKakaoMember = memberService.getKakaoMember(member.getKakaoEmail());
         }
