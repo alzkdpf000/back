@@ -1,36 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
     const inputs = [
         document.getElementById("name"),
-        document.getElementById("phone1"),
-        document.getElementById("phone2"),
-        document.getElementById("phone3"),
-        document.getElementById("password"),
-        document.getElementById("passwordConfirm"),
     ];
 
-    const button = document.getElementById("loginBtn");
+    const password = document.getElementById('password');
+    const passwordConfirm = document.getElementById('passwordConfirm');
+    const loginBtn = document.getElementById('loginBtn');
 
-    function checkInputsFilled() {
-        const allFilled = inputs.every(
-            (input) => input && input.value.trim() !== ""
-        );
-
-        if (allFilled) {
-            button.disabled = false;
-            button.classList.add("active-button");
+    function checkPasswords() {
+        if (password.value && passwordConfirm.value && password.value === passwordConfirm.value) {
+            loginBtn.disabled = false;
         } else {
-            button.disabled = true;
-            button.classList.remove("active-button");
+            loginBtn.disabled = true;
         }
     }
 
-    inputs.forEach((input) => {
-        if (input) {
-            input.addEventListener("input", checkInputsFilled);
-        }
-    });
+    password.addEventListener('input', checkPasswords);
+    passwordConfirm.addEventListener('input', checkPasswords);
 
-    // 👉 핸드폰 번호 입력 시 자동 탭 이동
+
+    //  핸드폰 번호 입력 시 자동 탭 이동
     const phone1 = document.getElementById("phone1");
     const phone2 = document.getElementById("phone2");
     const phone3 = document.getElementById("phone3");

@@ -12,6 +12,19 @@ spring:
     url: jdbc:mysql://localhost:3306/app?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
     username: goldentime
     password: 1234
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: gtaemin254@gmail.com
+    password: csly lxto vgxw iuhl
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

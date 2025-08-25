@@ -22,11 +22,12 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Primary
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberDAO memberDAO;
-    private final ConsultationPostDAO  consultationPostDAO;
+    private final ConsultationPostDAO consultationPostDAO;
     private final MemberVisitedDAO memberVisitedDAO;
+
     @Override
     public MemberDTO join(MemberDTO memberDTO) {
         MemberVO memberVO = toVO(memberDTO);
@@ -45,8 +46,8 @@ public class MemberServiceImpl implements MemberService{
     public MemberCriteriaDTO getListAllStatus(Search search) {
         MemberCriteriaDTO memberCriteriaDTO = new MemberCriteriaDTO();
         int total = memberDAO.findCountAllStatus(search);
-        Criteria criteria = new Criteria(search.getPage(),total);
-        List<MemberDTO> members = memberDAO.findAll(criteria,search);
+        Criteria criteria = new Criteria(search.getPage(), total);
+        List<MemberDTO> members = memberDAO.findAll(criteria, search);
         members.forEach(member -> {
             member.setCreatedDate(DateUtils.getCreatedDate(member.getCreatedDatetime()));
         });
@@ -60,7 +61,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Optional<MemberDTO> getMemberByIdAllStatus(Long memberId) {
         Optional<MemberDTO> member = memberDAO.findMemberByIdAllStatus(memberId);
-        member.ifPresent((memberDTO)->{
+        member.ifPresent((memberDTO) -> {
             List<ConsultationPostDTO> posts = consultationPostDAO.findTop3ByMemberId(memberId);
             posts.forEach((post) -> {
                 post.setCreatedDate(DateUtils.getCreatedDate(post.getCreatedDatetime()));
@@ -77,7 +78,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
 
-//    로그인
+    //    로그인
     @Override
     public Optional<MemberDTO> login(MemberDTO memberDTO) {
         return memberDAO.findMemberEmailAndPassword(memberDTO);
@@ -115,6 +116,12 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void joinKakaoMember(MemberDTO memberDTO) {
         memberDAO.saveKakaoMember(toVO(memberDTO));
+
+    }
+
+    @Override
+    public void updatePassword(String memberEmail, String memberPassword) {
+        memberDAO.updatePassword(memberEmail, memberPassword);
 
     }
 
