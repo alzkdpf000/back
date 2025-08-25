@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.review.ReviewMapper">
+
+    <select id="selectReviewsByDoctorId" resultType="com.example.back.dto.review.ReviewDTO" parameterType="map">
+        SELECT
+            r.id AS id,
+            r.review_rating AS rating,
+            r.review_content AS content,
+            r.review_status AS status,
+            r.member_id AS memberId,
+            r.doctor_id AS doctorId,
+            r.created_datetime AS createdDatetime,
+            r.updated_datetime AS updatedDatetime,
+            m.member_name AS memberName
+        FROM tbl_review r
+                 JOIN tbl_member m ON r.member_id = m.id
+        WHERE r.doctor_id = #{doctorId}
+          AND r.review_status = 'active'
+        ORDER BY r.created_datetime DESC
+        LIMIT #{criteria.rowCount} OFFSET #{criteria.offset}
+    </select>
+
+    <select id="countReviewsByDoctorId" resultType="int" parameterType="long">
+        SELECT COUNT(*)
+        FROM tbl_review r
+        WHERE r.doctor_id = #{doctorId}
+          AND r.review_status = 'active'
+    </select>
+
+    <select id="existsHouseCallByMemberAndDoctor" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_house_call hc
+                 JOIN tbl_house_call_doctor hcd ON hc.id = hcd.house_call_id
+        WHERE hc.member_id = #{memberId}
+          AND hcd.doctor_id = #{doctorId}
+          AND hc.house_call_status = 'completed'
+    </select>
+</mapper>

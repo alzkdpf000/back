@@ -2,6 +2,7 @@ package com.example.back.dto.doctor;
 
 import com.example.back.domain.doctor.DoctorVO;
 import com.example.back.dto.counselreply.CounselReplyDTO;
+import com.example.back.dto.review.ReviewDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +16,5 @@ import java.util.List;
 public class DoctorDetailDTO {
     private DoctorListDTO doctorListDTO;
     private List<CounselReplyDTO> counselReplyDTOList;
+    private List<ReviewDTO> reviews;
 }

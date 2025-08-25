@@ -70,7 +70,6 @@ const doctorLayout = (() => {
         </div>
         `;
 
-        // 모달 함수도 상세페이지에서 접근 가능하도록 정의
         const showWarnModal = (modalMessage) => {
             const modalCheckDelay = 500;
             document.getElementById("content-wrap").innerHTML = modalMessage;
@@ -88,19 +87,14 @@ const doctorLayout = (() => {
 
         const currentMemberId = 31;
 
-        // 상세 페이지 좋아요 버튼 연결
+        // 좋아요 버튼 연결
         const likeBtn = document.querySelector(".like-btn");
         if (likeBtn) {
             const countSpan = likeBtn.querySelector(".doctorinfo-favoriteCount");
             likeBtn.addEventListener("click", async (e) => {
-
                 const doctorId = Number(likeBtn.dataset.doctorId);
-
                 try {
-                    // 서버에서 상태 + 최신 likesCount 반환
                     const result = await doctorService.toggleLike(doctorId, currentMemberId);
-
-                    // 상태 반영
                     if (result === "liked") {
                         likeBtn.querySelector("img").src = '/images/heart.png';
                         countSpan.textContent = Number(countSpan.textContent) + 1;
@@ -110,7 +104,6 @@ const doctorLayout = (() => {
                         countSpan.textContent = Number(countSpan.textContent) - 1;
                         likeBtn.dataset.liked = "false";
                     }
-
                 } catch (err) {
                     console.error("좋아요 토글 실패:", err);
                     showWarnModal("로그인 후 이용해주세요.");
@@ -119,20 +112,17 @@ const doctorLayout = (() => {
         }
     };
 
-    // 답변 리스트 렌더링
+    // 답변글 렌더링
     const renderAnswerList = (answers = []) => {
         const answerList = getElement("#intersectionObserver");
         const noResult = getElement(".no-search-result-wrap");
         if (!answerList || !noResult) return;
 
         answerList.innerHTML = "";
-
         if (!answers.length) {
             noResult.style.display = "flex";
             return;
-        } else {
-            noResult.style.display = "none";
-        }
+        } else noResult.style.display = "none";
 
         const fragment = document.createDocumentFragment();
         answers.forEach(answer => {
@@ -145,10 +135,10 @@ const doctorLayout = (() => {
                                 <span>${answer.category || '-'}</span>
                             </div>
                             <div class="answer-create-day">${timeForToday(answer.createDate)}</div>
-                        </div>
-                        <div class="answer-title-content-wrap">
-                            <span class="answer-title-content">${answer.title || '-'}</span>
-                            <span class="answer-content-wrap"><span class="answer-content">A.</span>${answer.content || '-'}</span>
+                            <div class="answer-title-content-wrap">
+                                <span class="answer-title-content">${answer.title || '-'}</span>
+                                <span class="answer-content-wrap"><span class="answer-content">A.</span>${answer.content || '-'}</span>
+                            </div>
                         </div>
                     </div>
                 </a>
@@ -158,11 +148,9 @@ const doctorLayout = (() => {
         answerList.appendChild(fragment);
     };
 
-    // 답변 페이징 렌더링
     const renderReplyPaging = (criteria, doctorData, doctorId, memberId) => {
         const pageContainer = getElement("#page-container");
         if (!criteria || !pageContainer) return;
-
         const totalReplies = (doctorData.counselReplyDTOList || []).length;
         if (totalReplies === 0) {
             pageContainer.innerHTML = "";
@@ -180,19 +168,16 @@ const doctorLayout = (() => {
         pageContainer.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", async e => {
                 e.preventDefault();
-
                 const page = Number(link.dataset.page);
                 try {
                     const detailDTO = await doctorService.getDoctorDetail(doctorId, page);
                     const updatedDoctorData = detailDTO.doctorsDetail[0];
-
                     const answers = (updatedDoctorData.counselReplyDTOList || []).map(reply => ({
                         category: Array.isArray(reply.categoryNames) ? reply.categoryNames.join(", ") : "-",
                         title: reply.consultationPostTitle || "-",
                         content: reply.counselReplyContent || "-",
                         createDate: reply.createdDatetime || null
                     }));
-
                     renderAnswerList(answers);
                     renderReplyPaging(detailDTO.criteria, updatedDoctorData, doctorId, memberId);
                 } catch(err) {
@@ -202,7 +187,245 @@ const doctorLayout = (() => {
         });
     };
 
-    // DTO → 화면 표시
+    // 리뷰글 렌더링
+    const renderReviewList = (reviews = []) => {
+        const reviewList = getElement("#review-list");
+        const noResult = getElement(".no-review-result-wrap");
+
+        if (!reviewList || !noResult) return;
+
+        reviewList.innerHTML = "";
+        if (!reviews.length) {
+            noResult.style.display = "flex";
+            return;
+        } else noResult.style.display = "none";
+
+        const fragment = document.createDocumentFragment();
+        reviews.forEach(review => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+            <div class="answer-list-container">
+                <div class="answer-list-header-wrap">
+                    <div class="answer-list-content-tag review-list-content-tag">
+                        <div class="review-img-star">
+                            <img class="info-profil-img review" src="${review.memberProfile || 'https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp'}" width="35" height="35">
+                            <div class="review-star-wrap">
+                                <div class="review-star-content">
+                                    <div class="review-star-svg">
+                                        <svg fill="none" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+                                            <path clip-rule="evenodd" d="M21.6515 4.43374L25.6752 13.3856L35.0647 14.6201C36.6096 14.8231 37.2093 16.8084 36.0899 17.907L29.1848 24.675L30.9639 34.3941C31.2566 35.9898 29.6374 37.2019 28.291 36.4257L19.9995 31.6536L11.708 36.4257C10.3601 37.2019 8.74241 35.9898 9.03512 34.3941L10.8142 24.675L3.91058 17.907C2.79117 16.8084 3.38942 14.8231 4.93575 14.6201L14.3253 13.3856L18.3475 4.43374C19.0071 2.96642 20.9918 2.96642 21.6515 4.43374Z" fill="#FFD633" fill-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="review-point">${review.rating.toFixed(1)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-content-text-wrap">
+                            <div class="review-header">
+                                <span class="review-content-text anonymous">익명</span>
+                                <div class="answer-create-day write-date">${timeForToday(review.createdDatetime)}</div>
+                            </div>
+                            <span class="review-content-text content">${review.content || '-'}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+            fragment.appendChild(li);
+        });
+        reviewList.appendChild(fragment);
+    };
+
+    const renderReviewPaging = (criteria, doctorData, doctorId, memberId) => {
+        const pageContainer = getElement("#review-page-container");
+        if (!criteria || !pageContainer) return;
+        const totalReviews = (doctorData.reviews || []).length;
+        if (totalReviews === 0) {
+            pageContainer.innerHTML = "";
+            return;
+        }
+
+        let html = "";
+        if(criteria.hasPreviousPage) html += `<a href="#" data-page="${criteria.startPage - 1}">이전</a>`;
+        for(let i = criteria.startPage; i <= criteria.endPage; i++){
+            html += `<a href="#" data-page="${i}">${i}</a>`;
+        }
+        if(criteria.hasNextPage) html += `<a href="#" data-page="${criteria.endPage + 1}">다음</a>`;
+        pageContainer.innerHTML = html;
+
+        pageContainer.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", async e => {
+                e.preventDefault();
+                const page = Number(link.dataset.page);
+                try {
+                    const detailDTO = await doctorService.getDoctorDetail(doctorId, page);
+                    const updatedDoctorData = detailDTO.doctorsDetail[0];
+                    renderReviewList(updatedDoctorData.reviews);
+                    renderReviewPaging(detailDTO.criteria, updatedDoctorData, doctorId, memberId);
+                } catch(err) {
+                    console.error("리뷰 리스트 로딩 실패:", err);
+                }
+            });
+        });
+    };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        // URL에서 doctorId와 page 추출
+        const pathParts = window.location.pathname.split("/");
+        const doctorId = pathParts[3]; // 0:/, 1:doctor, 2:detail, 3:doctorId
+        const page = Number(pathParts[4]) || 1;
+
+        if (!doctorId) {
+            console.error("URL에서 doctorId를 찾을 수 없습니다.");
+            return;
+        }
+
+        const currentMemberId = 31;
+
+        try {
+            // API 호출
+            const detailDTO = await doctorService.getDoctorDetail(doctorId, page);
+            if (!detailDTO?.doctorsDetail?.length) {
+                console.error("의사 상세 정보가 없습니다.");
+                return;
+            }
+
+            // 의사 상세 정보 렌더링
+            doctorLayout.loadDoctorDetailFromDTO(detailDTO, currentMemberId);
+
+        } catch (err) {
+            console.error("의사 상세 정보 불러오기 실패:", err);
+        }
+        // 탭 클릭 이벤트 처리
+        const profilBtns = document.querySelectorAll(".profil-content-select");
+        const profilCotentCheck = document.querySelector(".profil-content-selector");
+
+
+        profilBtns.forEach((profilBtn) => {
+            profilBtn.addEventListener("click", async () => {
+                const cnt = profilBtn.dataset.cnt;
+
+                profilCotentCheck.style.transform = `translateX(calc(${100 * cnt}% + ${16 * cnt}px))`;
+                document.querySelector("span.active").classList.remove("active");
+                const spanTag = profilBtn.firstElementChild.firstElementChild;
+                spanTag.classList.add("active");
+
+                // 탭 전환 시 영역과 페이징 토글
+                const answerList = document.querySelector("#intersectionObserver");
+                const reviewList = document.querySelector("#review-list");
+                const answerPaging = document.querySelector("#page-container");
+                const reviewPaging = document.querySelector("#review-page-container");
+                const noAnswer = document.querySelector(".no-search-result-wrap");
+                const noReview = document.querySelector(".no-review-result-wrap");
+
+                if (cnt === "0") {
+                    // 답변 탭
+                    answerList.style.display = "block";
+                    answerPaging.style.display = "block";
+                    reviewList.style.display = "none";
+                    reviewPaging.style.display = "none";
+                    noAnswer.style.display = "none";
+                    noReview.style.display = "none";
+                } else if (cnt === "1") {
+                    // 리뷰 탭
+                    answerList.style.display = "none";
+                    answerPaging.style.display = "none";
+                    reviewList.style.display = "block";
+                    reviewPaging.style.display = "block";
+                    noAnswer.style.display = "none";
+                    noReview.style.display = "none"
+                }
+
+                try {
+                    const detailDTO = await doctorService.getDoctorDetail(doctorId, 1);
+                    const doctorData = detailDTO.doctorsDetail[0];
+
+                    if (cnt === "0") {
+                        const answers = (doctorData.counselReplyDTOList || []).map(reply => ({
+                            category: Array.isArray(reply.categoryNames) ? reply.categoryNames.join(", ") : "-",
+                            title: reply.consultationPostTitle || "-",
+                            content: reply.counselReplyContent || "-",
+                            createDate: reply.createdDatetime || null
+                        }));
+                        doctorLayout.renderAnswerList(answers);  // 내부에서 no-search-result-wrap 처리됨
+                        doctorLayout.renderReplyPaging(detailDTO.criteria, doctorData, doctorId, currentMemberId);
+                    } else if (cnt === "1") {
+                        const reviews = (doctorData.reviews || []).map(r => ({
+                            content: r.content || "-",
+                            rating: r.rating || 0,
+                            createdDatetime: r.createdDatetime || null,
+                            memberProfile: r.memberProfile || null
+                        }));
+                        doctorLayout.renderReviewList(reviews);  // 내부에서 no-review-result-wrap 처리됨
+                        doctorLayout.renderReviewPaging(detailDTO.criteria, doctorData, doctorId, currentMemberId);
+                    }
+                } catch (err) {
+                    console.error(cnt === "0" ? "답변 리스트 로딩 실패:" : "리뷰 리스트 로딩 실패:", err);
+                }
+            });
+        });
+    });
+
+    const reviewBtn = document.querySelector(".exist-review-btn");
+    const reviewInputContainer = document.querySelector(".review-input-container");
+
+    reviewBtn.addEventListener("click", async () => {
+        try {
+            const response = await fetch(`/api/review/check?doctorId=${doctorId}&memberId=${currentMemberId}`);
+            const canWrite = await response.json();
+
+            if(!canWrite){
+                alert("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
+                return;
+            }
+
+            // 입력창 생성
+            reviewInputContainer.innerHTML = `
+            <textarea id="review-content" placeholder="후기를 작성해주세요..." rows="4" style="width:100%; margin-bottom:8px;"></textarea>
+            <input type="number" id="review-rating" placeholder="평점 (0~5)" min="0" max="5" style="width:100px; margin-bottom:8px;">
+            <button id="submit-review">작성 완료</button>
+        `;
+            reviewInputContainer.style.display = "block";
+
+            // 작성 완료 클릭 이벤트
+            document.getElementById("submit-review").addEventListener("click", async () => {
+                const content = document.getElementById("review-content").value.trim();
+                const rating = Number(document.getElementById("review-rating").value);
+
+                if(!content || rating < 0 || rating > 5){
+                    alert("내용과 평점을 올바르게 입력해주세요.");
+                    return;
+                }
+
+                try {
+                    const res = await fetch("/api/review/write", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            doctorId,
+                            memberId: currentMemberId,
+                            content,
+                            rating
+                        })
+                    });
+
+                    if(res.ok){
+                        alert("후기가 등록되었습니다.");
+                        reviewInputContainer.style.display = "none";
+                        // 필요 시 리뷰 목록 갱신
+                    }
+                } catch(err){
+                    console.error(err);
+                    alert("후기 등록 중 오류가 발생했습니다.");
+                }
+            });
+
+        } catch (err) {
+            console.error(err);
+            alert("후기 작성 검증 중 오류가 발생했습니다.");
+        }
+    });
+
     const loadDoctorDetailFromDTO = (detailDTO, memberId) => {
         if (!detailDTO?.doctorsDetail?.length) return;
         const doctorData = detailDTO.doctorsDetail[0];
@@ -232,5 +455,12 @@ const doctorLayout = (() => {
         renderReplyPaging(detailDTO.criteria, doctorData, doctor.id, memberId);
     };
 
-    return { renderDoctorInfo: renderDoctorInfo, renderAnswerList: renderAnswerList, loadDoctorDetailFromDTO: loadDoctorDetailFromDTO };
+    return {
+        renderDoctorInfo: renderDoctorInfo,
+        renderAnswerList: renderAnswerList,
+        renderReviewList: renderReviewList,
+        renderReplyPaging: renderReplyPaging,
+        renderReviewPaging: renderReviewPaging,
+        loadDoctorDetailFromDTO: loadDoctorDetailFromDTO  // DTO 로딩도 반환
+    };
 })();
