@@ -100,7 +100,6 @@ listLayout.addEventListener("click", (e) => {
             showWarnModal(message);
         } else {
             console.log(e.target);
-
             message = `해당 의사를 나의 관심 의사로 <br>등록 했습니다.`;
             interestBtn.lastElementChild.src = "/images/check.png";
             heartImg.firstElementChild.src = "/images/heart.png";

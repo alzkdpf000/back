@@ -86,7 +86,10 @@
         JOIN tbl_hospital_address ha ON h.id = ha.hospital_id
         WHERE d.doctor_status = 'ACTIVE'
         <include refid="searchDoctorList"/>
-        ORDER BY likesCount DESC, d.member_id DESC
+        ORDER BY
+        likesCount DESC,        -- 좋아요 수 내림차순
+        liked DESC,             -- 좋아요 수 같을경우 내가 좋아요 한 사람이 위로
+        d.member_id DESC
         LIMIT #{criteria.rowCount} OFFSET #{criteria.offset}
     </select>
 

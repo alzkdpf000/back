@@ -70,7 +70,7 @@ categoryFinalSelect.addEventListener("click", () => {
 });
 
 // ===================== 의사 목록 JS =====================
-const doctorLayout = ((currentMemberId = 1) => {
+const doctorLayout = ((currentMemberId = 31) => {
 
     const showList = (criteriaDTO) => {
         const container = document.getElementById("intersectionObserver");
@@ -83,8 +83,8 @@ const doctorLayout = ((currentMemberId = 1) => {
 
         criteriaDTO.doctorsList.forEach(doctor => {
             html += `
-            <li>
-                <a>
+                <li>
+                  <a href="/doctor/detail/${doctor.id}?page=1">
                     <div class="content-info">
                         <img class="contentInfoImg img-doc-tag" 
                              src="${doctor.memberKakaoProfileUrl || 'https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp'}" 
@@ -123,20 +123,26 @@ const doctorLayout = ((currentMemberId = 1) => {
 
         container.innerHTML = html;
 
-        // 좋아요 버튼 이벤트
         container.querySelectorAll(".like-btn").forEach(btn => {
-            btn.addEventListener("click", async () => {
+            btn.addEventListener("click", async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
                 const doctorId = Number(btn.dataset.doctorId);
                 const wrapper = btn.closest(".docterinfo-favorite-wrapper");
                 const countSpan = wrapper.querySelector(".doctorinfo-favoriteCount");
 
                 try {
                     const result = await doctorService.toggleLike(doctorId, currentMemberId);
-                    btn.src = result === "liked" ? '/images/heart.png' : '/images/heart-empty.png';
+                    // 서버에서 반환되는 상태
+                    if (result === "liked") {
+                        btn.src = '/images/heart.png'; // 채워진 하트
+                        countSpan.textContent = Number(countSpan.textContent) + 1;
+                    } else if (result === "unliked") {
+                        btn.src = '/images/heart-empty.png'; // 빈 하트
+                        countSpan.textContent = Number(countSpan.textContent) - 1;
+                    }
 
-                    let currentCount = Number(countSpan.textContent);
-                    currentCount = result === "liked" ? currentCount + 1 : currentCount - 1;
-                    countSpan.textContent = currentCount;
                 } catch(err) {
                     console.error("좋아요 토글 실패:", err);
                     showWarnModal("로그인 후 이용해주세요.");
@@ -191,7 +197,7 @@ const doctorLayout = ((currentMemberId = 1) => {
     });
 
     return { loadDoctors: loadDoctors };
-})(1);
+})(31);
 
 // ===================== 초기 실행 =====================
 document.addEventListener("DOMContentLoaded", () => {

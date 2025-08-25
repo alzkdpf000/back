@@ -49,7 +49,7 @@ public class DoctorServiceImpl implements DoctorService {
 
         int totalCount = doctorDAO.findCountDoctorList(search);
         Criteria criteria = new Criteria(page, totalCount);
-        criteria.setCurrentMemberId(1L); // 현재 로그인 멤버 ID
+        criteria.setCurrentMemberId(31L); // 현재 로그인 멤버 ID
 
         List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria, search);
 
@@ -76,8 +76,8 @@ public class DoctorServiceImpl implements DoctorService {
         // 의사 정보 상세보기
         DoctorListDTO doctor = doctorDAO.findDoctorDetailById(doctorId);
 
-        // 로그인 유저 ID (임시로 1L 주입)
-        Long currentMemberId = 1L;
+        // 로그인 유저 ID (임시로 31L 주입)
+        Long currentMemberId = 31L;
 
         // 좋아요 수 조회
         doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));
