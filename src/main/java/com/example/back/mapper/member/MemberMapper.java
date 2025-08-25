@@ -8,6 +8,7 @@ import com.example.back.util.Search;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +50,7 @@ public interface MemberMapper {
 //    카카오 로그인 - 최초 로그인인지 확인
     public Optional<MemberDTO> selectMemberForKakaoEmail(String kakaoEmail);
 
-
+//    비밀번호 재설정
+    public void updatePassword(@Param("memberEmail") String memberEmail, @Param("memberPassword") String memberPassword);
 
 }

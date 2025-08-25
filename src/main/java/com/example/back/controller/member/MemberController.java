@@ -1,8 +1,12 @@
 package com.example.back.controller.member;
 
 import com.example.back.common.exception.LoginFailException;
+import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.service.doctor.DoctorService;
+import com.example.back.service.mail.MailService;
 import com.example.back.service.member.MemberService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -18,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/member")
@@ -27,8 +32,10 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
     private final HttpSession session;
+    private final DoctorService doctorService;
+    private final MailService mailService;
 
-//    회원가입
+    //    회원가입
     @GetMapping("join")
     public String goToJoinForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
@@ -135,4 +142,20 @@ public class MemberController {
         model.addAttribute("memberDTO", new MemberDTO());
         return "/main/main";
     }
+
+    //    계정 찾기 페이지 이동 (이메일 보내는 페이지)
+    @GetMapping("find-email")
+    public String goTofindEmailForm(){
+        return "/member/emailcheck";
+    }
+
+    //    이메일 확인 안내
+    @GetMapping("emailsuccess")
+    public String goToConfirmForm(){
+        return "/member/emailsuccess";
+    }
 }
+
+
+
+

@@ -169,9 +169,15 @@ public class MemberMapperTests {
         log.info("{}", memberVisitedMapper.selectMemberVisited());
     }
 
+
 //    @Test
 //    public void testSelectMemberForKakao(){
 //        log.info("{}", memberMapper.selectMemberForKakao("kakaoEmail"));
 //    }
+
+    @Test
+    public void testSelectMemberForKakao(){
+        log.info("{}", memberMapper.selectMemberForKakaoEmail("kakaoEmail"));
+    }
 
 }
