@@ -14,14 +14,15 @@ public class LikesController {
     private final LikesService likesService;
 
     @PostMapping("/toggle")
-    public ResponseEntity<?> toggleLike(@RequestBody LikesDTO dto) {
+    public ResponseEntity<String> toggleLike(@RequestBody LikesDTO dto) {
         try {
-            if (likesService.isLiked(dto)) {
-                likesService.removeLike(dto);
-                return ResponseEntity.ok("unliked");
+            boolean alreadyLiked = likesService.isLiked(dto); // DB에서 실제 체크
+            if (alreadyLiked) {
+                likesService.removeLike(dto); // 좋아요 취소
+                return ResponseEntity.ok("unliked"); // 정확히 unliked 반환
             } else {
-                likesService.addLike(dto);
-                return ResponseEntity.ok("liked");
+                likesService.addLike(dto); // 좋아요 추가
+                return ResponseEntity.ok("liked"); // liked 반환
             }
         } catch (Exception e) {
             e.printStackTrace();

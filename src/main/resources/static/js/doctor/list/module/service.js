@@ -1,5 +1,5 @@
 const doctorService = (() => {
-    const getDoctors = async (page = 1, currentMemberId = 1, keyword = "", category = "") => {
+    const getDoctors = async (page = 1, currentMemberId = 31, keyword = "", category = "") => {
         let url = `/api/doctors/list/${page}?currentMemberId=${currentMemberId}`;
         if (keyword) url += `&keyword=${encodeURIComponent(keyword)}`;
         if (category) url += `&categories=${encodeURIComponent(category)}`;
@@ -8,7 +8,7 @@ const doctorService = (() => {
         return await res.json();
     };
 
-    const toggleLike = async (doctorId, memberId = 1) => {
+    const toggleLike = async (doctorId, memberId) => {
         const res = await fetch('/likes/toggle', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
