@@ -99,14 +99,17 @@ public class MemberController {
         memberDTO.setRemember(remember);
         memberDTO.setMemberEmail(rememberdEmail);
         model.addAttribute("memberDTO", memberDTO);
+        log.info("이메일 로그인 후 세션 member: {}", session.getAttribute("member"));
         return "/member/emaillogin";
     }
 
 //    로그인 조회
     @PostMapping("emaillogin")
-    public RedirectView login(MemberDTO memberDTO, HttpServletResponse response){
+    public RedirectView login(MemberDTO memberDTO, HttpServletResponse response, HttpSession session){
 
         MemberDTO member = memberService.login(memberDTO).orElseThrow(LoginFailException::new);
+        session.setAttribute("memberId", member.getId());
+        log.info("로그인 세션 ID: {}", session.getId());
         session.setAttribute("member", member);
 
         Cookie rememberMemberEmailCookie = new Cookie("remember_member_email", memberDTO.getMemberEmail());
@@ -133,14 +136,14 @@ public class MemberController {
             response.addCookie(rememberCookie);
         }
 
-        return new RedirectView("/member/main");
+        return new RedirectView("/");
 
     }
 //    메인페이지로 이동
     @GetMapping("main")
-    public String goToMainForm(Model model){
+    public RedirectView goToMainForm(Model model){
         model.addAttribute("memberDTO", new MemberDTO());
-        return "/main/main";
+        return new RedirectView("/");
     }
 
     //    계정 찾기 페이지 이동 (이메일 보내는 페이지)
