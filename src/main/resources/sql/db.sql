@@ -284,6 +284,9 @@ create table tbl_house_call
         references tbl_member (id)
 );
 
+ALTER TABLE tbl_house_call
+ADD COLUMN visit_status ENUM('completed', 'pending') DEFAULT 'pending' AFTER house_call_status;
+
 create table tbl_house_call_doctor
 (
     id            bigint unsigned auto_increment primary key,

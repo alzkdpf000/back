@@ -825,6 +825,20 @@ ul.content-list{
     width: 100%;
     max-width: 804px;
 }
+
+#intersectionObserver li,
+#review-list li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    list-style: none;
+}
+
+#intersectionObserver li:last-child,
+#review-list li:last-child {
+    margin-bottom: 0;
+}
+
 div.answer-list-container{
     display: flex;
     flex-direction: column;
@@ -1004,7 +1018,7 @@ button.noexist-search-btn{
 div.review-btn-wrap{
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 span.review-content-text{
     margin-left: 10px;

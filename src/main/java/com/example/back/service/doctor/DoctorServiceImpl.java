@@ -10,6 +10,7 @@ import com.example.back.dto.counselreply.CounselReplyDTO;
 import com.example.back.dto.doctor.*;
 import com.example.back.dto.likes.LikesDTO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.dto.review.ReviewDTO;
 import com.example.back.mapper.counselreply.CounselReplyMapper;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.counselreply.CounselReplyDAO;
@@ -17,6 +18,7 @@ import com.example.back.repository.doctor.DoctorDAO;
 import com.example.back.service.hospital.HospitalService;
 import com.example.back.service.likes.LikesService;
 import com.example.back.service.member.MemberService;
+import com.example.back.service.review.ReviewService;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import com.example.back.util.Search;
@@ -42,6 +44,7 @@ public class DoctorServiceImpl implements DoctorService {
     private final LikesService likesService;
     private final com.example.back.dao.likes.LikesDAO likesDAO;
     private final ConsultationPostDAO consultationPostDAO;
+    private final ReviewService reviewService;
 
     @Override
     public DoctorListCriteriaDTO getList(int page, Search search) {
@@ -89,7 +92,7 @@ public class DoctorServiceImpl implements DoctorService {
         // 답변글 총 개수 조회
         int totalReplies = counselReplyDAO.countRepliesByDoctorId(doctorId);
 
-        // 페이징 처리
+        // 페이징 처리 (답변글 기준)
         Criteria criteria = new Criteria(page, totalReplies);
         criteria.setCurrentMemberId(currentMemberId);
 
@@ -112,9 +115,20 @@ public class DoctorServiceImpl implements DoctorService {
             }
         });
 
+        // 리뷰 총 개수 조회
+        int totalReviews = reviewService.getReviewCountByDoctorId(doctorId);
+
+        // 리뷰 페이징
+        Criteria reviewCriteria = new Criteria(page, totalReviews);
+
+        // 리뷰 목록 조회
+        List<ReviewDTO> reviews = reviewService.getReviewsByDoctorId(doctorId, reviewCriteria);
+
+        // DTO 조립
         DoctorDetailDTO doctorDetailDTO = new DoctorDetailDTO();
         doctorDetailDTO.setDoctorListDTO(doctor);
         doctorDetailDTO.setCounselReplyDTOList(replies);
+        doctorDetailDTO.setReviews(reviews);         // 리뷰 추가
 
         detailCriteriaDTO.setDoctorsDetail(List.of(doctorDetailDTO));
         detailCriteriaDTO.setCriteria(criteria);

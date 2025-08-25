@@ -13,11 +13,11 @@ public interface CounselReplyMapper {
     public List<CounselReplyDTO> selectTop3ConsultationPostsWithReplies(Long doctorId);
 
 //  해당 의사가 작성한 답변글 전체 가져오기(상담글 제목 포함)
-    List<CounselReplyDTO> selectRepliesWithPostTitleByDoctorId(
+    public List<CounselReplyDTO> selectRepliesWithPostTitleByDoctorId(
             @Param("doctorId") Long doctorId,
             @Param("criteria") Criteria criteria
     );
 
 //  해당 의사가 작성한 답변글 전체 개수
-    int countRepliesByDoctorId(@Param("doctorId") Long doctorId);
+    public int countRepliesByDoctorId(@Param("doctorId") Long doctorId);
 }
