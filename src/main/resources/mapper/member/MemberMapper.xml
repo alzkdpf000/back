@@ -116,4 +116,10 @@
         insert into tbl_member(member_name, member_phone, member_provider, member_kakao_email, member_kakao_profile_url)
         values (#{memberName}, #{memberPhone}, #{provider}, #{kakaoEmail}, #{kakaoProfileUrl})
     </insert>
+
+    <update id="updatePassword">
+        update tbl_member
+        set member_password = #{memberPassword}
+        where member_email = #{memberEmail}
+    </update>
 </mapper>

@@ -171,7 +171,7 @@ public class MemberMapperTests {
 
     @Test
     public void testSelectMemberForKakao(){
-        log.info("{}", memberMapper.selectMemberForKakao("kakaoEmail"));
+        log.info("{}", memberMapper.selectMemberForKakaoEmail("kakaoEmail"));
     }
 
 }

@@ -143,51 +143,19 @@ public class MemberController {
         return "/main/main";
     }
 
-//    계정 찾기 페이지 이동
+    //    계정 찾기 페이지 이동 (이메일 보내는 페이지)
     @GetMapping("find-email")
     public String goTofindEmailForm(){
         return "/member/emailcheck";
     }
 
-    @PostMapping("/find-email")
-    public RedirectView findEmail(@RequestParam("memberEmail") String memberEmail, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws MessagingException {
-        boolean exists = memberService.isExistMemberEmail(memberEmail);
-
-        if (exists) {
-//            이메일이 존재할 때
-            mailService.sendMail(memberEmail,request,response);
-            session.setAttribute("memberEmail", memberEmail);
-            return new RedirectView("/member/emailsuccess");
-        }else {
-//            이메일이 존재하지 않을 때
-            return new RedirectView("/member/emailfail");
-        }
-    }
-
+    //    이메일 확인 안내
     @GetMapping("emailsuccess")
-    public String goTofindEmailSuccess(HttpSession session, Model model){
-        model.addAttribute("memberEmail", session.getAttribute("memberEmail"));
-        session.removeAttribute("memberEmail");
-
+    public String goToConfirmForm(){
         return "/member/emailsuccess";
     }
-
-    @GetMapping("emailfail")
-    public String goTofindEmailFail(){
-        return "/member/emailfail";
-    }
-
-    @GetMapping("/emailcheck")
-    public RedirectView confirmEmail(@RequestParam("code") String code,
-                                     @CookieValue(value = "code", required = false) String cookieCode) {
-        if (code != null && code.equals(cookieCode)) {
-            return new RedirectView("/member/emailsuccess");
-        } else {
-            return new RedirectView("/member/emailfail");
-        }
-    }
-
-
-
-
 }
+
+
+
+

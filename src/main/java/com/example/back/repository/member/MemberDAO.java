@@ -8,6 +8,7 @@ import com.example.back.util.Criteria;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,5 +75,13 @@ public class MemberDAO {
 //    카카오 로그인
     public Optional<MemberDTO> findMemberByKakaoEmail(String kakaoEmail) {
         return memberMapper.selectMemberForKakaoEmail(kakaoEmail);
+
     }
+
+//    비밀번호 재설정
+    public void updatePassword(String memberEmail, String memberPassword) {
+        memberMapper.updatePassword(memberEmail, memberPassword);
+
+    }
+
 }

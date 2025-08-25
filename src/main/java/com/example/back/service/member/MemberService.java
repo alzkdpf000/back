@@ -44,6 +44,12 @@ public interface MemberService {
 //    카카오 회원가입
     public void joinKakaoMember(MemberDTO memberDTO);
 
+//    비밀번호 재설정
+    public void updatePassword(String memberEmail, String memberPassword);
+
+
+
+
 //    회원가입 유효성 검사
     default boolean validateMember(MemberDTO memberDTO){
         if(memberDTO.getMemberName()==null||memberDTO.getMemberName().isBlank()){
@@ -66,6 +72,10 @@ public interface MemberService {
         return true;
 
     }
+
+
+
+
     default MemberVO toVO(MemberDTO memberDTO){
         return MemberVO.builder()
                 .memberEmail(memberDTO.getMemberEmail())
