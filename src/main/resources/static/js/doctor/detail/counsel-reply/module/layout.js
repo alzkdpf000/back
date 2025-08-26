@@ -317,6 +317,8 @@ const doctorLayout = (() => {
                 const reviewPaging = document.querySelector("#review-page-container");
                 const noAnswer = document.querySelector(".no-search-result-wrap");
                 const noReview = document.querySelector(".no-review-result-wrap");
+                const reviewBtnContainer = document.querySelector(".review-btn-container");
+                const reviewInputContainer = document.querySelector(".review-input-container");
 
                 if (cnt === "0") {
                     // 답변 탭
@@ -326,6 +328,8 @@ const doctorLayout = (() => {
                     reviewPaging.style.display = "none";
                     noAnswer.style.display = "none";
                     noReview.style.display = "none";
+                    reviewBtnContainer.style.display = "none";
+                    reviewInputContainer.style.display = "none";
                 } else if (cnt === "1") {
                     // 리뷰 탭
                     answerList.style.display = "none";
@@ -334,6 +338,7 @@ const doctorLayout = (() => {
                     reviewPaging.style.display = "block";
                     noAnswer.style.display = "none";
                     noReview.style.display = "none"
+                    reviewBtnContainer.style.display = "block";
                 }
 
                 try {
