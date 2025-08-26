@@ -1,6 +1,7 @@
 package com.example.back.mapper.memberfile;
 
 import com.example.back.dto.memberfile.MemberFileDTO;
+import com.example.back.dto.memberfile.MemberProfileDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public interface MemberFileMapper {
 
     //    회원 프로필 파일 가져오기
-    public MemberFileDTO findByMemberId(@Param("memberId") Long memberId);
+    public MemberProfileDTO findByMemberId(Long memberId);
 
 
 
