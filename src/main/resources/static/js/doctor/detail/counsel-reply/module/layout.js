@@ -208,7 +208,6 @@ const doctorLayout = (() => {
                 <div class="answer-list-header-wrap">
                     <div class="answer-list-content-tag review-list-content-tag">
                         <div class="review-img-star">
-                            <img class="info-profil-img review" src="${review.memberProfile || 'https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp'}" width="35" height="35">
                             <div class="review-star-wrap">
                                 <div class="review-star-content">
                                     <div class="review-star-svg">
@@ -317,6 +316,7 @@ const doctorLayout = (() => {
                 const reviewPaging = document.querySelector("#review-page-container");
                 const noAnswer = document.querySelector(".no-search-result-wrap");
                 const noReview = document.querySelector(".no-review-result-wrap");
+                const reviewBtnWrap = document.querySelector(".review-btn-wrap");
 
                 if (cnt === "0") {
                     // 답변 탭
@@ -326,6 +326,8 @@ const doctorLayout = (() => {
                     reviewPaging.style.display = "none";
                     noAnswer.style.display = "none";
                     noReview.style.display = "none";
+                    reviewBtnWrap.style.display = "none";
+
                 } else if (cnt === "1") {
                     // 리뷰 탭
                     answerList.style.display = "none";
@@ -333,7 +335,9 @@ const doctorLayout = (() => {
                     reviewList.style.display = "block";
                     reviewPaging.style.display = "block";
                     noAnswer.style.display = "none";
-                    noReview.style.display = "none"
+                    noReview.style.display = "flex";
+                    reviewBtnWrap.style.display = "flex";
+
                 }
 
                 try {
@@ -347,7 +351,7 @@ const doctorLayout = (() => {
                             content: reply.counselReplyContent || "-",
                             createDate: reply.createdDatetime || null
                         }));
-                        doctorLayout.renderAnswerList(answers);  // 내부에서 no-search-result-wrap 처리됨
+                        doctorLayout.renderAnswerList(answers);
                         doctorLayout.renderReplyPaging(detailDTO.criteria, doctorData, doctorId, currentMemberId);
                     } else if (cnt === "1") {
                         const reviews = (doctorData.reviews || []).map(r => ({
@@ -356,7 +360,7 @@ const doctorLayout = (() => {
                             createdDatetime: r.createdDatetime || null,
                             memberProfile: r.memberProfile || null
                         }));
-                        doctorLayout.renderReviewList(reviews);  // 내부에서 no-review-result-wrap 처리됨
+                        doctorLayout.renderReviewList(reviews);
                         doctorLayout.renderReviewPaging(detailDTO.criteria, doctorData, doctorId, currentMemberId);
                     }
                 } catch (err) {
@@ -367,58 +371,26 @@ const doctorLayout = (() => {
     });
 
     const reviewBtn = document.querySelector(".exist-review-btn");
-    const reviewInputContainer = document.querySelector(".review-input-container");
+    const reviewRegisterContainer = document.querySelector(".review-register-container.v2");
 
     reviewBtn.addEventListener("click", async () => {
         try {
-            const response = await fetch(`/api/review/check?doctorId=${doctorId}&memberId=${currentMemberId}`);
-            const canWrite = await response.json();
+            // 방문진료 기록 확인 API 호출
+            const response = await fetch(`/api/visit/check?doctorId=${doctorId}&memberId=${currentMemberId}`);
+            const visitRecords = await response.json();
 
-            if(!canWrite){
+
+            // complete 상태의 방문진료가 있는지 확인
+            const hasCompleteVisit = Array.isArray(visitRecords) &&
+                visitRecords.some(record => record.status === "complete");
+
+            if (!hasCompleteVisit) {
                 alert("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
                 return;
             }
 
-            // 입력창 생성
-            reviewInputContainer.innerHTML = `
-            <textarea id="review-content" placeholder="후기를 작성해주세요..." rows="4" style="width:100%; margin-bottom:8px;"></textarea>
-            <input type="number" id="review-rating" placeholder="평점 (0~5)" min="0" max="5" style="width:100px; margin-bottom:8px;">
-            <button id="submit-review">작성 완료</button>
-        `;
-            reviewInputContainer.style.display = "block";
-
-            // 작성 완료 클릭 이벤트
-            document.getElementById("submit-review").addEventListener("click", async () => {
-                const content = document.getElementById("review-content").value.trim();
-                const rating = Number(document.getElementById("review-rating").value);
-
-                if(!content || rating < 0 || rating > 5){
-                    alert("내용과 평점을 올바르게 입력해주세요.");
-                    return;
-                }
-
-                try {
-                    const res = await fetch("/api/review/write", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            doctorId,
-                            memberId: currentMemberId,
-                            content,
-                            rating
-                        })
-                    });
-
-                    if(res.ok){
-                        alert("후기가 등록되었습니다.");
-                        reviewInputContainer.style.display = "none";
-                        // 필요 시 리뷰 목록 갱신
-                    }
-                } catch(err){
-                    console.error(err);
-                    alert("후기 등록 중 오류가 발생했습니다.");
-                }
-            });
+            // 후기 입력창 보여주기
+            reviewRegisterContainer.style.display = "block";
 
         } catch (err) {
             console.error(err);
