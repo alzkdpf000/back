@@ -174,4 +174,9 @@ public class MemberMapperTests {
         log.info("{}", memberMapper.selectMemberForKakaoEmail("kakaoEmail"));
     }
 
+    @Test
+    public void testFindByMemberId(){
+        log.info(memberMapper.findByMemberId(1L).toString());
+    }
+
 }

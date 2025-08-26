@@ -3,6 +3,7 @@ package com.example.back.mapper.member;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.member.MemberStatics;
+import com.example.back.dto.memberfile.MemberFileDTO;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
 import org.apache.ibatis.annotations.Mapper;
@@ -53,4 +54,6 @@ public interface MemberMapper {
 //    비밀번호 재설정
     public void updatePassword(@Param("memberEmail") String memberEmail, @Param("memberPassword") String memberPassword);
 
+//    회원 프로필 파일 가져오기
+    public MemberFileDTO findByMemberId(@Param("memberId") Long memberId);
 }
