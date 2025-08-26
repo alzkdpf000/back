@@ -42,8 +42,8 @@
                             <label class="mypage-main-profile-label">
                                 <div class="mypage-main-profile-wrapper">
                                     <img class="mypage-main-profile-body" alt="프로필 이미지" width="80" height="80"
-                                         th:src="${member.provider == 'KAKAO' ? member.kakaoProfileUrl : '/images/default-profile.png'}"
                                          decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/human/person-filled.svg" style="color: transparent;">
+<!--                                         th:src="${member.provider == 'KAKAO' ? member.kakaoProfileUrl : '/images/default-profile.png'}"-->
                                     <img class="mypage-main-profile-plus" alt="plus-circle" loading="lazy" width="40" height="40" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/math/plus-circle-twoToned.svg" style="color: transparent;">
                                 </div>
                             </label>    
@@ -66,7 +66,7 @@
                                         <div class="mypage-main-key-wrapper">
                                             <span class="mypage-main-key">이름</span>
                                         </div>
-                                        <span class="mypage-main-value" th:text="${member.memberName}">김초밥</span>
+                                        <span id="memberName"  class="mypage-main-value" th:text="${member.memberName}">김초밥</span>
                                     </div>
                                     <!-- 버튼 클릭 시 이메일 변경 창 생성 -->
                                 </div>
@@ -78,7 +78,7 @@
                                         <div class="mypage-main-key-wrapper">
                                             <span class="mypage-main-key">이메일</span>
                                         </div>
-                                        <span class="mypage-main-value"
+                                        <span id="memberEmail" class="mypage-main-value"
                                               th:text="${member.provider == 'KAKAO' ? member.kakaoEmail : member.memberEmail}">
                                         이메일@주소.형식
                                         </span>
@@ -94,9 +94,9 @@
                                 <div class="mypage-main-content-wrapper">
                                     <div class="mypage-main-wrapper-wrapper">
                                         <div class="mypage-main-key-wrapper">
-                                            <span class="mypage-main-key" th:text="${member.memberPhone}" >휴대폰 번호</span>
+                                            <span class="mypage-main-key">핸드폰번호</span>
                                         </div>
-                                        <span class="mypage-main-value">+821012345678</span>
+                                        <span id="memberPhone" class="mypage-main-value" th:text="${member.memberPhone}" >휴대폰 번호</span>
                                     </div>
                                     <button id ="change-phone-button" class="mypage-main-button" color ="grey" height="54">
                                         <!-- 휴대폰 번호 인증 이벤트 -->
