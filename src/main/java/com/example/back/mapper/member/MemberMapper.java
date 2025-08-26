@@ -3,6 +3,7 @@ package com.example.back.mapper.member;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.member.MemberStatics;
+import com.example.back.dto.memberfile.MemberFileDTO;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
 import org.apache.ibatis.annotations.Mapper;

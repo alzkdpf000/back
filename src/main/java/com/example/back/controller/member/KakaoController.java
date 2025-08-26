@@ -55,6 +55,7 @@ public class KakaoController {
         response.addCookie(accessTokenCookie);
 
         session.setAttribute("member", foundKakaoMember.get());
+
         log.info("로그인 후 세션 ID: {}", session.getId());
         log.info("로그인 후 세션 member: {}", session.getAttribute("member"));
         return new RedirectView("/");

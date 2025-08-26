@@ -71,3 +71,38 @@ deleteAccountButton.addEventListener("click", (e) => {
 //         }, 450);
 //     }
 // });
+
+document.addEventListener("DOMContentLoaded", function (){
+    // REST API 호출
+    fetch("/api/mypage/profile")
+        .then(res => res.json())
+        .then(profile => {
+            console.log(profile)
+            if (profile) {
+                // 프로필 이미지
+                const profileImg = document.querySelector(".mypage-main-profile-body");
+                // 파일 경로랑 파일이름이 있으면 프로필 경로에 넣는다.
+                if (profile.filePath && profile.fileName){
+                    profileImg.src = profile.filePath + profile.fileName;
+                //  없으면 기본 프로필 설정
+                }else{
+                    profileImg.src = profile.kakaoProfileUrl || "images/default-profile.png";
+                }
+
+                const memberName = document.querySelector("#memberName");
+                const memberEmail = document.querySelector("#memberEmail");
+                const memberPhone = document.querySelector("#memberPhone");
+
+                if (memberName) memberName.textContent = profile.memberName || '';
+                if (memberEmail) memberEmail.textContent = profile.memberEmail || profile.kakaoEmail || '';
+                if (memberPhone) memberPhone.textContent = profile.memberPhone || '';
+
+
+
+
+
+            }
+        })
+})
+
+
