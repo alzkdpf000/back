@@ -28,7 +28,7 @@ const reviewRegBtn = (className, formTag, tagClass) => {
             divTag.classList.add("active");
             formTag[
                 "reviewContent"
-                ].placeholder = `[나중에 유저 이름] 후기를 입력해주세요.`;
+                ].placeholder = `별점 및 후기를 입력해주세요.`;
             for (let i = 0; i < 5; i++) {
                 svgStars[i].style.fill = "#E0E0E0";
             }
@@ -39,9 +39,7 @@ const reviewRegBtn = (className, formTag, tagClass) => {
         btnCheck = !btnCheck;
     });
 };
-// 검색 결과 없을 때
-reviewRegBtn(".noexist-search-btn", reviewForm_v1, ".v1");
-// 검색 결과 있을 때
+
 reviewRegBtn(".exist-review-btn", reviewForm_v2, ".v2");
 
 // 별점 클릭 버튼들

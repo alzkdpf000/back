@@ -187,6 +187,16 @@ const doctorLayout = (() => {
         });
     };
 
+    function generateRandomString(length = 6) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const idx = Math.floor(Math.random() * chars.length);
+            result += chars[idx];
+        }
+        return result;
+    }
+
     // 리뷰글 렌더링
     const renderReviewList = (reviews = []) => {
         const reviewList = getElement("#review-list");
@@ -195,10 +205,12 @@ const doctorLayout = (() => {
         if (!reviewList || !noResult) return;
 
         reviewList.innerHTML = "";
+
         if (!reviews.length) {
-            noResult.style.display = "flex";
-            return;
-        } else noResult.style.display = "none";
+            noResult.style.display = "flex";   // 후기가 없으면 보이게
+        } else {
+            noResult.style.display = "none";   // 후기가 있으면 숨기기
+        }
 
         const fragment = document.createDocumentFragment();
         reviews.forEach(review => {
@@ -221,10 +233,10 @@ const doctorLayout = (() => {
                         </div>
                         <div class="review-content-text-wrap">
                             <div class="review-header">
-                                <span class="review-content-text anonymous">익명</span>
+                                <span class="review-content-text anonymous">회원_${generateRandomString()}</span>
                                 <div class="answer-create-day write-date">${timeForToday(review.createdDatetime)}</div>
                             </div>
-                            <span class="review-content-text content">${review.content || '-'}</span>
+                                <span class="review-content-text content">${review.content}</span>
                         </div>
                     </div>
                 </div>
@@ -370,31 +382,120 @@ const doctorLayout = (() => {
         });
     });
 
-    const reviewBtn = document.querySelector(".exist-review-btn");
-    const reviewRegisterContainer = document.querySelector(".review-register-container.v2");
+    document.addEventListener("DOMContentLoaded", () => {
+        const pathParts = window.location.pathname.split("/");
+        const doctorId = Number(pathParts[3]);
+        const currentMemberId = 31;
 
-    reviewBtn.addEventListener("click", async () => {
-        try {
-            // 방문진료 기록 확인 API 호출
-            const response = await fetch(`/api/visit/check?doctorId=${doctorId}&memberId=${currentMemberId}`);
-            const visitRecords = await response.json();
+        const reviewBtn = document.querySelector(".exist-review-btn");
+        const reviewRegisterContainer = document.querySelector(".review-register-container.v2");
+        const reviewListContainer = document.querySelector(".review-list");
 
+        // 별점 클릭 이벤트
+        const setupStarRating = (form) => {
+            if (!form) return;
+            const stars = form.querySelectorAll(".star-list-content");
+            const rateInput = form.querySelector("input[name='rate']");
+            if (!rateInput) return;
 
-            // complete 상태의 방문진료가 있는지 확인
-            const hasCompleteVisit = Array.isArray(visitRecords) &&
-                visitRecords.some(record => record.status === "complete");
+            stars.forEach((li) => {
+                const btn = li.querySelector("button");
+                btn.addEventListener("click", () => {
+                    const point = li.dataset.point;
+                    rateInput.value = Number(point) + 1; // 1~5점
+                    stars.forEach((s, idx) => {
+                        const svg = s.querySelector("svg path");
+                        if (idx <= point) svg.setAttribute("fill", "#FFD600");
+                        else svg.setAttribute("fill", "#E0E0E0");
+                    });
+                });
+            });
+        };
 
-            if (!hasCompleteVisit) {
-                alert("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
-                return;
-            }
+        setupStarRating(reviewRegisterContainer);
 
-            // 후기 입력창 보여주기
-            reviewRegisterContainer.style.display = "block";
+        // 후기 버튼 클릭 시
+        if (reviewBtn) {
+            reviewBtn.addEventListener("click", async () => {
+                try {
+                    const response = await fetch(`/api/review/check?doctorId=${doctorId}&memberId=${currentMemberId}`);
+                    if (!response.ok) throw new Error("방문진료 API 호출 실패");
+                    const result = await response.json();
 
-        } catch (err) {
-            console.error(err);
-            alert("후기 작성 검증 중 오류가 발생했습니다.");
+                    if (!result.hasVisited) {
+                        alert("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
+                        if (reviewRegisterContainer) reviewRegisterContainer.style.display = "none";
+                        return;
+                    }
+
+                    const existResp = await fetch(`/api/review/exists?doctorId=${doctorId}&memberId=${currentMemberId}`);
+                    const existResult = await existResp.json();
+                    if (existResult.exists) {
+                        alert("이미 리뷰를 작성하셨습니다.");
+                        if (reviewRegisterContainer) reviewRegisterContainer.style.display = "none";
+                        return;
+                    }
+
+                    if (reviewRegisterContainer) reviewRegisterContainer.style.display = "block";
+                } catch (err) {
+                    console.error(err);
+                    alert("후기 작성 검증 중 오류가 발생했습니다.");
+                }
+            });
+        }
+
+        // 후기 등록 처리 (V2 폼)
+        if (reviewRegisterContainer) {
+            reviewRegisterContainer.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const contentInput = reviewRegisterContainer.querySelector("[name='reviewContent']");
+                const rateInput = reviewRegisterContainer.querySelector("[name='rate']");
+                const content = contentInput?.value.trim() || "";
+                const rating = Number(rateInput?.value) || 0;
+
+                if (!content) {
+                    alert("후기 내용을 입력해주세요.");
+                    return;
+                }
+                if (rating <= 0) {
+                    alert("별점을 선택해주세요.");
+                    return;
+                }
+
+                if (!confirm("한번 등록한 리뷰는 수정 및 삭제가 불가능합니다.\n등록하시겠습니까?")) return;
+
+                try {
+                    const response = await fetch("/api/review/insert", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            memberId: currentMemberId,
+                            doctorId: doctorId,
+                            content,
+                            rating
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(errorText || "후기 등록 실패");
+                    }
+
+                    // 폼 초기화
+                    contentInput.value = "";
+                    rateInput.value = 0;
+                    reviewRegisterContainer.querySelectorAll(".star-list-content svg path")
+                        .forEach(path => path.setAttribute("fill", "#E0E0E0"));
+
+                    alert("후기 등록 완료!");
+                    window.location.reload();
+
+                } catch (err) {
+                    console.error(err);
+                    alert(err.message);
+                }
+            });
         }
     });
 

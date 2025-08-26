@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.HouseCall.HouseCallMapper">
+
+    <select id="existsHouseCallByMemberAndDoctor" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_house_call hc
+                 JOIN tbl_house_call_doctor hcd ON hc.id = hcd.house_call_id
+        WHERE hc.member_id = #{memberId}
+          AND hcd.doctor_id = #{doctorId}
+          AND hc.visit_status = 'completed'
+    </select>
+</mapper>
