@@ -7,6 +7,7 @@ import com.example.back.dto.consultationpost.ConsultationPostDTO;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Component

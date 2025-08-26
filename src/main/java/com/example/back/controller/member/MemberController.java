@@ -31,9 +31,8 @@ import java.util.Optional;
 
 public class MemberController {
     private final MemberService memberService;
-    private final HttpSession session;
-    private final DoctorService doctorService;
     private final MailService mailService;
+    private final HttpSession session;
 
     //    회원가입
     @GetMapping("join")
@@ -70,6 +69,8 @@ public class MemberController {
     //    로그인 메인페이지 이동
     @GetMapping("login")
     public String goLoginForm(MemberDTO memberDTO ,String type ,Model model){
+        log.info("{}",session.getAttribute("member"));
+        log.info("로그인 세션ID={}", session.getAttributeNames());
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("type",type);
         return "/member/login";
@@ -99,17 +100,15 @@ public class MemberController {
         memberDTO.setRemember(remember);
         memberDTO.setMemberEmail(rememberdEmail);
         model.addAttribute("memberDTO", memberDTO);
-        log.info("이메일 로그인 후 세션 member: {}", session.getAttribute("member"));
+
         return "/member/emaillogin";
     }
 
 //    로그인 조회
     @PostMapping("emaillogin")
-    public RedirectView login(MemberDTO memberDTO, HttpServletResponse response, HttpSession session){
+    public RedirectView login(MemberDTO memberDTO, HttpServletResponse response){
 
         MemberDTO member = memberService.login(memberDTO).orElseThrow(LoginFailException::new);
-        session.setAttribute("memberId", member.getId());
-        log.info("로그인 세션 ID: {}", session.getId());
         session.setAttribute("member", member);
 
         Cookie rememberMemberEmailCookie = new Cookie("remember_member_email", memberDTO.getMemberEmail());

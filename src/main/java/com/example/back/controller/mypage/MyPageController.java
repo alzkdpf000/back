@@ -16,16 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class MyPageController {
     private final MemberService memberService;
-
+    private final HttpSession session;
     //    마이페이지 이동
     @GetMapping("")
-    public String goToMyPageForm(HttpSession session, Model model) {
+    public String goToMyPageForm(Model model) {
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+
         if (memberDTO == null) {
+            Long memberId = (Long) session.getAttribute("memberId");
             return "redirect:/member/login";
         }
         MemberDTO member = memberService.getMemberByIdAllStatus(memberDTO.getId())
                 .orElseThrow(IllegalArgumentException::new);
+
+//        session.setAttribute("member", member);
         model.addAttribute("member", member);
 
 
