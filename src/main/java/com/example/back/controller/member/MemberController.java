@@ -5,7 +5,6 @@ import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.service.doctor.DoctorService;
 import com.example.back.service.mail.MailService;
-import com.example.back.service.member.KakaoService;
 import com.example.back.service.member.MemberService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,7 +34,6 @@ public class MemberController {
     private final HttpSession session;
     private final DoctorService doctorService;
     private final MailService mailService;
-    private final KakaoService kakaoService;
 
     //    회원가입
     @GetMapping("join")
@@ -135,14 +133,14 @@ public class MemberController {
             response.addCookie(rememberCookie);
         }
 
-        return new RedirectView("/");
+        return new RedirectView("/member/main");
 
     }
 //    메인페이지로 이동
     @GetMapping("main")
     public String goToMainForm(Model model){
         model.addAttribute("memberDTO", new MemberDTO());
-        return "/";
+        return "/main/main";
     }
 
     //    계정 찾기 페이지 이동 (이메일 보내는 페이지)
@@ -156,26 +154,6 @@ public class MemberController {
     public String goToConfirmForm(){
         return "/member/emailsuccess";
     }
-
-//    로그아웃
-    @GetMapping("logout")
-    public RedirectView logout(@CookieValue(name = "access_token", required = false) String token, HttpServletResponse response){
-        if (token == null) {
-            session.invalidate();
-        }else {
-            kakaoService.logout(token);
-            Cookie accessTokenCookie = new Cookie("access_token", token);
-            accessTokenCookie.setPath("/");
-            accessTokenCookie.setMaxAge(0);
-
-            response.addCookie(accessTokenCookie);
-        }
-        return new RedirectView("/member/login");
-
-
-    }
-
-
 }
 
 
