@@ -16,5 +16,7 @@ const doctorService = (() => {
         return await res.text();
     };
 
+
+
     return { getDoctorDetail: getDoctorDetail, toggleLike: toggleLike };
 })();

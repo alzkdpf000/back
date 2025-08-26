@@ -128,6 +128,18 @@ INSERT INTO tbl_house_call_doctor (house_call_id, doctor_id) VALUES
      (9, 9),
      (10, 10);
 
+INSERT INTO tbl_house_call
+(house_call_patient_name, house_call_pain_level, house_call_patient_age, house_call_patient_gender,
+ house_call_patient_phone, house_call_preferred_visit_date, house_call_content, house_call_status, visit_status, member_id)
+VALUES
+    ('김사용1', 3, 28, 'male', '010-1144-1111', '2025-08-20 10:00:00', '머리가 아파요', 'active', 'completed', 31);
+
+-- tbl_house_call_doctor
+INSERT INTO tbl_house_call_doctor
+(house_call_id, doctor_id)
+VALUES
+    (LAST_INSERT_ID(), 1);
+
 
 select * from tbl_category;
 select * from tbl_consultation_post;
@@ -136,4 +148,12 @@ select * from tbl_consultation_post_category;
 select * from tbl_review;
 select * from tbl_house_call;
 select * from tbl_house_call_doctor;
+SELECT COUNT(*)
+FROM tbl_house_call hc
+         JOIN tbl_house_call_doctor hcd ON hc.id = hcd.house_call_id
+WHERE hc.member_id = 31
+  AND hcd.doctor_id = 1
+  AND hc.visit_status = 'completed';
+
+
 

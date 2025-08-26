@@ -12,6 +12,11 @@ public class HouseCallServiceImpl implements HouseCallService {
 
     @Override
     public boolean hasVisitedDoctor(Long memberId, Long doctorId) {
-        return houseCallMapper.existsHouseCallByMemberAndDoctor(memberId, doctorId) > 0;
+        try {
+            return houseCallMapper.existsHouseCallByMemberAndDoctor(memberId, doctorId) > 0;
+        } catch (Exception e) {
+            System.err.println("방문진료 확인 중 오류: " + e.getMessage());
+            return false;
+        }
     }
 }

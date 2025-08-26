@@ -10,10 +10,17 @@ public interface ReviewService {
 
 
     // 해당 의사의 리뷰 목록 조회 (페이징 포함)
-    List<ReviewDTO> getReviewsByDoctorId(Long doctorId, Criteria criteria);
+    public List<ReviewDTO> getReviewsByDoctorId(Long doctorId, Criteria criteria);
 
     // 해당 의사의 리뷰 총 개수 조회
-    int getReviewCountByDoctorId(Long doctorId);
+    public int getReviewCountByDoctorId(Long doctorId);
+
+    // 해당 의사의 리뷰가 존재하는지
+    public boolean hasExistingReview(Long memberId, Long doctorId);
+
+    public void insertReview(ReviewDTO reviewDTO);
+
+
 
 //    // 리뷰 작성
 //    void writeReview(ReviewDTO reviewDTO);
