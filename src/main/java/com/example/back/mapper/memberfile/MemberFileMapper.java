@@ -11,7 +11,15 @@ import java.util.List;
 public interface MemberFileMapper {
 
     //    회원 프로필 파일 가져오기
-    public MemberProfileDTO findByMemberId(Long memberId);
+    public MemberProfileDTO getMemberProfile(Long memberId);
+
+//    프로필 업로드
+    public void uploadProfile(@Param("memberId") Long memberId,
+                           @Param("fileName") String fileName,
+                           @Param("filePath") String filePath,
+                           @Param("originalName") String originalName,
+                           @Param("contentType") String contentType,
+                           @Param("fileSize") Long fileSize);
 
 
 

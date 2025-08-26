@@ -7,18 +7,24 @@ import com.example.back.mapper.memberfile.MemberFileMapper;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberFileService {
+public interface MemberFileService {
 
-    private final MemberFileMapper memberFileMapper;
 
     // 회원이 가진 프로필 + 파일 조회
-    public MemberProfileDTO getMemberProfile(Long memberId) {
-        return memberFileMapper.findByMemberId(memberId);
-    }
+    public MemberProfileDTO getMemberProfile(Long memberId);
+
+    public void uploadProfile(Long memberId, MultipartFile file);
+
+
+
+
+
 }
 

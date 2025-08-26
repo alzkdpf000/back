@@ -18,4 +18,5 @@
         where tm.id = #{memberId}
     </select>
 
+
 </mapper>
