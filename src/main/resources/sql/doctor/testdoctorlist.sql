@@ -157,8 +157,8 @@ SELECT * FROM tbl_likes WHERE doctor_id = 30 AND member_id = 1;
 SELECT * FROM tbl_doctor WHERE tbl_doctor.member_id = 30;
 SELECT * FROM tbl_member WHERE id = 50;
 
-SELECT * FROM tbl_doctor WHERE member_id = 30;
-SELECT * FROM tbl_member WHERE id = 1;
+SELECT * FROM tbl_doctor WHERE member_id = 31;
+SELECT * FROM tbl_member WHERE id = 31;
 SELECT * FROM tbl_likes WHERE doctor_id = 30 AND member_id = 1;
 
 select id,

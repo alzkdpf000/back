@@ -15,6 +15,11 @@ public class ReviewDAO {
 
     private final ReviewMapper reviewMapper;
 
+    // 리뷰 삽입
+    public void insertReview(ReviewDTO reviewDTO) {
+        reviewMapper.insertReview(reviewDTO);
+    }
+
     //  해당 의사의 리뷰 목록 조회
     public List<ReviewDTO> findReviewsByDoctorId(Long doctorId, Criteria criteria) {
         return reviewMapper.selectReviewsByDoctorId(doctorId, criteria);
@@ -23,6 +28,11 @@ public class ReviewDAO {
     //  해당 의사의 리뷰 총 개수 조회
     public int countReviewsByDoctorId(Long doctorId) {
         return reviewMapper.countReviewsByDoctorId(doctorId);
+    }
+
+    // 현재 멤버가 해당 의사에게 작성한 리뷰 존재 여부
+    public boolean hasExistingReview(Long memberId, Long doctorId) {
+        return reviewMapper.existsReviewByMemberAndDoctor(memberId, doctorId) > 0;
     }
 
 }

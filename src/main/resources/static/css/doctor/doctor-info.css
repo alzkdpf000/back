@@ -807,6 +807,16 @@ div.no-search-result-wrap{
     margin-top: 100px;
     margin-bottom: 100px;
 }
+
+div.no-review-result-wrap{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
 span.no-search-result-text{
     color: #6b7684;
     font-size: 15px;
@@ -852,12 +862,12 @@ div.answer-list-container{
 
 div.answer-list-header-wrap{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
 }
 div.answer-list-content-tag{
     display: flex;
-    
     gap: 4px;
 }
 
@@ -865,9 +875,8 @@ div.review-list-content-tag{
     width: 100%;
 }
 span.review-content-text.anonymous{
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 10px;
-    max-width: 100%;
 }
 
 div.answer-list-content-tag span{
@@ -939,20 +948,19 @@ button.review-btn img{
     margin-bottom: 2px;
     width: 20px;
     height: 22px;
+    filter: invert(100%) brightness(150%) contrast(110%);
 }
 div.review-register-container{
     display: none;
     flex-direction: column;
     gap: 32px;
-    padding-left: 32px;
-    padding-right: 32px;
     padding-bottom: 32px;
     width: 100%;
 }
 hr.review-horizon{
     width: 100%;
     height: 1px;
-    margin: 20px 0px 0px 0px;
+    margin: 20px auto;
     border: 0px;
     background: rgb(242, 244, 246);
 }
@@ -1004,21 +1012,25 @@ div.review-register-container.active{
 button.review-btn{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    width: 100%;
     height: 42px;
     padding: 0 10px;
     border-radius: 8px;
+    background-color: #1731e9;
+    font-size: 14px;
     gap: 4px;
-    width: 126px;
-    border: 1px solid;
+    color: #fff;
+    width: 109px;
 }
+
 button.noexist-search-btn{
     margin-top: 20px;
 }
 div.review-btn-wrap{
     width: 100%;
-    display: flex;
-    justify-content: center;
+    display: none;
+    justify-content: flex-end;
 }
 span.review-content-text{
     margin-left: 10px;
@@ -1042,10 +1054,12 @@ span.review-content-text.content{
 
 }
 div.review-star-wrap{
-    position: relative;
+    display: flex;
+    align-items: center;
 }
 div.review-star-content{
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 10px;
 }
@@ -1066,12 +1080,7 @@ div.review-star-content svg{
     width: 100%;
     height: 100%;
 }
-div.review-img-star{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 7px;
-}
+
 div.reg-star-cnt{
     display: flex;
     flex-direction: column;
@@ -1106,6 +1115,23 @@ div.star-btn-wrap{
     height: 16px;
     width: 16px;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+.modal .modal-content {
+    background: white;
+    padding: 20px;
+    margin: 20% auto;
+    width: 300px;
+    border-radius: 8px;
+    text-align: center;
+}
+.modal.show { display: block; }
 /* button.exist-search-btn */
 /* /후기 부분 */
 

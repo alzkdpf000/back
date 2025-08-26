@@ -3,6 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.review.ReviewMapper">
 
+    <!--리뷰 인서트-->
+    <insert id="insertReview" parameterType="com.example.back.dto.review.ReviewDTO">
+        INSERT INTO tbl_review
+        (member_id, doctor_id, review_content, review_rating, review_status, created_datetime, updated_datetime)
+        VALUES
+            (#{memberId}, #{doctorId}, #{content}, #{rating}, 'active', NOW(), NOW())
+    </insert>
+
     <select id="selectReviewsByDoctorId" resultType="com.example.back.dto.review.ReviewDTO" parameterType="map">
         SELECT
             r.id AS id,
@@ -29,12 +37,13 @@
           AND r.review_status = 'active'
     </select>
 
-    <select id="existsHouseCallByMemberAndDoctor" resultType="int">
+    <!-- 기존 리뷰 존재 여부 -->
+    <select id="existsReviewByMemberAndDoctor" resultType="int" parameterType="map">
         SELECT COUNT(*)
-        FROM tbl_house_call hc
-                 JOIN tbl_house_call_doctor hcd ON hc.id = hcd.house_call_id
-        WHERE hc.member_id = #{memberId}
-          AND hcd.doctor_id = #{doctorId}
-          AND hc.house_call_status = 'completed'
+        FROM tbl_review
+        WHERE doctor_id = #{doctorId}
+          AND member_id = #{memberId}
+          AND review_status = 'active'
     </select>
+
 </mapper>
