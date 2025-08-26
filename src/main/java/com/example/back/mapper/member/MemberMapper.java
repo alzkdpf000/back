@@ -54,6 +54,4 @@ public interface MemberMapper {
 //    비밀번호 재설정
     public void updatePassword(@Param("memberEmail") String memberEmail, @Param("memberPassword") String memberPassword);
 
-//    회원 프로필 파일 가져오기
-    public List<MemberFileDTO> findByMemberId(@Param("memberId") Long memberId);
 }
