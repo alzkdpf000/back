@@ -25,10 +25,17 @@ const consultationMainPageLayout = (() => {
             }
 
             console.log(post.memberProvider)
-            const providerImgSrc = post.memberProvider === "kakao"
-                ? post.memberFilePath
-                : `/api/files/profile?url=${post.memberFilePath}`;
-                text += `
+            let providerImgSrc;
+            if(post.memberProvider === "kakao"){
+                providerImgSrc = post.memberFilePath;
+            }else{
+                const file = post.memberFilePath.split("/");
+                const fileName = file.pop();
+                const filePath = file.join("/");
+                providerImgSrc = `/api/files/display?filePath=${filePath}&fileName=${fileName}`;
+            }
+
+            text += `
             <li>
                         <a href="/consultation-post/detail/${post.id}">
                             <div class="answer-list-container contain-imgs">

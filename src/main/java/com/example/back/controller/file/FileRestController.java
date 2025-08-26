@@ -17,14 +17,7 @@ public class FileRestController {
 
     @GetMapping("display")
     public byte[] display(String filePath, String fileName) throws IOException {
-        File file = new File("/Users/jeongchunghyo/Desktop/file/" + filePath, fileName);
-        return FileCopyUtils.copyToByteArray(file);
-    }
-    @GetMapping("profile")
-    public byte[] profile(String url) throws IOException {
-        log.info("url:{}", url);
-        File file = new File("/Users/jeongchunghyo/Desktop/file/",url);
-        log.info("{}",file);
+        File file = new File("C:/file/" + filePath, fileName);
         return FileCopyUtils.copyToByteArray(file);
     }
 }
