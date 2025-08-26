@@ -55,5 +55,5 @@ public interface MemberMapper {
     public void updatePassword(@Param("memberEmail") String memberEmail, @Param("memberPassword") String memberPassword);
 
 //    회원 프로필 파일 가져오기
-    public MemberFileDTO findByMemberId(@Param("memberId") Long memberId);
+    public List<MemberFileDTO> findByMemberId(@Param("memberId") Long memberId);
 }
