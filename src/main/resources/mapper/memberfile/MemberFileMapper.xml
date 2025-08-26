@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.memberfile.MemberFileMapper">
     <select id="findByMemberId" resultType="com.example.back.dto.memberfile.MemberFileDTO">
-        select file_id, member_id, file_name, file_path, file_size, file_original_name, created_datetime, updated_datetime
+        select file_id, member_id, file_name, file_path, file_size ,file_original_name, created_datetime, updated_datetime
         from view_member_file
         where member_id = #{memberId}
     </select>

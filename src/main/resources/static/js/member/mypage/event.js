@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function (){
     fetch("/api/mypage/profile")
         .then(res => res.json())
         .then(profile => {
+            console.log(profile)
             if (profile) {
                 // 프로필 이미지
                 const profileImg = document.querySelector(".mypage-main-profile-body");
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function (){
                     profileImg.src = profile.filePath + profile.fileName;
                 //  없으면 기본 프로필 설정
                 }else{
-                    profileImg.src = "images/default-profile.png";
+                    profileImg.src = profile.kakaoProfileUrl || "images/default-profile.png";
                 }
 
                 const memberName = document.querySelector("#memberName");

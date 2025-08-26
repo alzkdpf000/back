@@ -1,5 +1,7 @@
 package com.example.back.controller.memberfile;
 
+import com.example.back.common.exception.LoginFailException;
+import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.memberfile.MemberFileDTO;
 import com.example.back.service.memberfile.MemberFileService;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +20,10 @@ public class MemberFileRestController {
 
     @GetMapping("profile")
     public MemberFileDTO getMemberFile(HttpSession session){
-        Long memberId = (Long) session.getAttribute("memberId");
+        MemberDTO member = (MemberDTO) session.getAttribute("member");
+        if (member == null) throw new LoginFailException();
+
+        Long memberId = member.getId();
         return memberFileService.getMemberFile(memberId);
     }
 }
