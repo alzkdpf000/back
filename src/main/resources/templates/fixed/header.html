@@ -135,14 +135,14 @@
                     </button>
 
                     <!-- 로그인 상태 시(프로필 이미지) -->
-                    <th:block th:if="${session.member ==null}">
+                    <th:block th:if="${session.member != null}">
                     <div style="position: relative">
                         <button class="main-header-login-profile-icon-wrapper-profile" >
                             <img alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" style="color: transparent;">
                         </button>
                         <ul class="member-profile-btn-modal">
                         <li>
-                            <a href="/권한/my-page">
+                            <a href="/mypage">
                                 <div class="member-profile-btn-item">
                                     <span>마이페이지</span>
                                 </div>
@@ -159,7 +159,7 @@
                     </div>
                     </th:block>
                     <!-- 비로그인 상태 시(로그인 아이콘) -->
-                    <th:block th:if="${session.member !=null}">
+                    <th:block th:unless="${session.member != null}">
                     <a href="/temp" >
                         <button class="main-header-login-profile-icon-wrapper">
                             <img alt="로그인 페이지로 이동 이미지" loading="lazy" width="24" height="24" decoding="async"

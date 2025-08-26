@@ -24,6 +24,17 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewDAO.countReviewsByDoctorId(doctorId);
     }
 
+    @Override
+    public boolean hasExistingReview(Long memberId, Long doctorId) {
+        return reviewDAO.hasExistingReview(memberId, doctorId);
+    }
+
+//  후기 등록
+    @Override
+    public void insertReview(ReviewDTO reviewDTO) {
+        reviewDAO.insertReview(reviewDTO); 
+    }
+
 //    @Override
 //    public void writeReview(ReviewDTO reviewDTO) {
 //        // 방문 진료 여부 확인

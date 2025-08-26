@@ -180,4 +180,5 @@ public class MemberMapperTests {
         log.info("{}", memberMapper.selectMemberForKakaoEmail("kakaoEmail"));
     }
 
+
 }

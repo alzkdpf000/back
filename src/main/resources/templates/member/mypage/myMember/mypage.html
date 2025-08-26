@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class ="mypage-body-container">
-                <div width="320" class="mypage-category-container";>
+                <div width="320" class="mypage-category-container">
                     <!-- 카테고리 누르면 해당 페이지로 넘어가면서 카테고리 색 바뀌는 이벤트 -->
                     <aside class="mypage-category-wrapper">
                         <a class ="mypage-category-wrap-black ">
@@ -41,15 +41,17 @@
                         <div class="mypage-main-content-wrapper">
                             <label class="mypage-main-profile-label">
                                 <div class="mypage-main-profile-wrapper">
-                                    <img class="mypage-main-profile-body" alt="프로필 이미지" width="80" height="80" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/human/person-filled.svg" style="color: transparent;">
+                                    <img class="mypage-main-profile-body" alt="프로필 이미지" width="80" height="80"
+                                         decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/human/person-filled.svg" style="color: transparent;">
+<!--                                         th:src="${member.provider == 'KAKAO' ? member.kakaoProfileUrl : '/images/default-profile.png'}"-->
                                     <img class="mypage-main-profile-plus" alt="plus-circle" loading="lazy" width="40" height="40" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/math/plus-circle-twoToned.svg" style="color: transparent;">
                                 </div>
                             </label>    
                         <div class="mypage-main-profile-content-button-wrapper">
-                            <button Id = "change-email-button" class="mypage-main-button" color ="grey" height="54">
+                            <button class = "change-email-button" color ="grey" height="54">
                                 <span class="mypage-main-button-name">변경</span>
                             </button>
-                            <button Id = "change-email-button" class="mypage-main-button" color ="grey" height="54">
+                            <button class = "change-email-button" color ="grey" height="54">
                                 <span class="mypage-main-button-name">확인</span>
                             </button>
                         </div>
@@ -64,7 +66,7 @@
                                         <div class="mypage-main-key-wrapper">
                                             <span class="mypage-main-key">이름</span>
                                         </div>
-                                        <span class="mypage-main-value">김초밥</span>
+                                        <span id="memberName"  class="mypage-main-value" th:text="${member.memberName}">김초밥</span>
                                     </div>
                                     <!-- 버튼 클릭 시 이메일 변경 창 생성 -->
                                 </div>
@@ -76,10 +78,13 @@
                                         <div class="mypage-main-key-wrapper">
                                             <span class="mypage-main-key">이메일</span>
                                         </div>
-                                        <span class="mypage-main-value">이메일@주소.형식</span>
+                                        <span id="memberEmail" class="mypage-main-value"
+                                              th:text="${member.provider == 'KAKAO' ? member.kakaoEmail : member.memberEmail}">
+                                        이메일@주소.형식
+                                        </span>
                                     </div>
                                     <!-- 버튼 클릭 시 이메일 변경 창 생성 -->
-                                    <button Id = "change-email-button" class="mypage-main-button" color ="grey" height="54">
+                                    <button id = "change-email-button" class="mypage-main-button" color ="grey" height="54">
                                         <span class="mypage-main-button-name">변경</span>
                                     </button>
                                 </div>
@@ -89,11 +94,11 @@
                                 <div class="mypage-main-content-wrapper">
                                     <div class="mypage-main-wrapper-wrapper">
                                         <div class="mypage-main-key-wrapper">
-                                            <span class="mypage-main-key">휴대폰 번호</span>
+                                            <span class="mypage-main-key">핸드폰번호</span>
                                         </div>
-                                        <span class="mypage-main-value">+821012345678</span>
+                                        <span id="memberPhone" class="mypage-main-value" th:text="${member.memberPhone}" >휴대폰 번호</span>
                                     </div>
-                                    <button Id="change-phone-button" class="mypage-main-button" color ="grey" height="54">
+                                    <button id ="change-phone-button" class="mypage-main-button" color ="grey" height="54">
                                         <!-- 휴대폰 번호 인증 이벤트 -->
                                         <span class="mypage-main-button-name">변경</span>
                                     </button>
@@ -117,7 +122,7 @@
                                         </span>
                                         <span class="unit">VITA</span>
                                     </div>
-                                    <button Id= "change-password-button" class="mypage-main-button" color ="grey" height="54">
+                                    <button Id= "change-vita-button" class="mypage-main-button" color ="grey" height="54">
                                         <span class="mypage-main-button-name">충전</span>
                                     </button>
                                 </div>
@@ -157,7 +162,7 @@
                                         <span class="mypage-main-value"></span>
                                     </div>
                                 <div class = "mypage-button-group">
-                                    <button Id ="connect-sms-button" class="mypage-main-button-on" color ="blue" height="54">
+                                    <button id ="connect-sms-button" class="mypage-main-button-on" color ="blue" height="54">
                                     <!-- 버튼 클릭 시 카카오 연동 이벤트 ---? -->
                                         <span class="mypage-main-button-name">연동하기</span>
                                     </button>
@@ -201,7 +206,7 @@
                                         <span class="mypage-main-value"></span>
                                     </div>
                                     <!-- 버튼 클릭 시 탈퇴 사유 입력 -> "탈퇴합니다" 기입 -> 버튼 눌러서 탈퇴 -->
-                                    <button Id= "delete-button" class="mypage-main-button" color ="grey" height="54">
+                                    <button id = "delete-button" class="mypage-main-button" color ="grey" height="54">
                                         <span class="mypage-main-button-name">회원 탈퇴</span>
                                     </button>
                                 </div>
@@ -211,11 +216,8 @@
                 </div>
             </div>                                            
         </main>
-    </div> 
-<<<<<<< HEAD
-    <script src="/static/js/member/event.js"></script>  
-=======
-    <script src="/js/member/mypage/event.js"></script>  
->>>>>>> mypage/myinquiries
+    </div>
+    <script src="/static/js/member/event.js"></script>
+    <script src="/js/member/mypage/event.js"></script>
 </body>
 </html>

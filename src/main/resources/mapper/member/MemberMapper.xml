@@ -47,6 +47,7 @@
                member_status,
                member_provider as provider,
                member_kakao_email as kakao_email,
+               member_kakao_profile_url as kakao_profile_url,
                member_vita_amount,
                created_datetime
         from tbl_member
@@ -122,4 +123,5 @@
         set member_password = #{memberPassword}
         where member_email = #{memberEmail}
     </update>
+
 </mapper>
