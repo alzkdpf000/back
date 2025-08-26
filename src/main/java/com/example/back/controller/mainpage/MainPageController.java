@@ -1,5 +1,6 @@
 package com.example.back.controller.mainpage;
 
+import com.example.back.dto.member.MemberDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +15,6 @@ public class MainPageController {
     private final HttpSession session;
     @GetMapping
     public String goMainPage() {
-        session.setAttribute("member", "tempMember");
-        session.removeAttribute("member");
         return "/main/main";
     }
 
