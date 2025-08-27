@@ -82,11 +82,13 @@ document.addEventListener("DOMContentLoaded", function (){
                 // 프로필 이미지
                 const profileImg = document.querySelector(".mypage-main-profile-body");
                 // 파일 경로랑 파일이름이 있으면 프로필 경로에 넣는다.
-                if (profile.filePath && profile.fileName){
+                if (profile.provider === "kakao" && profile.kakaoProfileUrl){
+                    profileImg.src = profile.kakaoProfileUrl;
+                }else if (profile.filePath && profile.fileName){
                     profileImg.src = profile.filePath + profile.fileName;
                 //  없으면 기본 프로필 설정
                 }else{
-                    profileImg.src = profile.kakaoProfileUrl || "images/default-profile.png";
+                    profileImg.src ="images/default-profile.png";
                 }
 
                 const memberName = document.querySelector("#memberName");
@@ -97,12 +99,11 @@ document.addEventListener("DOMContentLoaded", function (){
                 if (memberEmail) memberEmail.textContent = profile.memberEmail || profile.kakaoEmail || '';
                 if (memberPhone) memberPhone.textContent = profile.memberPhone || '';
 
-
-
-
-
             }
         })
-})
+        .catch(error => {
+            console.error("프로필 정보를 불러오는 중 오류 발생: ", error);
+        });
+});
 
 
