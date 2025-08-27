@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.memberfile.MemberFileMapper">
-    <select id="findByMemberId" resultType="com.example.back.dto.memberfile.MemberProfileDTO">
+    <select id="getMemberProfile" resultType="com.example.back.dto.memberfile.MemberProfileDTO">
         select
             tm.id as memberId,
             tm.member_name as memberName,
@@ -10,13 +11,34 @@
             tm.member_provider as provider,
             tm.member_kakao_email as kakaoEmail,
             tm.member_kakao_profile_url as kakaoProfileUrl,
-            vf.file_id as fileId,
-            vf.file_name as fileName,
-            vf.file_path as filePath
+            f.id as fileId,
+            f.file_name as fileName,
+            f.file_path as filePath
         from tbl_member tm
-                 left join view_member_file vf on tm.id = vf.member_id
+                 left join tbl_member_file mf on tm.id = mf.member_id
+                 left join tbl_file f on mf.file_id = f.id
         where tm.id = #{memberId}
     </select>
 
+    <insert id="insertFile" useGeneratedKeys="true" keyProperty="fileId">
+        insert into tbl_file(file_original_name, file_name, file_path, file_size)
+        values (#{fileOriginalName}, #{fileName}, #{filePath}, #{fileSize})
+    </insert>
+
+    <insert id="insertMemberFile">
+        insert into tbl_member_file(file_id, member_id)
+        values (#{fileId}, #{memberId})
+        <!--       파일 ID가 없으면 추가하고 파일 ID가 있으면 수정 (중복 방지) -->
+        on duplicate key update file_id = values(file_id)
+    </insert>
+
+    <select id="findFileIdByMemberId" resultType="long">
+        select file_id from tbl_member_file where member_id = #{memberId}
+    </select>
+
+    <delete id="deleteMemberFile">
+        delete from tbl_member_file
+        where member_id = #{memberId}
+    </delete>
 
 </mapper>
