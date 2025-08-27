@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.consultationpost.ConsultationPostMapper">
+    <!-- 공통 검색 조건 -->
+    <sql id="searchConsultationPostList">
+        <if test="search.keyword != null and search.keyword != ''">
+            AND (
+            tcp.consultation_post_title LIKE CONCAT('%', #{search.keyword}, '%')
+            OR tcp.consultation_post_content LIKE CONCAT('%', #{search.keyword}, '%')
+            OR EXISTS (
+            SELECT 1
+            FROM tbl_consultation_post_category pc
+            JOIN tbl_category c ON pc.category_id = c.id
+            WHERE pc.consultation_post_id = tcp.id
+            AND c.category_name LIKE CONCAT('%', #{search.keyword}, '%')
+            )
+            )
+        </if>
+
+        <if test="search.categories != null and search.categories.length > 0">
+            AND EXISTS (
+            SELECT 1
+            FROM tbl_consultation_post_category pc
+            JOIN tbl_category c ON pc.category_id = c.id
+            WHERE pc.consultation_post_id = tcp.id
+            AND c.category_name IN
+            <foreach collection="search.categories" item="cat" open="(" separator="," close=")">
+                #{cat}
+            </foreach>
+            )
+        </if>
+    </sql>
+
     <select id="select5OrderByViewCountDesc">
         select tcp.id,
                tcp.consultation_post_title        as consultation_post_title,
@@ -38,4 +68,36 @@
         WHERE pc.consultation_post_id = #{postId}
           AND c.category_status = 'active'
     </select>
+
+    <!-- 전체 게시글 리스트 (검색 + 페이징) -->
+    <select id="selectPostList" resultType="com.example.back.dto.consultationpost.ConsultationPostCategoryFileUserDTO">
+        select tcp.id,
+        tcp.consultation_post_title        as consultationPostTitle,
+        tcp.consultation_post_content      as consultationPostContent,
+        tcp.consultation_post_view_count   as consultationPostViewCount,
+        tcp.consultation_post_answer_count as consultationPostAnswerCount,
+        tcp.member_id                      as memberId,
+        tcp.created_datetime               as createdDatetime,
+        tm.member_provider                 as memberProvider,
+        IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, concat(vmf.file_path, '/', vmf.file_name))
+        as memberFilePath,
+        tm.member_name                     as memberName
+        from tbl_member tm
+        left outer join view_member_file vmf on tm.id = vmf.member_id
+        join tbl_consultation_post tcp on tcp.member_id = tm.id
+        where tcp.consultation_post_status = 'active'
+        <include refid="searchConsultationPostList"/>
+        order by tcp.id desc
+        limit #{criteria.rowCount} offset #{criteria.offset}
+    </select>
+
+
+    <!-- 전체 게시글 개수 -->
+    <select id="selectCountAll" resultType="int">
+        select count(*)
+        from tbl_consultation_post tcp
+        where tcp.consultation_post_status = 'active'
+        <include refid="searchConsultationPostList"/>
+    </select>
+
 </mapper>

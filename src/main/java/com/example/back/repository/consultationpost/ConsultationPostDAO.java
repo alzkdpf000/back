@@ -2,8 +2,11 @@ package com.example.back.repository.consultationpost;
 
 import com.example.back.dto.consultationpost.ConsultationPostCategoryFileUserDTO;
 import com.example.back.dto.consultationpost.ConsultationPostDTO;
+import com.example.back.dto.doctor.DoctorListDTO;
 import com.example.back.mapper.consultationpost.ConsultationPostMapper;
+import com.example.back.util.Criteria;
 import com.example.back.util.ScrollCriteria;
+import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +24,16 @@ public class ConsultationPostDAO {
     // 특정 회원이 최근에 작성한 게시글 3개 조회
     public List<ConsultationPostDTO> findTop3ByMemberId(Long memberId) {
         return consultationPostMapper.selectTop3ByMemberId(memberId);
+    }
+
+    //  전체 리스트 조회 + 검색조건
+    public List<ConsultationPostCategoryFileUserDTO> findPostList(Criteria criteria, Search search) {
+        return consultationPostMapper.selectPostList(criteria, search);
+    }
+
+    // 전체 개수 조회 + 검색조건
+    public int findCountPostList(Search search){
+        return consultationPostMapper.selectCountAll(search);
     }
 
     public List<String> findCategoryNamesByPostId(Long postId) {

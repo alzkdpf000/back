@@ -747,7 +747,7 @@ div.answer-list-container {
     background-color: rgb(255, 255, 255);
     box-shadow: rgba(224, 230, 240, 0.2) 0 4px 8px 0;
 }
-div.answer-writer-cotent-wrap {
+div.answer-writer-content-wrap {
     display: flex;
     flex-direction: column;
     gap: 4px;

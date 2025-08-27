@@ -155,3 +155,4 @@ FROM tbl_consultation_post
 WHERE consultation_post_status = 'active'
 ORDER BY consultation_post_view_count DESC
 LIMIT 3 offset 0;
+

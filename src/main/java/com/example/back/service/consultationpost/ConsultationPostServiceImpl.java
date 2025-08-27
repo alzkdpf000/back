@@ -6,8 +6,10 @@ import com.example.back.dto.file.FileDTO;
 import com.example.back.repository.category.CategoryDAO;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.file.FileConsultationPostDAO;
+import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import com.example.back.util.ScrollCriteria;
+import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,5 +47,43 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
         criteria.setConsultationPosts(consultationPostDAO5OrderByViewCountDesc);
         criteria.setScrollCriteria(scrollCriteria);
         return criteria;
+    }
+
+    @Override
+    public ConsultationPostCriteriaDTO getPostList(int page) {
+        // 검색조건 없는 경우, 빈 Search 객체 넘김
+        return getPostList(page, new Search());
+    }
+
+    @Override
+    public ConsultationPostCriteriaDTO getPostList(int page, Search search) {
+        // null 방어
+        if (search.getCategories() == null) {
+            search.setCategories(new String[0]);
+        }
+        if (search.getKeyword() == null) {
+            search.setKeyword("");
+        }
+
+        ConsultationPostCriteriaDTO dto = new ConsultationPostCriteriaDTO();
+
+        int totalCount = consultationPostDAO.findCountPostList(search);
+        Criteria criteria = new Criteria(page, totalCount);
+
+        List<ConsultationPostCategoryFileUserDTO> consultationPosts = consultationPostDAO.findPostList(criteria, search);
+
+        boolean hasMore = consultationPosts.size() > criteria.getRowCount();
+        criteria.setHasMore(hasMore);
+
+        if (hasMore) {
+            consultationPosts.remove(consultationPosts.size() - 1);
+        }
+
+        dto.setConsultationPosts(consultationPosts);
+        dto.setCriteria(criteria);
+        dto.setTotal(totalCount);
+        dto.setSearch(search);
+
+        return dto;
     }
 }
