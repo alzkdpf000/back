@@ -13,6 +13,8 @@ public class MemberFileDTO {
     private String fileName;
     private String filePath;
     private String fileSize;
+    private String kakaoProfileUrl;
+    private String provider;
     private String fileOriginalName;
     private String createdDatetime;
     private String updatedDatetime;
