@@ -18,6 +18,7 @@ public class FileRestController {
     @GetMapping("display")
     public byte[] display(String filePath, String fileName) throws IOException {
         File file = new File("C:/file/" + filePath, fileName);
+//        File file = new File("/Users/taemin/Desktop/file/" + filePath, fileName);
         return FileCopyUtils.copyToByteArray(file);
     }
 }

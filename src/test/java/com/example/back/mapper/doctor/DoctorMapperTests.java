@@ -2,6 +2,7 @@ package com.example.back.mapper.doctor;
 
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.doctor.DoctorDTO;
+import com.example.back.dto.member.MemberDTO;
 import com.example.back.mapper.member.MemberMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ public class DoctorMapperTests {
 
     @Autowired
     private DoctorMapper doctorMapper;
+    @Autowired
+    private MemberDTO memberDTO;
 
     @Test
     public void testInsertDoctor(){
@@ -26,7 +29,7 @@ public class DoctorMapperTests {
                 .memberPhone("010-0000-0000")
                 .memberPassword("1234")
                 .build();
-        memberMapper.insertMember(member);
+        memberMapper.insertMember(memberDTO);
         log.info("Member Inserted: {}", member);
 
         DoctorDTO doctorDTO = new DoctorDTO();

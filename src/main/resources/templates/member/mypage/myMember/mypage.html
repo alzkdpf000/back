@@ -42,16 +42,15 @@
                             <label class="mypage-main-profile-label">
                                 <div class="mypage-main-profile-wrapper">
                                     <img class="mypage-main-profile-body" alt="프로필 이미지" width="80" height="80"
-                                         decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/human/person-filled.svg" style="color: transparent;">
-<!--                                         th:src="${member.provider == 'KAKAO' ? member.kakaoProfileUrl : '/images/default-profile.png'}"-->
-                                    <img class="mypage-main-profile-plus" alt="plus-circle" loading="lazy" width="40" height="40" decoding="async" data-nimg="1" src="https://media.a-ha.io/aha-qna/images/common/icons/math/plus-circle-twoToned.svg" style="color: transparent;">
+                                         src="/images/goldentime.png">
                                 </div>
-                            </label>    
+                            </label>
+                            <input type="file" id="profileFileInput" accept="image/*" style="display: none;" />
                         <div class="mypage-main-profile-content-button-wrapper">
-                            <button class = "change-email-button" color ="grey" height="54">
+                            <button type="button" class = "change-email-button" color ="grey" height="54" onclick="document.getElementById('profileFileInput').click();">
                                 <span class="mypage-main-button-name">변경</span>
                             </button>
-                            <button class = "change-email-button" color ="grey" height="54">
+                            <button type="button" class = "confirm-profile-btn" color ="grey" height="54" >
                                 <span class="mypage-main-button-name">확인</span>
                             </button>
                         </div>
@@ -217,7 +216,7 @@
             </div>                                            
         </main>
     </div>
-    <script src="/static/js/member/event.js"></script>
-    <script src="/js/member/mypage/event.js"></script>
+
 </body>
+<script src="/js/member/mypage/event.js"></script>
 </html>

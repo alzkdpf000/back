@@ -29,9 +29,9 @@ const consultationMainPageLayout = (() => {
             if(post.memberProvider === "kakao"){
                 providerImgSrc = post.memberFilePath;
             }else{
-                const file = post.memberFilePath.split("/");
-                const fileName = file.pop();
-                const filePath = file.join("/");
+                const file = post.memberFilePath?.split("/");
+                const fileName = file?.pop();
+                const filePath = file?.join("/");
                 providerImgSrc = `/api/files/display?filePath=${filePath}&fileName=${fileName}`;
             }
 

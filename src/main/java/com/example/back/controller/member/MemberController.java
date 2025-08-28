@@ -105,7 +105,6 @@ public class MemberController {
 //    로그인 조회
     @PostMapping("emaillogin")
     public RedirectView login(MemberDTO memberDTO, HttpServletResponse response){
-
         MemberDTO member = memberService.login(memberDTO).orElseThrow(LoginFailException::new);
         session.setAttribute("member", member);
 
@@ -133,7 +132,7 @@ public class MemberController {
             response.addCookie(rememberCookie);
         }
 
-        return new RedirectView("/member/main");
+        return new RedirectView("/");
 
     }
 //    메인페이지로 이동

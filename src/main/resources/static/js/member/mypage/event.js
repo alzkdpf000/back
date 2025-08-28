@@ -78,17 +78,17 @@ document.addEventListener("DOMContentLoaded", function (){
         .then(res => res.json())
         .then(profile => {
             console.log(profile)
+            console.log(1234)
             if (profile) {
                 // 프로필 이미지
                 const profileImg = document.querySelector(".mypage-main-profile-body");
+                console.log(profileImg.src)
                 // 파일 경로랑 파일이름이 있으면 프로필 경로에 넣는다.
                 if (profile.provider === "kakao" && profile.kakaoProfileUrl){
                     profileImg.src = profile.kakaoProfileUrl;
                 }else if (profile.filePath && profile.fileName){
-                    profileImg.src = profile.filePath + profile.fileName;
+                    profileImg.src = `/api/files/display?filePath=${profile.filePath}&fileName=${profile.fileName}`;
                 //  없으면 기본 프로필 설정
-                }else{
-                    profileImg.src ="images/default-profile.png";
                 }
 
                 const memberName = document.querySelector("#memberName");
@@ -106,4 +106,56 @@ document.addEventListener("DOMContentLoaded", function (){
         });
 });
 
+// 프로필 이미지 수정
+const profileImg = document.querySelector(".mypage-main-profile-body");
+// const fileInput = document.querySelector("input");
+const confirmBtn = document.querySelector(".confirm-profile-btn");
+const fileInput = document.getElementById("profileFileInput");
+
+fileInput.type = "file";
+fileInput.accept = "image/*";
+
+profileImg.addEventListener("click", () => {
+    console.log(1112);
+   fileInput.click();
+});
+
+confirmBtn.addEventListener("click",() => {
+    const file = fileInput.files[0];
+    if (!file) return alert("이미지 선택");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    fetch("api/mypage/profile/upload", {
+        method: "POST",
+        body: formData
+    })
+        .then(res => res.json())
+        .then(data => {
+            const filePath = fileInfo.filePath;
+            const fileName = fileInfo.fileName;
+            profileImg.src = `/api/files/display?filePath=${filePath}&fileName=${fileName}`
+            alert('프로필이 변경되었습니다.')
+        })
+        .catch(err => console.error("프로필 업로드 오류: ", err));
+});
+
+const profileImage = document.getElementById("profileFileInput");
+profileImage.addEventListener("change", (e) => {
+    // console.log(e.target.files);
+    const [file] = e.target.files;
+    if(!file.type.includes("image")){
+        alert("이미지 파일만 업로드할 수 있습니다.")
+        return;
+    }
+    const reader = new FileReader();
+    const thumbnail = document.querySelector("img.mypage-main-profile-body")
+    reader.readAsDataURL(file);
+    reader.addEventListener("load", (e) => {
+        // console.log(e.target.result);
+        const path = e.target.result;
+        thumbnail.src = path;
+    });
+});
 

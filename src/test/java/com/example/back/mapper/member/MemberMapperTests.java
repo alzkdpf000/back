@@ -1,11 +1,15 @@
 package com.example.back.mapper.member;
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.domain.membervisited.MemberVisitedVO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.dto.memberfile.MemberFileDTO;
+import com.example.back.dto.memberfile.MemberProfileDTO;
 import com.example.back.dto.membervisited.MemberVisitedDTO;
 import com.example.back.mapper.membervisited.MemberVisitedMapper;
 import com.example.back.repository.member.MemberDAO;
+import com.example.back.repository.memberfile.MemberFileDAO;
 import com.example.back.repository.membervisited.MemberVisitedDAO;
 import com.example.back.service.member.MemberService;
 import com.example.back.util.Criteria;
@@ -19,6 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
 @Slf4j
 public class MemberMapperTests {
@@ -30,19 +37,24 @@ public class MemberMapperTests {
     private MemberDAO memberDAO;
     @Autowired
     private MemberVisitedMapper memberVisitedMapper;
+    @Autowired
+    private MemberDTO memberDTO;
+    @Autowired
+    private MemberFileDAO memberFileDAO;
 
     @Test
     public void testInsertMember(){
-        MemberVO member = MemberVO.builder()
-                .memberEmail("test@gmail.com")
-                .memberName("test")
-                .memberPhone("010-0000-0000")
-                .memberPassword("1234")
-                .build();
+        MemberDTO member = new MemberDTO();
+        member.setMemberPhone("010-0000-0000");
+        member.setMemberName("test");
+        member.setMemberEmail("testw938928@naver.com");
+        member.setMemberPassword("test123456");
+        member.setRole(Role.MEMBER);
 
         memberMapper.insertMember(member);
 
     }
+
 
     @Test
     public void testExistMemberEmail(){
@@ -100,8 +112,8 @@ public class MemberMapperTests {
     }
     @Test
     public void testFindById(){
-        log.info("{}",memberService.getMemberByIdAllStatus(1L));
-        Assertions.assertThat(memberDAO.findMemberByIdAllStatus(1L)).isNotNull();
+        log.info("{}",memberService.getMemberByIdAllStatus(143L));
+        Assertions.assertThat(memberDAO.findMemberByIdAllStatus(143L)).isNotNull();
     }
     @Test
     @Transactional
@@ -126,8 +138,8 @@ public class MemberMapperTests {
     @Test
     public void testSelectMemberForLogin() {
         MemberDTO memberDTO = new MemberDTO();
-        memberDTO.setMemberEmail("test@naver.com");
-        memberDTO.setMemberPassword("1234");
+        memberDTO.setMemberEmail("test@a.b");
+        memberDTO.setMemberPassword("aaa123");
 
         Optional<MemberDTO> foundMember = memberMapper.selectMemberForLogin(memberDTO);
         foundMember.ifPresent(member -> {
@@ -170,15 +182,19 @@ public class MemberMapperTests {
     }
 
 
-//    @Test
-//    public void testSelectMemberForKakao(){
-//        log.info("{}", memberMapper.selectMemberForKakao("kakaoEmail"));
-//    }
-
     @Test
     public void testSelectMemberForKakao(){
         log.info("{}", memberMapper.selectMemberForKakaoEmail("kakaoEmail"));
     }
+
+
+    @Test
+    public void testGetMemberByIdAllStatus(){
+        log.info("{}", memberService.getMemberByIdAllStatus(143L));
+
+    }
+
+
 
 
 }

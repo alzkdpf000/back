@@ -31,5 +31,6 @@ public class MemberDTO {
     private String updatedDatetime;
     private List<ConsultationPostDTO>  consultationPosts;
     private boolean remember;
+    private Long profileFileId;
 
 }

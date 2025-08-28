@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.memberfile.MemberFileMapper">
-    <select id="getMemberProfile" resultType="com.example.back.dto.memberfile.MemberProfileDTO">
+    <select id="getMemberProfile">
         select
             tm.id as memberId,
             tm.member_name as memberName,
@@ -21,15 +21,13 @@
     </select>
 
     <insert id="insertFile" useGeneratedKeys="true" keyProperty="fileId">
-        insert into tbl_file(file_original_name, file_name, file_path, file_size)
-        values (#{fileOriginalName}, #{fileName}, #{filePath}, #{fileSize})
+        insert into tbl_file(file_original_name, file_name, file_path, file_size, member_id)
+        values (#{fileOriginalName}, #{fileName}, #{filePath}, #{fileSize}, #{memberId})
     </insert>
 
     <insert id="insertMemberFile">
         insert into tbl_member_file(file_id, member_id)
         values (#{fileId}, #{memberId})
-        <!--       파일 ID가 없으면 추가하고 파일 ID가 있으면 수정 (중복 방지) -->
-        on duplicate key update file_id = values(file_id)
     </insert>
 
     <select id="findFileIdByMemberId" resultType="long">
@@ -41,4 +39,8 @@
         where member_id = #{memberId}
     </delete>
 
+    <delete id="deleteFileByMemberId">
+        delete from app.tbl_file
+        where member_id = #{memberId}
+    </delete>
 </mapper>

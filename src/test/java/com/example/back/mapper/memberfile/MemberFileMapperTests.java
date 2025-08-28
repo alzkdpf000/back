@@ -21,6 +21,7 @@ public class MemberFileMapperTests {
         log.info("{}",memberFileMapper.getMemberProfile(120L));
     }
 
+
     @Test
     public void testInsertFile(){
         MemberFileDTO memberFileDTO = new MemberFileDTO();
@@ -55,6 +56,13 @@ public class MemberFileMapperTests {
     public void testDeleteMemberFile(){
         memberFileMapper.deleteMemberFile(1L);
     }
+
+    @Test
+    public void testUpdateProfile(){
+        MemberFileDTO memberFileDTO = new MemberFileDTO();
+    }
+
+
 
 
 

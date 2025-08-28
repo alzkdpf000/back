@@ -19,8 +19,8 @@ public class MemberDAO {
     private final MemberMapper memberMapper;
 
     //    회원 추가
-    public void save(MemberVO memberVO) {
-        memberMapper.insertMember(memberVO);
+    public void save(MemberDTO memberDTO) {
+        memberMapper.insertMember(memberDTO);
     }
 
     //    카카오 회원추가

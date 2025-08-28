@@ -7,7 +7,10 @@ import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.util.Search;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public interface MemberService {
@@ -92,6 +95,9 @@ public interface MemberService {
                 .updatedDatetime(memberDTO.getUpdatedDatetime())
                 .build();
 
+    }
+    default String getPath(){
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     }
 
 }
