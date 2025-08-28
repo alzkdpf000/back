@@ -38,37 +38,27 @@ public class PaymentServiceImpl implements PaymentService {
         // 결제 정보 insert
         paymentDAO.insertPayment(paymentDTO);
 
+
         // 결제 상태에 따른 처리
+        int amount = Integer.parseInt(paymentDTO.getPaymentAmount());
         switch (paymentDTO.getPaymentStatus()) {
             case "success":
                 paymentDAO.updatePaymentStatus(paymentDTO.getPaymentTransactionId(), "success");
-                paymentDAO.updateMemberVita(paymentDTO.getMemberId(), paymentDTO.getPaymentAmount());
+                paymentDAO.updateMemberVita(paymentDTO.getMemberId(), amount);
                 break;
+
             case "cancel":
-            case "refund":
                 paymentDAO.updatePaymentStatus(paymentDTO.getPaymentTransactionId(), paymentDTO.getPaymentStatus());
-                paymentDAO.updateMemberVita(paymentDTO.getMemberId(), -paymentDTO.getPaymentAmount());
+                paymentDAO.updateMemberVita(paymentDTO.getMemberId(), -amount);
                 break;
+
             default:
                 paymentDAO.updatePaymentStatus(paymentDTO.getPaymentTransactionId(), paymentDTO.getPaymentStatus());
                 break;
         }
     }
-
     @Override
-    public PaymentCriteriaDTO getPaymentList(Long memberId, int page, int pageSize) {
-        PaymentCriteriaDTO criteriaDTO = new PaymentCriteriaDTO();
-
-        int total = paymentDAO.findCountPayment(memberId);
-        int offset = (page - 1) * pageSize;
-
-        List<PaymentMemberVitaDTO> payments = paymentDAO.findPayments(memberId, offset, pageSize);
-        Criteria criteria = new Criteria(page, total);
-
-        criteriaDTO.setPayments(payments);
-        criteriaDTO.setCriteria(criteria);
-        criteriaDTO.setTotal(total);
-
-        return criteriaDTO;
+    public List<PaymentDTO> getPaymentList(Long memberId) {
+        return paymentDAO.paymentList(memberId);
     }
 }

@@ -8,6 +8,8 @@ import com.example.back.dto.payment.PaymentDTO;
 import com.example.back.dto.vitahistory.VitaHistoryDTO;
 import com.example.back.util.Search;
 
+import java.util.List;
+
 public interface PaymentService {
 
     //    관리자 페이지 충전 사용 내역들
@@ -15,8 +17,7 @@ public interface PaymentService {
 
 //
     public void processPayment(PaymentDTO paymentDTO);
-    public PaymentCriteriaDTO getPaymentList(Long memberId, int page, int pageSize);
-
+    List<PaymentDTO> getPaymentList(Long memberId);
 
     default PaymentVO toVO(PaymentDTO paymentDTO){
         return PaymentVO.builder()

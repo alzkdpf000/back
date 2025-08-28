@@ -29,5 +29,5 @@ public interface PaymentMapper {
 
     // 조회용(총 개수 조회, 목록 조회)
     int findCountPayment(@Param("memberId") Long memberId);
-    List<PaymentMemberVitaDTO> findPayments(@Param("memberId") Long memberId, @Param("criteria") Criteria criteria);
+    List<PaymentDTO> paymentList(@Param("memberId") Long memberId);
 }
