@@ -1,6 +1,8 @@
 package com.example.back.repository.payment;
 
 import com.example.back.dto.payment.PaymentAmountDTO;
+import com.example.back.dto.payment.PaymentCriteriaDTO;
+import com.example.back.dto.payment.PaymentDTO;
 import com.example.back.dto.payment.PaymentMemberVitaDTO;
 import com.example.back.dto.vitahistory.VitaHistoryDTO;
 import com.example.back.mapper.payment.PaymentMapper;
@@ -21,11 +23,32 @@ public class PaymentDAO {
     public List<PaymentMemberVitaDTO> findPayments(Criteria criteria, Search search){
         return paymentMapper.searchPayments(criteria,search);
     }
+
     //    관리자 페이지 결제 수
     public int findCountPayment(Search search){
         return paymentMapper.searchCountPayment(search);
     }
     public List<PaymentAmountDTO> findPaymentAmount(Search search){
         return paymentMapper.searchPaymentAmount(search);
+    }
+
+    public int insertPayment(PaymentDTO payment) {
+        return paymentMapper.insertPayment(payment);
+    }
+
+    public int updatePaymentStatus(String transactionId, String status) {
+        return paymentMapper.updatePaymentStatus(transactionId, status);
+    }
+
+    public int updateMemberVita(Long memberId, int amount) {
+        return paymentMapper.updateMemberVita(memberId, amount);
+    }
+
+    public int findCountPayment(Long memberId) {
+        return paymentMapper.findCountPayment(memberId);
+    }
+
+    public List<PaymentMemberVitaDTO> findPayments(Long memberId, Criteria criteria) {
+        return paymentMapper.findPayments(memberId, criteria);
     }
 }
