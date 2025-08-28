@@ -47,11 +47,13 @@
                                 </div>
                                 <div class="payment-account-btn-container">
                                     <!-- 클릭 이벤트 -->
-                                    <button class="payment-account-button">
+
+                                    <button class="payment-account-button" data-item="200비타 패키지" data-price="5000">
                                         <span>
                                             결제하기
                                         </span>
                                     </button>
+
                                     <!-- /클릭 이벤트 -->
                                 </div>
                             </div>
@@ -69,8 +71,8 @@
                                 </div>
                                 <div class="payment-account-btn-container">
                                     <!-- 클릭 이벤트 -->
-                                    <button class="payment-account-button primary">
-                                        <span>
+                                    <button class="payment-account-button primary" data-item="200비타 패키지" data-price="5000">
+                                        <span class="3000">
                                             결제하기
                                         </span>
                                     </button>
@@ -147,7 +149,7 @@
                                             <span class="payment-item-text">비타 충전 취소</span>
                                         </td>
                                         <td class="payment-item vita">
-                                            <span class="payment-item-text del">-30</span>
+                                            <span class="payment-item-text del">-300</span>
                                         </td>
                                     </tr>
                                     <tr class="table-body-tr">
@@ -161,7 +163,7 @@
                                             <span class="payment-item-text">비타 충전 완료</span>
                                         </td>
                                         <td class="payment-item vita">
-                                            <span class="payment-item-text add">30</span>
+                                            <span class="payment-item-text add">+300</span>
                                         </td>
                                     </tr>
                                     <!-- /충전 내역 부분 -->
@@ -273,5 +275,6 @@
         </div>
     </div>
 </body>
+<script src="https://js.bootpay.co.kr/bootpay-5.0.2.min.js"></script>
 <script src="/js/payment/event.js"></script>
 </html>

@@ -1,41 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.consultationpost.ConsultationPostMapper">
+
+    <!-- 공통 검색 조건 -->
+    <sql id="searchConsultationPostList">
+        <if test="search.keyword != null and search.keyword != ''">
+            AND (
+            tcp.consultation_post_title LIKE CONCAT('%', #{search.keyword}, '%')
+            OR tcp.consultation_post_content LIKE CONCAT('%', #{search.keyword}, '%')
+            OR EXISTS (
+            SELECT 1
+            FROM tbl_consultation_post_category pc
+            JOIN tbl_category c ON pc.category_id = c.id
+            WHERE pc.consultation_post_id = tcp.id
+            AND c.category_name LIKE CONCAT('%', #{search.keyword}, '%')
+            )
+            )
+        </if>
+
+        <if test="search.categories != null and search.categories.length > 0">
+            AND EXISTS (
+            SELECT 1
+            FROM tbl_consultation_post_category pc
+            JOIN tbl_category c ON pc.category_id = c.id
+            WHERE pc.consultation_post_id = tcp.id
+            AND c.category_name IN
+            <foreach collection="search.categories" item="cat" open="(" separator="," close=")">
+                #{cat}
+            </foreach>
+            )
+        </if>
+    </sql>
+
+    <!-- 상위 5개 조회수 순 (임시) -->
     <select id="select5OrderByViewCountDesc">
-        select tcp.id,
-               tcp.consultation_post_title        as consultation_post_title,
-               tcp.consultation_post_content      as consultation_post_content,
-               tcp.consultation_post_view_count   as consultation_post_view_count,
-               tcp.consultation_post_answer_count as consultation_post_answer_count,
-               tcp.member_id                      as member_id,
-               tcp.created_datetime               as created_datetime,
-               tm.member_provider                 as member_provider,
-               IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, concat(vmf.file_path, '/', vmf.file_name))
-                                                  as member_file_path,
-               tm.member_name                     as member_name
-        from tbl_member tm
-                 left outer join view_member_file vmf on tm.id = vmf.member_id
-                 join tbl_consultation_post tcp on tcp.member_id = tm.id
-            and tcp.consultation_post_status = 'active'
-        order by consultation_post_view_count desc
-        limit #{rowCount} offset #{offset}
+        SELECT tcp.id,
+               tcp.consultation_post_title        AS consultation_post_title,
+               tcp.consultation_post_content      AS consultation_post_content,
+               tcp.consultation_post_view_count   AS consultation_post_view_count,
+               tcp.consultation_post_answer_count AS consultation_post_answer_count,
+               tcp.member_id                      AS member_id,
+               tcp.created_datetime               AS created_datetime,
+               tm.member_provider                 AS member_provider,
+               IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, CONCAT(vmf.file_path, '/', vmf.file_name))
+                                                  AS member_file_path,
+               tm.member_name                     AS member_name
+        FROM tbl_member tm
+                 LEFT OUTER JOIN view_member_file vmf ON tm.id = vmf.member_id
+                 JOIN tbl_consultation_post tcp ON tcp.member_id = tm.id
+            AND tcp.consultation_post_status = 'active'
+        ORDER BY tcp.consultation_post_view_count DESC
+            LIMIT #{rowCount} OFFSET #{offset}
     </select>
 
-
     <select id="selectTop3ByMemberId">
-        select id, consultation_post_title ,consultation_post_status, consultation_post_answer_count, member_id, created_datetime
-        from tbl_consultation_post
-        where member_id = #{memberId}
-        order by id desc
-        limit 3
+        SELECT id, consultation_post_title, consultation_post_status, consultation_post_answer_count, member_id, created_datetime
+        FROM tbl_consultation_post
+        WHERE member_id = #{memberId}
+        ORDER BY id DESC
+            LIMIT 3
     </select>
 
     <select id="selectCategoryNamesByPostId" resultType="string">
         SELECT c.category_name
         FROM tbl_category c
-                 JOIN tbl_consultation_post_category pc
-                      ON c.id = pc.category_id
+                 JOIN tbl_consultation_post_category pc ON c.id = pc.category_id
         WHERE pc.consultation_post_id = #{postId}
           AND c.category_status = 'active'
     </select>
+
+    <!-- 전체 게시글 리스트 (검색 + 페이징 + 정렬 동적) -->
+    <select id="selectPostList" resultType="com.example.back.dto.consultationpost.ConsultationPostCategoryFileUserDTO">
+        SELECT tcp.id,
+        tcp.consultation_post_title        AS consultationPostTitle,
+        tcp.consultation_post_content      AS consultationPostContent,
+        tcp.consultation_post_view_count   AS consultationPostViewCount,
+        tcp.consultation_post_answer_count AS consultationPostAnswerCount,
+        tcp.member_id                      AS memberId,
+        tcp.created_datetime               AS createdDatetime,
+        tm.member_provider                 AS memberProvider,
+        IF(tm.member_provider = 'kakao', tm.member_kakao_profile_url, CONCAT(vmf.file_path, '/', vmf.file_name))
+        AS memberFilePath,
+        tm.member_name                     AS memberName
+        FROM tbl_member tm
+        LEFT OUTER JOIN view_member_file vmf ON tm.id = vmf.member_id
+        JOIN tbl_consultation_post tcp ON tcp.member_id = tm.id
+        WHERE tcp.consultation_post_status = 'active'
+        <include refid="searchConsultationPostList"/>
+        <choose>
+            <when test="search.orderType == 'latest'">
+                ORDER BY tcp.created_datetime DESC
+            </when>
+            <when test="search.orderType == 'viewCount'">
+                ORDER BY tcp.consultation_post_view_count DESC
+            </when>
+            <otherwise>
+                ORDER BY tcp.created_datetime DESC
+            </otherwise>
+        </choose>
+        LIMIT #{criteria.rowCount} OFFSET #{criteria.offset}
+    </select>
+
+    <!-- 전체 게시글 개수 -->
+    <select id="selectCountAll" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_consultation_post tcp
+        WHERE tcp.consultation_post_status = 'active'
+        <include refid="searchConsultationPostList"/>
+    </select>
+
+    <update id="increaseViewCount" parameterType="long">
+        UPDATE tbl_post
+        SET view_count = view_count + 1
+        WHERE post_id = #{postId}
+    </update>
+
 </mapper>

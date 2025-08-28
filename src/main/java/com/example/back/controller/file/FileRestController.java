@@ -19,6 +19,8 @@ public class FileRestController {
     public byte[] display(String filePath, String fileName) throws IOException {
         File file = new File("C:/file/" + filePath, fileName);
 //        File file = new File("/Users/taemin/Desktop/file/" + filePath, fileName);
+        log.info(fileName);
+        log.info("{}, {}", file.getAbsolutePath(), file.exists());
         return FileCopyUtils.copyToByteArray(file);
     }
 }
