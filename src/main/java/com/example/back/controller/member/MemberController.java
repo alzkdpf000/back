@@ -153,6 +153,15 @@ public class MemberController {
     public String goToConfirmForm(){
         return "/member/emailsuccess";
     }
+
+//    로그아웃 - 로그인 (메인) 페이지 이동
+    @GetMapping("logout")
+    public RedirectView logout(HttpSession session){
+        session.invalidate();
+
+        return new RedirectView("/member/loginmain");
+    }
+
 }
 
 
