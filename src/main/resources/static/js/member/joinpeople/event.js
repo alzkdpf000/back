@@ -81,10 +81,11 @@ document.addEventListener("DOMContentLoaded", function () {
         .forEach(input => input.addEventListener("input", checkAllInputs));
 
     // 이메일 중복 체크
-    emailInput.addEventListener("blur", () => {
+    emailInput.addEventListener("blur", async () => {
         const email = emailInput.value.trim();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        // 이메일 형식 검사
         if (!email || !emailPattern.test(email)) {
             emailCheckMessage.textContent = "이메일 형식 오류";
             emailCheckMessage.style.color = "red";
@@ -93,31 +94,36 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("check-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ memberEmail: email })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.isExist) {
-                    emailCheckMessage.textContent = "사용 불가";
-                    emailCheckMessage.style.color = "red";
-                    emailAvailable = false;
-                } else {
-                    emailCheckMessage.textContent = "사용 가능";
-                    emailCheckMessage.style.color = "green";
-                    emailAvailable = true;
-                }
-                checkAllInputs();
-            })
-            .catch(() => {
-                emailCheckMessage.textContent = "이메일 확인 중 오류 발생";
-                emailCheckMessage.style.color = "orange";
-                emailAvailable = false;
-                checkAllInputs();
+        try {
+            // 서버 중복 확인
+            const res = await fetch("check-email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ memberEmail: email })
             });
+
+            const data = await res.json();
+
+            if (data.isExist) {
+                emailCheckMessage.textContent = "사용 불가";
+                emailCheckMessage.style.color = "red";
+                emailAvailable = false;
+            } else {
+                emailCheckMessage.textContent = "사용 가능";
+                emailCheckMessage.style.color = "green";
+                emailAvailable = true;
+            }
+
+            checkAllInputs();
+
+        } catch (error) {
+            emailCheckMessage.textContent = "이메일 확인 중 오류 발생";
+            emailCheckMessage.style.color = "orange";
+            emailAvailable = false;
+            checkAllInputs();
+        }
     });
+
 
     // 주소 찾기
     addressBtn.addEventListener("click", () => {
