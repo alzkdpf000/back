@@ -108,8 +108,9 @@ create table tbl_file
     created_datetime   datetime default current_timestamp,
     updated_datetime   datetime default current_timestamp
 );
-
-
+select * from tbl_file;
+select * from tbl_member_file;
+select * from tbl_consultation_post_file;
 /* 상담글-이미지 관계 테이블 */
 create table tbl_consultation_post_file
 (
