@@ -363,11 +363,11 @@ table{
     border-spacing: 0px;
 }
 table colgroup col{
-    width: 20%;
+    width: 33%;
 }
 tr.payment-list{
     background-color: rgb(242, 244, 246);
-    text-align: left;
+    text-align: center;
 }
 
 th:first-of-type{
@@ -392,6 +392,7 @@ td.payment-item{
     line-height: 150%;
     font-weight: 500;
     color: rgb(78, 89, 104);
+    text-align: center;
 }
 span.payment-item-text.add{
     color : #2553e5;

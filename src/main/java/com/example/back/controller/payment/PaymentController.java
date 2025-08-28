@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/pay/**")
+@RequestMapping("/payment/**")
 public class PaymentController {
 
     private final MemberService memberService;
@@ -25,7 +26,7 @@ public class PaymentController {
 
     @GetMapping("")
     public String goToPaymentPage(Model model){
-        // 1. 세션에서 로그인 회원 정보 가져오기
+        // 세션에서 로그인 회원 정보 가져오기
         MemberDTO member = (MemberDTO) session.getAttribute("member");
         if(member == null) return "redirect:/member/login";
 
@@ -36,8 +37,8 @@ public class PaymentController {
         List<PaymentDTO> payments = paymentService.getPaymentList(member.getId());
 
         model.addAttribute("member", loginMember);
-        model.addAttribute("payments", payments);
+        model.addAttribute("payments", paymentService.getPaymentList(member.getId()));
 
-        return "payment/payment"; // payment.html
+        return "payment/payment";
     }
 }

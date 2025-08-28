@@ -61,3 +61,8 @@ from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
 where
     tp.payment_status != 'pending'
 group by tp.payment_status;
+
+select *
+from tbl_payment;
+
+select * from tbl_member;

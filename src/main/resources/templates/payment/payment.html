@@ -25,7 +25,7 @@
                                 <div>
                                     <svg height="24" viewBox="0 0 18 18" width="24" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_10089_10669)"><path clip-rule="evenodd" d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18ZM8.99663 4.90909C11.2541 4.90909 13.0842 6.62749 13.0842 9C13.0842 11.3723 13.0909 9 13.0909 9V11.9932C13.0908 12.1242 13.0649 12.2539 13.0146 12.3749C12.9644 12.4959 12.8909 12.6059 12.7982 12.6984C12.7056 12.791 12.5956 12.8644 12.4746 12.9144C12.3536 12.9644 12.2239 12.9901 12.093 12.99C11.8326 12.99 11.5827 12.888 11.3964 12.706C11.2102 12.524 11.1024 12.2763 11.0962 12.0158V11.9705C10.9973 12.6049 10.1192 13.0909 8.99663 13.0909C6.73917 13.0909 4.90909 11.433 4.90909 9C4.90909 6.56703 6.73917 4.90909 8.99663 4.90909ZM7.79526 10.7995C8.15087 11.0373 8.56895 11.1642 8.99663 11.1642C9.2806 11.1642 9.56179 11.1082 9.82415 10.9995C10.0865 10.8907 10.3249 10.7313 10.5257 10.5303C10.7265 10.3294 10.8858 10.0908 10.9944 9.8282C11.1031 9.56563 11.159 9.28421 11.159 9C11.159 8.57197 11.0322 8.15354 10.7946 7.79764C10.557 7.44174 10.2193 7.16435 9.82415 7.00055C9.42902 6.83675 8.99423 6.79389 8.57477 6.8774C8.1553 6.9609 7.77 7.16702 7.46758 7.46969C7.16516 7.77236 6.95921 8.15798 6.87577 8.57779C6.79234 8.9976 6.83516 9.43275 6.99883 9.8282C7.1625 10.2237 7.43966 10.5617 7.79526 10.7995Z" fill="inherit" fill-rule="evenodd"></path></g><defs><clipPath id="clip0_10089_10669"><rect fill="white" height="18" width="18"></rect></clipPath></defs></svg>
                                 </div>
-                                20
+                                <span th:text="${member.memberVitaAmount}"></span>
                             </div>
                         </span>
                         <span class="unit">VITA</span>
@@ -99,26 +99,13 @@
                             <li class="category-item">
                                 <div class="category-text-wrap" data-cnt="1">
                                     <span class="category-text">
-                                        결제 내역
+                                        사용 내역
                                     </span>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <!-- /클릭 이벤트 -->
-                    <div class="date-select-container"> 
-                        <span class="date">
-                            7일
-                        </span>
-                        
-                        <span class="split">
-                            •
-                        </span>
-                        <span class="date order">
-                            최신순
-                        </span>
-                        <img class="down-arrow" src="https://media.a-ha.io/aha-qna/images/common/icons/direction/triangle-down.svg">
-                    </div>
                     <div class="payment-history-content-container">
                         <div class="payment-history-content-wrap">
                             <table>
@@ -129,74 +116,45 @@
                                     <col>
                                 </colgroup>
                                 <thead>
-                                    <tr class="payment-list">
-                                        <th class="table-col-content">일시</th>
-                                        <th class="table-col-content">구분</th>
-                                        <th class="table-col-content">상세 구분</th>
-                                        <th class="table-col-content">수량(VITA)</th>
-                                    </tr>
+                                <tr class="payment-list">
+                                    <th class="table-col-content">일시</th>
+                                    <th class="table-col-content">구분</th>
+                                    <th class="table-col-content">수량(VITA)</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- 충전 내역 부분 -->
-                                    <tr class="table-body-tr">
-                                        <td class="payment-item">
-                                            <span class="payment-item-text">25.08.01 11:33</span>
-                                        </td>
-                                        <td class="payment-item">
-                                            <span class="payment-item-text del">취소</span>
-                                        </td>
-                                        <td class="payment-item">
-                                            <span class="payment-item-text">비타 충전 취소</span>
-                                        </td>
-                                        <td class="payment-item vita">
-                                            <span class="payment-item-text del">-300</span>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-body-tr">
-                                        <td class="payment-item">
-                                            <span class="payment-item-text">25.08.01 10:33</span>
-                                        </td>
-                                        <td class="payment-item">
-                                            <span class="payment-item-text add">완료</span>
-                                        </td>
-                                        <td class="payment-item">
-                                            <span class="payment-item-text">비타 충전 완료</span>
-                                        </td>
-                                        <td class="payment-item vita">
-                                            <span class="payment-item-text add">+300</span>
-                                        </td>
-                                    </tr>
-                                    <!-- /충전 내역 부분 -->
-                                    <!-- 결제 내역 부분 -->
-                                    <tr class="table-body-tr">
-                                        <td class="payment-item">
-                                            <span class="payment-item-text">25.08.01 11:33</span>
-                                        </td>
-                                        <td class="payment-item">
-                                            <span class="payment-item-text del">전송</span>
-                                        </td>
-                                        <td class="payment-item">
-                                            <span class="payment-item-text">쪽지 전송</span>
-                                        </td>
-                                        <td class="payment-item vita">
-                                            <span class="payment-item-text del">-30</span>
-                                        </td>
-                                    </tr>
-                                    <!-- /결제 내역 부분 -->
-            
+                                <!-- Thymeleaf 반복 처리 -->
+                                <tr class="table-body-tr" th:each="payment : ${payments}">
+                                    <td class="payment-item">
+                                        <span class="payment-item-text" th:text="${payment.createdDatetime}">날짜</span>
+                                    </td>
+                                    <td class="payment-item">
+                                        <span class="payment-item-text" th:text="${payment.paymentStatus == 'success' ? '완료' : '취소'}"
+                                            th:classappend="${payment.paymentStatus == 'success' ? ' add' : ' del'}">상태</span>
+                                    </td>
+                                    <td class="payment-item vita">
+                                        <span class="payment-item-text"
+                                              th:text="${payment != null ? (payment.paymentStatus == 'success' ? '+' + (payment.paymentAmount == 5000 ? 200 : (payment.paymentAmount == 3000 ? 100 : 0)) : '-' + payment.paymentAmount) : '0'}"
+                                              th:classappend="${payment != null ? (payment.paymentStatus == 'success' ? ' add' : ' del') : ''}">수량</span>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
+                    <input type="hidden" id="loginMemberId" th:value="${member.id}">
+                    <input type="hidden" id="loginMemberName" th:value="${member.memberName}">
+                    <input type="hidden" id="loginMemberPhone" th:value="${member.memberPhone}">
+                    <input type="hidden" id="loginMemberEmail" th:value="${member.memberEmail}">
                     <!-- 내역이 없는 부분 -->
-                    <div class="no-search-payment-container">
-                        <div class="no-search-payment-wrap">
-                            <img src="https://media.a-ha.io/aha-qna/images/common/3D/shy.png" >
-                            <span>현재 내역이 존재하지 않습니다.</span>
-                        </div>
-                    </div>
-                    <!-- /내역이 없는 부분 -->
+<!--                    <div class="no-search-payment-container">-->
+<!--                        <div class="no-search-payment-wrap">-->
+<!--                            <img src="https://media.a-ha.io/aha-qna/images/common/3D/shy.png" >-->
+<!--                            <span>현재 내역이 존재하지 않습니다.</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; /내역이 없는 부분 &ndash;&gt;-->
                 </div>
             </div>
             <div class="current-holding-side">
@@ -214,66 +172,6 @@
             </div>
         </div>
     </main>
-    <div class="modal">
-        <div class="warn-modal">
-            <div id="content-wrap">
-                <div class="content-container">
-                    <div class="content-wrap">
-                        <span class="content-search">
-                            조회 기간
-                        </span>
-                        <ul class="select-list date">
-                            <li class="list-item">
-                                <button class="list-btn" data-date="1" data-unit="day">
-                                    <span class="list-text">
-                                        1일
-                                    </span>
-                                </button>
-                            </li>
-                            <li class="list-item">
-                                <button class="list-btn active" data-date="7" data-unit="day">
-                                    <span class="list-text">
-                                        7일
-                                    </span>
-                                </button>
-                            </li>
-                            <li class="list-item">
-                                <button class="list-btn" data-date="3" data-unit="month">
-                                    <span class="list-text">
-                                        3개월
-                                    </span>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="content-wrap">
-                        <span class="content-search">
-                            정렬
-                        </span>
-                        <ul class="select-list order">
-                            <li class="list-item">
-                                <button class="list-btn active" data-order="asc">
-                                    <span class="list-text">
-                                        최신순
-                                    </span>
-                                </button>
-                            </li>
-                            <li class="list-item">
-                                <button class="list-btn" data-order="desc">
-                                    <span class="list-text">
-                                        오래된 순
-                                    </span>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="accept-btn">
-                    <span class="list-text">적용</span>
-                </button>
-            </div>
-        </div>
-    </div>
 </body>
 <script src="https://js.bootpay.co.kr/bootpay-5.0.2.min.js"></script>
 <script src="/js/payment/event.js"></script>

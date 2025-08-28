@@ -22,7 +22,7 @@ public class PaymentVO extends Period {
     private Long id;
     private Long memberId;
     private String paymentMethod;
-    private String paymentAmount;
+    private Integer paymentAmount;
     private String paymentStatus;
     private String paymentTransactionId;
 }
