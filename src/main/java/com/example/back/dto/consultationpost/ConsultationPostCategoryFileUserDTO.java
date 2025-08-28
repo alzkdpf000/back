@@ -19,6 +19,7 @@ public class ConsultationPostCategoryFileUserDTO {
     private Long id;
     private String consultationPostTitle;
     private String consultationPostContent;
+    private Integer consultationPostViewCount;
     private String consultationPostAnswerCount;
     private Long memberId;
     private String createdDatetime;

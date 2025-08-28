@@ -22,6 +22,7 @@ public class DoctorDAO {
     public List<DoctorListDTO> findDoctorList(Criteria criteria, Search search) {
         return doctorMapper.selectDoctorList(criteria, search);
     }
+
 //  검색 조건 포함 전체 개수 조회
     public int findCountDoctorList(Search search){
         return doctorMapper.selectCountAll(search);

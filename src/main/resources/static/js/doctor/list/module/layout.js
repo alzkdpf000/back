@@ -69,6 +69,32 @@ categoryFinalSelect.addEventListener("click", () => {
     doctorLayout.loadDoctors(1, keyword, categoryList);
 });
 
+const orderBtn = document.querySelector(".card-list-order-btn");
+const orderText = orderBtn.querySelector(".change-order");
+
+let orderType = "latest"; // 초기 정렬: 최신순
+
+orderBtn.addEventListener("click", () => {
+    // 토글
+    if (orderType === "latest") {
+        orderType = "viewCount"; // 조회순
+        orderText.textContent = "조회순";
+    } else {
+        orderType = "latest"; // 최신순
+        orderText.textContent = "최신 순";
+    }
+
+    // 현재 키워드, 카테고리 가져오기
+    const keyword = document.getElementById("keywordInput")?.value.trim() || '';
+    const selectedCategories = [...document.querySelectorAll("ul.category-list-wrap li button.checked")]
+        .map(btn => btn.textContent.trim());
+
+    // 상담글 재조회
+    consultationPostListLayout.loadConsultationPosts(1, keyword, selectedCategories, orderType);
+});
+
+
+
 // ===================== 의사 목록 JS =====================
 const doctorLayout = ((currentMemberId = 31) => {
 

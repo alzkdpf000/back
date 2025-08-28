@@ -71,7 +71,6 @@ VALUES ('t_test.jpeg', '2025/08/13', 204800, 'test.jpeg'),
        ('t_user.jpeg', '2025/08/13', 307200, 'user.jpeg'),
        ('t_test.jpeg', '2025/08/13', 512000, 'test.jpeg');
 
-
 -- 6. 파일-게시글 연결 (글 1에 3개 이미지 연결)
 INSERT INTO tbl_consultation_post_file (file_id, consultation_post_id)
 VALUES (1, 1),
@@ -83,9 +82,15 @@ VALUES (1, 1),
 INSERT INTO tbl_file (file_name, file_path, file_size, file_original_name)
 VALUES ('t_user.jpeg', '2025/08/13', 150000, 'user.jpeg');
 
+
 -- 8. 파일-멤버 연결
 INSERT INTO tbl_member_file (file_id, member_id)
 VALUES (4, 1);
+
+INSERT INTO tbl_member_file (file_id, member_id)
+VALUES (5,31),
+       (6,32),
+       (7,33);
 
 
 
@@ -155,3 +160,11 @@ FROM tbl_consultation_post
 WHERE consultation_post_status = 'active'
 ORDER BY consultation_post_view_count DESC
 LIMIT 3 offset 0;
+
+
+select * from tbl_file;
+select * from tbl_member_file;
+select * from tbl_member;
+select * from tbl_consultation_post_file;
+
+
