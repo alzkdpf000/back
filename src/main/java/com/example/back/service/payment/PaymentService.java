@@ -13,7 +13,9 @@ public interface PaymentService {
     //    관리자 페이지 충전 사용 내역들
     public PaymentCriteriaDTO getPayments(Search search);
 
-
+//
+    public void processPayment(PaymentDTO paymentDTO);
+    public PaymentCriteriaDTO getPaymentList(Long memberId, int page, int pageSize);
 
 
     default PaymentVO toVO(PaymentDTO paymentDTO){

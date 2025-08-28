@@ -59,4 +59,45 @@
             tp.payment_status != 'pending'
         group by tp.payment_status
     </select>
+
+    <!-- 결제 정보 인서트-->
+    <insert id="insertPayment" parameterType="com.example.back.dto.payment.PaymentDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tbl_payment (member_id, payment_method, payment_amount, payment_status, payment_transaction_id)
+        VALUES (#{memberId}, #{paymentMethod}, #{paymentAmount}, #{paymentStatus}, #{paymentTransactionId})
+    </insert>
+
+    <!-- 결제 상태 업데이트 -->
+    <update id="updatePaymentStatus">
+        UPDATE tbl_payment
+        SET payment_status = #{status},
+            updated_datetime = NOW()
+        WHERE payment_transaction_id = #{transactionId}
+    </update>
+
+    <!-- Vita 충전/차감 -->
+    <update id="updateMemberVita">
+        UPDATE tbl_member
+        SET vita = vita + #{amount},
+            updated_datetime = NOW()
+        WHERE id = #{memberId}
+    </update>
+
+    <!-- 결제 내역 총 개수 -->
+    <select id="findCountPayment" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_payment
+        WHERE member_id = #{memberId}
+    </select>
+
+    <!-- 결제 내역 리스트 -->
+    <select id="findPayments" resultType="com.example.back.dto.payment.PaymentMemberVitaDTO">
+        SELECT p.id, p.payment_amount, p.payment_transaction_id, p.payment_status, p.created_datetime,
+               m.member_name AS memberName, m.member_email AS memberEmail
+        FROM tbl_payment p
+                 JOIN tbl_member m ON p.member_id = m.id
+        WHERE p.member_id = #{memberId}
+        ORDER BY p.created_datetime DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
 </mapper>
