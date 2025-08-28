@@ -51,12 +51,12 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
 
     @Override
     public ConsultationPostCriteriaDTO getPostList(int page) {
-        // 검색조건 없는 경우, 빈 Search 객체 넘김
-        return getPostList(page, new Search());
+        // 검색조건 없는 경우
+        return getPostList(page, new Search(), "created_datetime DESC");
     }
 
     @Override
-    public ConsultationPostCriteriaDTO getPostList(int page, Search search) {
+    public ConsultationPostCriteriaDTO getPostList(int page, Search search, String order) {
         // null 방어
         if (search.getCategories() == null) {
             search.setCategories(new String[0]);
@@ -67,17 +67,40 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
 
         ConsultationPostCriteriaDTO dto = new ConsultationPostCriteriaDTO();
 
+        String orderBy = "created_datetime DESC"; // 최신순 기본
+        if ("viewCount".equals(order)) {
+            orderBy = "view_count DESC";
+        }
+
+        // 전체 게시글 수
         int totalCount = consultationPostDAO.findCountPostList(search);
         Criteria criteria = new Criteria(page, totalCount);
 
-        List<ConsultationPostCategoryFileUserDTO> consultationPosts = consultationPostDAO.findPostList(criteria, search);
+        // 게시글 리스트 조회
+        List<ConsultationPostCategoryFileUserDTO> consultationPosts =
+                consultationPostDAO.findPostList(criteria, search, orderBy);
 
+        // hasMore
         boolean hasMore = consultationPosts.size() > criteria.getRowCount();
         criteria.setHasMore(hasMore);
-
         if (hasMore) {
             consultationPosts.remove(consultationPosts.size() - 1);
         }
+
+        // 게시글 categories, files, relativeDate 세팅
+        consultationPosts.forEach(post -> {
+            post.setRelativeDate(DateUtils.toRelativeTime(post.getCreatedDatetime()));
+
+            Long consultationPostId = post.getId();
+
+            // 카테고리
+            List<String> categories = categoryDAO.findCategoryByPostId(consultationPostId);
+            post.setCategories(categories);
+
+            // 파일
+            List<FileDTO> files = fileConsultationPostDAO.findFilesByPostId(consultationPostId);
+            post.setConsultationPostFiles(files);
+        });
 
         dto.setConsultationPosts(consultationPosts);
         dto.setCriteria(criteria);

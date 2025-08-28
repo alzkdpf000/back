@@ -1,116 +1,91 @@
-// ===================== 공통 변수 =====================
-let consultationPosts = [];
-let page = 1;
 let categoryList = [];
-let keyword = '';
 
-// ===================== 로딩 및 DOM 요소 =====================
-const container = document.getElementById("intersectionObserver");
-const pageContainer = document.getElementById("page-container");
-const loading = document.getElementById("loading");
+// ===================== 카테고리 모달 =====================
+const categoryModal = document.querySelector(".category-modal");
+const categoryModalOpenBtn = document.querySelector("button.category-container-modal-btn");
+const categoryModalOpenBtnText = categoryModalOpenBtn.querySelector("span.check-list");
+const categoryFinalSelect = document.querySelector(".category-select-fix-btn");
+const categorySelectCancelAll = document.querySelector(".category-select-btn-del");
+const categoryListBtns = document.querySelectorAll("ul.category-list-wrap li button.category-btn");
 
-// ===================== 상담글 리스트 보여주기 =====================
-const showList = (data) => {
-    let html = "";
+// 모달 열기
+categoryModalOpenBtn?.addEventListener("click", () => {
+    categoryModal.style.display = "flex";
+});
 
-    if (!data.consultationPosts || data.consultationPosts.length === 0) {
-        container.innerHTML = "<li>상담글이 없습니다.</li>";
-        pageContainer.innerHTML = "";
-        return;
-    }
-
-    data.consultationPosts.forEach(post => {
-        html += `
-            <li>
-                <a href="/post/detail/${post.id}">
-                    <div class="content-info">
-                        <div class="content-info-text">
-                            <div class="post-title">${post.consultationPostTitle}</div>
-                            <div class="post-meta">
-                                <span>작성자: ${post.memberName}</span>
-                                <span>조회수: ${post.consultationPostViewCount}</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        `;
-    });
-
-    container.innerHTML = html;
-};
-
-// ===================== 페이징 =====================
-const showPaging = (criteria) => {
-    let html = "";
-
-    if (criteria.hasPreviousPage) html += `<a href="#" data-page="${criteria.startPage - 1}">이전</a>`;
-    for (let i = criteria.startPage; i <= criteria.endPage; i++) {
-        html += `<a href="#" data-page="${i}">${i}</a>`;
-    }
-    if (criteria.hasNextPage) html += `<a href="#" data-page="${criteria.endPage + 1}">다음</a>`;
-
-    pageContainer.innerHTML = html;
-
-    pageContainer.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", e => {
-            e.preventDefault();
-            page = Number(link.dataset.page);
-            loadConsultationPosts(page, keyword, categoryList);
-        });
-    });
-};
-
-// ===================== 데이터 불러오기 =====================
-const loadConsultationPosts = async (page = 1, kw = '', catList = []) => {
-    keyword = kw;
-    categoryList = catList;
-
-    loading.style.display = "block";
-
-    try {
-        const data = await consultationPostListService.loadConsultationPosts(page, keyword, categoryList);
-        showList(data);
-        showPaging(data.criteria);
-    } catch (err) {
-        console.error("상담글 로드 실패:", err);
-        container.innerHTML = "<li>상담글을 불러오는데 실패했습니다.</li>";
-    } finally {
-        loading.style.display = "none";
-    }
-};
-
-// ===================== 카테고리 선택 이벤트 =====================
-document.querySelectorAll("ul.category-list-wrap li button.category-btn").forEach(btn => {
+// 카테고리 선택/취소
+categoryListBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-        const text = btn.firstElementChild.textContent;
+        const text = btn.textContent.trim();
+        const idx = categoryList.indexOf(text);
         if (btn.classList.contains("checked")) {
             btn.classList.remove("checked");
-            categoryList.splice(categoryList.indexOf(text), 1);
+            if (idx > -1) categoryList.splice(idx, 1);
         } else {
             btn.classList.add("checked");
-            categoryList.push(text);
+            if (idx === -1) categoryList.push(text);
         }
     });
 });
 
-document.querySelector(".category-select-fix-btn").addEventListener("click", () => {
-    page = 1;
-    container.innerHTML = "";
-    loadConsultationPosts(page, keyword, categoryList);
-    document.querySelector(".category-modal").style.display = "none";
+// 전체 취소
+categorySelectCancelAll?.addEventListener("click", () => {
+    categoryListBtns.forEach(btn => btn.classList.remove("checked"));
+    categoryList = [];
 });
 
-// ===================== 검색 =====================
-document.getElementById("searchForm").addEventListener("submit", e => {
+// 최종 선택 완료 (검색 실행 X, 모달 닫기만)
+categoryFinalSelect?.addEventListener("click", () => {
+    if (categoryList.length === 0) categoryModalOpenBtnText.textContent = "전체";
+    else if (categoryList.length === 1) categoryModalOpenBtnText.textContent = categoryList[0];
+    else categoryModalOpenBtnText.textContent = `${categoryList[0]} 외 ${categoryList.length - 1}개`;
+
+    if (categoryModal) categoryModal.style.display = "none";
+});
+
+// ===================== 검색 이벤트 =====================
+const searchForm = document.getElementById("searchForm");
+const searchBtn = document.querySelector(".total-search-input-wrap img[alt='search']");
+
+let orderType = "latest"; // 초기 정렬: 최신순
+
+const executeSearch = () => {
+    const keyword = document.getElementById("keywordInput")?.value.trim() || '';
+    window.consultationPostListLayout.loadConsultationPosts(1, keyword, categoryList, orderType);
+};
+
+searchForm?.addEventListener("submit", e => {
     e.preventDefault();
-    page = 1;
-    keyword = document.getElementById("keywordInput").value || '';
-    container.innerHTML = "";
-    loadConsultationPosts(page, keyword, categoryList);
+    executeSearch();
+});
+searchBtn?.addEventListener("click", () => {
+    executeSearch();
 });
 
-// ===================== 초기 실행 =====================
+// ===================== 정렬 버튼 =====================
+const orderBtn = document.querySelector(".card-list-order-btn");
+const orderText = orderBtn.querySelector(".change-order");
+
+orderBtn.addEventListener("click", () => {
+    // 토글
+    if (orderType === "latest") {
+        orderType = "viewCount";
+        orderText.textContent = "조회 순";
+    } else {
+        orderType = "latest";
+        orderText.textContent = "최신 순";
+    }
+
+    // 현재 키워드, 카테고리 가져오기
+    const keyword = document.getElementById("keywordInput")?.value.trim() || '';
+    const selectedCategories = [...document.querySelectorAll("ul.category-list-wrap li button.checked")]
+        .map(btn => btn.textContent.trim());
+
+    // 상담글 재조회
+    executeSearch();
+});
+
+// ===================== 초기 로드 =====================
 document.addEventListener("DOMContentLoaded", () => {
-    loadConsultationPosts(1);
+    window.consultationPostListLayout.loadConsultationPosts(1, '', [], orderType);
 });

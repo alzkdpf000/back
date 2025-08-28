@@ -31,7 +31,8 @@
                             <form id="searchForm" name="searchForm">
                                 <div class="total-search-input-wrap">
                                     <!-- 검색 이벤트 -->
-                                    <input type="text" class="total-search-input" placeholder="검색어를 입력해주세요." form="searchForm" name="searchContent">
+                                    <input class="total-search-input" id="keywordInput" type="text" placeholder="검색어를 입력하세요.">
+                                    <button type="submit" class="search-button">
                                     <!-- /검색 이벤트 -->
                                     <img alt="search" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent" src="https://media.a-ha.io/aha-qna/images/common/icons/mark/magnifying-000%20default.svg">
                                 </div>
@@ -49,7 +50,7 @@
                                 </div>
                             </button>
                             
-                            <button class="card-list-order-btn">
+                            <button class="card-list-order-btn" data-order="latest">
                                 <span class="card-list-btn-text change-order">최신 순</span>
                                 <div class="card-list-icon">
                                     <svg fill="none" height="12" viewbox="0 0 15 12" width="15" xmlns="http://www.w3.org/2000/svg">
@@ -64,16 +65,11 @@
                     <hr class="category-ul-horizon">
                     <ul
                         class="content-list" id="intersectionObserver">
-
                         <!-- 답변 반복 부분 -->
-                        <div id="page-container"></div>
                     </ul>
-                    <div class="no-search-result-wrap">
-                        <img src="https://media.a-ha.io/aha-qna/images/v3/product/feed/message.webp" width="48" height="48" style="color:transparent">
-                        <span class="no-search-result-text">
-                            검색 결과가 없어요. 다시 검색해서 해결해 보세요!
-                        </span>
-                    </div>
+
+                    <div id="page-container"></div>
+
                     <div style="height:300px" id="intersectionObserverLayout"></div>
                 </div>
                 <div class="side-bar-container">

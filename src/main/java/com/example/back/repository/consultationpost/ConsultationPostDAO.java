@@ -27,8 +27,8 @@ public class ConsultationPostDAO {
     }
 
     //  전체 리스트 조회 + 검색조건
-    public List<ConsultationPostCategoryFileUserDTO> findPostList(Criteria criteria, Search search) {
-        return consultationPostMapper.selectPostList(criteria, search);
+    public List<ConsultationPostCategoryFileUserDTO> findPostList(Criteria criteria, Search search, String orderBy) {
+        return consultationPostMapper.selectPostList(criteria, search, orderBy);
     }
 
     // 전체 개수 조회 + 검색조건
@@ -38,6 +38,11 @@ public class ConsultationPostDAO {
 
     public List<String> findCategoryNamesByPostId(Long postId) {
         return consultationPostMapper.selectCategoryNamesByPostId(postId);
+    }
+
+    // 조회수 업데이트
+    public void increaseViewCount(Long postId) {
+        consultationPostMapper.increaseViewCount(postId);
     }
 
 }

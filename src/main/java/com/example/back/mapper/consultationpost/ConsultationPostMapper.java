@@ -22,9 +22,15 @@ public interface ConsultationPostMapper {
     public List<String> selectCategoryNamesByPostId(Long postId);
 
     // 전체 게시글 조회
-    List<ConsultationPostCategoryFileUserDTO> selectPostList(@Param("criteria") Criteria criteria,
-                                                             @Param("search") Search search);
+    List<ConsultationPostCategoryFileUserDTO> selectPostList(
+            @Param("criteria") Criteria criteria,
+            @Param("search") Search search,
+            @Param("orderBy") String orderBy
+    );
     
     // 전체 게시글 개수 조회
     public int selectCountAll(@Param("search") Search search);
+
+    // 조회수 증가
+    public void increaseViewCount(Long postId);
 }

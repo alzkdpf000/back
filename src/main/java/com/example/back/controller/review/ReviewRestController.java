@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/review")
 @RequiredArgsConstructor
-public class ReviewController {
+public class ReviewRestController {
 
     private final HouseCallService houseCallService;
     private final ReviewService reviewService;

@@ -1,87 +1,135 @@
 const consultationPostListLayout = (() => {
 
-    const showList = (posts) => {
-        const container = document.getElementById("consultation-post-list"); // 기존 HTML ul 또는 div
+    // ===================== 목록 표시 =====================
+    const showList = (posts, keyword = '', selectedCategories = []) => {
+        const container = document.getElementById("intersectionObserver");
         if (!container) return;
 
-        let html = '';
-
         if (!posts || posts.length === 0) {
-            container.innerHTML = "<li>상담글이 없습니다.</li>";
+            container.innerHTML = keyword || (selectedCategories && selectedCategories.length > 0)
+                ? `<div class="no-search-result-wrap">
+                       <img src="https://media.a-ha.io/aha-qna/images/v3/product/feed/message.webp" width="48" height="48" style="color:transparent">
+                       <span class="no-search-result-text">검색 결과가 없어요. 다시 검색해 보세요!</span>
+                   </div>`
+                : "<li>상담글이 없습니다.</li>";
             return;
         }
 
+        let html = '';
         posts.forEach(post => {
-            html += `
-                <li>
-                    <a href="/post/detail/${post.id}">
-                        <div class="answer-list-container">
-                            <img src="${post.memberFilePath || 'https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp'}" 
-                                 width="48" height="48" class="answer-client-img">
-                            <div class="answer-list-content-tag">
-                                <div class="answer-writer-cotent-wrap">
-                                    <div class="category-wrap">
-                                        <span>${post.categories && post.categories.length > 0 ? post.categories[0] + (post.categories.length > 1 ? ` 외 ${post.categories.length - 1}개` : '') : '전체'}</span>
+            let imgText = '';
+            if (post.consultationPostFiles?.length > 0) {
+                post.consultationPostFiles.forEach(file => {
+                    imgText += `<li>
+                                    <img src="/api/files/display?filePath=${file.filePath}&fileName=${file.fileName}" width="161" height="161" alt="">
+                                </li>`;
+                });
+            }
+
+            let providerImgSrc = 'https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp';
+            if (post.memberProvider === "kakao") {
+                providerImgSrc = post.memberFilePath?.trim() || providerImgSrc;
+            } else if (post.memberFilePath?.trim()) {
+                const arr = post.memberFilePath.split('/');
+                const fileName = arr.pop();
+                const filePath = arr.join('/');
+                providerImgSrc = `/api/files/display?filePath=${filePath}&fileName=${fileName}`;
+            }
+
+            html += `<li>
+                        <a href="/post/detail/${post.id}">
+                            <div class="answer-list-container">
+                                <img src="${providerImgSrc}" width="48" height="48" class="answer-client-img">
+                                <div class="answer-list-content-tag">
+                                    <div class="answer-writer-cotent-wrap">
+                                        <div class="category-wrap">
+                                            <span>${post.categories?.length > 0
+                                            ? post.categories[0] + (post.categories.length > 1 ? ` 외 ${post.categories.length - 1}개` : '')
+                                            : '기타'}</span>
+                                        </div>
+                                        <div class="category-bottom-wrap">
+                                            <span class="writer-name">${post.memberName}</span>
+                                            <svg fill="none" height="3" viewBox="0 0 2 3" width="2" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="1" cy="1.5" fill="#282b2f" r="1"></circle>
+                                            </svg>
+                                            <span class="write-create-time write-date">${post.relativeDate || ''}</span>
+                                        </div>
                                     </div>
-                                    <div class="category-bottom-wrap">
-                                        <span class="writer-name">${post.memberName}</span>
-                                        <svg fill="none" height="3" viewBox="0 0 2 3" width="2" xmlns="http://www.w3.org/2000/svg"><circle cx="1" cy="1.5" fill="#282b2f" r="1"></circle></svg>
-                                        <span class="write-create-time write-date">${post.relativeDate || ''}</span>
+                                    <div class="answer-content-container">
+                                        <span class="post-title">${post.consultationPostTitle}</span>
+                                        <span class="post-content">${post.consultationPostContent}</span>
                                     </div>
-                                </div>
-                                <div class="answer-content-container">
-                                    <span class="post-title">${post.consultationPostTitle}</span>
-                                    <span class="post-content">${post.consultationPostContent}</span>
-                                </div>
-                                <ul class="answer-imag-container">
-                                    ${post.consultationPostFiles?.map(file => `
-                                        <li><img src="${file.filePath}" width="161" height="161" alt=""></li>
-                                    `).join('') || ''}
-                                </ul>
-                                <div class="answer-cnt-wrap">
-                                    <div class="answer-icon-cnt-wrap">
-                                        <svg fill="none" height="24" viewBox="0 0 25 24" width="25" xmlns="http://www.w3.org/2000/svg">
-                                            <path clip-rule="evenodd" d="M13.1389 1C7.3244 1 2.61081 5.92486 2.61081 12C2.61081 13.7841 3.01814 15.4716 3.74146 16.9639L1.76928 21.3794C1.58199 21.7987 1.65614 22.2947 1.95688 22.6344C2.25762 22.9741 2.72517 23.0899 3.13986 22.9274L7.43263 21.2455C9.07704 22.3554 11.0373 23 13.1389 23C18.9534 23 23.667 18.0751 23.667 12C23.667 5.92486 18.9534 1 13.1389 1Z" fill="#2756EC" fill-rule="evenodd"></path>
-                                            <path clip-rule="evenodd" d="M9.66699 15H11.6306L11.9761 13.9271H14.3124L14.667 15H16.667L14.2943 8.71817C14.1215 8.25093 13.6397 8 13.1761 8C12.6852 8 12.1852 8.23362 12.0034 8.71817L9.66699 15ZM13.1488 10.3103L13.8397 12.4648H12.4488L13.1488 10.3103Z" fill="white" fill-rule="evenodd"></path>
-                                        </svg>
-                                        <span class="doctor-cnt"> 
+                                    <ul class="answer-imag-container">${imgText}</ul>
+                                    <div class="answer-cnt-wrap">
+                                        <div class="answer-icon-cnt-wrap">
                                             <span class="strong">${post.consultationPostAnswerCount || 0}명</span>의 의사가 답변했어요
-                                        </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </li>
-            `;
+                        </a>
+                     </li>`;
         });
 
         container.innerHTML = html;
-        container.appendChild(fragment);
     };
 
-    const showPaging = (criteria) => {
+    // ===================== 페이징 표시 =====================
+    const showPaging = (criteria, callback, keyword = '', selectedCategories = [], orderType = 'latest') => {
         const pageContainer = document.getElementById("page-container");
         if (!pageContainer) return;
 
         let html = "";
-        if (criteria.hasPreviousPage) html += `<a href="#" data-page="${criteria.startPage - 1}">이전</a>`;
+        if (criteria.startPage > 1) html += `<a href="#" data-page="${criteria.startPage - 1}">이전</a>`;
         for (let i = criteria.startPage; i <= criteria.endPage; i++) {
             html += `<a href="#" data-page="${i}">${i}</a>`;
         }
-        if (criteria.hasNextPage) html += `<a href="#" data-page="${criteria.endPage + 1}">다음</a>`;
+        if (criteria.endPage < criteria.realEnd) html += `<a href="#" data-page="${criteria.endPage + 1}">다음</a>`;
 
         pageContainer.innerHTML = html;
 
         pageContainer.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", e => {
                 e.preventDefault();
-                const page = Number(link.dataset.page);
-                const keyword = document.getElementById("keywordInput")?.value || '';
-                consultationPostListEvent.loadConsultationPosts(page, { keyword, categories: consultationPostListEvent.categoryList });
+                const pageNum = Number(link.dataset.page);
+                callback(pageNum, keyword, selectedCategories, orderType);
             });
         });
     };
 
-    return { showList: showList, showPaging: showPaging };
+    // ===================== 데이터 로드 =====================
+    const loadConsultationPosts = async (page = 1, keyword = '', selectedCategories = [], orderType = 'latest') => {
+        try {
+            const params = new URLSearchParams();
+            params.append('keyword', keyword);
+            selectedCategories.forEach(cat => params.append('categories', cat));
+            params.append('order', orderType);
+
+            const url = `/api/posts/list/${page}${params.toString() ? '?' + params.toString() : ''}`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("상담글 로드 실패");
+
+            const data = await res.json();
+            showList(data.consultationPosts, keyword, selectedCategories);
+
+            if (data.consultationPosts && data.consultationPosts.length > 0) {
+                showPaging(data.criteria, loadConsultationPosts, keyword, selectedCategories, orderType);
+            } else {
+                const pageContainer = document.getElementById("page-container");
+                if (pageContainer) pageContainer.innerHTML = "";
+            }
+        } catch (err) {
+            console.error(err);
+            const container = document.getElementById("intersectionObserver");
+            if (container) container.innerHTML = "<li>상담글을 불러오는데 실패했습니다.</li>";
+        }
+    };
+
+    return {
+        showList,
+        showPaging,
+        loadConsultationPosts
+    };
 })();
+
+window.consultationPostListLayout = consultationPostListLayout;

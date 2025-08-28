@@ -3,30 +3,30 @@ const consultationPostListService = (() => {
     let keyword = '';
     let categories = [];
 
-    // 상담글 조회
-    const getConsultationPost = async (page = 1, search = {}, callback) => {
-        search.categories = Array.isArray(search.categories) ? search.categories : [];
-        search.keyword = search.keyword || '';
+    const loadConsultationPosts = async (page = 1, keyword = '', selectedCategories = [], orderType = 'latest') => {
+        try {
+            const params = new URLSearchParams();
+            params.append('keyword', keyword);
+            selectedCategories.forEach(cat => params.append('categories', cat));
+            params.append('order', orderType); // 정렬 조건 추가
 
-        const params = new URLSearchParams();
-        search.categories.forEach(cat => params.append("categories", cat));
-        if (search.keyword) params.append("keyword", search.keyword);
+            const url = `/api/posts/list/${page}${params.toString() ? '?' + params.toString() : ''}`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("상담글 로드 실패");
 
-        const query = params.toString();
-        const response = await fetch(`/api/posts/list/${page}${query ? '?' + query : ''}`);
-        if (!response.ok) throw new Error("상담글 로드 실패");
-
-        const result = await response.json();
-        if (callback) callback(result);
-        return result;
-    };
-
-    // 외부에서 호출하는 메서드
-    const loadConsultationPosts = async (page = 1, kw = null, catList = null) => {
-        if (kw !== null) keyword = kw;
-        if (catList !== null) categories = catList;
-
-        return await getConsultationPost(page);
+            const data = await res.json();
+            showList(data.consultationPosts, keyword, selectedCategories);
+            if (data.consultationPosts && data.consultationPosts.length > 0) {
+                showPaging(data.criteria, loadConsultationPosts, keyword, selectedCategories, orderType);
+            } else {
+                const pageContainer = document.getElementById("page-container");
+                if (pageContainer) pageContainer.innerHTML = "";
+            }
+        } catch (err) {
+            console.error(err);
+            const container = document.getElementById("intersectionObserver");
+            if (container) container.innerHTML = "<li>상담글을 불러오는데 실패했습니다.</li>";
+        }
     };
 
     return { loadConsultationPosts: loadConsultationPosts };

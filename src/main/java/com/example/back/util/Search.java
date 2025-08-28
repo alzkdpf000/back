@@ -11,4 +11,5 @@ public class Search {
     private String[] categories;
     private String keyword;
     private int page;
+    private String orderType;
 }

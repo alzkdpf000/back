@@ -16,7 +16,7 @@ public interface ConsultationPostService {
     ConsultationPostCriteriaDTO getPostList(int page);
 
     // 전체 목록 조회 (검색 조건)
-    ConsultationPostCriteriaDTO getPostList(int page, Search search);
+    ConsultationPostCriteriaDTO getPostList(int page, Search search, String order);
 
     // 게시글 ID로 카테고리 이름 조회
 

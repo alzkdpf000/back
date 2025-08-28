@@ -22,14 +22,17 @@ public class ConsultationPostRestController {
     @GetMapping("/list/{page}")
     public ResponseEntity<ConsultationPostCriteriaDTO> getPostList(
             @PathVariable int page,
-            @ModelAttribute Search search) {
-        try {
-            if (search.getCategories() == null) search.setCategories(new String[0]);
-            if (search.getKeyword() == null) search.setKeyword("");
-            System.out.println("categories: " + Arrays.toString(search.getCategories()));
-            System.out.println("keyword: " + search.getKeyword());
+            @RequestParam(required = false, defaultValue = "latest") String order,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String[] categories) {
 
-            ConsultationPostCriteriaDTO listDTO = consultationPostService.getPostList(page, search);
+        try {
+            Search search = new Search();
+            search.setKeyword(keyword != null ? keyword : "");
+            search.setCategories(categories != null ? categories : new String[0]);
+            search.setOrderType(order != null ? order : "latest"); // << 이 부분 추가
+
+            ConsultationPostCriteriaDTO listDTO = consultationPostService.getPostList(page, search, order);
             return ResponseEntity.ok(listDTO);
         } catch (Exception e) {
             e.printStackTrace();
