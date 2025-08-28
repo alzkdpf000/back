@@ -17,7 +17,7 @@ import java.util.Optional;
 @Mapper
 public interface MemberMapper {
     //    회원 가입 추가
-    public void insertMember(MemberVO memberVO);
+    public void insertMember(MemberDTO memberDTO);
 //    카카오 회원가입 추가
     public void insertKakaoMember(MemberVO memberVO);
 

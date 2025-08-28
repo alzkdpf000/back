@@ -22,6 +22,7 @@ public class MemberProfileDTO {
         private Long fileId;
         private String fileName;
         private String filePath;
+        private Long profileFileId;
 
 
 }

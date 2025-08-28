@@ -19,11 +19,17 @@ public interface MemberFileMapper {
     public void insertMemberFile(@Param("memberId") Long memberId,
                           @Param("fileId") Long fileId);
 
+//    파일 ID, 회원 ID에 파일 저장
+    public void updateProfile(@Param("memberId") Long memberId,
+                              @Param("fileId") Long fileId);
+
     // 특정 회원 프로필 파일 ID 가져오기
     public Long findFileIdByMemberId(Long memberId);
 
 //    회원파일 매핑 제거
     public void deleteMemberFile(Long memberId);
+//    파일 삭제
+    public void deleteFileByMemberId(Long memberId);
 
 
 

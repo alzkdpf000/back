@@ -12,6 +12,12 @@ spring:
     url: jdbc:mysql://localhost:3306/app?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
     username: goldentime
     password: 1234
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 5MB
+      max-file-size: 5MB
+      max-request-size: 15MB
 
   mail:
     host: smtp.gmail.com
@@ -28,7 +34,6 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath*:/mapper/*/*.xml
   type-handlers-package: com.example.back.config.mybatis.handler
   type-aliases-package: com.example.back.domain;com.example.back.dto;

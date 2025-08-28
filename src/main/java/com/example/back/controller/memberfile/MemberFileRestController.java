@@ -4,20 +4,26 @@ import com.example.back.common.exception.LoginFailException;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.memberfile.MemberFileDTO;
 import com.example.back.dto.memberfile.MemberProfileDTO;
+import com.example.back.service.member.MemberService;
 import com.example.back.service.memberfile.MemberFileService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/mypage")
 @RequiredArgsConstructor
-
+@Slf4j
 public class MemberFileRestController {
 
     private final MemberFileService memberFileService;
+    private final MemberService memberService;
 
     @GetMapping("profile")
     public MemberProfileDTO getMemberFile(HttpSession session){
@@ -27,4 +33,25 @@ public class MemberFileRestController {
         Long memberId = member.getId();
         return memberFileService.getMemberProfile(memberId);
     }
+
+    @PostMapping("/profile/upload")
+    public ResponseEntity<MemberFileDTO> uploadProfile(
+            @RequestParam("file") MultipartFile file,
+            HttpSession session) {
+        log.info(file.getOriginalFilename());
+
+        MemberDTO member = (MemberDTO) session.getAttribute("member");
+        if (member == null) throw new LoginFailException();
+
+        MemberFileDTO fileInfo = memberFileService.update(member.getId(), file);
+
+        return ResponseEntity.ok(fileInfo);
+    }
+
+
+
+
+
+
+
 }

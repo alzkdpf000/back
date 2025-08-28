@@ -21,6 +21,7 @@ public class MyPageController {
     @GetMapping("")
     public String goToMyPageForm(Model model) {
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        log.info("{}", memberDTO);
 
         if (memberDTO == null) {
             Long memberId = (Long) session.getAttribute("memberId");
@@ -29,7 +30,8 @@ public class MyPageController {
         MemberDTO member = memberService.getMemberByIdAllStatus(memberDTO.getId())
                 .orElseThrow(IllegalArgumentException::new);
 
-//        session.setAttribute("member", member);
+
+        log.info("mypage member: {}", member);
         model.addAttribute("member", member);
 
 
