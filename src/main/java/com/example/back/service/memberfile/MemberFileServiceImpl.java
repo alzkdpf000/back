@@ -31,7 +31,7 @@ public class MemberFileServiceImpl implements MemberFileService {
 
     @Override
     public void deleteFileByMemberId(Long memberId) {
-        if (memberId == null) {
+        if (memberId != null) {
             memberFileDAO.deleteFileByMemberId(memberId);
         }
 
@@ -39,6 +39,7 @@ public class MemberFileServiceImpl implements MemberFileService {
 
     @Override
     public void insertFile(Long memberId, MultipartFile file) {
+
 
     }
 
