@@ -74,30 +74,28 @@
         WHERE payment_transaction_id = #{transactionId}
     </update>
 
-    <!-- Vita 충전/차감 -->
+    <!-- Vita 업데이트 -->
     <update id="updateMemberVita">
         UPDATE tbl_member
-        SET vita = vita + #{amount},
+        SET member_vita_amount = member_vita_amount + #{amount},
             updated_datetime = NOW()
         WHERE id = #{memberId}
     </update>
 
-    <!-- 결제 내역 총 개수 -->
-    <select id="findCountPayment" resultType="int">
-        SELECT COUNT(*)
+    <!-- 회원별 결제 내역 전체 조회 -->
+    <select id="paymentList" parameterType="long" resultType="com.example.back.dto.payment.PaymentDTO">
+        SELECT
+            id,
+            member_id AS memberId,
+            payment_method AS paymentMethod,
+            payment_amount AS paymentAmount,
+            payment_status AS paymentStatus,
+            payment_transaction_id AS paymentTransactionId,
+            created_datetime AS createdDatetime,
+            updated_datetime AS updatedDatetime
         FROM tbl_payment
         WHERE member_id = #{memberId}
-    </select>
-
-    <!-- 결제 내역 리스트 -->
-    <select id="findPayments" resultType="com.example.back.dto.payment.PaymentMemberVitaDTO">
-        SELECT p.id, p.payment_amount, p.payment_transaction_id, p.payment_status, p.created_datetime,
-               m.member_name AS memberName, m.member_email AS memberEmail
-        FROM tbl_payment p
-                 JOIN tbl_member m ON p.member_id = m.id
-        WHERE p.member_id = #{memberId}
-        ORDER BY p.created_datetime DESC
-            LIMIT #{offset}, #{pageSize}
+        ORDER BY created_datetime DESC
     </select>
 
 </mapper>

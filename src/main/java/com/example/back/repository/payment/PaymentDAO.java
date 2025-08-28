@@ -44,11 +44,8 @@ public class PaymentDAO {
         return paymentMapper.updateMemberVita(memberId, amount);
     }
 
-    public int findCountPayment(Long memberId) {
-        return paymentMapper.findCountPayment(memberId);
-    }
-
-    public List<PaymentMemberVitaDTO> findPayments(Long memberId, Criteria criteria) {
-        return paymentMapper.findPayments(memberId, criteria);
+    // 결제 내역 전체 조회
+    public List<PaymentDTO> paymentList(Long memberId) {
+        return paymentMapper.paymentList(memberId);
     }
 }

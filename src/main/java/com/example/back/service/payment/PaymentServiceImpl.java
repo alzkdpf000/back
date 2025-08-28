@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -32,43 +33,40 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentCriteriaDTO;
     }
 
+    // 결제금액 → 보너스 매핑
+    private static final Map<Integer, Integer> PRICE_TO_VITA = Map.of(
+            5000, 200,
+            3000, 100
+    );
+
     @Override
     @Transactional
     public void processPayment(PaymentDTO paymentDTO) {
-        // 결제 정보 insert
         paymentDAO.insertPayment(paymentDTO);
 
-        // 결제 상태에 따른 처리
-        switch (paymentDTO.getPaymentStatus()) {
-            case "success":
-                paymentDAO.updatePaymentStatus(paymentDTO.getPaymentTransactionId(), "success");
-                paymentDAO.updateMemberVita(paymentDTO.getMemberId(), paymentDTO.getPaymentAmount());
-                break;
-            case "cancel":
-            case "refund":
-                paymentDAO.updatePaymentStatus(paymentDTO.getPaymentTransactionId(), paymentDTO.getPaymentStatus());
-                paymentDAO.updateMemberVita(paymentDTO.getMemberId(), -paymentDTO.getPaymentAmount());
-                break;
-            default:
-                paymentDAO.updatePaymentStatus(paymentDTO.getPaymentTransactionId(), paymentDTO.getPaymentStatus());
-                break;
+        int vitaChange = 0;
+        Integer paymentAmount = paymentDTO.getPaymentAmount();
+
+        if (paymentAmount != null) {
+            switch (paymentDTO.getPaymentStatus()) {
+                case "success":
+                    vitaChange = PRICE_TO_VITA.getOrDefault(paymentAmount, 0);
+                    break;
+                case "cancel":
+                    vitaChange = -PRICE_TO_VITA.getOrDefault(Math.abs(paymentAmount), 0);
+                    break;
+                default:
+                    vitaChange = 0;
+                    break;
+            }
         }
+
+        paymentDAO.updatePaymentStatus(paymentDTO.getPaymentTransactionId(), paymentDTO.getPaymentStatus());
+        paymentDAO.updateMemberVita(paymentDTO.getMemberId(), vitaChange);
     }
 
     @Override
-    public PaymentCriteriaDTO getPaymentList(Long memberId, int page, int pageSize) {
-        PaymentCriteriaDTO criteriaDTO = new PaymentCriteriaDTO();
-
-        int total = paymentDAO.findCountPayment(memberId);
-        int offset = (page - 1) * pageSize;
-
-        List<PaymentMemberVitaDTO> payments = paymentDAO.findPayments(memberId, offset, pageSize);
-        Criteria criteria = new Criteria(page, total);
-
-        criteriaDTO.setPayments(payments);
-        criteriaDTO.setCriteria(criteria);
-        criteriaDTO.setTotal(total);
-
-        return criteriaDTO;
+    public List<PaymentDTO> getPaymentList(Long memberId) {
+        return paymentDAO.paymentList(memberId);
     }
 }
