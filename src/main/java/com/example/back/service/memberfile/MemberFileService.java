@@ -1,23 +1,20 @@
 package com.example.back.service.memberfile;
 
-import com.example.back.dto.memberfile.MemberFileDTO;
-import com.example.back.mapper.member.MemberMapper;
-import com.example.back.mapper.memberfile.MemberFileMapper;
-import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.example.back.dto.memberfile.MemberProfileDTO;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+public interface MemberFileService {
 
-@Service
-@RequiredArgsConstructor
-public class MemberFileService {
-    private final MemberFileMapper memberFileMapper;
 
-    //    회원이 가진 파일 조회
-    public MemberFileDTO getMemberFile(Long memberId){
-        return memberFileMapper.findByMemberId(memberId);
+    // 회원이 가진 프로필 + 파일 조회
+    public MemberProfileDTO getMemberProfile(Long memberId);
 
-    }
+//    파일 업로드
+    public void uploadProfile(Long memberId, MultipartFile file);
+
+
+
+
 
 }
+
