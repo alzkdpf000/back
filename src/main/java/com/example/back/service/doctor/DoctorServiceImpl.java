@@ -184,8 +184,8 @@ public class DoctorServiceImpl implements DoctorService {
 
             doctorDTO.setMemberId(memberDTO.getId());
         } else {
-            memberDTO.setRole(Role.DOCTOR);
-            log.info("회원가입 직전 Role = {}", memberDTO.getRole());
+            memberDTO.setMemberRole(Role.DOCTOR);
+            log.info("회원가입 직전 Role = {}", memberDTO.getMemberRole());
             memberDTO = memberService.join(memberDTO);
             doctorDTO.setMemberId(memberDTO.getId());
         }
