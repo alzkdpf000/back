@@ -8,7 +8,6 @@ import com.example.back.dto.memberfile.MemberFileDTO;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Component
@@ -22,7 +21,7 @@ public class MemberDTO {
     private String memberName;
     private String memberPhone;
     private Status memberStatus;
-    private Provider provider;
+    private Provider memberProvider;
     private String kakaoEmail;
     private String kakaoProfileUrl;
     private Role memberRole;

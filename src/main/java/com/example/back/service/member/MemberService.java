@@ -7,7 +7,6 @@ import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.util.Search;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -88,7 +87,7 @@ public interface MemberService {
                 .memberStatus(memberDTO.getMemberStatus())
                 .KakaoEmail(memberDTO.getKakaoEmail())
                 .KakaoProfileUrl(memberDTO.getKakaoProfileUrl())
-                .provider(memberDTO.getProvider())
+                .provider(memberDTO.getMemberProvider())
                 .role(memberDTO.getMemberRole())
                 .memberVitaAmount(memberDTO.getMemberVitaAmount())
                 .createdDatetime(memberDTO.getCreatedDatetime())
