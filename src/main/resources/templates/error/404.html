@@ -7,9 +7,11 @@
     <title>골든타임</title>
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/error/error404.css">
+    <link rel="stylesheet" href="/css/main/header.css">
     <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon">
 </head>
 <body>
+<header th:replace="~{/fixed/header.html :: header}"></header>
     <main>
         <div class="error-404-container">
             <img src="https://media.a-ha.io/aha-qna/images/v3/product/fallback/shh-jangdoyeon.webp" class="error-404-img">
@@ -24,7 +26,7 @@
             </div>
             <div class="error-404-btn-container">
                 <!-- 버튼 클릭 이벤트 -->
-                <button class="befor-page-mv">
+                <button class="befor-page-mv" onclick="prevPage()">
                     <span class="bnt-text">
                         이전으로
                     </span>
@@ -32,7 +34,7 @@
                 <!-- /버튼 클릭 이벤트 -->
                 <!-- 버튼 클릭 이벤트 -->
                 <a class="home-btn-wrap">
-                    <button class="home-btn">
+                    <button class="home-btn" onclick="window.location.href='/'">
                         <span class="bnt-text">홈으로</span>
                     </button>
                 </a>
@@ -41,5 +43,10 @@
         </div>
     </main>
 </body>
+<script th:inline="javascript">
+const prevPage = ()=>{
+    window.location = document.referrer || "/";
+}
+</script>
 <script src="/js/error/event.js"></script>
 </html>

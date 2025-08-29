@@ -15,6 +15,8 @@ public class MainPageController {
     private final HttpSession session;
     @GetMapping
     public String goMainPage() {
+        MemberDTO member =(MemberDTO) session.getAttribute("member");
+        log.info("{}",member);
         return "/main/main";
     }
 

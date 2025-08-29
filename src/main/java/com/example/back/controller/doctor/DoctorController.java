@@ -64,7 +64,7 @@ public class DoctorController {
         memberDTO.setMemberPhone(doctorDTO.getMemberPhone());
         hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
 
-        memberDTO.setRole(Role.DOCTOR);
+        memberDTO.setMemberRole(Role.DOCTOR);
 
         doctorService.join(doctorDTO, memberDTO, hospitalDTO);
 

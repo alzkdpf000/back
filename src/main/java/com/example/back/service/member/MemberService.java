@@ -89,7 +89,7 @@ public interface MemberService {
                 .KakaoEmail(memberDTO.getKakaoEmail())
                 .KakaoProfileUrl(memberDTO.getKakaoProfileUrl())
                 .provider(memberDTO.getProvider())
-                .role(memberDTO.getRole())
+                .role(memberDTO.getMemberRole())
                 .memberVitaAmount(memberDTO.getMemberVitaAmount())
                 .createdDatetime(memberDTO.getCreatedDatetime())
                 .updatedDatetime(memberDTO.getUpdatedDatetime())
