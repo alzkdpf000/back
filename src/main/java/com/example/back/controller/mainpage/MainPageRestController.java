@@ -22,9 +22,9 @@ public class MainPageRestController {
         ConsultationPostCriteriaDTO consultationPostCriteriaDTO = consultationPostService.getPostsByViews(page);
         log.info("{}", consultationPostCriteriaDTO.getScrollCriteria().toString());
 //        consultationPostService5PostsByViews.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
-        if (consultationPostCriteriaDTO.getConsultationPosts().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(consultationPostCriteriaDTO);
-        }
+//        if (consultationPostCriteriaDTO.getConsultationPosts().isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(consultationPostCriteriaDTO);
+//        }
         return ResponseEntity.ok(consultationPostCriteriaDTO);
     }
 }
