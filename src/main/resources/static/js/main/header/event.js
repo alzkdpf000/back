@@ -14,3 +14,5 @@ const memberProfileList = document.querySelector("ul.member-profile-btn-modal");
 memberProfileBtn?.addEventListener("click",(e)=>{
     memberProfileList.classList.contains("show") ? memberProfileList.classList.remove("show") :  memberProfileList.classList.add("show");
 })
+
+document.getElementById(`${category}`).classList.add("active");

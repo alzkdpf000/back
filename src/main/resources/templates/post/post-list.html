@@ -303,6 +303,10 @@
     <!-- /main -->
 <div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
 </body>
+<script th:inline="javascript">
+    const category = [[${category}]];
+</script>
+<script src ="/js/main/header/event.js"></script>
 <script src="/js/post/post-list/module/service.js"></script>
 <script src="/js/post/post-list/module/layout.js"></script>
 <script src="/js/post/post-list/event.js"></script>

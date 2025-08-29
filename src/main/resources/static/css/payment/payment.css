@@ -153,7 +153,7 @@ ul {
     margin: 0;
     padding: 0;
 }
-path {
+#paymentSvg path {
     clip-rule: evenodd;
     fill: #ffbd51;
     fill-rule: evenodd;
