@@ -90,7 +90,7 @@
         likesCount DESC,        -- 좋아요 수 내림차순
         liked DESC,             -- 좋아요 수 같을경우 내가 좋아요 한 사람이 위로
         d.member_id DESC
-        LIMIT #{criteria.rowCount} OFFSET #{criteria.offset}
+        LIMIT #{rowCount} OFFSET #{offset}
     </select>
 
     <select id="selectCountAll" resultType="int">
@@ -121,7 +121,7 @@
             EXISTS(
                 SELECT 1 FROM tbl_likes l
                 WHERE l.doctor_id = d.member_id
-                  AND l.member_id = #{criteria.currentMemberId}
+                  AND l.member_id = #{currentMemberId}
             ) AS liked
         FROM tbl_doctor d
                  JOIN tbl_member m ON d.member_id = m.id

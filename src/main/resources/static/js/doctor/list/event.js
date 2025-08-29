@@ -51,7 +51,7 @@ let orderType = "latest"; // 초기 정렬: 최신순
 
 const executeSearch = () => {
     const keyword = document.getElementById("keywordInput")?.value.trim() || '';
-    window.consultationPostListLayout.loadConsultationPosts(1, keyword, categoryList, orderType);
+    window.doctorLayout.loadDoctors(1, keyword, categoryList);
 };
 
 searchForm?.addEventListener("submit", e => {
@@ -64,5 +64,5 @@ searchBtn?.addEventListener("click", () => {
 
 // ===================== 초기 로드 =====================
 document.addEventListener("DOMContentLoaded", () => {
-    window.consultationPostListLayout.loadConsultationPosts(1, '', [], orderType);
+    window.doctorLayout.loadDoctors(1, '', []);
 });

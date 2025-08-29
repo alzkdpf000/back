@@ -1,4 +1,28 @@
-const doctorLayout = (() => {
+window.doctorLayout = (() => {
+    // ===================== 공통 설정 =====================
+    HTMLCollection.prototype.forEach = Array.prototype.forEach;
+    let modalCheck;
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        await window.fetchCurrentMember();  // 반드시 window.fetchCurrentMember
+        doctorLayout.loadDoctorDetailFromDTO(1);
+    });
+
+// ===================== 모달 관련 함수 =====================
+    const showWarnModal = (modalMessage) => {
+        modalCheck = false;
+        document.getElementById("content-wrap").innerHTML = modalMessage;
+        document.querySelector("div.warn-modal").style.animation = "popUp 0.5s";
+        document.querySelector("div.modal").style.display = "flex";
+        setTimeout(() => { modalCheck = true; }, 500);
+    };
+
+    document.querySelector("div.modal").addEventListener("click", () => {
+        if (!modalCheck) return;
+        document.querySelector("div.warn-modal").style.animation = "popDown 0.5s";
+        setTimeout(() => { document.querySelector("div.modal").style.display = "none"; }, 450);
+    });
+
     const getElement = (selector) => document.querySelector(selector);
 
     // 상대 시간 변환
@@ -24,7 +48,7 @@ const doctorLayout = (() => {
     };
 
     // 의사 정보 렌더링 + 좋아요 버튼 이벤트
-    const renderDoctorInfo = (doctor, memberId) => {
+    const renderDoctorInfo = (doctor) => {
         const container = getElement("#doctor-detail-container");
         if (!container || !doctor) return;
 
@@ -86,28 +110,37 @@ const doctorLayout = (() => {
         };
 
         // 좋아요 버튼 연결
-        const likeBtn = document.querySelector(".like-btn");
-        if (likeBtn) {
-            const countSpan = likeBtn.querySelector(".doctorinfo-favoriteCount");
-            likeBtn.addEventListener("click", async (e) => {
-                const doctorId = Number(likeBtn.dataset.doctorId);
+        container.querySelectorAll(".like-btn").forEach(btn => {
+            btn.addEventListener("click", async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (!currentMemberId) { // 로그인 안 됨
+                    showWarnModal("로그인 후 이용해주세요.");
+                    return;
+                }
+
+                const doctorId = Number(btn.dataset.doctorId);
+                const wrapper = btn.closest(".docterinfo-favorite-wrapper");
+                const countSpan = wrapper.querySelector(".doctorinfo-favoriteCount");
+
                 try {
                     const result = await doctorService.toggleLike(doctorId, currentMemberId);
                     if (result === "liked") {
-                        likeBtn.querySelector("img").src = '/images/heart.png';
+                        btn.src = '/images/heart.png';
                         countSpan.textContent = Number(countSpan.textContent) + 1;
-                        likeBtn.dataset.liked = "true";
+                        showWarnModal("내 관심 의사로 등록했습니다.");
                     } else if (result === "unliked") {
-                        likeBtn.querySelector("img").src = '/images/heart-empty.png';
+                        btn.src = '/images/heart-empty.png';
                         countSpan.textContent = Number(countSpan.textContent) - 1;
-                        likeBtn.dataset.liked = "false";
+                        showWarnModal("내 관심 의사에서 해제되었습니다.");
                     }
-                } catch (err) {
+                } catch(err) {
                     console.error("좋아요 토글 실패:", err);
                     showWarnModal("로그인 후 이용해주세요.");
                 }
             });
-        }
+        });
     };
 
     // 답변글 렌더링
@@ -529,6 +562,6 @@ const doctorLayout = (() => {
         renderReviewList: renderReviewList,
         renderReplyPaging: renderReplyPaging,
         renderReviewPaging: renderReviewPaging,
-        loadDoctorDetailFromDTO: loadDoctorDetailFromDTO  // DTO 로딩도 반환
+        loadDoctorDetailFromDTO: loadDoctorDetailFromDTO// DTO 로딩도 반환
     };
 })();

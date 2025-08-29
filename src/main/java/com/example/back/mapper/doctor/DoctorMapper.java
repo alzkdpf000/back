@@ -29,7 +29,9 @@ public interface DoctorMapper {
     int selectCountAll(@Param("search") Search search);
 
     //  의사 상세보기
-    DoctorListDTO selectDoctorDetailById(Long doctorId, Long currentMemberId);
+    DoctorListDTO selectDoctorDetailById(
+            @Param("doctorId") Long doctorId,
+            @Param("currentMemberId") Long currentMemberId);
 
 
 //  멤버 status 상관없는 의사 목록

@@ -29,7 +29,7 @@ public class DoctorDAO {
         return doctorMapper.selectCountAll(search);
     }
 
-    public DoctorListDTO findDoctorDetailById(Long doctorId, Long currentMemberId) {
+    public DoctorListDTO findDoctorDetailById(Long doctorId,Long currentMemberId) {
         // Mapper 호출 시 필요하면 로그인 회원 ID 전달
         return doctorMapper.selectDoctorDetailById(doctorId, currentMemberId);
     }
