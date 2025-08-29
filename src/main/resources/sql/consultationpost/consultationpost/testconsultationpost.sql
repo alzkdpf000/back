@@ -168,3 +168,8 @@ select * from tbl_member;
 select * from tbl_consultation_post_file;
 
 
+INSERT INTO tbl_consultation_post (member_id, consultation_post_title, consultation_post_content,
+                                   consultation_post_view_count, consultation_post_answer_count)
+VALUES (53, '테스트용 첫 번째 상담글', '피부 고민에 대한 상담글입니다.', 10, 0),
+       (53, '테스트용 두 번째 상담글', '내과 관련 상담글입니다.', 50, 6);
+

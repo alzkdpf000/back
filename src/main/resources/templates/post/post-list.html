@@ -7,9 +7,12 @@
     <title>골든타임</title>
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/post/post-list.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/footer.css">
     <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon">
 </head>
 <body>
+<header th:replace="~{/fixed/header.html :: header}"></header>
     <!-- main -->
     <main>
         <div class="main-container">
@@ -294,10 +297,11 @@
         </div>
 
         <div id="loading" style="display:none;">
-            로딩중...
+            <img src="/images/loading.gif">
         </div>
     </main>
     <!-- /main -->
+<div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
 </body>
 <script src="/js/post/post-list/module/service.js"></script>
 <script src="/js/post/post-list/module/layout.js"></script>
