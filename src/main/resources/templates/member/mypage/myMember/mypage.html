@@ -41,8 +41,14 @@
                         <div class="mypage-main-content-wrapper">
                             <label class="mypage-main-profile-label">
                                 <div class="mypage-main-profile-wrapper">
-                                    <img class="mypage-main-profile-body" alt="프로필 이미지" width="80" height="80"
-                                         src="/images/goldentime.png">
+                                    <th:block th:if="${member.memberFileDTO == null}">
+                                        <img class="mypage-main-profile-body" alt="프로필 이미지" width="80" height="80"
+                                            src="/images/goldentime.png">
+                                    </th:block>
+                                    <th:block th:unless="${member.memberFileDTO == null}">
+                                        <img class="mypage-main-profile-body" alt="프로필 이미지" width="80" height="80"
+                                             th:src="@{/api/files/display(fileName=${member.memberFileDTO.fileName}, filePath=${member.memberFileDTO.filePath})}">
+                                    </th:block>
                                 </div>
                             </label>
                             <input type="file" id="profileFileInput" accept="image/*" style="display: none;" />
@@ -218,5 +224,8 @@
     </div>
 
 </body>
+<script th:inline="javascript">
+    const fileInfo = [[${member.memberFileDTO}]];
+</script>
 <script src="/js/member/mypage/event.js"></script>
 </html>
