@@ -41,7 +41,7 @@
                                 </span>
                             </a>
                         </li>
-                        <th:block th:if="${session.member ==null}">
+                        <th:block th:if="${session.member == null || session.member.role == 'member' }">
                         <li>
                             <a href="/house-call/reg">
                                 <span class="main-header-main-category-content-wrapper">
@@ -54,7 +54,7 @@
                         </li>
                         </th:block>
                         <!-- 의사 로그인시 -->
-                        <th:block th:if="${session.member !=null}">
+                        <th:block th:if="${session.member !=null && session.member.role =='doctor'}">
                         <li>
                             <a href="/house-call/list">
                                 <span class="main-header-main-category-content-wrapper doctor">
@@ -135,10 +135,12 @@
                     </button>
 
                     <!-- 로그인 상태 시(프로필 이미지) -->
-                    <th:block th:if="${session.member != null}">
+                    <th:block th:if="${session.member != null }">
                     <div style="position: relative">
                         <button class="main-header-login-profile-icon-wrapper-profile" >
-                            <img alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" style="color: transparent;">
+<!--                            <th:block>-->
+<!--                                <img alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" th:src=`@{${session.member.kakaoProfileUrl}}` style="color: transparent;">    -->
+<!--                            </th:block>-->
                         </button>
                         <ul class="member-profile-btn-modal">
                         <li>
@@ -160,7 +162,7 @@
                     </th:block>
                     <!-- 비로그인 상태 시(로그인 아이콘) -->
                     <th:block th:unless="${session.member != null}">
-                    <a href="/temp" >
+                    <a href="/member/loginmain" >
                         <button class="main-header-login-profile-icon-wrapper">
                             <img alt="로그인 페이지로 이동 이미지" loading="lazy" width="24" height="24" decoding="async"
                                  data-nimg="1"
@@ -171,14 +173,14 @@
                     </a>
                     </th:block>
                 </div>
-                <th:block th:if="${session.member !=null}">
-                <a href="/consultation-post/reg" th:if="${session.member!=null}">
+                <th:block th:unless="${session.member !=null &&  session.member.role =='admin'}">
+                <a th:href="${session.member != null} ? '/consultation-post/reg' : 'member/loginmain'">
                     <button class="main-header-question-button-wrapper">
                         <span class="main-header-question-button">나도 질문하기</span>
                     </button>
                 </a>
                 </th:block>
-                <th:block th:if="${session.member ==null}">
+                <th:block th:if="${session.member !=null &&  session.member.role =='admin'}">
                 <a href="/admin">
                     <button class="main-header-question-button-wrapper">
                         <span class="main-header-question-button">관리자 페이지</span>
