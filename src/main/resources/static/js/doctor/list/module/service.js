@@ -1,5 +1,19 @@
+window.currentMemberId = null; // 전역 변수
+
+window.fetchCurrentMember = async () => { // 전역 함수
+    try {
+        const res = await fetch("/api/member/me");
+        if (!res.ok) throw new Error("로그인 필요");
+        const member = await res.json();
+        window.currentMemberId = member.id;
+    } catch(e) {
+        console.warn("로그인 안됨", e);
+        window.currentMemberId = 0;
+    }
+};
+
 const doctorService = (() => {
-    const getDoctors = async (page = 1, currentMemberId = 31, keyword = "", category = "") => {
+    const getDoctors = async (page = 1, currentMemberId, keyword = "", category = "") => {
         let url = `/api/doctors/list/${page}?currentMemberId=${currentMemberId}`;
         if (keyword) url += `&keyword=${encodeURIComponent(keyword)}`;
         if (category) url += `&categories=${encodeURIComponent(category)}`;

@@ -85,8 +85,6 @@ const doctorLayout = (() => {
             });
         };
 
-        const currentMemberId = 31;
-
         // 좋아요 버튼 연결
         const likeBtn = document.querySelector(".like-btn");
         if (likeBtn) {
@@ -291,8 +289,6 @@ const doctorLayout = (() => {
             return;
         }
 
-        const currentMemberId = 31;
-
         try {
             // API 호출
             const detailDTO = await doctorService.getDoctorDetail(doctorId, page);
@@ -385,7 +381,6 @@ const doctorLayout = (() => {
     document.addEventListener("DOMContentLoaded", () => {
         const pathParts = window.location.pathname.split("/");
         const doctorId = Number(pathParts[3]);
-        const currentMemberId = 31;
 
         const reviewBtn = document.querySelector(".exist-review-btn");
         const reviewRegisterContainer = document.querySelector(".review-register-container.v2");

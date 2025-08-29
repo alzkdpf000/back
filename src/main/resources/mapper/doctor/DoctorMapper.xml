@@ -121,7 +121,7 @@
             EXISTS(
                 SELECT 1 FROM tbl_likes l
                 WHERE l.doctor_id = d.member_id
-                  AND l.member_id = #{currentMemberId}
+                  AND l.member_id = #{criteria.currentMemberId}
             ) AS liked
         FROM tbl_doctor d
                  JOIN tbl_member m ON d.member_id = m.id

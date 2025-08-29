@@ -21,14 +21,15 @@ public interface DoctorMapper {
     //  목록
     public List<DoctorListDTO> selectDoctorList(
             @Param("criteria") Criteria criteria,
-            @Param("search") Search search
+            @Param("search") Search search,
+            @Param("currentMemberId") Long currentMemberId
     );
     
     //  전체 개수 조회
     int selectCountAll(@Param("search") Search search);
 
     //  의사 상세보기
-    DoctorListDTO selectDoctorDetailById(Long doctorId);
+    DoctorListDTO selectDoctorDetailById(Long doctorId, Long currentMemberId);
 
 
 //  멤버 status 상관없는 의사 목록

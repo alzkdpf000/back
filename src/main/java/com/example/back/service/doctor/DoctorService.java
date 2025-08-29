@@ -11,10 +11,10 @@ import java.util.Optional;
 
 public interface DoctorService {
     //  목록
-    DoctorListCriteriaDTO getList(int page, Search search);
+    DoctorListCriteriaDTO getList(int page, Search search, Long currentMemberId);
 
     //  단일 조회(상세보기용)
-    DoctorDetailCriteriaDTO getDoctorDetail(Long doctorId, int page);
+    DoctorDetailCriteriaDTO getDoctorDetail(Long doctorId, int page, Long currentMemberId);
 
     // 멤버 Status 상관없이 목록 출력
     public DoctorCriteriaDTO getListAllStatus(Search search, String doctorStatus);
