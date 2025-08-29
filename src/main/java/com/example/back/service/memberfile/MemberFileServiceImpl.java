@@ -49,8 +49,8 @@ public class MemberFileServiceImpl implements MemberFileService {
         if(file.getOriginalFilename().isEmpty()){
             return null;
         }
-        String rootPath = "c:/file/" + getPath();
-//        String rootPath = "/Users/taemin/Desktop/file/" + getPath();
+//        String rootPath = "c:/file/" + getPath();
+        String rootPath = "/Users/taemin/Desktop/file/" + getPath();
         MemberFileDTO memberFileDTO = new MemberFileDTO();
 
         if(memberFileDAO.getMemberProfile(memberId) != null){

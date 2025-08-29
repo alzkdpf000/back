@@ -4,6 +4,7 @@ import com.example.back.common.enumeration.Provider;
 import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
 import com.example.back.dto.consultationpost.ConsultationPostDTO;
+import com.example.back.dto.memberfile.MemberFileDTO;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,6 @@ public class MemberDTO {
     private String updatedDatetime;
     private List<ConsultationPostDTO>  consultationPosts;
     private boolean remember;
-    private Long profileFileId;
+    private MemberFileDTO memberFileDTO;
 
 }
