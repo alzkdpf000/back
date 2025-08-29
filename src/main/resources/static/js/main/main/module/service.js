@@ -10,7 +10,7 @@ const consultationMainPageService = (()=>{
                 console.log("상담글 존재")
                 if(callback){
                     setTimeout(() => {
-                        callback(result);
+                        callback(result,page);
                     }, 1000)
                 }
             }else if(response.status === 404){

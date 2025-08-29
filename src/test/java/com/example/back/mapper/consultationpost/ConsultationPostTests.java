@@ -25,7 +25,7 @@ public class ConsultationPostTests {
     @Test
     public void testMapperSelectTop5OrderByViewCountDesc() {
         ScrollCriteria scrollCriteria = new ScrollCriteria(1);
-        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostMapper.select5OrderByViewCountDesc(scrollCriteria);
+        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostMapper.selectOrderByViewCountDesc(scrollCriteria);
 
         consultationPostDTOS.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
 
@@ -33,14 +33,14 @@ public class ConsultationPostTests {
     @Test
     public void testDAOFindTop5OrderByViewCountDesc() {
         ScrollCriteria scrollCriteria = new ScrollCriteria(1);
-        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostDAO.find5OrderByViewCountDesc(scrollCriteria);
+        List<ConsultationPostCategoryFileUserDTO> consultationPostDTOS = consultationPostDAO.findOrderByViewCountDesc(scrollCriteria);
 
         consultationPostDTOS.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
     }
     @Test
     public void testServiceGetTop5PostsByViews() {
         ScrollCriteria scrollCriteria = new ScrollCriteria(1);
-        ConsultationPostCriteriaDTO consultationPostService5PostsByViews = consultationPostService.get5PostsByViews(1);
+        ConsultationPostCriteriaDTO consultationPostService5PostsByViews = consultationPostService.getPostsByViews(1);
         log.info("{}", consultationPostService5PostsByViews);
     }
 }

@@ -1,5 +1,8 @@
 package com.example.back.common.enumeration;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
@@ -20,11 +23,11 @@ public enum Role {
     Role(String value) {
         this.value = value;
     }
-
+    @JsonValue
     public String getValue() {
         return value;
     }
-
+    @JsonCreator
     public static Role getRoleValue(String value) {
         return Optional.ofNullable(ROLE_MAP.get(value))
                 .orElseThrow(IllegalArgumentException::new);

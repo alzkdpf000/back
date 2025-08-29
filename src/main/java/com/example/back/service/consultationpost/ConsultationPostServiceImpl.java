@@ -24,17 +24,17 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
     private final CategoryDAO categoryDAO;
     private final FileConsultationPostDAO fileConsultationPostDAO;
 
-    //    조회순(인기순)5개 게시글 조회 현재 임시로 3개만
+    //    조회순(인기순)으로 QnA 가져오기
     @Override
-    public ConsultationPostCriteriaDTO get5PostsByViews(int page) {
+    public ConsultationPostCriteriaDTO getPostsByViews(int page) {
         ConsultationPostCriteriaDTO criteria = new ConsultationPostCriteriaDTO();
         ScrollCriteria scrollCriteria = new ScrollCriteria(page);
-        List<ConsultationPostCategoryFileUserDTO> consultationPostDAO5OrderByViewCountDesc = consultationPostDAO.find5OrderByViewCountDesc(scrollCriteria);
-        boolean hasMore = consultationPostDAO5OrderByViewCountDesc.size() > scrollCriteria.getRowCount();
+        List<ConsultationPostCategoryFileUserDTO> posts = consultationPostDAO.findOrderByViewCountDesc(scrollCriteria);
+        boolean hasMore = posts.size() > scrollCriteria.getRowCount();
         if (hasMore) {
-            consultationPostDAO5OrderByViewCountDesc.remove(consultationPostDAO5OrderByViewCountDesc.size() - 1);
+            posts.remove(posts.size() - 1);
         }
-        consultationPostDAO5OrderByViewCountDesc.forEach((post) -> {
+        posts.forEach((post) -> {
             post.setRelativeDate(DateUtils.toRelativeTime(post.getCreatedDatetime()));
             Long consultationPostId = post.getId();
             log.info("{}", consultationPostId);
@@ -44,7 +44,7 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
             List<FileDTO> files = fileConsultationPostDAO.findFilesByPostId(consultationPostId);
             post.setConsultationPostFiles(files);
         });
-        criteria.setConsultationPosts(consultationPostDAO5OrderByViewCountDesc);
+        criteria.setConsultationPosts(posts);
         criteria.setScrollCriteria(scrollCriteria);
         return criteria;
     }

@@ -19,12 +19,12 @@ public class MainPageRestController {
     //  조회순으로 5개씩 무한 스크롤로 뿌려주기
     @GetMapping("{page}")
     public ResponseEntity<ConsultationPostCriteriaDTO> mainPage(@PathVariable int page) {
-        ConsultationPostCriteriaDTO consultationPostCriteriaDTO = consultationPostService.get5PostsByViews(page);
+        ConsultationPostCriteriaDTO consultationPostCriteriaDTO = consultationPostService.getPostsByViews(page);
         log.info("{}", consultationPostCriteriaDTO.getScrollCriteria().toString());
 //        consultationPostService5PostsByViews.stream().map(ConsultationPostCategoryFileUserDTO::toString).forEach(log::info);
-        if (consultationPostCriteriaDTO.getConsultationPosts().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(consultationPostCriteriaDTO);
-        }
+//        if (consultationPostCriteriaDTO.getConsultationPosts().isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(consultationPostCriteriaDTO);
+//        }
         return ResponseEntity.ok(consultationPostCriteriaDTO);
     }
 }

@@ -106,8 +106,11 @@ public class MemberController {
 //    로그인 조회
     @PostMapping("emaillogin")
     public RedirectView login(MemberDTO memberDTO, String memberRole, HttpServletResponse response){
+        log.info("로그인={}",memberDTO);
         MemberDTO member = memberService.login(memberDTO, memberRole).orElseThrow(LoginFailException::new);
         session.setAttribute("member", member);
+
+
 
         Cookie rememberMemberEmailCookie = new Cookie("remember_member_email", memberDTO.getMemberEmail());
         Cookie rememberCookie = new Cookie("remember", String.valueOf(memberDTO.isRemember()));
