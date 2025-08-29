@@ -9,6 +9,7 @@
 </head>
 <body>
 <header class="main-header-wrap" id="header" th:with="member=${session.member}">
+
     <div class="main-header-container">
         <div class="main-header-wrapper">
             <div class="main-header-logo-category-wrapper">
@@ -21,7 +22,7 @@
                         <li>
                                 <span class="main-header-main-category-content-wrapper">
                                     <a href="/">
-                                        <span class="main-header-main-category-content active">홈</span>
+                                        <span class="main-header-main-category-content">홈</span>
                                     </a>
                                 </span>
                         </li>
@@ -29,7 +30,7 @@
                         <li>
                             <a href="/post/list">
                                 <span class="main-header-main-category-content-wrapper">
-                                    <span class="main-header-main-category-content">의료 Q&A</span>
+                                    <span  class="main-header-main-category-content">의료 Q&A</span>
                                 </span>
                             </a>
                         </li>
@@ -45,7 +46,7 @@
                             <li>
                                 <a href="/house-call/list">
                                 <span class="main-header-main-category-content-wrapper doctor">
-                                    <span class="main-header-main-category-content">
+                                    <span  class="main-header-main-category-content">
                                     <img class="main-header-healthcare-icon" alt="healthcare"
                                          src="/images/healthcare-icon.png">
                                     방문 진료 목록</span>
@@ -83,7 +84,7 @@
                         <li>
                             <a href="/payment">
                                 <div class="main-header-sub-category-content-wrapper">
-                                    <span class="main-header-sub-category-content">
+                                    <span  class="main-header-sub-category-content">
                                         포인트 충전</span>
                                 </div>
                             </a>

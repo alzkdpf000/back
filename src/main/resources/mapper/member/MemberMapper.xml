@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.back.mapper.member.MemberMapper">
+    <sql id="search">
+        <if test='search.keyword !=null and search.keyword !=""'>
+            and ( member_name like concat('%', #{search.keyword}, '%') or
+            member_email like concat('%', #{search.keyword}, '%') or
+            member_kakao_email like concat('%', #{search.keyword}, '%')
+            )
+        </if>
+    </sql>
     <insert id="insertMember" parameterType="com.example.back.dto.member.MemberDTO" useGeneratedKeys="true" keyProperty="id">
         insert into tbl_member(member_email, member_password, member_name, member_phone,member_role)
         values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberPhone}, #{memberRole})
@@ -16,12 +24,7 @@
         created_datetime
         from tbl_member
         where member_role = 'member'
-        <if test='search.keyword !=null and search.keyword !=""'>
-            and ( member_name like concat('%', #{search.keyword}, '%') or
-            member_email like concat('%', #{search.keyword}, '%') or
-            member_kakao_email like concat('%', #{search.keyword}, '%')
-            )
-        </if>
+        <include refid="search"/>
         order by id desc
         limit #{criteria.count} offset #{criteria.offset}
     </select>
@@ -30,12 +33,7 @@
         select count(id)
         from tbl_member
         where member_role = 'member'
-        <if test='search.keyword !=null and search.keyword !=""'>
-            and ( member_name like concat('%', #{search.keyword}, '%') or
-            member_email like concat('%', #{search.keyword}, '%') or
-            member_kakao_email like concat('%', #{search.keyword}, '%')
-            )
-        </if>
+        <include refid="search"/>
     </select>
 
     <select id="selectMemberByIdAllStatus">
