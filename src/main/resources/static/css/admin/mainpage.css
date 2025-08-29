@@ -1405,14 +1405,19 @@ td {
 
 div#loading{
     display: none;
-    width: 100px;
+    width: 100%;
     z-index: 2000;
-    height: 100px;
+    height: 100%;
     margin: 0px auto;
     position: fixed;
-    right: 50%;
+}
+div#loading img{
+    margin: auto;
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    right: 34%;
     top: 50%;
-    transform: translate(-50%, -50%);
 }
 .statics-graph{
     flex: 0 0 50%;
