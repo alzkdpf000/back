@@ -96,7 +96,7 @@ public class KakaoService {
 //                썸네일: thumbnail_image_url
 //                원본: profile_image_url
                 memberDTO.setKakaoProfileUrl(profile.getAsJsonObject().get("profile_image_url").getAsString());
-                memberDTO.setProvider(Provider.KAKAO);
+                memberDTO.setMemberProvider(Provider.KAKAO);
                 bufferedReader.close();
             }
 

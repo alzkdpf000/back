@@ -1,8 +1,18 @@
 const consultationMainPageLayout = (() => {
-    const showList = (result) => {
+    const showList = (result,page) => {
         const consultationPostContainer = document.querySelector("#intersectionObserver");
         let text = ``;
-
+        console.log(page +"asdajdkladjajldkajdkljkls");
+        if(page === 1 && result.consultationPosts.length ===0){
+            text = `<div class="no-search-result-wrap" style="cursor:default">
+                        <img src="https://media.a-ha.io/aha-qna/images/v3/product/feed/message.webp" width="48" height="48" style="color:transparent">
+                        <span class="no-search-result-text">
+                            이 사이트에 작성된 상담글이 없어요!!
+                        </span>
+                    </div>`
+            consultationPostContainer.innerHTML = text;
+            return;
+        }
         result.consultationPosts.forEach(post => {
             let categoryText = ``;
             let imgText = ``;
