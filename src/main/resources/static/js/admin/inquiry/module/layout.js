@@ -17,17 +17,17 @@ const inquiryLayout = (() => {
             inquiriesBody.innerHTML = text;
         } else {
             inquiryMemberReplyDTOs.forEach(inquiryMemberReplyDTO => {
-
+                const replyCheck = inquiryMemberReplyDTO.hasAnswer;
                 const email = inquiryMemberReplyDTO.memberProvider === "goldentime" ? inquiryMemberReplyDTO.memberEmail : inquiryMemberReplyDTO.memberKakaoEmail;
                 text += `
                 <tr>
                     <td class="text-list">${inquiryMemberReplyDTO.id}</td>
                     <td>${inquiryMemberReplyDTO.inquiryTitle}</td>
-
+                    
                     <td>${email}</td>
                     <td>${inquiryMemberReplyDTO.createdDateTimeInquiry}</td>
-                    <td>${inquiryMemberReplyDTO.hasAnswer ? "답변 완료" : "미답변"}</td>
-                    <td>${inquiryMemberReplyDTO.hasAnswer ? inquiryMemberReplyDTO.answerDatetimeReply : "-"}</td>
+                    <td style="color: ${replyCheck ? "#507cf3" : "#fe657e"}">${replyCheck ? "답변 완료" : "미답변"}</td>
+                    <td>${replyCheck ? inquiryMemberReplyDTO.answerDatetimeReply : "-"}</td>
                     <td class="td-action text-center">
                         <div id="modal-open" class="action-btn" data-inquiryId = "${inquiryMemberReplyDTO.id}">
                             <i id="modalbtn" class="mdi mdi-chevron-right"></i></div>

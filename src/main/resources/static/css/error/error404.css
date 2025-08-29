@@ -54,7 +54,7 @@ menu, ol, ul {
 }
 path{
     clip-rule: evenodd;
-    fill: #b0b8c1;
+    /*fill: #b0b8c1;*/
     fill-rule: evenodd;
 }
 
