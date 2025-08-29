@@ -139,6 +139,7 @@ confirmBtn.addEventListener("click",() => {
             alert('프로필이 변경되었습니다.')
         })
         .catch(err => console.error("프로필 업로드 오류: ", err));
+    window.location.reload();
 });
 
 const profileImage = document.getElementById("profileFileInput");

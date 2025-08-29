@@ -31,7 +31,6 @@ public class MyPageController {
                 .orElseThrow(IllegalArgumentException::new);
 
 
-        log.info("mypage member: {}", member);
         model.addAttribute("member", member);
 
 

@@ -43,21 +43,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDTO join(MemberDTO memberDTO) {
-        log.info("join 호출 시작, memberEmail={}", memberDTO.getMemberEmail());
-//        회원 저장
         memberDAO.save(memberDTO);
-//       기본 프로필 파일 생성
-        MemberFileDTO memberFileDTO = new MemberFileDTO();
-        memberFileDTO.setMemberId(memberDTO.getId());
-        memberFileDTO.setFileOriginalName("goldentime.png");
-        memberFileDTO.setFileName("goldentime.png");
-        memberFileDTO.setFilePath("member/img/");
-        memberFileDTO.setFileSize("15000");
-        memberFileDAO.insertFile(memberFileDTO);
-
-        memberFileDAO.insertMemberFile(memberDTO.getId(), memberFileDTO.getFileId());
-//        memberDTO에 연결
-        memberDTO.setProfileFileId(memberFileDTO.getFileId());
         return memberDTO;
 
     }
