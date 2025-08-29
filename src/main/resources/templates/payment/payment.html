@@ -7,9 +7,12 @@
     <title>골든타임</title>
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/payment/payment.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/footer.css">
     <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon">
 </head>
 <body>
+<header th:replace="~{/fixed/header.html :: header}"></header>
     <main>
         <div class="current-holding-container">
             <div class="current-holding-text-wrap">
@@ -71,7 +74,7 @@
                                 </div>
                                 <div class="payment-account-btn-container">
                                     <!-- 클릭 이벤트 -->
-                                    <button class="payment-account-button primary" data-item="200비타 패키지" data-price="5000">
+                                    <button class="payment-account-button primary" data-item="100비타 패키지" data-price="3000">
                                         <span class="3000">
                                             결제하기
                                         </span>
@@ -172,6 +175,7 @@
             </div>
         </div>
     </main>
+<div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
 </body>
 <script src="https://js.bootpay.co.kr/bootpay-5.0.2.min.js"></script>
 <script src="/js/payment/event.js"></script>
