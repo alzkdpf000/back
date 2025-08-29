@@ -21,4 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
         emailInput.addEventListener("input", updateButtonState);
         passwordInput.addEventListener("input", updateButtonState);
     }
+
+    loginBtn.addEventListener("click", (e) => {
+       e.alert("회원 선택을 확인해주세요");
+    });
 });

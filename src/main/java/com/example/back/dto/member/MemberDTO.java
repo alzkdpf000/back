@@ -25,7 +25,7 @@ public class MemberDTO {
     private Provider provider;
     private String kakaoEmail;
     private String kakaoProfileUrl;
-    private Role role;
+    private Role memberRole;
     private String createdDate;
     private int memberVitaAmount;
     private String createdDatetime;

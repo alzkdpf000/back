@@ -3,7 +3,7 @@
 <mapper namespace="com.example.back.mapper.member.MemberMapper">
     <insert id="insertMember" parameterType="com.example.back.dto.member.MemberDTO" useGeneratedKeys="true" keyProperty="id">
         insert into tbl_member(member_email, member_password, member_name, member_phone,member_role)
-        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberPhone}, #{role})
+        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberPhone}, #{memberRole})
     </insert>
     <select id="selectMembers">
         select id,
@@ -78,7 +78,12 @@
         from tbl_member tm
             left join view_member_file vf
                 on tm.id = vf.member_id
-        where member_email = #{memberEmail} and member_password = #{memberPassword} and member_status = 'active'
+        where tm.member_email = #{memberDTO.memberEmail} and
+              tm.member_password = #{memberDTO.memberPassword} and
+              tm.member_status = 'active'
+        <if test="memberRole != null">
+            and tm.member_role = #{memberRole}
+        </if>
     </select>
     <select id="selectMonthlyJoin">
         with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM

@@ -1,6 +1,7 @@
 package com.example.back.service.member;
 
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.domain.membervisited.MemberVisitedVO;
 import com.example.back.dto.member.MemberAdminStatics;
@@ -29,10 +30,11 @@ public interface MemberService {
     //   의사 가입 거절(회원 상태 자체를 inactive로)
     public boolean reject(Long memberId);
 
-//    로그인
-    public Optional<MemberDTO> login(MemberDTO memberDTO);
 
-//    관리자 페이지 회원들 통계 자료들
+    //    로그인
+    public Optional<MemberDTO> login(MemberDTO memberDTO, String memberRole);
+
+    //    관리자 페이지 회원들 통계 자료들
     public MemberAdminStatics getStatics();
 
 //    로그인 추가
@@ -89,7 +91,7 @@ public interface MemberService {
                 .KakaoEmail(memberDTO.getKakaoEmail())
                 .KakaoProfileUrl(memberDTO.getKakaoProfileUrl())
                 .provider(memberDTO.getProvider())
-                .role(memberDTO.getRole())
+                .role(memberDTO.getMemberRole())
                 .memberVitaAmount(memberDTO.getMemberVitaAmount())
                 .createdDatetime(memberDTO.getCreatedDatetime())
                 .updatedDatetime(memberDTO.getUpdatedDatetime())

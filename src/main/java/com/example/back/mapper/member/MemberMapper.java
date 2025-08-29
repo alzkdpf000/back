@@ -1,5 +1,6 @@
 package com.example.back.mapper.member;
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.member.MemberStatics;
@@ -40,7 +41,7 @@ public interface MemberMapper {
     public int updateDoctorStatusToRejected(Long memberId);
 
 //    로그인
-    public Optional<MemberDTO> selectMemberForLogin(MemberDTO memberDTO);
+    public Optional<MemberDTO> selectMemberForLogin(@Param("memberDTO") MemberDTO memberDTO, @Param("memberRole") String memberRole);
 
     //  월 별 가입자 수
     public List<MemberStatics> selectMonthlyJoin();

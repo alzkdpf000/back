@@ -47,9 +47,9 @@ public class MemberMapperTests {
         MemberDTO member = new MemberDTO();
         member.setMemberPhone("010-0000-0000");
         member.setMemberName("test");
-        member.setMemberEmail("testw938928@naver.com");
+        member.setMemberEmail("testw3828@naver.com");
         member.setMemberPassword("test123456");
-        member.setRole(Role.MEMBER);
+        member.setMemberRole(Role.MEMBER);
 
         memberMapper.insertMember(member);
 
@@ -138,13 +138,15 @@ public class MemberMapperTests {
     @Test
     public void testSelectMemberForLogin() {
         MemberDTO memberDTO = new MemberDTO();
-        memberDTO.setMemberEmail("test@a.b");
-        memberDTO.setMemberPassword("aaa123");
-
-        Optional<MemberDTO> foundMember = memberMapper.selectMemberForLogin(memberDTO);
-        foundMember.ifPresent(member -> {
-            log.info("member:{}", member);
-        });
+        memberDTO.setMemberEmail("qwer111@naver.com");
+        memberDTO.setMemberPassword("qwer111");
+        memberDTO.setMemberRole(Role.DOCTOR);
+        log.info(memberDTO.toString());
+        Optional<MemberDTO> foundMember = memberMapper.selectMemberForLogin(memberDTO, "doctor");
+        log.info("foundMember:{}",foundMember.isPresent());
+//        foundMember.ifPresent(member -> {
+//            log.info("member:{}", member);
+//        });
     }
     @Test
     public void testSelectMonthlyJoin(){

@@ -1,5 +1,6 @@
 package com.example.back.controller.member;
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.common.exception.LoginFailException;
 import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.member.MemberDTO;
@@ -104,8 +105,8 @@ public class MemberController {
 
 //    로그인 조회
     @PostMapping("emaillogin")
-    public RedirectView login(MemberDTO memberDTO, HttpServletResponse response){
-        MemberDTO member = memberService.login(memberDTO).orElseThrow(LoginFailException::new);
+    public RedirectView login(MemberDTO memberDTO, String memberRole, HttpServletResponse response){
+        MemberDTO member = memberService.login(memberDTO, memberRole).orElseThrow(LoginFailException::new);
         session.setAttribute("member", member);
 
         Cookie rememberMemberEmailCookie = new Cookie("remember_member_email", memberDTO.getMemberEmail());
