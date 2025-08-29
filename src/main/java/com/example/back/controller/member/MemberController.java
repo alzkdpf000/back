@@ -107,6 +107,7 @@ public class MemberController {
     public RedirectView login(MemberDTO memberDTO, HttpServletResponse response){
         MemberDTO member = memberService.login(memberDTO).orElseThrow(LoginFailException::new);
         session.setAttribute("member", member);
+        session.setAttribute("memberId", member.getId());
 
         Cookie rememberMemberEmailCookie = new Cookie("remember_member_email", memberDTO.getMemberEmail());
         Cookie rememberCookie = new Cookie("remember", String.valueOf(memberDTO.isRemember()));

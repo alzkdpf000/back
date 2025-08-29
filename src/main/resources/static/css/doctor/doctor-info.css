@@ -301,12 +301,31 @@ div.profil-content-selector span{
     color: rgb(176, 184, 193);
 }
 
-span.active{
+/* 검색 결과 없음 */
+div.no-search-result-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+span.no-search-result-text {
+    color: #6b7684;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 150%;
+    text-align: center;
+    margin-top: 16px;
+}
+
+button.span.active{
     font-size: 16px;
     line-height: 150%;
     font-weight: 700;
     color: rgb(25, 31, 40);
 }
+
 div.address{
     cursor: pointer;
 }
