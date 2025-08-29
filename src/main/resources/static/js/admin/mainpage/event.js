@@ -9,9 +9,6 @@ let joinData = null;
 let joinChart = null;
 let joinOptions = null;
 
-document.getElementById("asd").addEventListener("click",(e)=>{
-    console.log(123213412132)
-})
 document.querySelector(".boot-link.mr-3").addEventListener("click", async (e) => {
     e.preventDefault();
     inquiryScroll = false;
