@@ -812,6 +812,29 @@ div.warn-modal {
     padding: 24px;
 }
 
+/* 리뷰 모달 스타일 */
+div.review-modal {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(133, 134, 137, 0.54);
+}
+
+div.review-modal .modal-content {
+    box-sizing: border-box;
+    width: 288px;
+    margin: 20vh 0;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(33,35,41,0.12);
+    border-radius: 8px;
+    padding: 24px;
+}
+
 div#content-wrap span{
     display: block;
 }   

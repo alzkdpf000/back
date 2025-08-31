@@ -90,7 +90,7 @@
         likesCount DESC,        -- 좋아요 수 내림차순
         liked DESC,             -- 좋아요 수 같을경우 내가 좋아요 한 사람이 위로
         d.member_id DESC
-        LIMIT #{rowCount} OFFSET #{offset}
+        LIMIT #{criteria.rowCount} OFFSET #{criteria.offset}
     </select>
 
     <select id="selectCountAll" resultType="int">

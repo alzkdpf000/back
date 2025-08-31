@@ -28,6 +28,9 @@ public class DoctorRestController {
 
         try {
             Long currentMemberId = (Long) session.getAttribute("memberId");
+            if (currentMemberId == null) {
+                currentMemberId = 0L;
+            }
             DoctorListCriteriaDTO listDTO = doctorService.getList(page, search, currentMemberId);
             return ResponseEntity.ok(listDTO);
         } catch (Exception e) {

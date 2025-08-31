@@ -53,20 +53,20 @@ public class DoctorServiceImpl implements DoctorService {
         int totalCount = doctorDAO.findCountDoctorList(search);
         Criteria criteria = new Criteria(page, totalCount);
 
-        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria, search, currentMemberId);
+        Long safeMemberId = (currentMemberId != null) ? currentMemberId : 0L;
+        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria, search, safeMemberId);
 
         doctorsList.forEach(doctor -> {
             // 좋아요 수
             doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));
 
-            LikesDTO likesDTO = new LikesDTO(currentMemberId, doctor.getId());
-            doctor.setLiked(likesService.isLiked(likesDTO));
+            if (safeMemberId > 0) {
+                LikesDTO likesDTO = new LikesDTO(safeMemberId, doctor.getId());
+                doctor.setLiked(likesService.isLiked(likesDTO));
+            } else {
+                doctor.setLiked(false);
+            }
         });
-
-        criteria.setHasMore(doctorsList.size() > criteria.getRowCount());
-        if (criteria.isHasMore()) {
-            doctorsList.remove(doctorsList.size() - 1);
-        }
 
         doctorListCriteriaDTO.setDoctorsList(doctorsList);
         doctorListCriteriaDTO.setCriteria(criteria);

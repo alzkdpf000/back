@@ -1,13 +1,3 @@
-let categoryList = [];
-
-// ===================== 카테고리 모달 =====================
-const categoryModal = document.querySelector(".category-modal");
-const categoryModalOpenBtn = document.querySelector("button.category-container-modal-btn");
-const categoryModalOpenBtnText = categoryModalOpenBtn.querySelector("span.check-list");
-const categoryFinalSelect = document.querySelector(".category-select-fix-btn");
-const categorySelectCancelAll = document.querySelector(".category-select-btn-del");
-const categoryListBtns = document.querySelectorAll("ul.category-list-wrap li button.category-btn");
-
 // 모달 열기
 categoryModalOpenBtn?.addEventListener("click", () => {
     categoryModal.style.display = "flex";

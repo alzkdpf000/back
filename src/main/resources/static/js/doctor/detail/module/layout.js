@@ -4,19 +4,11 @@ window.doctorLayout = (() => {
     let modalCheck;
 
     document.addEventListener("DOMContentLoaded", async () => {
-        await window.fetchCurrentMember();  // 반드시 window.fetchCurrentMember
+        await window.fetchCurrentMember();
         doctorLayout.loadDoctorDetailFromDTO(1);
     });
 
 // ===================== 모달 관련 함수 =====================
-    const showWarnModal = (modalMessage) => {
-        modalCheck = false;
-        document.getElementById("content-wrap").innerHTML = modalMessage;
-        document.querySelector("div.warn-modal").style.animation = "popUp 0.5s";
-        document.querySelector("div.modal").style.display = "flex";
-        setTimeout(() => { modalCheck = true; }, 500);
-    };
-
     document.querySelector("div.modal").addEventListener("click", () => {
         if (!modalCheck) return;
         document.querySelector("div.warn-modal").style.animation = "popDown 0.5s";
@@ -109,6 +101,34 @@ window.doctorLayout = (() => {
             });
         };
 
+        const showLikeModal = (modalMessage) => {
+            const likeModal = getElement("div.like-modal");
+            const warnText = likeModal.querySelector(".warn-text");
+            warnText.textContent = modalMessage;
+
+            likeModal.style.display = "flex";
+            likeModal.style.animation = "popUp 0.5s";
+
+            setTimeout(() => {
+                likeModal.style.animation = "popDown 0.5s";
+                setTimeout(() => { likeModal.style.display = "none"; }, 450);
+            }, 1000);
+        };
+
+        const showReviewModal = (modalMessage) => {
+            const reviewModal = getElement("div.review-modal");
+            const warnText = reviewModal.querySelector(".warn-text");
+            warnText.textContent = modalMessage;
+
+            reviewModal.style.display = "flex";
+            reviewModal.style.animation = "popUp 0.5s";
+
+            setTimeout(() => {
+                reviewModal.style.animation = "popDown 0.5s";
+                setTimeout(() => { reviewModal.style.display = "none"; }, 450);
+            }, 1000);
+        };
+
         // 좋아요 버튼 연결
         container.querySelectorAll(".like-btn").forEach(btn => {
             btn.addEventListener("click", async (e) => {
@@ -137,7 +157,7 @@ window.doctorLayout = (() => {
                     }
                 } catch(err) {
                     console.error("좋아요 토글 실패:", err);
-                    showWarnModal("로그인 후 이용해주세요.");
+                    showLikeModal("로그인 후 이용해주세요.");
                 }
             });
         });
@@ -451,7 +471,7 @@ window.doctorLayout = (() => {
                     const result = await response.json();
 
                     if (!result.hasVisited) {
-                        alert("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
+                        showReviewModal("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
                         if (reviewRegisterContainer) reviewRegisterContainer.style.display = "none";
                         return;
                     }
@@ -459,7 +479,7 @@ window.doctorLayout = (() => {
                     const existResp = await fetch(`/api/review/exists?doctorId=${doctorId}&memberId=${currentMemberId}`);
                     const existResult = await existResp.json();
                     if (existResult.exists) {
-                        alert("이미 리뷰를 작성하셨습니다.");
+                        showReviewModal("이미 리뷰를 작성하셨습니다.");
                         if (reviewRegisterContainer) reviewRegisterContainer.style.display = "none";
                         return;
                     }
@@ -491,7 +511,8 @@ window.doctorLayout = (() => {
                     return;
                 }
 
-                if (!confirm("한번 등록한 리뷰는 수정 및 삭제가 불가능합니다.\n등록하시겠습니까?")) return;
+                const confirmed = confirm("한번 등록한 리뷰는 수정 및 삭제가 불가능합니다.\n등록하시겠습니까?");
+                if (!confirmed) return;
 
                 try {
                     const response = await fetch("/api/review/insert", {
@@ -516,7 +537,7 @@ window.doctorLayout = (() => {
                     reviewRegisterContainer.querySelectorAll(".star-list-content svg path")
                         .forEach(path => path.setAttribute("fill", "#E0E0E0"));
 
-                    alert("후기 등록 완료!");
+                    showReviewModal("후기 등록 완료!");
                     window.location.reload();
 
                 } catch (err) {
