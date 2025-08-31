@@ -4,6 +4,7 @@ import com.example.back.dto.member.MemberDTO;
 import com.example.back.service.member.KakaoService;
 import com.example.back.service.member.MemberService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class KakaoController {
     private final MemberService memberService;
-    private final HttpSession session;
     private final KakaoService kakaoService;
 
     //    카카오 일반회원 로그인
     @GetMapping("/kakao/login")
-    public RedirectView kakaoLogin(String code, HttpServletResponse response, String state, RedirectAttributes redirectAttributes) {
-        log.info(state);
+    public RedirectView kakaoLogin(String code, HttpSession session ,HttpServletRequest request, HttpServletResponse response, String state, RedirectAttributes redirectAttributes) {
+        log.info("카카오로그인= {}",state);
         String token = kakaoService.getKakaoAccessToken(code);
         Optional<MemberDTO> foundMember = kakaoService.getKakaoInfo(token);
         log.info(foundMember.toString());
@@ -54,7 +54,12 @@ public class KakaoController {
 
         response.addCookie(accessTokenCookie);
 
-        session.setAttribute("member", foundKakaoMember.get());
+//        session.setAttribute("member", foundKakaoMember.get());
+
+        MemberDTO fullMember = memberService.getMemberByIdAllStatus(foundKakaoMember.get().getId()).orElseThrow(() -> new RuntimeException("회원정보없음"));
+
+        HttpSession s = request.getSession(true);
+        s.setAttribute("member", fullMember);
 
         log.info("로그인 후 세션 ID: {}", session.getId());
         log.info("로그인 후 세션 member: {}", session.getAttribute("member"));

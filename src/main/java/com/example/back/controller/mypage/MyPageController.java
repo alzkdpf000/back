@@ -25,7 +25,7 @@ public class MyPageController {
 
         if (memberDTO == null) {
             Long memberId = (Long) session.getAttribute("memberId");
-            return "redirect:/member/login";
+            return "redirect:/member/loginmain";
         }
         MemberDTO member = memberService.getMemberByIdAllStatus(memberDTO.getId())
                 .orElseThrow(IllegalArgumentException::new);
