@@ -116,6 +116,7 @@ public class MemberController {
         log.info("로그인={}",memberDTO);
         MemberDTO member = memberService.login(memberDTO, memberRole).orElseThrow(LoginFailException::new);
         session.setAttribute("member", member);
+        session.setAttribute("memberId", member.getId());
 
 
 

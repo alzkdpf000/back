@@ -126,9 +126,9 @@ const consultationPostListLayout = (() => {
     };
 
     return {
-        showList,
-        showPaging,
-        loadConsultationPosts
+        showList: showList,
+        showPaging: showPaging,
+        loadConsultationPosts: loadConsultationPosts,
     };
 })();
 

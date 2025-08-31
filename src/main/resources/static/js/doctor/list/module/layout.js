@@ -2,6 +2,11 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 let modalCheck;
 
+document.addEventListener("DOMContentLoaded", async () => {
+    await window.fetchCurrentMember();  // 반드시 window.fetchCurrentMember
+    doctorLayout.loadDoctors(1);
+});
+
 // ===================== 모달 관련 함수 =====================
 const showWarnModal = (modalMessage) => {
     modalCheck = false;
@@ -69,41 +74,31 @@ categoryFinalSelect.addEventListener("click", () => {
     doctorLayout.loadDoctors(1, keyword, categoryList);
 });
 
-const orderBtn = document.querySelector(".card-list-order-btn");
-const orderText = orderBtn.querySelector(".change-order");
-
-let orderType = "latest"; // 초기 정렬: 최신순
-
-orderBtn.addEventListener("click", () => {
-    // 토글
-    if (orderType === "latest") {
-        orderType = "viewCount"; // 조회순
-        orderText.textContent = "조회순";
-    } else {
-        orderType = "latest"; // 최신순
-        orderText.textContent = "최신 순";
-    }
-
     // 현재 키워드, 카테고리 가져오기
     const keyword = document.getElementById("keywordInput")?.value.trim() || '';
     const selectedCategories = [...document.querySelectorAll("ul.category-list-wrap li button.checked")]
         .map(btn => btn.textContent.trim());
 
-    // 상담글 재조회
-    consultationPostListLayout.loadConsultationPosts(1, keyword, selectedCategories, orderType);
-});
-
-
 
 // ===================== 의사 목록 JS =====================
-const doctorLayout = ((currentMemberId = 31) => {
+const doctorLayout = (() => {
 
+
+    // 리스트 렌더링
     const showList = (criteriaDTO) => {
         const container = document.getElementById("intersectionObserver");
+        if (!container) return;
         let html = "";
 
         if (!criteriaDTO.doctorsList || criteriaDTO.doctorsList.length === 0) {
-            container.innerHTML = "<li>의사 정보가 없습니다.</li>";
+            const hasSearchCondition = keyword || (selectedCategories && selectedCategories.length > 0);
+
+            container.innerHTML = hasSearchCondition
+                ? `<div class="no-search-result-wrap">
+               <img src="https://media.a-ha.io/aha-qna/images/v3/product/feed/message.webp" width="48" height="48" style="color:transparent">
+               <span class="no-search-result-text">검색 결과가 없어요. 다시 검색해 보세요!</span>
+           </div>`
+                : `<li>의사 정보가 없어용.</li>`;
             return;
         }
 
@@ -149,10 +144,16 @@ const doctorLayout = ((currentMemberId = 31) => {
 
         container.innerHTML = html;
 
+        // 좋아요 버튼 이벤트
         container.querySelectorAll(".like-btn").forEach(btn => {
             btn.addEventListener("click", async (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+
+                if (!currentMemberId) { // 로그인 안 됨
+                    showWarnModal("로그인 후 이용해주세요.");
+                    return;
+                }
 
                 const doctorId = Number(btn.dataset.doctorId);
                 const wrapper = btn.closest(".docterinfo-favorite-wrapper");
@@ -160,15 +161,15 @@ const doctorLayout = ((currentMemberId = 31) => {
 
                 try {
                     const result = await doctorService.toggleLike(doctorId, currentMemberId);
-                    // 서버에서 반환되는 상태
                     if (result === "liked") {
-                        btn.src = '/images/heart.png'; // 채워진 하트
+                        btn.src = '/images/heart.png';
                         countSpan.textContent = Number(countSpan.textContent) + 1;
+                        showWarnModal("내 관심 의사로 등록했습니다.");
                     } else if (result === "unliked") {
-                        btn.src = '/images/heart-empty.png'; // 빈 하트
+                        btn.src = '/images/heart-empty.png';
                         countSpan.textContent = Number(countSpan.textContent) - 1;
+                        showWarnModal("내 관심 의사에서 해제되었습니다.");
                     }
-
                 } catch(err) {
                     console.error("좋아요 토글 실패:", err);
                     showWarnModal("로그인 후 이용해주세요.");
@@ -177,8 +178,10 @@ const doctorLayout = ((currentMemberId = 31) => {
         });
     };
 
+    // 페이징 렌더링
     const showPaging = (criteria) => {
         const pageContainer = document.getElementById("page-container");
+        if (!pageContainer) return;
         let html = "";
 
         if(criteria.hasPreviousPage) html += `<a href="#" data-page="${criteria.startPage - 1}">이전</a>`;
@@ -199,33 +202,48 @@ const doctorLayout = ((currentMemberId = 31) => {
         });
     };
 
+    // ===================== 데이터 로드 =====================
     const loadDoctors = async (page = 1, keyword = '', selectedCategories = []) => {
         try {
             const params = new URLSearchParams();
-            params.append('keyword', keyword);
+            if (keyword) params.append('keyword', keyword);
             selectedCategories.forEach(cat => params.append('categories', cat));
 
-            const res = await fetch(`/api/doctors/list/${page}?${params.toString()}`);
+            const url = `/api/doctors/list/${page}${params.toString() ? '?' + params.toString() : ''}`;
+            const res = await fetch(url);
             if (!res.ok) throw new Error("의사 목록 로드 실패");
 
             const data = await res.json();
+
             showList(data);
-            showPaging(data.criteria);
+
+            if (data.doctorsList && data.doctorsList.length > 0) {
+                showPaging(data.criteria, loadDoctors, keyword, selectedCategories);
+            } else {
+                const pageContainer = document.getElementById("page-container");
+                if (pageContainer) pageContainer.innerHTML = "";
+            }
         } catch (err) {
             console.error(err);
+            const container = document.getElementById("intersectionObserver");
+            if (container) container.innerHTML = "<li>의사 목록을 불러오는데 실패했습니다.</li>";
         }
     };
 
-    document.getElementById("searchForm").addEventListener("submit", e => {
-        e.preventDefault();
-        const keyword = document.getElementById("keywordInput").value || '';
-        loadDoctors(1, keyword, categoryList);
-    });
+    // ===================== 검색 폼 제출 =====================
+    const searchForm = document.getElementById("searchForm");
+    if (searchForm) {
+        searchForm.addEventListener("submit", e => {
+            e.preventDefault();
+            const keyword = document.getElementById("keywordInput").value || '';
+            loadDoctors(1, keyword, categoryList);
+        });
+    }
 
     return { loadDoctors: loadDoctors };
-})(31);
+})();
 
 // ===================== 초기 실행 =====================
-document.addEventListener("DOMContentLoaded", () => {
-    doctorLayout.loadDoctors(1);
+document.addEventListener("DOMContentLoaded", async () => {
+    await doctorLayout.loadDoctors(1);
 });

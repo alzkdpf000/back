@@ -47,24 +47,26 @@ public class DoctorServiceImpl implements DoctorService {
     private final ReviewService reviewService;
 
     @Override
-    public DoctorListCriteriaDTO getList(int page, Search search) {
+    public DoctorListCriteriaDTO getList(int page, Search search, Long currentMemberId) {
         DoctorListCriteriaDTO doctorListCriteriaDTO = new DoctorListCriteriaDTO();
 
         int totalCount = doctorDAO.findCountDoctorList(search);
         Criteria criteria = new Criteria(page, totalCount);
-        criteria.setCurrentMemberId(31L); // 현재 로그인 멤버 ID
 
-        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria, search);
+        Long safeMemberId = (currentMemberId != null) ? currentMemberId : 0L;
+        List<DoctorListDTO> doctorsList = doctorDAO.findDoctorList(criteria, search, safeMemberId);
 
         doctorsList.forEach(doctor -> {
             // 좋아요 수
             doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));
-        });
 
-        criteria.setHasMore(doctorsList.size() > criteria.getRowCount());
-        if (criteria.isHasMore()) {
-            doctorsList.remove(doctorsList.size() - 1);
-        }
+            if (safeMemberId > 0) {
+                LikesDTO likesDTO = new LikesDTO(safeMemberId, doctor.getId());
+                doctor.setLiked(likesService.isLiked(likesDTO));
+            } else {
+                doctor.setLiked(false);
+            }
+        });
 
         doctorListCriteriaDTO.setDoctorsList(doctorsList);
         doctorListCriteriaDTO.setCriteria(criteria);
@@ -73,14 +75,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorDetailCriteriaDTO getDoctorDetail(Long doctorId, int page) {
+    public DoctorDetailCriteriaDTO getDoctorDetail(Long doctorId, int page, Long currentMemberId) {
         DoctorDetailCriteriaDTO detailCriteriaDTO = new DoctorDetailCriteriaDTO();
 
         // 의사 정보 상세보기
-        DoctorListDTO doctor = doctorDAO.findDoctorDetailById(doctorId);
-
-        // 로그인 유저 ID (임시로 31L 주입)
-        Long currentMemberId = 31L;
+        DoctorListDTO doctor = doctorDAO.findDoctorDetailById(doctorId, currentMemberId);
 
         // 좋아요 수 조회
         doctor.setLikesCount(likesDAO.getLikesCount(doctor.getId()));

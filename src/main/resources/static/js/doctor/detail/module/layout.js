@@ -1,4 +1,20 @@
-const doctorLayout = (() => {
+window.doctorLayout = (() => {
+    // ===================== 공통 설정 =====================
+    HTMLCollection.prototype.forEach = Array.prototype.forEach;
+    let modalCheck;
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        await window.fetchCurrentMember();
+        doctorLayout.loadDoctorDetailFromDTO(1);
+    });
+
+// ===================== 모달 관련 함수 =====================
+    document.querySelector("div.modal").addEventListener("click", () => {
+        if (!modalCheck) return;
+        document.querySelector("div.warn-modal").style.animation = "popDown 0.5s";
+        setTimeout(() => { document.querySelector("div.modal").style.display = "none"; }, 450);
+    });
+
     const getElement = (selector) => document.querySelector(selector);
 
     // 상대 시간 변환
@@ -24,7 +40,7 @@ const doctorLayout = (() => {
     };
 
     // 의사 정보 렌더링 + 좋아요 버튼 이벤트
-    const renderDoctorInfo = (doctor, memberId) => {
+    const renderDoctorInfo = (doctor) => {
         const container = getElement("#doctor-detail-container");
         if (!container || !doctor) return;
 
@@ -85,31 +101,66 @@ const doctorLayout = (() => {
             });
         };
 
-        const currentMemberId = 31;
+        const showLikeModal = (modalMessage) => {
+            const likeModal = getElement("div.like-modal");
+            const warnText = likeModal.querySelector(".warn-text");
+            warnText.textContent = modalMessage;
+
+            likeModal.style.display = "flex";
+            likeModal.style.animation = "popUp 0.5s";
+
+            setTimeout(() => {
+                likeModal.style.animation = "popDown 0.5s";
+                setTimeout(() => { likeModal.style.display = "none"; }, 450);
+            }, 1000);
+        };
+
+        const showReviewModal = (modalMessage) => {
+            const reviewModal = getElement("div.review-modal");
+            const warnText = reviewModal.querySelector(".warn-text");
+            warnText.textContent = modalMessage;
+
+            reviewModal.style.display = "flex";
+            reviewModal.style.animation = "popUp 0.5s";
+
+            setTimeout(() => {
+                reviewModal.style.animation = "popDown 0.5s";
+                setTimeout(() => { reviewModal.style.display = "none"; }, 450);
+            }, 1000);
+        };
 
         // 좋아요 버튼 연결
-        const likeBtn = document.querySelector(".like-btn");
-        if (likeBtn) {
-            const countSpan = likeBtn.querySelector(".doctorinfo-favoriteCount");
-            likeBtn.addEventListener("click", async (e) => {
-                const doctorId = Number(likeBtn.dataset.doctorId);
+        container.querySelectorAll(".like-btn").forEach(btn => {
+            btn.addEventListener("click", async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (!currentMemberId) { // 로그인 안 됨
+                    showWarnModal("로그인 후 이용해주세요.");
+                    return;
+                }
+
+                const doctorId = Number(btn.dataset.doctorId);
+                const wrapper = btn.closest(".docterinfo-favorite-wrapper");
+                const countSpan = wrapper.querySelector(".doctorinfo-favoriteCount");
+
                 try {
                     const result = await doctorService.toggleLike(doctorId, currentMemberId);
                     if (result === "liked") {
-                        likeBtn.querySelector("img").src = '/images/heart.png';
+                        btn.src = '/images/heart.png';
                         countSpan.textContent = Number(countSpan.textContent) + 1;
-                        likeBtn.dataset.liked = "true";
+                        showWarnModal("내 관심 의사로 등록했습니다.");
                     } else if (result === "unliked") {
-                        likeBtn.querySelector("img").src = '/images/heart-empty.png';
+                        btn.src = '/images/heart-empty.png';
                         countSpan.textContent = Number(countSpan.textContent) - 1;
-                        likeBtn.dataset.liked = "false";
+                        showWarnModal("내 관심 의사에서 해제되었습니다.");
                     }
-                } catch (err) {
+                } catch(err) {
                     console.error("좋아요 토글 실패:", err);
-                    showWarnModal("로그인 후 이용해주세요.");
+                    showLikeModal("로그인 후 이용해주세요.");
                 }
             });
-        }
+        });
     };
 
     // 답변글 렌더링
@@ -291,8 +342,6 @@ const doctorLayout = (() => {
             return;
         }
 
-        const currentMemberId = 31;
-
         try {
             // API 호출
             const detailDTO = await doctorService.getDoctorDetail(doctorId, page);
@@ -385,7 +434,6 @@ const doctorLayout = (() => {
     document.addEventListener("DOMContentLoaded", () => {
         const pathParts = window.location.pathname.split("/");
         const doctorId = Number(pathParts[3]);
-        const currentMemberId = 31;
 
         const reviewBtn = document.querySelector(".exist-review-btn");
         const reviewRegisterContainer = document.querySelector(".review-register-container.v2");
@@ -423,7 +471,7 @@ const doctorLayout = (() => {
                     const result = await response.json();
 
                     if (!result.hasVisited) {
-                        alert("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
+                        showReviewModal("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
                         if (reviewRegisterContainer) reviewRegisterContainer.style.display = "none";
                         return;
                     }
@@ -431,7 +479,7 @@ const doctorLayout = (() => {
                     const existResp = await fetch(`/api/review/exists?doctorId=${doctorId}&memberId=${currentMemberId}`);
                     const existResult = await existResp.json();
                     if (existResult.exists) {
-                        alert("이미 리뷰를 작성하셨습니다.");
+                        showReviewModal("이미 리뷰를 작성하셨습니다.");
                         if (reviewRegisterContainer) reviewRegisterContainer.style.display = "none";
                         return;
                     }
@@ -463,7 +511,8 @@ const doctorLayout = (() => {
                     return;
                 }
 
-                if (!confirm("한번 등록한 리뷰는 수정 및 삭제가 불가능합니다.\n등록하시겠습니까?")) return;
+                const confirmed = confirm("한번 등록한 리뷰는 수정 및 삭제가 불가능합니다.\n등록하시겠습니까?");
+                if (!confirmed) return;
 
                 try {
                     const response = await fetch("/api/review/insert", {
@@ -488,7 +537,7 @@ const doctorLayout = (() => {
                     reviewRegisterContainer.querySelectorAll(".star-list-content svg path")
                         .forEach(path => path.setAttribute("fill", "#E0E0E0"));
 
-                    alert("후기 등록 완료!");
+                    showReviewModal("후기 등록 완료!");
                     window.location.reload();
 
                 } catch (err) {
@@ -534,6 +583,6 @@ const doctorLayout = (() => {
         renderReviewList: renderReviewList,
         renderReplyPaging: renderReplyPaging,
         renderReviewPaging: renderReviewPaging,
-        loadDoctorDetailFromDTO: loadDoctorDetailFromDTO  // DTO 로딩도 반환
+        loadDoctorDetailFromDTO: loadDoctorDetailFromDTO// DTO 로딩도 반환
     };
 })();

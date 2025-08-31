@@ -19,8 +19,9 @@ public class DoctorDAO {
     private final DoctorDTO doctorDTO;
 
 //  전체 리스트 조회
-    public List<DoctorListDTO> findDoctorList(Criteria criteria, Search search) {
-        return doctorMapper.selectDoctorList(criteria, search);
+    public List<DoctorListDTO> findDoctorList(Criteria criteria, Search search, Long currentMemberId) {
+    criteria.setCurrentMemberId(currentMemberId);
+    return doctorMapper.selectDoctorList(criteria, search, currentMemberId);
     }
 
 //  검색 조건 포함 전체 개수 조회
@@ -28,9 +29,9 @@ public class DoctorDAO {
         return doctorMapper.selectCountAll(search);
     }
 
-    public DoctorListDTO findDoctorDetailById(Long doctorId) {
+    public DoctorListDTO findDoctorDetailById(Long doctorId,Long currentMemberId) {
         // Mapper 호출 시 필요하면 로그인 회원 ID 전달
-        return doctorMapper.selectDoctorDetailById(doctorId);
+        return doctorMapper.selectDoctorDetailById(doctorId, currentMemberId);
     }
 
     //  멤버 status 상관없는 의사 목록

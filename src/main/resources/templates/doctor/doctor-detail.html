@@ -183,8 +183,12 @@
         <div id="content-wrap"></div>
     </div>
 </div>
-<script src="/js/doctor/detail/counsel-reply/module/service.js"></script>
-<script src="/js/doctor/detail/counsel-reply/module/layout.js"></script>
+<script th:inline="javascript">
+    const category = [[${category}]];
+</script>
+<script src ="/js/main/header/event.js"></script>
+<script src="/js/doctor/detail/module/service.js"></script>
+<script src="/js/doctor/detail/module/layout.js"></script>
 <script src="/js/doctor/detail/event.js"></script>
 </body>
 </html>
