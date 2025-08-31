@@ -37,7 +37,8 @@ create table tbl_member
 select *
 from tbl_member;
 
-
+select *
+from tbl_doctor;
 /*의사 테이블*/
 create table tbl_doctor
 (

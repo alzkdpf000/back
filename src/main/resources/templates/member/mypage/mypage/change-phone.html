@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>골든타임</title>
+    <link rel= "stylesheet" href="/css/member/mypage/mypage/change-phone.css">
+    <link rel="shortcut icon" href="/static/images/golden-time-favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="change-phone-whole-body">
+        <div class="change-phone-header-area"></div>
+        <div class="change-phone-main-content-wrapper">
+            <div class ="change-phone-main-content-container">
+                <div class ="change-phone-main-title-container">
+                    <img alt="휴대폰 이미지" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" style="color:transparent" src="https://media.a-ha.io/aha-qna/images/common/v2/auth/phone.png">
+                    <span class="change-phone-main-title">
+                        휴대폰 
+                        <!-- -->
+                        번호
+                        <!--  -->
+                        변경
+                    </span>
+                </div>
+                <form action="submit">
+                    <div class="change-phone-content-container">
+                        <div class="change-phone-used-container">
+                            <div class="change-phone-used-wrapper ">
+                                <div class="change-phone-used-title-wrapper">
+                                    <label for="used-phone" class="change-phone-used-label">
+                                        <span class="change-phone-used">사용 중인 번호</span>
+                                    </label>
+                                </div>
+                                <div disabled value ="+821012345678" class="change-phone-used-phone">
+                                    <input disabled id="used-phone" class="change-phone-used-input" value="+821012345678">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="change-phone-used-container">
+                            <div class="change-phone-used-wrapper">
+                                <div class="change-phone-used-title-wrapper">
+                                    <label for="new-phone" class="change-phone-new-label">
+                                        <span class="change-phone-used">새로운 휴대폰 번호</span>
+                                    </label>
+                                </div>
+                                <div class="change-phone-new-container">
+                                    <input aria-placeholder="변경하실 핸드폰 번호를 입력해 주세요." id="new-phone" name="new-phone" placeholder="(-)제외" class="change-phone-used-input" value="">
+                                </div>
+                            </div>
+                            <div class="change-phone-error-message-wrapper">
+                                <span class="change-phone-error-message-container">
+                                    <span class="change-phone-error-message">올바른 번호를 입력해 주세요.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="change-phone-button-container">
+                        <button type="button" class="change-phone-button-wrapper" color="grey" height="54">
+                            <span class="change-phone-button">취소</span>
+                        </button>
+                        <button type="submit" color="primary" height="54" class="change-phone-button-config">
+                            <span class="change-phone-button">확인</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="change-phone-footer-area">
+            <footer class="change-phone-footer-wrapper">
+                <span class="change-phone-footer">
+                    © 2025 Aha. All rights reserved.
+                </span>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

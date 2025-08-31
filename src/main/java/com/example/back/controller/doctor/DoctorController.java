@@ -46,13 +46,16 @@ public class DoctorController {
 
 //    의사 회원가입
     @GetMapping("join")
-    public String goToJoinForm(DoctorDTO doctorDTO, Model model, @ModelAttribute("member")  MemberDTO memberDTO) {
+    public String goToJoinForm(DoctorDTO doctorDTO, Model model,  MemberDTO memberDTO) {
         model.addAttribute("doctorDTO",doctorDTO);
+        model.addAttribute("memberDTO",memberDTO);
+        log.info("의사회원가입{} = ", doctorDTO);
 
         if (memberDTO == null || memberDTO.getKakaoEmail() == null) {
             memberDTO = new MemberDTO();
         }
         model.addAttribute("member",memberDTO);
+        log.info("의사회원가입={}", doctorDTO);
         return "doctor/joindoctor";
     }
 //    의사 회원가입 처리

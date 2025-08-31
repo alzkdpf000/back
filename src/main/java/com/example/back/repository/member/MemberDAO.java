@@ -1,5 +1,6 @@
 package com.example.back.repository.member;
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.domain.member.MemberVO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.member.MemberStatics;
@@ -36,8 +37,8 @@ public class MemberDAO {
     }
 
 //    로그인
-    public Optional<MemberDTO> findMemberEmailAndPassword(MemberDTO memberDTO) {
-        return memberMapper.selectMemberForLogin(memberDTO);
+    public Optional<MemberDTO> findMemberEmailAndPassword(MemberDTO memberDTO, String memberRole) {
+        return memberMapper.selectMemberForLogin(memberDTO, memberRole);
     }
 
     //  회원 전체 수
