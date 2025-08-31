@@ -55,4 +55,5 @@ public interface MemberMapper {
 //    비밀번호 재설정
     public void updatePassword(@Param("memberEmail") String memberEmail, @Param("memberPassword") String memberPassword);
 
+    public void update(MemberDTO memberDTO);
 }

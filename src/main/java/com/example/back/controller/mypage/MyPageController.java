@@ -30,7 +30,7 @@ public class MyPageController {
         MemberDTO member = memberService.getMemberByIdAllStatus(memberDTO.getId())
                 .orElseThrow(IllegalArgumentException::new);
 
-
+        log.info("member : {}", member);
         model.addAttribute("member", member);
 
 

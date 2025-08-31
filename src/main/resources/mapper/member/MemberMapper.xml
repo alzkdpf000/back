@@ -43,7 +43,8 @@
                member_name,
                member_phone,
                member_status,
-               member_provider as provider,
+               member_provider as memberProvider,
+               member_role as memberRole,
                member_kakao_email as kakao_email,
                member_kakao_profile_url as kakao_profile_url,
                member_vita_amount,
@@ -130,5 +131,12 @@
         set member_password = #{memberPassword}
         where member_email = #{memberEmail}
     </update>
+
+    <update id="update">
+        update tbl_member
+        set member_role = 'member'
+        where member_role is null;
+    </update>
+
 
 </mapper>
