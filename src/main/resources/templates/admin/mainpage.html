@@ -110,7 +110,7 @@
                             <div id="usermenubtn" class="user-menu-wrapper d-flex align-items-center cursor-pointer"
                                  data-toggle="dropdown">
                                 <div class="user-avatar">T</div>
-                                <div class="user-menu-email">test@gamil.com</div>
+                                <div class="user-menu-email" th:text="${session.member.memberEmail}"></div>
                             </div>
                             <div id="userMenu" class="user-menu-content dropdown-menu dropdown-menu-right">
                                 <ul class="menu-body list-unstyled">

@@ -47,6 +47,9 @@
 <!-- /main -->
 <div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
 </body>
+<script th:inline="javascript">
+    const category = [[${category}]];
+</script>
 <script src ="/js/main/header/event.js"></script>
 <script src="/js/main/main/module/service.js"></script>
 <script src="/js/main/main/module/layout.js"></script>
