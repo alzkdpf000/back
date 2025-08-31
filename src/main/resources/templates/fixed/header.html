@@ -139,7 +139,7 @@
                     <!-- 로그인 상태 시(프로필 이미지) -->
                     <th:block th:if="${member != null }">
                     <div style="position: relative">
-                        <button class="main-header-login-profile-icon-wrapper-profile" >
+                        <button class="main-header-login-profile-icon-wrapper-profile" > 
 
 <!--                            <th:block th:switch="${member.memberProvider}">-->
                                 <img th:if="${member.memberProvider.getValue() == 'kakao'}" alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" th:src=${session.member.kakaoProfileUrl} style="color: transparent;"/>
