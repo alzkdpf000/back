@@ -89,7 +89,7 @@ public class MailController {
             return new RedirectView("/mail/emailfail");
         }
         memberService.updatePassword(memberEmail, memberPassword);
-        return new RedirectView("/member/login");
+        return new RedirectView("/member/loginmain");
     }
 
 
