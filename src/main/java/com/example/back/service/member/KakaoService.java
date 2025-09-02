@@ -33,7 +33,7 @@ public class KakaoService {
             connection.setDoOutput(true);
 
             stringBuilder.append("grant_type=authorization_code");
-            stringBuilder.append("&client_id=b89acf62a1fdb8335aaec795cdc5912a");
+            stringBuilder.append("&client_id=bc6e9a6f6f2e50cfe91c6a95760d5502");
             stringBuilder.append("&redirect_uri=http://localhost:10000/kakao/login");
             stringBuilder.append("&code=").append(code);
 

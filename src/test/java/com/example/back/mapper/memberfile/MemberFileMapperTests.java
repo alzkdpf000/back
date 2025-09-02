@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Slf4j
@@ -23,6 +24,7 @@ public class MemberFileMapperTests {
 
 
     @Test
+    @Transactional
     public void testInsertFile(){
         MemberFileDTO memberFileDTO = new MemberFileDTO();
         memberFileDTO.setFileOriginalName("test");
@@ -32,7 +34,7 @@ public class MemberFileMapperTests {
 
         memberFileMapper.insertFile(memberFileDTO);
 
-        log.info("{}",memberFileMapper.getMemberProfile(120L));
+        log.info("{}",memberFileMapper.getMemberProfile(memberFileDTO.getMemberId()));
     }
 
     @Test

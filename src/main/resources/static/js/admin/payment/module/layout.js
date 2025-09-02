@@ -3,6 +3,7 @@ const paymentLayout = (() => {
         let text = ``;
 
         const payments = result.payments;
+        console.log(payments)
         const total = result.total;
         const criteria = result.criteria;
         const paymentCount = document.getElementById("paymentCount");

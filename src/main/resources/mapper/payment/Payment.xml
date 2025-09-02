@@ -31,10 +31,8 @@
         tp.payment_amount,
         tp.payment_method,
         tp.payment_transaction_id,
-        tp.payment_status,
-        tvh.vita_history_product_name
+        tp.payment_status
         from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
-        join tbl_vita_history tvh on tp.id = tvh.payment_id
         <include refid="search"/>
         order by tp.id desc
         limit #{criteria.count} offset #{criteria.offset}

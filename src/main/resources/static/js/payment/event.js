@@ -23,7 +23,7 @@ const priceToQuantity = {
 const pay = async ({ item, price }) => {
     try {
         const response = await Bootpay.requestPayment({
-            application_id: "68affb6d836e97280fee7f28",
+            application_id: "687efabf00d008657455b595",
             price: price,
             order_name: item,
             order_id: "TEST_ORDER_" + new Date().getTime(),

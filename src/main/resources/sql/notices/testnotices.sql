@@ -1,7 +1,7 @@
 
 INSERT INTO tbl_notices (notices_title, notices_content, notices_status, notices_view_count, member_id)
 VALUES
-    ('시스템 점검 안내2', '8월 20일 02:00 ~ 04:00 서버 점검이 진행됩니다.', 'active', 12, 1),
+    ('시스템 점검 안내2', '8월 20일 02:00 ~ 04:00 서버 점검이 진행됩니다.', 'active', 12, 53),
     ('이벤트 당첨자 발표2', '여름맞이 이벤트 당첨자를 발표합니다.', 'active', 45, 2),
     ('신규 서비스 출시2', '새로운 결제 서비스를 출시했습니다.', 'active', 5, 1),
     ('정기 점검 안내2', '8월 25일 01:00 ~ 03:00 정기 점검 예정입니다.', 'active', 3, 1),
@@ -21,10 +21,9 @@ VALUES
 
 INSERT INTO tbl_notices_file (file_id, notices_id)
 VALUES
-    (9, 11),
-    (10, 12),
-    (11, 11),
-    (12, 11);
+    (6, 1),
+    (7, 2),
+    (8, 1);
 
 
 

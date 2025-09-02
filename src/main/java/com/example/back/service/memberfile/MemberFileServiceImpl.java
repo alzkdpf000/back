@@ -54,7 +54,7 @@ public class MemberFileServiceImpl implements MemberFileService {
         }
 //        파일 저장 경로 설정
 //        String rootPath = "c:/file/" + getPath();
-        String rootPath = "/Users/taemin/Desktop/file/" + getPath();
+        String rootPath = "~/upload_file/" + getPath();
         MemberFileDTO memberFileDTO = new MemberFileDTO();
 
 //        기존에 있는 프로필 삭제 - DB에 해당 회원이 파일을 가지고 있다면 memberFile, file 둘다 삭제

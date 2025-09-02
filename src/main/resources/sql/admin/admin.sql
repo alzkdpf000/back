@@ -112,4 +112,18 @@ SELECT
 FROM tbl_member_visited
 WHERE DATE_FORMAT(visited_datetime, '%Y') = DATE_FORMAT(curdate(), '%Y')
 
-ORDER BY DATE desc
+ORDER BY DATE desc;
+
+
+select
+    tp.id,
+    tm.member_email,
+    tm.member_name,
+    tm.member_provider,
+    tm.member_kakao_email,
+    tp.created_datetime,
+    tp.payment_amount,
+    tp.payment_method,
+    tp.payment_transaction_id,
+    tp.payment_status
+from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
