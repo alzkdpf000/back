@@ -1,4 +1,10 @@
 // -----------------------------
+// 결제 번호 생성
+// -----------------------------
+function makeId() {
+    return Date.now().toString() + Math.floor(Math.random() * 10000);
+}
+// -----------------------------
 // 결제 버튼
 // -----------------------------
 const paymentAccountButton = document.querySelectorAll("button.payment-account-button");
@@ -23,7 +29,7 @@ const priceToQuantity = {
 const pay = async ({ item, price }) => {
     try {
         const response = await Bootpay.requestPayment({
-            application_id: "68affb6d836e97280fee7f28",
+            application_id: "687efabf00d008657455b595",
             price: price,
             order_name: item,
             order_id: "TEST_ORDER_" + new Date().getTime(),
@@ -47,17 +53,18 @@ const pay = async ({ item, price }) => {
 
         switch (response.event) {
             case "done":
-                console.log(response);
-
+                console.log(price)
+                productName = price === 5000 ? "200비타 패키지" : "100비타 패키지";
                 // 서버에 결제 정보 전송
                 await fetch("/api/payment/complete", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        paymentTransactionId: response.receipt_id,
+                        paymentTransactionId: makeId(),
                         paymentAmount: price,
                         paymentMethod: "kakaoPay",
-                        paymentStatus: "success"
+                        paymentStatus: "success",
+                        paymentProductName: productName
                     })
                 });
 

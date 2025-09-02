@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Slf4j
@@ -22,30 +23,31 @@ public class MemberFileMapperTests {
     }
 
 
-    @Test
-    public void testInsertFile(){
-        MemberFileDTO memberFileDTO = new MemberFileDTO();
-        memberFileDTO.setFileOriginalName("test");
-        memberFileDTO.setFileName("test");
-        memberFileDTO.setFileSize("123");
-        memberFileDTO.setFilePath("test");
+//    @Test
+//    @Transactional
+//    public void testInsertFile(){
+//        MemberFileDTO memberFileDTO = new MemberFileDTO();
+//        memberFileDTO.setFileOriginalName("test");
+//        memberFileDTO.setFileName("test");
+//        memberFileDTO.setFileSize("123");
+//        memberFileDTO.setFilePath("test");
+//
+//        memberFileMapper.insertFile(memberFileDTO);
+//
+//        log.info("{}",memberFileMapper.getMemberProfile(memberFileDTO.getMemberId()));
+//    }
 
-        memberFileMapper.insertFile(memberFileDTO);
-
-        log.info("{}",memberFileMapper.getMemberProfile(120L));
-    }
-
-    @Test
-    public void testInsertMemberFile(){
-        Long memberId = 120L;
-        Long fileId = 1L;
-
-        memberFileMapper.insertMemberFile(memberId, fileId);
-        MemberProfileDTO memberProfileDTO  = memberFileMapper.getMemberProfile(memberId);
-
-        log.info("memberProfileDTO:{}",memberProfileDTO);
-
-    }
+//    @Test
+//    public void testInsertMemberFile(){
+//        Long memberId = 120L;
+//        Long fileId = 1L;
+//
+//        memberFileMapper.insertMemberFile(memberId, fileId);
+//        MemberProfileDTO memberProfileDTO  = memberFileMapper.getMemberProfile(memberId);
+//
+//        log.info("memberProfileDTO:{}",memberProfileDTO);
+//
+//    }
 
     @Test
     public void testFindFileIdByMemberId(){

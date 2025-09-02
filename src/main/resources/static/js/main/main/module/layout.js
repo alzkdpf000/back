@@ -2,7 +2,6 @@ const consultationMainPageLayout = (() => {
     const showList = (result,page) => {
         const consultationPostContainer = document.querySelector("#intersectionObserver");
         let text = ``;
-        console.log(page +"asdajdkladjajldkajdkljkls");
         if(page === 1 && result.consultationPosts.length ===0){
             text = `<div class="no-search-result-wrap" style="cursor:default">
                         <img src="https://media.a-ha.io/aha-qna/images/v3/product/feed/message.webp" width="48" height="48" style="color:transparent">

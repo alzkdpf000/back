@@ -16,7 +16,7 @@
             tm.member_kakao_email like concat('%', #{search.keyword}, '%') or
             tm.member_name like concat('%', #{search.keyword}, '%') or
             tp.payment_transaction_id = #{search.keyword} or
-            tvh.vita_history_product_name like concat('%', #{search.keyword}, '%')
+            tp.payment_product_name like concat('%', #{search.keyword}, '%')
             )
         </if>
     </sql>
@@ -32,9 +32,8 @@
         tp.payment_method,
         tp.payment_transaction_id,
         tp.payment_status,
-        tvh.vita_history_product_name
+        tp.payment_product_name
         from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
-        join tbl_vita_history tvh on tp.id = tvh.payment_id
         <include refid="search"/>
         order by tp.id desc
         limit #{criteria.count} offset #{criteria.offset}
@@ -44,7 +43,6 @@
         select
         count(tm.id)
         from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
-        join tbl_vita_history tvh on tp.id = tvh.payment_id
         <include refid="search"/>
     </select>
 
@@ -53,7 +51,6 @@
         tp.payment_status,
         sum(tp.payment_amount) as payment_amount
         from tbl_member tm join tbl_payment tp on tm.id = tp.member_id
-        join tbl_vita_history tvh on tp.id = tvh.payment_id
         <include refid="search"/>
         where
             tp.payment_status != 'pending'
@@ -62,8 +59,8 @@
 
     <!-- 결제 정보 인서트-->
     <insert id="insertPayment" parameterType="com.example.back.dto.payment.PaymentDTO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO tbl_payment (member_id, payment_method, payment_amount, payment_status, payment_transaction_id)
-        VALUES (#{memberId}, #{paymentMethod}, #{paymentAmount}, #{paymentStatus}, #{paymentTransactionId})
+        INSERT INTO tbl_payment (member_id, payment_method, payment_amount, payment_status, payment_transaction_id,payment_product_name)
+        VALUES (#{memberId}, #{paymentMethod}, #{paymentAmount}, #{paymentStatus}, #{paymentTransactionId}, #{paymentProductName})
     </insert>
 
     <!-- 결제 상태 업데이트 -->

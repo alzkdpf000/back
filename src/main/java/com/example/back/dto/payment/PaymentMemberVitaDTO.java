@@ -24,5 +24,5 @@ public class PaymentMemberVitaDTO {
     private String paymentMethod;
     private String paymentTransactionId;
     private PaymentStatus paymentStatus;
-    private String vitaHistoryProductName;
+    private String paymentProductName;
 }

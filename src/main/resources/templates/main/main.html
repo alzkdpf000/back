@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
 </head>
 <body>
-<header th:replace="~{/fixed/header.html :: header}"></header>
+<header th:replace="~{fixed/header.html :: header}"></header>
 <!-- main -->
 <main>
 
@@ -36,7 +36,7 @@
 
                 </ul>
             </div>
-            <div th:replace="~{/fixed/side.html :: .main-side-container}"></div>
+            <div th:replace="~{fixed/side.html :: .main-side-container}"></div>
         </div>
         <!-- /무한 스크롤 -->
     </div>
@@ -45,7 +45,7 @@
     <img src="/images/loading.gif">
 </div>
 <!-- /main -->
-<div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
+<div th:replace="~{fixed/footer.html :: .footer-layout-wrapper}"></div>
 </body>
 <script th:inline="javascript">
     const category = [[${category}]];

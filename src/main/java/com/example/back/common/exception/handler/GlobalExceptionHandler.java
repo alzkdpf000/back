@@ -11,6 +11,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(LoginFailException.class)
     protected RedirectView handleTestException(LoginFailException e, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("login", "fail");
-        return new RedirectView("/member/login");
+        return new RedirectView("/member/loginmain");
     }
 }

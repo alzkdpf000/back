@@ -43,11 +43,12 @@ public class MemberMapperTests {
     private MemberFileDAO memberFileDAO;
 
     @Test
+    @Transactional
     public void testInsertMember(){
         MemberDTO member = new MemberDTO();
         member.setMemberPhone("010-0000-0000");
         member.setMemberName("test");
-        member.setMemberEmail("testw3828@naver.com");
+        member.setMemberEmail("testw382328@naver.com");
         member.setMemberPassword("test123456");
         member.setMemberRole(Role.MEMBER);
 

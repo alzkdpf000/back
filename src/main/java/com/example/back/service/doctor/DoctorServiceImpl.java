@@ -195,8 +195,6 @@ public class DoctorServiceImpl implements DoctorService {
 
 
         // 의사 정보 추가
-        doctorDTO.setMemberStatus(Status.ACTIVE);
-        doctorDTO.setDoctorStatus(Status.ACTIVE);
         doctorDAO.insertDoctor(doctorDTO);
 
         log.info("Doctor 가입 완료 => memberId={}, hospitalId={}, license={}, specialty={}",
