@@ -12,6 +12,7 @@ import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,9 +52,12 @@ public class InquiryServiceImpl implements InquiryService {
 
 
     //  문의글 상세보기
+    @Transactional(rollbackFor = Exception.class)
     public Optional<InquiryMemberReplyDTO> getInquiryDetail(Long inquiryId) {
+        inquiryDAO.updateInquiryReadCount(inquiryId);
         Optional<InquiryMemberReplyDTO> activeInquiryWithReplyById = inquiryDAO.findActiveInquiryWithReplyById(inquiryId);
         List<FileDTO> filesByInquiryId = fileInquiryDAO.findFilesByInquiryId(inquiryId);
+
         activeInquiryWithReplyById.ifPresent(inquiryMemberReplyDTO -> {
             inquiryMemberReplyDTO.setCreatedDateTimeInquiry(DateUtils.getCreatedDate(inquiryMemberReplyDTO.getCreatedDateTime()));
             inquiryMemberReplyDTO.setFiles(filesByInquiryId);

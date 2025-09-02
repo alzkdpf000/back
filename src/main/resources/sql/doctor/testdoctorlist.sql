@@ -69,9 +69,6 @@ VALUES
 
 INSERT INTO tbl_doctor (member_id, doctor_license_number, doctor_specialty, doctor_status, hospital_id)
 VALUES
-    (1,'LIC10001','정형외과','ACTIVE',1),
-    (2,'LIC10002','피부과','ACTIVE',2),
-    (3,'LIC10003','치과','ACTIVE',3),
     (4,'LIC10004','내과','ACTIVE',4),
     (5,'LIC10005','외과','ACTIVE',5),
     (6,'LIC10006','소아과','INACTIVE',1),
@@ -105,45 +102,45 @@ VALUES
 INSERT INTO tbl_likes (member_id, doctor_id, created_datetime, updated_datetime)
 VALUES
 -- user1
-(31, 1, NOW(), NOW()), (31, 5, NOW(), NOW()), (31, 9, NOW(), NOW()), (31, 12, NOW(), NOW()), (31, 20, NOW(), NOW()),
+(4, 1, NOW(), NOW()), (31, 5, NOW(), NOW()), (31, 9, NOW(), NOW()), (31, 12, NOW(), NOW()), (31, 20, NOW(), NOW()),
 -- user2
-(32, 2, NOW(), NOW()), (32, 4, NOW(), NOW()), (32, 6, NOW(), NOW()), (32, 15, NOW(), NOW()), (32, 25, NOW(), NOW()),
+(5, 2, NOW(), NOW()), (32, 4, NOW(), NOW()), (32, 6, NOW(), NOW()), (32, 15, NOW(), NOW()), (32, 25, NOW(), NOW()),
 -- user3
-(33, 3, NOW(), NOW()), (33, 7, NOW(), NOW()), (33, 11, NOW(), NOW()), (33, 19, NOW(), NOW()),
+(6, 3, NOW(), NOW()), (33, 7, NOW(), NOW()), (33, 11, NOW(), NOW()), (33, 19, NOW(), NOW()),
 -- user4
-(34, 1, NOW(), NOW()), (34, 2, NOW(), NOW()), (34, 8, NOW(), NOW()), (34, 14, NOW(), NOW()), (34, 22, NOW(), NOW()),
+(7, 1, NOW(), NOW()), (34, 2, NOW(), NOW()), (34, 8, NOW(), NOW()), (34, 14, NOW(), NOW()), (34, 22, NOW(), NOW()),
 -- user5
-(35, 5, NOW(), NOW()), (35, 10, NOW(), NOW()), (35, 15, NOW(), NOW()), (35, 20, NOW(), NOW()),
+(8, 5, NOW(), NOW()), (35, 10, NOW(), NOW()), (35, 15, NOW(), NOW()), (35, 20, NOW(), NOW()),
 -- user6
-(36, 3, NOW(), NOW()), (36, 6, NOW(), NOW()), (36, 9, NOW(), NOW()), (36, 12, NOW(), NOW()), (36, 18, NOW(), NOW()),
+(9, 3, NOW(), NOW()), (36, 6, NOW(), NOW()), (36, 9, NOW(), NOW()), (36, 12, NOW(), NOW()), (36, 18, NOW(), NOW()),
 -- user7
-(37, 4, NOW(), NOW()), (37, 7, NOW(), NOW()), (37, 11, NOW(), NOW()), (37, 16, NOW(), NOW()),
+(10, 4, NOW(), NOW()), (37, 7, NOW(), NOW()), (37, 11, NOW(), NOW()), (37, 16, NOW(), NOW()),
 -- user8
-(38, 2, NOW(), NOW()), (38, 5, NOW(), NOW()), (38, 8, NOW(), NOW()), (38, 13, NOW(), NOW()), (38, 21, NOW(), NOW()),
+(11, 2, NOW(), NOW()), (38, 5, NOW(), NOW()), (38, 8, NOW(), NOW()), (38, 13, NOW(), NOW()), (38, 21, NOW(), NOW()),
 -- user9
-(39, 1, NOW(), NOW()), (39, 6, NOW(), NOW()), (39, 12, NOW(), NOW()), (39, 18, NOW(), NOW()),
+(12, 1, NOW(), NOW()), (39, 6, NOW(), NOW()), (39, 12, NOW(), NOW()), (39, 18, NOW(), NOW()),
 -- user10
-(40, 3, NOW(), NOW()), (40, 9, NOW(), NOW()), (40, 15, NOW(), NOW()), (40, 20, NOW(), NOW()),
+(13, 3, NOW(), NOW()), (40, 9, NOW(), NOW()), (40, 15, NOW(), NOW()), (40, 20, NOW(), NOW()),
 -- user11
-(41, 2, NOW(), NOW()), (41, 4, NOW(), NOW()), (41, 8, NOW(), NOW()), (41, 10, NOW(), NOW()), (41, 22, NOW(), NOW()),
+(14, 2, NOW(), NOW()), (41, 4, NOW(), NOW()), (41, 8, NOW(), NOW()), (41, 10, NOW(), NOW()), (41, 22, NOW(), NOW()),
 -- user12
-(42, 1, NOW(), NOW()), (42, 5, NOW(), NOW()), (42, 7, NOW(), NOW()), (42, 11, NOW(), NOW()), (42, 19, NOW(), NOW()),
+(15, 1, NOW(), NOW()), (42, 5, NOW(), NOW()), (42, 7, NOW(), NOW()), (42, 11, NOW(), NOW()), (42, 19, NOW(), NOW()),
 -- user13
-(43, 3, NOW(), NOW()), (43, 6, NOW(), NOW()), (43, 9, NOW(), NOW()), (43, 14, NOW(), NOW()),
+(16, 3, NOW(), NOW()), (43, 6, NOW(), NOW()), (43, 9, NOW(), NOW()), (43, 14, NOW(), NOW()),
 -- user14
-(44, 2, NOW(), NOW()), (44, 4, NOW(), NOW()), (44, 8, NOW(), NOW()), (44, 13, NOW(), NOW()), (44, 20, NOW(), NOW()),
+(17, 2, NOW(), NOW()), (44, 4, NOW(), NOW()), (44, 8, NOW(), NOW()), (44, 13, NOW(), NOW()), (44, 20, NOW(), NOW()),
 -- user15
-(45, 1, NOW(), NOW()), (45, 5, NOW(), NOW()), (45, 10, NOW(), NOW()), (45, 15, NOW(), NOW()),
+(18, 1, NOW(), NOW()), (45, 5, NOW(), NOW()), (45, 10, NOW(), NOW()), (45, 15, NOW(), NOW()),
 -- user16
-(46, 3, NOW(), NOW()), (46, 6, NOW(), NOW()), (46, 12, NOW(), NOW()), (46, 18, NOW(), NOW()),
+(19, 3, NOW(), NOW()), (46, 6, NOW(), NOW()), (46, 12, NOW(), NOW()), (46, 18, NOW(), NOW()),
 -- user17
-(47, 4, NOW(), NOW()), (47, 7, NOW(), NOW()), (47, 11, NOW(), NOW()), (47, 16, NOW(), NOW()),
+(20, 4, NOW(), NOW()), (47, 7, NOW(), NOW()), (47, 11, NOW(), NOW()), (47, 16, NOW(), NOW()),
 -- user18
-(48, 2, NOW(), NOW()), (48, 5, NOW(), NOW()), (48, 8, NOW(), NOW()), (48, 13, NOW(), NOW()), (48, 21, NOW(), NOW()),
+(21, 2, NOW(), NOW()), (48, 5, NOW(), NOW()), (48, 8, NOW(), NOW()), (48, 13, NOW(), NOW()), (48, 21, NOW(), NOW()),
 -- user19
-(49, 1, NOW(), NOW()), (49, 6, NOW(), NOW()), (49, 12, NOW(), NOW()), (49, 18, NOW(), NOW()),
+(22, 1, NOW(), NOW()), (49, 6, NOW(), NOW()), (49, 12, NOW(), NOW()), (49, 18, NOW(), NOW()),
 -- user20
-(50, 3, NOW(), NOW()), (50, 9, NOW(), NOW()), (50, 15, NOW(), NOW()), (50, 20, NOW(), NOW());
+(23, 3, NOW(), NOW()), (50, 9, NOW(), NOW()), (50, 15, NOW(), NOW()), (50, 20, NOW(), NOW());
 
 
 select * from tbl_likes;

@@ -68,4 +68,11 @@
         where i.id = #{inquiriesId}
 
     </select>
+
+
+    <update id="updateInquiryReadCount">
+        update tbl_inquiries
+        set inquiries_view_count = inquiries_view_count + 1
+        where id =#{id}
+    </update>
 </mapper>

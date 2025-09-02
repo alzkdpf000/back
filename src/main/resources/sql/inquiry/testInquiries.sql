@@ -13,10 +13,10 @@ VALUES ('로그인 오류 문의', '로그인이 되지 않습니다. 비밀번�
 
 
 INSERT INTO tbl_file (file_original_name, file_name, file_path, file_size)
-VALUES ('test.jpeg', 't_test.jpeg', '2025/08/13', '204800'),
-       ('user.jpeg', 't_user.jpeg', '2025/08/13', '307200'),
-       ('test.jpeg', 't_test.jpeg', '2025/08/13', '512000'),
-       ('user.jpeg', 't_user.jpeg', '2025/08/13', '150000');
+VALUES ('test.jpeg', 't_UUID1214_test.jpeg', '2025/08/13', '204800'),
+       ('user.jpeg', 't_UUID5123_user.jpeg', '2025/08/13', '307200'),
+       ('test.jpeg', 't_UUID5421_test.jpeg', '2025/08/13', '512000'),
+       ('user.jpeg', 't_UUID1432_user.jpeg', '2025/08/13', '150000');
 
 
 INSERT INTO tbl_inquiries_file (file_id, inquiries_id)

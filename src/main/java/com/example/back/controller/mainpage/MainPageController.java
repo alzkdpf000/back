@@ -17,7 +17,7 @@ public class MainPageController {
     public String goMainPage() {
         MemberDTO member =(MemberDTO) session.getAttribute("member");
         log.info("{}",member);
-        return "/main/main";
+        return "main/main";
     }
 
     @GetMapping("service-info")
