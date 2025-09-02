@@ -51,7 +51,7 @@ public class MemberController {
             throw new IllegalArgumentException("회원가입 정보가 올바르지 않습니다.");
         }
         memberService.join(memberDTO);
-        return new RedirectView("/member/login");
+        return new RedirectView("/member/loginmain");
     }
 
 //    회원가입 선택 페이지 (일반, 의사)
