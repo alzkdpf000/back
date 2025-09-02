@@ -80,7 +80,9 @@
         where tm.member_email = #{memberDTO.memberEmail} and
               tm.member_password = #{memberDTO.memberPassword} and
               tm.member_status = 'active'
+          <if test="memberRole == 'doctor'">
             and tm.member_role = #{memberRole}
+          </if>
     </select>
     <select id="selectMonthlyJoin">
         with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM

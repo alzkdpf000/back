@@ -12,7 +12,9 @@
 <body>
 <div class="container">
     <div class="title">로그인</div>
-    <div class="button-group">
+    <div class="button-group" style="
+    position: relative;
+">
         <div>
             <button class="button" onclick="location.href='/member/login?memberRole=member'">
                 일반 회원
@@ -24,6 +26,14 @@
                 의사 회원
             </button>
             <!-- <span class="button-label">의사회원가입</span> -->
+        </div>
+        <div style="
+    position: absolute;
+    /* right: 47%; */
+    top: 100px;
+    color: gray;
+    cursor: pointer;
+"><a href="/">홈으로</a>
         </div>
     </div>
 </div>

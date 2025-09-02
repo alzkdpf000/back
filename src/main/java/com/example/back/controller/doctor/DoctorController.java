@@ -71,7 +71,7 @@ public class DoctorController {
 
         doctorService.join(doctorDTO, memberDTO, hospitalDTO);
 
-        return new RedirectView("/doctor/login");
+        return new RedirectView("/member/loginmain");
     }
 
 

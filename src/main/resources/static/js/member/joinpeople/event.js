@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
+    console.log(document.getElementById("memberPhone"));
     // 주소 찾기
     addressBtn.addEventListener("click", () => {
         console.log("3232");
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }).open();
     });
 
-
+console.log(document.getElementById("memberPhone"));
     formTag.addEventListener("submit", (e) => {
         e.preventDefault();
 
