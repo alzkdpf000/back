@@ -33,4 +33,8 @@ public class InquiryDAO {
     public Optional<InquiryMemberReplyDTO> findActiveInquiryWithReplyById(Long inquiriesId){
         return inquiryMapper.selectActiveInquiryWithReplyById(inquiriesId);
     }
+//    조히 수 증가
+    public void updateInquiryReadCount(Long id){
+        inquiryMapper.updateInquiryReadCount(id);
+    }
 }

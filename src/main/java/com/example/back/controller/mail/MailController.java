@@ -70,12 +70,12 @@ public class MailController {
     @GetMapping("password-reset")
     public String goToSuccess(@RequestParam("memberEmail") String memberEmail, Model model){
         model.addAttribute("memberEmail", memberEmail);
-        return "/member/password-reset";
+        return "member/password-reset";
     }
 
     @GetMapping("emailfail")
     public String goToFail(){
-        return "/member/emailfail";
+        return "member/emailfail";
     }
 
 

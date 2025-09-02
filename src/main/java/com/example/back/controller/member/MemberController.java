@@ -40,7 +40,7 @@ public class MemberController {
     @GetMapping("join")
     public String goToJoinForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
-        return "/member/joinpeople";
+        return "member/joinpeople";
     }
 
 //    회원가입 처리
@@ -57,7 +57,7 @@ public class MemberController {
 //    회원가입 선택 페이지 (일반, 의사)
     @GetMapping("joinmain")
     public String goToJoinMainForm(){
-        return "/member/joinmain";
+        return "member/joinmain";
     }
 
 
@@ -67,7 +67,7 @@ public class MemberController {
     public String goToLoginForm(MemberDTO memberDTO ,Model model){
 //        memberDTO를 model에 담기
         model.addAttribute("memberDTO", memberDTO);
-        return "/member/loginmain";
+        return "member/loginmain";
     }
 
     //    로그인 메인페이지 이동
@@ -77,7 +77,7 @@ public class MemberController {
                               Model model){
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("memberRole",memberRole);
-        return "/member/login";
+        return "member/login";
     }
 
 
@@ -115,7 +115,7 @@ public class MemberController {
 
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("memberRole", memberRole);
-        return "/member/emaillogin";
+        return "member/emaillogin";
     }
 
 //    로그인 조회
@@ -158,21 +158,21 @@ public class MemberController {
     }
 //    메인페이지로 이동
     @GetMapping("main")
-    public String goToMainForm(Model model){
+    public RedirectView goToMainForm(Model model){
         model.addAttribute("memberDTO", new MemberDTO());
-        return "/";
+        return new RedirectView("/");
     }
 
     //    계정 찾기 페이지 이동 (이메일 보내는 페이지)
     @GetMapping("find-email")
     public String goTofindEmailForm(){
-        return "/member/emailcheck";
+        return "member/emailcheck";
     }
 
     //    이메일 확인 안내
     @GetMapping("emailsuccess")
     public String goToConfirmForm(){
-        return "/member/emailsuccess";
+        return "member/emailsuccess";
     }
 
 

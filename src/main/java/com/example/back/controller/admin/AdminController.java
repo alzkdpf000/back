@@ -10,6 +10,6 @@ public class AdminController {
 
     @GetMapping
     public String goAdminPage(){
-        return "/admin/mainpage";
+        return "admin/mainpage";
     }
 }

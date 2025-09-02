@@ -18,4 +18,6 @@ public interface InquiryMapper {
     public InquiriesCountDto selectAnswerCounts (@Param("search")Search search);
 //  문의글 상세보기
     public Optional<InquiryMemberReplyDTO> selectActiveInquiryWithReplyById(Long inquiriesId);
+//  조회수 증가
+    public void updateInquiryReadCount(Long id);
 }
