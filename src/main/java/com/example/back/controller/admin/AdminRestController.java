@@ -96,6 +96,7 @@ public class AdminRestController {
 
     @GetMapping({"doctors/{doctorId}","doctors/pending/{doctorId}"})
     public ResponseEntity<DoctorHospitalDTO> doctorDetail(@PathVariable Long doctorId) {
+        log.info("{}",doctorId);
         DoctorHospitalDTO doctor = doctorService.getDoctorAdminById(doctorId).orElseThrow(DoctorNotFoundException::new);
         return ResponseEntity.ok().body(doctor);
     }
