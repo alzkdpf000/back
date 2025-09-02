@@ -2,12 +2,8 @@ package com.example.back.mapper.payment;
 
 import com.example.back.common.enumeration.Result;
 import com.example.back.common.enumeration.Type;
-import com.example.back.dto.vitahistory.VitaHistoryDTO;
-import com.example.back.mapper.vitahistory.VitaHistoryMapper;
 import com.example.back.repository.payment.PaymentDAO;
-import com.example.back.repository.vitahistory.VitaHistoryDAO;
 import com.example.back.service.payment.PaymentService;
-import com.example.back.service.vitahistory.VitaHistoryService;
 import com.example.back.util.Criteria;
 import com.example.back.util.Search;
 import lombok.extern.slf4j.Slf4j;

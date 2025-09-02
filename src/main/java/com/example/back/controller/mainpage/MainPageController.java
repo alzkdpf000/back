@@ -22,6 +22,6 @@ public class MainPageController {
 
     @GetMapping("service-info")
     public String goServiceInfoPage() {
-        return "/member/service-info";
+        return "member/service-info";
     }
 }
