@@ -22,15 +22,15 @@ public class MyPageController {
     public String goToMyPageForm(Model model) {
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
         log.info("{}", memberDTO);
-
+//        로그인되지 않은 상태로 마이페이지 이동 시 로그인 메인 페이지로 이동
         if (memberDTO == null) {
             Long memberId = (Long) session.getAttribute("memberId");
-            return "redirect:/member/login";
+            return "redirect:/member/loginmain";
         }
         MemberDTO member = memberService.getMemberByIdAllStatus(memberDTO.getId())
                 .orElseThrow(IllegalArgumentException::new);
 
-
+        log.info("member : {}", member);
         model.addAttribute("member", member);
 
 

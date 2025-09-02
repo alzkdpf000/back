@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>골든타임</title>
     <link rel="stylesheet" href="/css/member/mypage/mypage/mypage.css">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
 </head>
 <body>
     <div class="whole-body">
@@ -84,8 +85,7 @@
                                             <span class="mypage-main-key">이메일</span>
                                         </div>
                                         <span id="memberEmail" class="mypage-main-value"
-                                              th:text="${member.provider == 'KAKAO' ? member.kakaoEmail : member.memberEmail}">
-                                        이메일@주소.형식
+                                              th:text="${member}">
                                         </span>
                                     </div>
                                     <!-- 버튼 클릭 시 이메일 변경 창 생성 -->

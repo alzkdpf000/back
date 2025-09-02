@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>골든타임</title>
     <link rel="stylesheet" href="/css/member/emaillogin.css">
+    <link rel="stylesheet" href="">
+    <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon" data-next-head="">
 </head>
 <body>
     <div class="full">
@@ -54,12 +56,11 @@
                         </div>
                         <div class="subrs70ns">
                             <!-- <button type="submit" color="primary" height="54" class="loginBtn"><span class="15h2tnjlogingulssi">로그인</span></button> -->
+                            <input type="hidden" name="memberRole" th:value="${memberDTO.memberRole}"/>
                             <button id="loginBtn" disabled>로그인</button>
-                            <a class="css-1n1yjq2" href="/auth/reset-password">
-                                <button color="grey" height="54" class="box5p3r3q">
+                                <button color="grey" height="54" class="box5p3r3q" onclick="location.href='/member/find-email'">
                                     <span class="h2tnj">비밀번호를 잊어버리셨나요?</span>
                                 </button>
-                            </a>
                         </div>
                     </form> 
                 </div>
@@ -68,7 +69,13 @@
         </div>
     </div>   
 </body>
-
+<script th:inline="javascript">
+    [[${memberDTO.memberRole}]]
+</script>
     <script src="/js/member/emaillogin/event.js"></script>
+<script th:inline="javascript">
+    [[${errorMessage != null}]] ? alert('[[${#strings.escapeJavaScript(errorMessage)}]]') : '';
+
+</script>
 
 </html>

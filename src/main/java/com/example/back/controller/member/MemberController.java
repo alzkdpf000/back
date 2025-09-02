@@ -1,5 +1,6 @@
 package com.example.back.controller.member;
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.common.exception.LoginFailException;
 import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.member.MemberDTO;
@@ -35,7 +36,7 @@ public class MemberController {
     private final DoctorService doctorService;
     private final MailService mailService;
 
-    //    회원가입
+    //    회원가입 페이지 이동
     @GetMapping("join")
     public String goToJoinForm(MemberDTO memberDTO ,Model model){
         model.addAttribute("memberDTO", memberDTO);
@@ -45,6 +46,7 @@ public class MemberController {
 //    회원가입 처리
     @PostMapping("join")
     public RedirectView join( MemberDTO memberDTO){
+//        회원 유효성 검사
         if (!memberService.validateMember(memberDTO)){
             throw new IllegalArgumentException("회원가입 정보가 올바르지 않습니다.");
         }
@@ -63,15 +65,18 @@ public class MemberController {
 //    로그인 메인페이지 이동
     @GetMapping("loginmain")
     public String goToLoginForm(MemberDTO memberDTO ,Model model){
+//        memberDTO를 model에 담기
         model.addAttribute("memberDTO", memberDTO);
         return "/member/loginmain";
     }
 
     //    로그인 메인페이지 이동
     @GetMapping("login")
-    public String goLoginForm(MemberDTO memberDTO ,String type ,Model model){
+    public String goLoginForm(MemberDTO memberDTO ,
+                              @RequestParam(value = "memberRole", required = false) String memberRole ,
+                              Model model){
         model.addAttribute("memberDTO", memberDTO);
-        model.addAttribute("type",type);
+        model.addAttribute("memberRole",memberRole);
         return "/member/login";
     }
 
@@ -80,9 +85,13 @@ public class MemberController {
     @PostMapping("check-email")
     @ResponseBody
     public Map<String, Object> checkEmail(@RequestBody Map<String, String> member) {
+//        memberEmail을 받아온다.
         String memberEmail = member.get("memberEmail");
+//        memeberEmail이 존재하는지 검사
         boolean isExist = memberService.isExistMemberEmail(memberEmail);
+//        이메일이 존재하는지 결과 데이터 확인
         Map<String, Object> result = new HashMap<>();
+//        put : 없는값은 추가하고, 있는 값은 수정
         result.put("memberEmail", memberEmail);
         result.put("isExist", isExist);
 
@@ -91,23 +100,35 @@ public class MemberController {
 
 //    이메일 로그인 페이지 이동 (이메일 저장 - 쿠키)
     @GetMapping("emaillogin")
-    public String goToLoginForm(@CookieValue(name = "remember",  required = false) boolean remember,
+    public String goToLoginForm(@CookieValue(name = "remember",  required = false) Boolean remember,
                                 @CookieValue(name = "remember_member_email", required = false) String rememberdEmail,
+                                @RequestParam("memberRole") String memberRole,
                                 HttpServletRequest request,
                                 MemberDTO memberDTO,
                                 Model model){
+
+        log.info("memberRole={}", memberDTO.getMemberRole());
         memberDTO.setRemember(remember);
         memberDTO.setMemberEmail(rememberdEmail);
+        memberDTO.setMemberRole(Role.getRoleValue(memberRole));
+
+
         model.addAttribute("memberDTO", memberDTO);
+        model.addAttribute("memberRole", memberRole);
         return "/member/emaillogin";
     }
 
 //    로그인 조회
     @PostMapping("emaillogin")
-    public RedirectView login(MemberDTO memberDTO, HttpServletResponse response){
-        MemberDTO member = memberService.login(memberDTO).orElseThrow(LoginFailException::new);
+    public RedirectView login(MemberDTO memberDTO, String memberRole, HttpServletResponse response){
+        log.info("로그인={}",memberDTO);
+        MemberDTO member = memberService.login(memberDTO, memberRole).orElseThrow(LoginFailException::new);
         session.setAttribute("member", member);
+        session.setAttribute("memberId", member.getId());
 
+
+//      쿠키 설정
+//      remember_member_email - 사용자 이메일 저장
         Cookie rememberMemberEmailCookie = new Cookie("remember_member_email", memberDTO.getMemberEmail());
         Cookie rememberCookie = new Cookie("remember", String.valueOf(memberDTO.isRemember()));
 
@@ -139,7 +160,7 @@ public class MemberController {
     @GetMapping("main")
     public String goToMainForm(Model model){
         model.addAttribute("memberDTO", new MemberDTO());
-        return "/main/main";
+        return "/";
     }
 
     //    계정 찾기 페이지 이동 (이메일 보내는 페이지)
@@ -154,12 +175,14 @@ public class MemberController {
         return "/member/emailsuccess";
     }
 
+
 //    로그아웃 - 로그인 (메인) 페이지 이동
     @GetMapping("logout")
+//    세션 삭제 후 메인페이지 이동
     public RedirectView logout(HttpSession session){
         session.invalidate();
 
-        return new RedirectView("/member/loginmain");
+        return new RedirectView("/");
     }
 
 }

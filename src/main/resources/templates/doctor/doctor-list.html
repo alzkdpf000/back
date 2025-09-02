@@ -7,9 +7,12 @@
         <title>골든타임</title>
         <link rel="stylesheet" href="/css/fonts.css">
         <link rel="stylesheet" href="/css/doctor-hospital/doctor-hospital.css">
+        <link rel="stylesheet" href="/css/main/header.css">
+        <link rel="stylesheet" href="/css/main/footer.css">
         <link rel="shortcut icon" href="/images/golden-time-favicon.png" type="image/x-icon">
     </head>
     <body>
+    <header th:replace="~{/fixed/header.html :: header}"></header>
         <!-- main -->
         <main>
             <div class="main-container">
@@ -57,16 +60,6 @@
                                     </div>
                                 </button>
                                 <!-- /버튼 이벤트 모달 열기 -->
-                                
-                                <button class="card-list-order-btn">
-                                    <span class="card-list-btn-text change-order">선호도 순</span>
-                                    <div class="card-list-icon">
-                                        <svg fill="none" height="12" viewbox="0 0 15 12" width="15" xmlns="http://www.w3.org/2000/svg">
-                                            <path clip-rule="evenodd" d="M14.5552 7.34075C14.8982 7.63527 14.9276 8.14101 14.6209 8.47036L11.9542 11.3332C11.7961 11.5029 11.5702 11.5999 11.333 11.5999C11.0958 11.5999 10.8699 11.5029 10.7118 11.3332L8.04514 8.47036C7.73835 8.14101 7.76777 7.63527 8.11084 7.34075C8.45392 7.04624 8.98074 7.07447 9.28752 7.40383L10.4997 8.70512L10.4997 1.1999C10.4997 0.758074 10.8728 0.399902 11.333 0.399902C11.7932 0.399902 12.1663 0.758074 12.1663 1.1999L12.1663 8.70512L13.3785 7.40383C13.6853 7.07447 14.2121 7.04624 14.5552 7.34075Z" fill="var(--color-gray-400)" fill-rule="evenodd"></path>
-                                            <path clip-rule="evenodd" d="M7.55515 4.65925C7.89823 4.36473 7.92764 3.85899 7.62086 3.52964L4.95419 0.666849C4.7961 0.497129 4.57017 0.400119 4.333 0.400119C4.09583 0.400119 3.8699 0.497129 3.71181 0.666849L1.04514 3.52964C0.738355 3.85899 0.767771 4.36473 1.11084 4.65925C1.45392 4.95376 1.98074 4.92552 2.28752 4.59617L3.49967 3.29488L3.49967 10.8001C3.49967 11.2419 3.87276 11.6001 4.333 11.6001C4.79324 11.6001 5.16633 11.2419 5.16633 10.8001L5.16633 3.29488L6.37848 4.59617C6.68526 4.92553 7.21208 4.95376 7.55515 4.65925Z" fill="var(--color-gray-400)" fill-rule="evenodd"></path>
-                                        </svg>
-                                    </div>
-                                </button>
                             </div>
                         </div>
                         <hr class="category-ul-horizon">
@@ -222,12 +215,8 @@
                 </div>
             </div>
         </div>
+    <div th:replace="~{/fixed/footer.html :: .footer-layout-wrapper}"></div>
         <script src="/js/doctor/list/module/service.js"></script>
         <script src="/js/doctor/list/module/layout.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                doctorLayout.loadDoctors(1);
-            });
-        </script>
     </body>
 </html>

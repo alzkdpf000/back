@@ -106,11 +106,13 @@ public class DoctorListTests {
     public void testSelectDoctorList() {
         Criteria criteria = new Criteria(1, 10);
 
+        Long currentMemberId = 53L;
+
         Search search = new Search();
         search.setKeyword("test");
         search.setCategories(new String[]{"내과", "외과"});
 
-        List<DoctorListDTO> doctorList = doctorMapper.selectDoctorList(criteria, search);
+        List<DoctorListDTO> doctorList = doctorMapper.selectDoctorList(criteria, search, currentMemberId);
         log.info("{}", doctorList);
     }
 

@@ -1,13 +1,11 @@
 package com.example.back.service.member;
 
-import com.example.back.domain.member.MemberVO;
+import com.example.back.common.enumeration.Role;
 import com.example.back.domain.membervisited.MemberVisitedVO;
 import com.example.back.dto.consultationpost.ConsultationPostDTO;
-import com.example.back.dto.file.FileDTO;
 import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
-import com.example.back.dto.memberfile.MemberFileDTO;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.member.MemberDAO;
 import com.example.back.repository.memberfile.MemberFileDAO;
@@ -17,18 +15,11 @@ import com.example.back.util.DateUtils;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -92,8 +83,8 @@ public class MemberServiceImpl implements MemberService {
 
     //    로그인
     @Override
-    public Optional<MemberDTO> login(MemberDTO memberDTO) {
-        return memberDAO.findMemberEmailAndPassword(memberDTO);
+    public Optional<MemberDTO> login(MemberDTO memberDTO, String memberRole) {
+        return memberDAO.findMemberEmailAndPassword(memberDTO, memberRole);
     }
 
     @Override

@@ -43,7 +43,8 @@
                member_name,
                member_phone,
                member_status,
-               member_provider as provider,
+               member_provider as memberProvider,
+               member_role as memberRole,
                member_kakao_email as kakao_email,
                member_kakao_profile_url as kakao_profile_url,
                member_vita_amount,
@@ -76,7 +77,10 @@
         from tbl_member tm
             left join view_member_file vf
                 on tm.id = vf.member_id
-        where member_email = #{memberEmail} and member_password = #{memberPassword} and member_status = 'active'
+        where tm.member_email = #{memberDTO.memberEmail} and
+              tm.member_password = #{memberDTO.memberPassword} and
+              tm.member_status = 'active'
+            and tm.member_role = #{memberRole}
     </select>
     <select id="selectMonthlyJoin">
         with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM
@@ -127,5 +131,12 @@
         set member_password = #{memberPassword}
         where member_email = #{memberEmail}
     </update>
+
+    <update id="update">
+        update tbl_member
+        set member_role = 'member'
+        where member_role is null;
+    </update>
+
 
 </mapper>

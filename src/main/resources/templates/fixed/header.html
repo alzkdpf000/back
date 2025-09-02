@@ -139,12 +139,12 @@
                     <!-- 로그인 상태 시(프로필 이미지) -->
                     <th:block th:if="${member != null }">
                     <div style="position: relative">
-                        <button class="main-header-login-profile-icon-wrapper-profile" >
+                        <button class="main-header-login-profile-icon-wrapper-profile" > 
 
 <!--                            <th:block th:switch="${member.memberProvider}">-->
-                                <img th:if="${member.memberProvider.getValue() == 'kakao'}" alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" th:src=`@{${session.member.kakaoProfileUrl}}` style="color: transparent;"/>
-                                <img th:if="${member.memberFileDTO != null && member.memberProvider.getValue() == 'goldentime'}"  alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" th:src="@{/api/files/display(filePath=${member.memberFileDTO.filePath},fileName=${member.memberFileDTO.fileName})}">
-                                <img th:if="${member.memberFileDTO == null}" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon">
+                                <img th:if="${member.memberProvider.getValue() == 'kakao'}" alt="살짝쿵우아한초밥" fetchpriority="high" width="44" height="44" decoding="async" data-nimg="1" class="main-header-myprofile-icon" th:src=${session.member.kakaoProfileUrl} style="color: transparent;"/>
+                                <img th:if="${member.memberProvider.getValue() == 'goldentime' and member.memberFileDTO != null}" class="main-header-myprofile-icon" width="44" height="44" th:src="@{/api/files/display(filePath=${member.memberFileDTO.filePath},fileName=${member.memberFileDTO.fileName})}" alt="프로필"/>
+                                <img th:if="${member.memberProvider.getValue() == 'goldentime' and member.memberFileDTO == null}" class="main-header-myprofile-icon" width="44" height="44" src="https://media.a-ha.io/aha-qna/images/v3/product/default-profile-image.webp" alt="프로필"/>
 <!--                            </th:block>-->
                         </button>
                         <ul class="member-profile-btn-modal">

@@ -28,6 +28,7 @@ public class MemberFileRestController {
     @GetMapping("profile")
     public MemberProfileDTO getMemberFile(HttpSession session){
         MemberDTO member = (MemberDTO) session.getAttribute("member");
+//        회원정보가 없으면 예외 발생
         if (member == null) throw new LoginFailException();
 
         Long memberId = member.getId();
@@ -35,12 +36,14 @@ public class MemberFileRestController {
     }
 
     @PostMapping("/profile/upload")
+//    업로드한 파일들을 Multipaetfile로 받는다
     public ResponseEntity<MemberFileDTO> uploadProfile(
             @RequestParam("file") MultipartFile file,
             HttpSession session) {
         log.info(file.getOriginalFilename());
 
         MemberDTO member = (MemberDTO) session.getAttribute("member");
+        //        회원정보가 없으면 예외 발생
         if (member == null) throw new LoginFailException();
 
         MemberFileDTO fileInfo = memberFileService.update(member.getId(), file);

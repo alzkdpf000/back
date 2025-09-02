@@ -7,6 +7,7 @@ import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.util.Search;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,9 +30,9 @@ public interface MemberService {
     public boolean reject(Long memberId);
 
 //    로그인
-    public Optional<MemberDTO> login(MemberDTO memberDTO);
+public Optional<MemberDTO> login(MemberDTO memberDTO, String memberRole);
 
-//    관리자 페이지 회원들 통계 자료들
+    //    관리자 페이지 회원들 통계 자료들
     public MemberAdminStatics getStatics();
 
 //    로그인 추가
