@@ -146,12 +146,13 @@ window.doctorLayout = (() => {
 
                 try {
                     const result = await doctorService.toggleLike(doctorId, currentMemberId);
+                    const img = btn.querySelector("img");
                     if (result === "liked") {
-                        btn.src = '/images/heart.png';
+                        img.src = '/images/heart.png';
                         countSpan.textContent = Number(countSpan.textContent) + 1;
                         showWarnModal("내 관심 의사로 등록했습니다.");
                     } else if (result === "unliked") {
-                        btn.src = '/images/heart-empty.png';
+                        img.src = '/images/heart-empty.png';
                         countSpan.textContent = Number(countSpan.textContent) - 1;
                         showWarnModal("내 관심 의사에서 해제되었습니다.");
                     }
@@ -238,99 +239,6 @@ window.doctorLayout = (() => {
         });
     };
 
-    function generateRandomString(length = 6) {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let result = '';
-        for (let i = 0; i < length; i++) {
-            const idx = Math.floor(Math.random() * chars.length);
-            result += chars[idx];
-        }
-        return result;
-    }
-
-    // 리뷰글 렌더링
-    const renderReviewList = (reviews = []) => {
-        const reviewList = getElement("#review-list");
-        const noResult = getElement(".no-review-result-wrap");
-
-        if (!reviewList || !noResult) return;
-
-        reviewList.innerHTML = "";
-
-        if (!reviews.length) {
-            noResult.style.display = "flex";   // 후기가 없으면 보이게
-        } else {
-            noResult.style.display = "none";   // 후기가 있으면 숨기기
-        }
-
-        const fragment = document.createDocumentFragment();
-        reviews.forEach(review => {
-            const li = document.createElement("li");
-            li.innerHTML = `
-            <div class="answer-list-container">
-                <div class="answer-list-header-wrap">
-                    <div class="answer-list-content-tag review-list-content-tag">
-                        <div class="review-img-star">
-                            <div class="review-star-wrap">
-                                <div class="review-star-content">
-                                    <div class="review-star-svg">
-                                        <svg fill="none" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
-                                            <path clip-rule="evenodd" d="M21.6515 4.43374L25.6752 13.3856L35.0647 14.6201C36.6096 14.8231 37.2093 16.8084 36.0899 17.907L29.1848 24.675L30.9639 34.3941C31.2566 35.9898 29.6374 37.2019 28.291 36.4257L19.9995 31.6536L11.708 36.4257C10.3601 37.2019 8.74241 35.9898 9.03512 34.3941L10.8142 24.675L3.91058 17.907C2.79117 16.8084 3.38942 14.8231 4.93575 14.6201L14.3253 13.3856L18.3475 4.43374C19.0071 2.96642 20.9918 2.96642 21.6515 4.43374Z" fill="#FFD633" fill-rule="evenodd"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="review-point">${review.rating.toFixed(1)}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-content-text-wrap">
-                            <div class="review-header">
-                                <span class="review-content-text anonymous">회원_${generateRandomString()}</span>
-                                <div class="answer-create-day write-date">${timeForToday(review.createdDatetime)}</div>
-                            </div>
-                                <span class="review-content-text content">${review.content}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-            fragment.appendChild(li);
-        });
-        reviewList.appendChild(fragment);
-    };
-
-    const renderReviewPaging = (criteria, doctorData, doctorId, memberId) => {
-        const pageContainer = getElement("#review-page-container");
-        if (!criteria || !pageContainer) return;
-        const totalReviews = (doctorData.reviews || []).length;
-        if (totalReviews === 0) {
-            pageContainer.innerHTML = "";
-            return;
-        }
-
-        let html = "";
-        if(criteria.hasPreviousPage) html += `<a href="#" data-page="${criteria.startPage - 1}">이전</a>`;
-        for(let i = criteria.startPage; i <= criteria.endPage; i++){
-            html += `<a href="#" data-page="${i}">${i}</a>`;
-        }
-        if(criteria.hasNextPage) html += `<a href="#" data-page="${criteria.endPage + 1}">다음</a>`;
-        pageContainer.innerHTML = html;
-
-        pageContainer.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", async e => {
-                e.preventDefault();
-                const page = Number(link.dataset.page);
-                try {
-                    const detailDTO = await doctorService.getDoctorDetail(doctorId, page);
-                    const updatedDoctorData = detailDTO.doctorsDetail[0];
-                    renderReviewList(updatedDoctorData.reviews);
-                    renderReviewPaging(detailDTO.criteria, updatedDoctorData, doctorId, memberId);
-                } catch(err) {
-                    console.error("리뷰 리스트 로딩 실패:", err);
-                }
-            });
-        });
-    };
-
     document.addEventListener("DOMContentLoaded", async () => {
         // URL에서 doctorId와 page 추출
         const pathParts = window.location.pathname.split("/");
@@ -355,196 +263,6 @@ window.doctorLayout = (() => {
 
         } catch (err) {
             console.error("의사 상세 정보 불러오기 실패:", err);
-        }
-        // 탭 클릭 이벤트 처리
-        const profilBtns = document.querySelectorAll(".profil-content-select");
-        const profilCotentCheck = document.querySelector(".profil-content-selector");
-
-
-        profilBtns.forEach((profilBtn) => {
-            profilBtn.addEventListener("click", async () => {
-                const cnt = profilBtn.dataset.cnt;
-
-                profilCotentCheck.style.transform = `translateX(calc(${100 * cnt}% + ${16 * cnt}px))`;
-                document.querySelector("span.active").classList.remove("active");
-                const spanTag = profilBtn.firstElementChild.firstElementChild;
-                spanTag.classList.add("active");
-
-                // 탭 전환 시 영역과 페이징 토글
-                const answerList = document.querySelector("#intersectionObserver");
-                const reviewList = document.querySelector("#review-list");
-                const answerPaging = document.querySelector("#page-container");
-                const reviewPaging = document.querySelector("#review-page-container");
-                const noAnswer = document.querySelector(".no-search-result-wrap");
-                const noReview = document.querySelector(".no-review-result-wrap");
-                const reviewBtnWrap = document.querySelector(".review-btn-wrap");
-
-                if (cnt === "0") {
-                    // 답변 탭
-                    answerList.style.display = "block";
-                    answerPaging.style.display = "block";
-                    reviewList.style.display = "none";
-                    reviewPaging.style.display = "none";
-                    noAnswer.style.display = "none";
-                    noReview.style.display = "none";
-                    reviewBtnWrap.style.display = "none";
-
-                } else if (cnt === "1") {
-                    // 리뷰 탭
-                    answerList.style.display = "none";
-                    answerPaging.style.display = "none";
-                    reviewList.style.display = "block";
-                    reviewPaging.style.display = "block";
-                    noAnswer.style.display = "none";
-                    noReview.style.display = "flex";
-                    reviewBtnWrap.style.display = "flex";
-
-                }
-
-                try {
-                    const detailDTO = await doctorService.getDoctorDetail(doctorId, 1);
-                    const doctorData = detailDTO.doctorsDetail[0];
-
-                    if (cnt === "0") {
-                        const answers = (doctorData.counselReplyDTOList || []).map(reply => ({
-                            category: Array.isArray(reply.categoryNames) ? reply.categoryNames.join(", ") : "-",
-                            title: reply.consultationPostTitle || "-",
-                            content: reply.counselReplyContent || "-",
-                            createDate: reply.createdDatetime || null
-                        }));
-                        doctorLayout.renderAnswerList(answers);
-                        doctorLayout.renderReplyPaging(detailDTO.criteria, doctorData, doctorId, currentMemberId);
-                    } else if (cnt === "1") {
-                        const reviews = (doctorData.reviews || []).map(r => ({
-                            content: r.content || "-",
-                            rating: r.rating || 0,
-                            createdDatetime: r.createdDatetime || null,
-                            memberProfile: r.memberProfile || null
-                        }));
-                        doctorLayout.renderReviewList(reviews);
-                        doctorLayout.renderReviewPaging(detailDTO.criteria, doctorData, doctorId, currentMemberId);
-                    }
-                } catch (err) {
-                    console.error(cnt === "0" ? "답변 리스트 로딩 실패:" : "리뷰 리스트 로딩 실패:", err);
-                }
-            });
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const pathParts = window.location.pathname.split("/");
-        const doctorId = Number(pathParts[3]);
-
-        const reviewBtn = document.querySelector(".exist-review-btn");
-        const reviewRegisterContainer = document.querySelector(".review-register-container.v2");
-        const reviewListContainer = document.querySelector(".review-list");
-
-        // 별점 클릭 이벤트
-        const setupStarRating = (form) => {
-            if (!form) return;
-            const stars = form.querySelectorAll(".star-list-content");
-            const rateInput = form.querySelector("input[name='rate']");
-            if (!rateInput) return;
-
-            stars.forEach((li) => {
-                const btn = li.querySelector("button");
-                btn.addEventListener("click", () => {
-                    const point = li.dataset.point;
-                    rateInput.value = Number(point) + 1; // 1~5점
-                    stars.forEach((s, idx) => {
-                        const svg = s.querySelector("svg path");
-                        if (idx <= point) svg.setAttribute("fill", "#FFD600");
-                        else svg.setAttribute("fill", "#E0E0E0");
-                    });
-                });
-            });
-        };
-
-        setupStarRating(reviewRegisterContainer);
-
-        // 후기 버튼 클릭 시
-        if (reviewBtn) {
-            reviewBtn.addEventListener("click", async () => {
-                try {
-                    const response = await fetch(`/api/review/check?doctorId=${doctorId}&memberId=${currentMemberId}`);
-                    if (!response.ok) throw new Error("방문진료 API 호출 실패");
-                    const result = await response.json();
-
-                    if (!result.hasVisited) {
-                        showReviewModal("방문진료 기록이 있는 회원만 후기를 작성할 수 있습니다.");
-                        if (reviewRegisterContainer) reviewRegisterContainer.style.display = "none";
-                        return;
-                    }
-
-                    const existResp = await fetch(`/api/review/exists?doctorId=${doctorId}&memberId=${currentMemberId}`);
-                    const existResult = await existResp.json();
-                    if (existResult.exists) {
-                        showReviewModal("이미 리뷰를 작성하셨습니다.");
-                        if (reviewRegisterContainer) reviewRegisterContainer.style.display = "none";
-                        return;
-                    }
-
-                    if (reviewRegisterContainer) reviewRegisterContainer.style.display = "block";
-                } catch (err) {
-                    console.error(err);
-                    alert("후기 작성 검증 중 오류가 발생했습니다.");
-                }
-            });
-        }
-
-        // 후기 등록 처리 (V2 폼)
-        if (reviewRegisterContainer) {
-            reviewRegisterContainer.addEventListener("submit", async (e) => {
-                e.preventDefault();
-
-                const contentInput = reviewRegisterContainer.querySelector("[name='reviewContent']");
-                const rateInput = reviewRegisterContainer.querySelector("[name='rate']");
-                const content = contentInput?.value.trim() || "";
-                const rating = Number(rateInput?.value) || 0;
-
-                if (!content) {
-                    alert("후기 내용을 입력해주세요.");
-                    return;
-                }
-                if (rating <= 0) {
-                    alert("별점을 선택해주세요.");
-                    return;
-                }
-
-                const confirmed = confirm("한번 등록한 리뷰는 수정 및 삭제가 불가능합니다.\n등록하시겠습니까?");
-                if (!confirmed) return;
-
-                try {
-                    const response = await fetch("/api/review/insert", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            memberId: currentMemberId,
-                            doctorId: doctorId,
-                            content,
-                            rating
-                        })
-                    });
-
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        throw new Error(errorText || "후기 등록 실패");
-                    }
-
-                    // 폼 초기화
-                    contentInput.value = "";
-                    rateInput.value = 0;
-                    reviewRegisterContainer.querySelectorAll(".star-list-content svg path")
-                        .forEach(path => path.setAttribute("fill", "#E0E0E0"));
-
-                    showReviewModal("후기 등록 완료!");
-                    window.location.reload();
-
-                } catch (err) {
-                    console.error(err);
-                    alert(err.message);
-                }
-            });
         }
     });
 
@@ -580,9 +298,7 @@ window.doctorLayout = (() => {
     return {
         renderDoctorInfo: renderDoctorInfo,
         renderAnswerList: renderAnswerList,
-        renderReviewList: renderReviewList,
         renderReplyPaging: renderReplyPaging,
-        renderReviewPaging: renderReviewPaging,
         loadDoctorDetailFromDTO: loadDoctorDetailFromDTO// DTO 로딩도 반환
     };
 })();
