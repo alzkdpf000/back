@@ -48,16 +48,17 @@ const pay = async ({ item, price }) => {
         switch (response.event) {
             case "done":
                 console.log(response);
-
+                productName = price === 5000.00 ? "200비타 패키지" : "100비타 패키지";
                 // 서버에 결제 정보 전송
                 await fetch("/api/payment/complete", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        paymentTransactionId: response.receipt_id,
+                        paymentTransactionId: new Date(),
                         paymentAmount: price,
                         paymentMethod: "kakaoPay",
-                        paymentStatus: "success"
+                        paymentStatus: "success",
+                        paymentProductName: productName
                     })
                 });
 

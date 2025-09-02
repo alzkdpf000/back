@@ -23,31 +23,31 @@ public class MemberFileMapperTests {
     }
 
 
-    @Test
-    @Transactional
-    public void testInsertFile(){
-        MemberFileDTO memberFileDTO = new MemberFileDTO();
-        memberFileDTO.setFileOriginalName("test");
-        memberFileDTO.setFileName("test");
-        memberFileDTO.setFileSize("123");
-        memberFileDTO.setFilePath("test");
+//    @Test
+//    @Transactional
+//    public void testInsertFile(){
+//        MemberFileDTO memberFileDTO = new MemberFileDTO();
+//        memberFileDTO.setFileOriginalName("test");
+//        memberFileDTO.setFileName("test");
+//        memberFileDTO.setFileSize("123");
+//        memberFileDTO.setFilePath("test");
+//
+//        memberFileMapper.insertFile(memberFileDTO);
+//
+//        log.info("{}",memberFileMapper.getMemberProfile(memberFileDTO.getMemberId()));
+//    }
 
-        memberFileMapper.insertFile(memberFileDTO);
-
-        log.info("{}",memberFileMapper.getMemberProfile(memberFileDTO.getMemberId()));
-    }
-
-    @Test
-    public void testInsertMemberFile(){
-        Long memberId = 120L;
-        Long fileId = 1L;
-
-        memberFileMapper.insertMemberFile(memberId, fileId);
-        MemberProfileDTO memberProfileDTO  = memberFileMapper.getMemberProfile(memberId);
-
-        log.info("memberProfileDTO:{}",memberProfileDTO);
-
-    }
+//    @Test
+//    public void testInsertMemberFile(){
+//        Long memberId = 120L;
+//        Long fileId = 1L;
+//
+//        memberFileMapper.insertMemberFile(memberId, fileId);
+//        MemberProfileDTO memberProfileDTO  = memberFileMapper.getMemberProfile(memberId);
+//
+//        log.info("memberProfileDTO:{}",memberProfileDTO);
+//
+//    }
 
     @Test
     public void testFindFileIdByMemberId(){

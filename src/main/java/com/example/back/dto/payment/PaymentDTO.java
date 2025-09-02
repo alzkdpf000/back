@@ -22,6 +22,7 @@ public class PaymentDTO {
     private Integer paymentAmount;
     private String paymentStatus;
     private String paymentTransactionId;
+    private String paymentProductName;
     private String createdDatetime;
     private String updatedDatetime;
 }
