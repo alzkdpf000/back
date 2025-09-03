@@ -182,4 +182,12 @@
         set doctor_status = 'active'
         where member_id = #{doctorId}
     </update>
+    <insert id="insertHospitalAddress" parameterType="com.example.back.dto.doctor.DoctorDTO">
+        insert into tbl_hospital_address(hospital_id, road_address, detail_address, zip_code)
+        values (#{hospitalId}, #{hospitalRoadAddress}, #{hospitalDetailAddress}, #{zipCode})
+    </insert>
+    <insert id="insertHospital" parameterType="com.example.back.dto.doctor.DoctorDTO" useGeneratedKeys="true" keyProperty="hospitalId">
+        insert into tbl_hospital (hospital_name, hospital_phone)
+        values (#{hospitalName}, #{hospitalPhone})
+    </insert>
 </mapper>

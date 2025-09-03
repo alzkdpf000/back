@@ -2,16 +2,12 @@ package com.example.back.service.doctor;
 
 import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
-import com.example.back.domain.doctor.DoctorVO;
-import com.example.back.domain.hospital.HospitalDTO;
-import com.example.back.domain.hospital.HospitalVO;
-import com.example.back.domain.member.MemberVO;
+import com.example.back.dto.hospital.HospitalDTO;
 import com.example.back.dto.counselreply.CounselReplyDTO;
 import com.example.back.dto.doctor.*;
 import com.example.back.dto.likes.LikesDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.dto.review.ReviewDTO;
-import com.example.back.mapper.counselreply.CounselReplyMapper;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.counselreply.CounselReplyDAO;
 import com.example.back.repository.doctor.DoctorDAO;
@@ -19,11 +15,11 @@ import com.example.back.service.hospital.HospitalService;
 import com.example.back.service.likes.LikesService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.review.ReviewService;
+import com.example.back.mapper.doctor.DoctorMapper;
 import com.example.back.util.Criteria;
 import com.example.back.util.DateUtils;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -41,6 +37,7 @@ public class DoctorServiceImpl implements DoctorService {
     private final CounselReplyDAO counselReplyDAO;
     private final MemberService memberService;
     private final HospitalService hospitalService;
+    private final DoctorMapper doctorMapper;
     private final LikesService likesService;
     private final com.example.back.dao.likes.LikesDAO likesDAO;
     private final ConsultationPostDAO consultationPostDAO;
@@ -174,7 +171,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO) {
+    public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO, String memberRole) {
         // 병원 상태 활성화
         hospitalDTO.setHospitalStatus(Status.ACTIVE.name());
 
@@ -190,12 +187,17 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
         //  병원 정보 추가
-        Long hospitalId = hospitalService.register(hospitalDTO);
-        doctorDTO.setHospitalId(hospitalId);
+        doctorMapper.insertHospital(doctorDTO);
+        doctorDTO.setMemberId(memberDTO.getId());
+
+//        병원 주소 저장
+        doctorMapper.insertHospitalAddress(doctorDTO);
 
 
         // 의사 정보 추가
-        doctorDAO.insertDoctor(doctorDTO);
+        doctorDTO.setMemberStatus(Status.ACTIVE);
+        doctorDTO.setDoctorStatus(Status.ACTIVE);
+        doctorDAO.insertJoinDoctor(doctorDTO);
 
         log.info("Doctor 가입 완료 => memberId={}, hospitalId={}, license={}, specialty={}",
                 doctorDTO.getMemberId(),

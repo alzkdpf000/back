@@ -14,7 +14,7 @@ import java.util.Optional;
 @Mapper
 public interface DoctorMapper {
 //  추가
-//    public void insertDoctor(DoctorListDTO doctorListDTO);
+    public void insertDoctor(DoctorListDTO doctorListDTO);
 
     public void insertJoinDoctor(DoctorDTO doctorDTO);
 
@@ -43,4 +43,10 @@ public interface DoctorMapper {
 //  의사 가입 승인
     public int updateDoctorStatusToApproved(Long doctorId);
 
+
+//    병원 주소 추가
+    public int insertHospitalAddress(DoctorDTO doctorDTO);
+
+//    병원 추가
+    public int insertHospital(DoctorDTO doctorDTO);
 }
