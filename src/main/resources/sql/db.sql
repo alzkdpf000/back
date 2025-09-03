@@ -109,7 +109,7 @@ create table tbl_file
     created_datetime   datetime default current_timestamp,
     updated_datetime   datetime default current_timestamp
 );
-# select * from tbl_file;
+select * from tbl_hospital_address;
 # select * from tbl_member;
 # select * from tbl_member_file;
 # select * from tbl_consultation_post_file;

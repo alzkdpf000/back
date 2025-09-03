@@ -21,8 +21,8 @@
     </select>
 
     <insert id="insertFile" useGeneratedKeys="true" keyProperty="fileId">
-        insert into tbl_file(file_original_name, file_name, file_path, file_size, member_id)
-        values (#{fileOriginalName}, #{fileName}, #{filePath}, #{fileSize}, #{memberId})
+        insert into tbl_file(file_original_name, file_name, file_path, file_size)
+        values (#{fileOriginalName}, #{fileName}, #{filePath}, #{fileSize})
     </insert>
 
     <insert id="insertMemberFile">
@@ -40,7 +40,7 @@
     </delete>
 
     <delete id="deleteFileByMemberId">
-        delete from app.tbl_file
+        delete from tbl_file
         where member_id = #{memberId}
     </delete>
 </mapper>

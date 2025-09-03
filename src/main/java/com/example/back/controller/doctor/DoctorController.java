@@ -2,7 +2,7 @@ package com.example.back.controller.doctor;
 
 import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
-import com.example.back.domain.hospital.HospitalDTO;
+import com.example.back.dto.hospital.HospitalDTO;
 import com.example.back.dto.doctor.DoctorDTO;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.service.doctor.DoctorService;
@@ -62,14 +62,22 @@ public class DoctorController {
     @PostMapping("join")
     public RedirectView joinFull(@ModelAttribute DoctorDTO doctorDTO,
                                  @ModelAttribute MemberDTO memberDTO,
-                                 @ModelAttribute HospitalDTO hospitalDTO) {
+                                 @ModelAttribute HospitalDTO hospitalDTO,
+                                 String memberRole) {
+        log.info("doctorDTO={}", doctorDTO);
+        log.info("memberDTO={}", memberDTO);
+        log.info("hospital={}",  hospitalDTO);
 
-        memberDTO.setMemberPhone(doctorDTO.getMemberPhone());
-        hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
+        if (memberDTO.getMemberPhone() == null) {
+            memberDTO.setMemberPhone(doctorDTO.getMemberPhone());
+        }
+        if (hospitalDTO.getHospitalPhone() == null) {
+            hospitalDTO.setHospitalPhone(doctorDTO.getHospitalPhone());
+        }
 
         memberDTO.setMemberRole(Role.DOCTOR);
 
-        doctorService.join(doctorDTO, memberDTO, hospitalDTO);
+        doctorService.join(doctorDTO, memberDTO, hospitalDTO, memberRole);
 
         return new RedirectView("/member/loginmain");
     }
@@ -80,7 +88,7 @@ public class DoctorController {
     @GetMapping("login")
     public String goToLoginForm(DoctorDTO doctorDTO ,Model model) {
         model.addAttribute("doctorDTO",doctorDTO);
-        return "doctor/login";
+        return "member/loginmain";
     }
 
 
