@@ -3,6 +3,7 @@ const paymentLayout = (() => {
         let text = ``;
 
         const payments = result.payments;
+        console.log(payments)
         const total = result.total;
         const criteria = result.criteria;
         const paymentCount = document.getElementById("paymentCount");
@@ -52,7 +53,7 @@ const paymentLayout = (() => {
                                 <!-- 결제 내역이 있을 때 화면  -->
                                 <td class="td-name">
                                     <div class="good-name">
-                                        ${payment.vitaHistoryProductName}
+                                        ${payment.paymentProductName}
                                     </div>
                                     <div class="receipt-id">
                                        ${payment.paymentTransactionId}

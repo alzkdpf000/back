@@ -28,7 +28,7 @@ public class PaymentController {
     public String goToPaymentPage(Model model){
         // 세션에서 로그인 회원 정보 가져오기
         MemberDTO member = (MemberDTO) session.getAttribute("member");
-        if(member == null) return "redirect:/member/login";
+        if(member == null) return "redirect:/member/loginmain";
 
         MemberDTO loginMember = memberService.getMemberByIdAllStatus(member.getId())
                 .orElseThrow(IllegalArgumentException::new);

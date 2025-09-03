@@ -246,23 +246,6 @@ create table tbl_hospital_file
         references tbl_hospital (id)
 );
 
-/* 충전내역, 사용내역 */
-create table tbl_vita_history
-(
-    id                        bigint unsigned auto_increment primary key,
-    vita_history_amount       int                        default 0,
-    vita_history_product_name VARCHAR(255)          not null,
-    vita_history_result       enum ('done', 'cancel')    default 'done',
-    vita_history_type         enum ('charge','use') not null,
-    vita_history_status       enum ('active','inactive') default 'active',
-    vita_history_description  varchar(255)          not null,
-    member_id                 bigint unsigned,
-    created_datetime          datetime                   default current_timestamp,
-    updated_datetime          datetime                   default current_timestamp,
-    constraint fk_charge_history_member foreign key (member_id)
-        references tbl_member (id)
-);
-
 # ALTER TABLE tbl_vita_history
 #     MODIFY vita_history_type ENUM ('charge','spend') NOT NULL;
 
@@ -394,10 +377,10 @@ create table tbl_payment
     constraint fk_payment_member foreign key (member_id)
         references tbl_member (id)
 );
-alter table tbl_vita_history
-    add column payment_id bigint unsigned null after member_id,
-    add constraint fk_vita_payment foreign key (payment_id)
-        references tbl_payment (id);
+
+ALTER TABLE tbl_payment ADD payment_product_name VARCHAR(255);
+
+
 
 
 

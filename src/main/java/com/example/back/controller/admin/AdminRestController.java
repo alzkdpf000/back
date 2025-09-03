@@ -20,7 +20,6 @@ import com.example.back.service.inquiry.InquiryService;
 import com.example.back.service.member.MemberService;
 import com.example.back.service.notice.NoticeService;
 import com.example.back.service.payment.PaymentService;
-import com.example.back.service.vitahistory.VitaHistoryService;
 import com.example.back.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -97,6 +96,7 @@ public class AdminRestController {
 
     @GetMapping({"doctors/{doctorId}","doctors/pending/{doctorId}"})
     public ResponseEntity<DoctorHospitalDTO> doctorDetail(@PathVariable Long doctorId) {
+        log.info("{}",doctorId);
         DoctorHospitalDTO doctor = doctorService.getDoctorAdminById(doctorId).orElseThrow(DoctorNotFoundException::new);
         return ResponseEntity.ok().body(doctor);
     }

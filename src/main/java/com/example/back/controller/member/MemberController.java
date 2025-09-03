@@ -100,7 +100,7 @@ public class MemberController {
 
 //    이메일 로그인 페이지 이동 (이메일 저장 - 쿠키)
     @GetMapping("emaillogin")
-    public String goToLoginForm(@CookieValue(name = "remember",  required = false) Boolean remember,
+    public String goToLoginForm(@CookieValue(name = "remember",  required = false) boolean remember,
                                 @CookieValue(name = "remember_member_email", required = false) String rememberdEmail,
                                 @RequestParam("memberRole") String memberRole,
                                 HttpServletRequest request,

@@ -79,7 +79,7 @@ public class DoctorController {
 
         doctorService.join(doctorDTO, memberDTO, hospitalDTO, memberRole);
 
-        return new RedirectView("/doctor/login");
+        return new RedirectView("/member/loginmain");
     }
 
 

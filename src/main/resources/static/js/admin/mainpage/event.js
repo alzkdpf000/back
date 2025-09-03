@@ -135,7 +135,7 @@ function drawJoinChart() {
 function drawVisitedChart() {
     visitedData = new google.visualization.DataTable();
     visitedData.addColumn('string', '년-월');
-    visitedData.addColumn('number', '가입자 수');
+    visitedData.addColumn('number', '방문자 수');
 
     visitedOptions = {
         chart: {

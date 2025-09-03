@@ -49,15 +49,13 @@
             member_id,
             doctor_license_number,
             doctor_specialty,
-            hospital_id,
-            doctor_status
+            hospital_id
         )
         values (
                    #{memberId},
                    #{doctorLicenseNumber},
                    #{doctorSpecialty},
-                   #{hospitalId},
-                   #{doctorStatus}
+                   #{hospitalId}
                )
     </insert>
     <select id="selectDoctorList" resultType="com.example.back.dto.doctor.DoctorListDTO">

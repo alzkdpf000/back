@@ -85,7 +85,7 @@ VALUES ('t_user.jpeg', '2025/08/13', 150000, 'user.jpeg');
 
 -- 8. 파일-멤버 연결
 INSERT INTO tbl_member_file (file_id, member_id)
-VALUES (4, 1);
+VALUES (5, 53);
 
 INSERT INTO tbl_member_file (file_id, member_id)
 VALUES (5,31),

@@ -2,10 +2,8 @@ package com.example.back.service.payment;
 
 
 import com.example.back.domain.payment.PaymentVO;
-import com.example.back.domain.vitahistory.VitaHistoryVO;
 import com.example.back.dto.payment.PaymentCriteriaDTO;
 import com.example.back.dto.payment.PaymentDTO;
-import com.example.back.dto.vitahistory.VitaHistoryDTO;
 import com.example.back.util.Search;
 
 import java.util.List;
