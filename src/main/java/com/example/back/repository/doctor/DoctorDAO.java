@@ -55,4 +55,8 @@ public class DoctorDAO {
     public void insertJoinDoctor(DoctorDTO doctorDTO){
         doctorMapper.insertJoinDoctor(doctorDTO);
     }
+
+    public void insertHospitalAddress(DoctorDTO doctorDTO){
+        doctorMapper.insertHospitalAddress(doctorDTO);
+    }
 }

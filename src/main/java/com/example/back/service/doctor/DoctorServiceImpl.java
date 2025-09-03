@@ -189,9 +189,8 @@ public class DoctorServiceImpl implements DoctorService {
         //  병원 정보 추가
         doctorMapper.insertHospital(doctorDTO);
         doctorDTO.setMemberId(memberDTO.getId());
-
 //        병원 주소 저장
-        doctorMapper.insertHospitalAddress(doctorDTO);
+        doctorDAO.insertHospitalAddress(doctorDTO);
 
 
         // 의사 정보 추가

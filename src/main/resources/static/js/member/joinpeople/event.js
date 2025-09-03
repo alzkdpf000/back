@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // 주소 찾기
-    addressBtn.addEventListener("click", () => {
+    addressBtn?.addEventListener("click", () => {
         console.log("3232");
         new daum.Postcode({
             oncomplete: function (data) {
