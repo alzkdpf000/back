@@ -5,6 +5,7 @@ import com.example.back.dto.memberfile.MemberProfileDTO;
 import com.example.back.mapper.memberfile.MemberFileMapper;
 import com.example.back.repository.memberfile.MemberFileDAO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.UUID;
 
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class MemberFileServiceImpl implements MemberFileService {
 
@@ -29,19 +31,7 @@ public class MemberFileServiceImpl implements MemberFileService {
         return memberFileDAO.getMemberProfile(memberId);
     }
 
-    @Override
-    public void deleteFileByMemberId(Long memberId) {
-        if (memberId != null) {
-            memberFileDAO.deleteFileByMemberId(memberId);
-        }
 
-    }
-
-    @Override
-    public void insertFile(Long memberId, MultipartFile file) {
-
-
-    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -54,13 +44,13 @@ public class MemberFileServiceImpl implements MemberFileService {
         }
 //        파일 저장 경로 설정
 //        String rootPath = "c:/file/" + getPath();
-        String rootPath = "~/upload_file/" + getPath();
+        String rootPath = "/home/ubuntu/upload_file/" + getPath();
         MemberFileDTO memberFileDTO = new MemberFileDTO();
-
+        MemberProfileDTO memberProfile = memberFileDAO.getMemberProfile(memberId);
 //        기존에 있는 프로필 삭제 - DB에 해당 회원이 파일을 가지고 있다면 memberFile, file 둘다 삭제
-        if(memberFileDAO.getMemberProfile(memberId) != null){
+        if(memberProfile != null){
             memberFileDAO.deleteMemberFile(memberId);
-            memberFileDAO.deleteFileByMemberId(memberId);
+            memberFileDAO.deleteFileByFileId(memberProfile.getFileId());
         }
 
         UUID uuid = UUID.randomUUID();
@@ -75,6 +65,7 @@ public class MemberFileServiceImpl implements MemberFileService {
 
 //        파일 추가
         memberFileDAO.insertFile(memberFileDTO);
+        log.info("저장한 파일 정보{}",memberFileDTO);
         memberFileDAO.insertMemberFile(memberId, memberFileDTO.getFileId());
 
 //        rootPath 폴더가 없으면 새로 생성

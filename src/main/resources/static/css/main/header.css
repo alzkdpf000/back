@@ -186,6 +186,9 @@ body{
     align-items: center;
     gap: 16px;
 }
+.main-header-icon-container .main-header-icon-wrapper svg path{
+    fill:black;
+}
 
 .main-header-icon-wrapper {
     display: flex;

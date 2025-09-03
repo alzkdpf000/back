@@ -47,7 +47,8 @@ public class MemberFileRestController {
         if (member == null) throw new LoginFailException();
 
         MemberFileDTO fileInfo = memberFileService.update(member.getId(), file);
-
+        member.setMemberFileDTO(fileInfo);
+        session.setAttribute("member", member);
         return ResponseEntity.ok(fileInfo);
     }
 

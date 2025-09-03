@@ -6,6 +6,7 @@ import com.example.back.dto.consultationpost.ConsultationPostDTO;
 import com.example.back.dto.member.MemberAdminStatics;
 import com.example.back.dto.member.MemberCriteriaDTO;
 import com.example.back.dto.member.MemberDTO;
+import com.example.back.dto.memberfile.MemberFileDTO;
 import com.example.back.repository.consultationpost.ConsultationPostDAO;
 import com.example.back.repository.member.MemberDAO;
 import com.example.back.repository.memberfile.MemberFileDAO;
@@ -34,7 +35,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDTO join(MemberDTO memberDTO) {
-        memberDTO.setMemberRole(Role.MEMBER);
         memberDAO.save(memberDTO);
         return memberDTO;
 
@@ -85,7 +85,15 @@ public class MemberServiceImpl implements MemberService {
     //    로그인
     @Override
     public Optional<MemberDTO> login(MemberDTO memberDTO, String memberRole) {
-        return memberDAO.findMemberEmailAndPassword(memberDTO, memberRole);
+        Optional<MemberDTO> member = memberDAO.findMemberEmailAndPassword(memberDTO, memberRole);
+        member.ifPresent((m) ->{
+            Optional<MemberFileDTO> file = memberFileDAO.selectMemberFile(m.getId());
+            file.ifPresent(
+                    f -> {m.setMemberFileDTO(f); log.info("파일 확인해보자{}",file.get()); }
+            );
+        });
+        log.info("멤버 확인해보자 {}" ,member);
+        return member;
     }
 
     @Override

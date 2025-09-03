@@ -14,11 +14,7 @@ public interface MemberFileService {
     // 회원이 가진 프로필 + 파일 조회
     public MemberProfileDTO getMemberProfile(Long memberId);
 
-//   파일 삭제
-    public void deleteFileByMemberId(Long memberId);
 
-//    파일 추가
-    public void insertFile(Long memberId, MultipartFile file);
 
 //    프로필 수정
     public MemberFileDTO update(Long memberId, MultipartFile file);

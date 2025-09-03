@@ -8,8 +8,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://3.36.66.202/app?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
-    url: jdbc:mysql://localhost:3306/app?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://3.35.27.200:3306/app?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+#    url: jdbc:mysql://localhost:3306/app?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
     username: goldentime
     password: 1234
   servlet:
