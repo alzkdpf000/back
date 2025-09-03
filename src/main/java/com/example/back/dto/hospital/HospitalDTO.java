@@ -1,4 +1,4 @@
-package com.example.back.domain.hospital;
+package com.example.back.dto.hospital;
 
 import com.example.back.audit.Period;
 import lombok.*;

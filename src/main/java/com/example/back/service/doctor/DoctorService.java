@@ -1,8 +1,9 @@
 package com.example.back.service.doctor;
 
+import com.example.back.common.enumeration.Role;
 import com.example.back.common.enumeration.Status;
 import com.example.back.domain.doctor.DoctorVO;
-import com.example.back.domain.hospital.HospitalDTO;
+import com.example.back.dto.hospital.HospitalDTO;
 import com.example.back.dto.doctor.*;
 import com.example.back.dto.member.MemberDTO;
 import com.example.back.util.Search;
@@ -26,7 +27,7 @@ public interface DoctorService {
     public boolean approve(Long doctorId);
 
     //  의사 회원가입
-    public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO);
+    public void join(DoctorDTO doctorDTO, MemberDTO memberDTO, HospitalDTO hospitalDTO, String memberRole);
 
 
     default DoctorVO gtoDoctorVO(DoctorListDTO doctorListDTO){

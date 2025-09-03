@@ -36,4 +36,5 @@ public class DoctorDTO {
     private String updatedDatetime;
     private String updatedDate;
     private String memberPassword;
+    private String zipCode;
 }

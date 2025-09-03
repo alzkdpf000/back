@@ -34,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDTO join(MemberDTO memberDTO) {
+        memberDTO.setMemberRole(Role.MEMBER);
         memberDAO.save(memberDTO);
         return memberDTO;
 
