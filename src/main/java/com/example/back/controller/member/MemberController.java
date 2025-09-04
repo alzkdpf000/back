@@ -123,6 +123,7 @@ public class MemberController {
     public RedirectView login(MemberDTO memberDTO, String memberRole, HttpServletResponse response){
         log.info("로그인={}",memberDTO);
         MemberDTO member = memberService.login(memberDTO, memberRole).orElseThrow(LoginFailException::new);
+        log.info("로그인 후 데이터 정보들={}",member);
         session.setAttribute("member", member);
         session.setAttribute("memberId", member.getId());
 

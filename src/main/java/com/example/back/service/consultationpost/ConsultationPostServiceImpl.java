@@ -26,6 +26,7 @@ public class ConsultationPostServiceImpl implements ConsultationPostService {
 
     //    조회순(인기순)으로 QnA 가져오기
     @Override
+
     public ConsultationPostCriteriaDTO getPostsByViews(int page) {
         ConsultationPostCriteriaDTO criteria = new ConsultationPostCriteriaDTO();
         ScrollCriteria scrollCriteria = new ScrollCriteria(page);

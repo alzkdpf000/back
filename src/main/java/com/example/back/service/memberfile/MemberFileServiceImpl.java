@@ -54,13 +54,13 @@ public class MemberFileServiceImpl implements MemberFileService {
         }
 //        파일 저장 경로 설정
 //        String rootPath = "c:/file/" + getPath();
-        String rootPath = "~/upload_file/" + getPath();
+        String rootPath = "/Users/jeongchunghyo/Desktop/file/" + getPath();
         MemberFileDTO memberFileDTO = new MemberFileDTO();
-
+        MemberProfileDTO memberProfile = memberFileDAO.getMemberProfile(memberId);
 //        기존에 있는 프로필 삭제 - DB에 해당 회원이 파일을 가지고 있다면 memberFile, file 둘다 삭제
-        if(memberFileDAO.getMemberProfile(memberId) != null){
+        if(memberProfile != null){
             memberFileDAO.deleteMemberFile(memberId);
-            memberFileDAO.deleteFileByMemberId(memberId);
+            memberFileDAO.deleteFileByMemberId(memberProfile.getFileId());
         }
 
         UUID uuid = UUID.randomUUID();

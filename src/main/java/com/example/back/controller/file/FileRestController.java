@@ -17,8 +17,8 @@ public class FileRestController {
 
     @GetMapping("display")
     public byte[] display(String filePath, String fileName) throws IOException {
-//        File file = new File("/Users/jeongchunghyo/Desktop/upload_file/" + filePath, fileName);
-        File file = new File("/home/ubuntu/upload_file/" + filePath, fileName);
+        File file = new File("/Users/jeongchunghyo/Desktop/file/" + filePath, fileName);
+//        File file = new File("/home/ubuntu/upload_file/" + filePath, fileName);
         log.info(fileName);
         log.info("{}, {}", file.getAbsolutePath(), file.exists());
         return FileCopyUtils.copyToByteArray(file);
