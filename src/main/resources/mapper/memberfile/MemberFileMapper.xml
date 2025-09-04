@@ -39,8 +39,15 @@
         where member_id = #{memberId}
     </delete>
 
-    <delete id="deleteFileByMemberId">
-        delete from tbl_file
-        where id = #{memberId}
+
+    <delete id="deleteFileByFileId">
+        delete from app.tbl_file
+        where app.tbl_file.id = #{fileId}
     </delete>
+
+    <select id="selectMemberFile">
+        select file_id, member_id, file_name, file_path, file_size, file_original_name, created_datetime, updated_datetime
+        from view_member_file
+        where member_id = #{memberId}
+    </select>
 </mapper>

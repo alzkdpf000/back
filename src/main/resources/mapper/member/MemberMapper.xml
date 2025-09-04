@@ -84,6 +84,16 @@
             and tm.member_role = #{memberRole}
         </if>
     </select>
+
+    <select id="selectMemberProfile">
+        select vf.file_id,
+               vf.file_name,
+               vf.file_path
+        from view_member_file vf
+        where vf.member_id = #{memberId}
+    </select>
+
+
     <select id="selectMonthlyJoin">
         with recursive T as (select month(date_sub(curdate(), interval 2 month)) AS NUM
                              union all

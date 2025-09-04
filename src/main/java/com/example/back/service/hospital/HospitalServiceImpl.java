@@ -1,6 +1,6 @@
 package com.example.back.service.hospital;
 
-import com.example.back.domain.hospital.HospitalDTO;
+import com.example.back.dto.hospital.HospitalDTO;
 import com.example.back.domain.hospital.HospitalVO;
 import com.example.back.mapper.hospital.HospitalMapper;
 import com.example.back.repository.hospital.HospitalDAO;

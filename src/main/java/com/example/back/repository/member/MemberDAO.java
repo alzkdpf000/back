@@ -20,8 +20,8 @@ public class MemberDAO {
     private final MemberMapper memberMapper;
 
     //    회원 추가
-    public void save(MemberDTO memberDTO) {
-        memberMapper.insertMember(memberDTO);
+    public int save(MemberDTO memberDTO) {
+        return memberMapper.insertMember(memberDTO);
     }
 
     //    카카오 회원추가

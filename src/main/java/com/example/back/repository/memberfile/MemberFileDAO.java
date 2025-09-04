@@ -6,6 +6,8 @@ import com.example.back.mapper.memberfile.MemberFileMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberFileDAO {
@@ -29,11 +31,14 @@ public class MemberFileDAO {
     }
 
 //    첨부파일 삭제
-    public void deleteFileByMemberId(Long memberId) {
-        memberFileMapper.deleteFileByMemberId(memberId);
+    public void deleteFileByFileId(Long fileId) {
+        memberFileMapper.deleteFileByFileId(fileId);
     }
 
     public void deleteMemberFile(Long memberId) {
         memberFileMapper.deleteMemberFile(memberId);
+    }
+    public Optional<MemberFileDTO> selectMemberFile(Long memberId) {
+        return memberFileMapper.selectMemberFile(memberId);
     }
 }
