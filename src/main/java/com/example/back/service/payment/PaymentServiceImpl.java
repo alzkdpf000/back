@@ -1,5 +1,6 @@
 package com.example.back.service.payment;
 
+import com.example.back.common.exception.PaymentUpdateFailException;
 import com.example.back.dto.payment.PaymentCriteriaDTO;
 import com.example.back.dto.payment.PaymentDTO;
 import com.example.back.dto.payment.PaymentMemberVitaDTO;
@@ -40,29 +41,47 @@ public class PaymentServiceImpl implements PaymentService {
     );
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void processPayment(PaymentDTO paymentDTO) {
         paymentDAO.insertPayment(paymentDTO);
 
-        int vitaChange = 0;
+        int vitaChange;
         Integer paymentAmount = paymentDTO.getPaymentAmount();
 
-        if (paymentAmount != null) {
-            switch (paymentDTO.getPaymentStatus()) {
-                case "success":
-                    vitaChange = PRICE_TO_VITA.getOrDefault(paymentAmount, 0);
-                    break;
-                case "cancel":
-                    vitaChange = -PRICE_TO_VITA.getOrDefault(Math.abs(paymentAmount), 0);
-                    break;
-                default:
-                    vitaChange = 0;
-                    break;
-            }
+        if (paymentAmount == null) {
+            throw new PaymentUpdateFailException("결제 금액이 null입니다.");
         }
 
-        paymentDAO.updatePaymentStatus(paymentDTO.getPaymentTransactionId(), paymentDTO.getPaymentStatus());
-        paymentDAO.updateMemberVita(paymentDTO.getMemberId(), vitaChange);
+        switch (paymentDTO.getPaymentStatus()) {
+            case "success":
+                vitaChange = PRICE_TO_VITA.getOrDefault(paymentAmount, 0);
+                break;
+            case "cancel":
+                vitaChange = -PRICE_TO_VITA.getOrDefault(Math.abs(paymentAmount), 0);
+                break;
+            default:
+                throw new PaymentUpdateFailException(
+                        "알 수 없는 결제 상태: " + paymentDTO.getPaymentStatus()
+                );
+        }
+
+        // 결제 상태 업데이트
+        int updatedRows = paymentDAO.updatePaymentStatus(
+                paymentDTO.getPaymentTransactionId(),
+                paymentDTO.getPaymentStatus()
+        );
+        if (updatedRows == 0) {
+            throw new PaymentUpdateFailException("결제 상태 업데이트 실패");
+        }
+
+        // 회원 비타 업데이트
+        int updatedVitaRows = paymentDAO.updateMemberVita(
+                paymentDTO.getMemberId(),
+                vitaChange
+        );
+        if (updatedVitaRows == 0) {
+            throw new PaymentUpdateFailException("회원 비타 잔액 업데이트 실패");
+        }
     }
 
     @Override
