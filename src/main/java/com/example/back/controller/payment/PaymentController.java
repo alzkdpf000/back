@@ -33,7 +33,6 @@ public class PaymentController {
         MemberDTO loginMember = memberService.getMemberByIdAllStatus(member.getId())
                 .orElseThrow(IllegalArgumentException::new);
 
-        //  회원 결제 내역 조회
         List<PaymentDTO> payments = paymentService.getPaymentList(member.getId());
 
         model.addAttribute("member", loginMember);
