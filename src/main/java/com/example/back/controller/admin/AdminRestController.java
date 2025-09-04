@@ -94,10 +94,16 @@ public class AdminRestController {
     }
 
 
-    @GetMapping({"doctors/{doctorId}","doctors/pending/{doctorId}"})
+    @GetMapping("doctors/{doctorId}")
     public ResponseEntity<DoctorHospitalDTO> doctorDetail(@PathVariable Long doctorId) {
         log.info("{}",doctorId);
-        DoctorHospitalDTO doctor = doctorService.getDoctorAdminById(doctorId).orElseThrow(DoctorNotFoundException::new);
+        DoctorHospitalDTO doctor = doctorService.getDoctorAdminById(doctorId,true).orElseThrow(DoctorNotFoundException::new);
+        return ResponseEntity.ok().body(doctor);
+    }
+    @GetMapping("doctors/pending/{doctorId}")
+    public ResponseEntity<DoctorHospitalDTO> doctorPendingDetail(@PathVariable Long doctorId) {
+        log.info("{}",doctorId);
+        DoctorHospitalDTO doctor = doctorService.getDoctorAdminById(doctorId,false).orElseThrow(DoctorNotFoundException::new);
         return ResponseEntity.ok().body(doctor);
     }
 
@@ -114,7 +120,8 @@ public class AdminRestController {
         if (isDoctorExist) {
             return ResponseEntity.ok().body("승인되었습니다.");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("의사가 존재하지 않습니다.");
+        throw new DoctorNotFoundException();
+
     }
 
     @PutMapping("doctors/{doctorId}/reject")
@@ -123,7 +130,7 @@ public class AdminRestController {
         if (isDoctorExist) {
             return ResponseEntity.ok().body("거절되었습니다.");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("의사가 존재하지 않습니다.");
+        throw new DoctorNotFoundException();
     }
 
 

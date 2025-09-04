@@ -153,15 +153,17 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId) {
+    public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId,boolean isPending) {
         Optional<DoctorHospitalDTO> doctor = doctorDAO.findDoctorById(doctorId);
-        doctor.ifPresent(data -> {
-            List<CounselReplyDTO> replies = counselReplyDAO.findTop3ConsultationPostsWithReplies(doctorId);
-            replies.forEach(reply -> {
-                reply.setCreatedDate(DateUtils.getCreatedDate(reply.getCreatedDatetime()));
+        if(isPending) {
+            doctor.ifPresent(data -> {
+                List<CounselReplyDTO> replies = counselReplyDAO.findTop3ConsultationPostsWithReplies(doctorId);
+                replies.forEach(reply -> {
+                    reply.setCreatedDate(DateUtils.getCreatedDate(reply.getCreatedDatetime()));
+                });
+                data.setReplies(replies);
             });
-            data.setReplies(replies);
-        });
+        }
         return doctor;
     }
 

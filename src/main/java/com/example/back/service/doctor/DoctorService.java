@@ -21,7 +21,7 @@ public interface DoctorService {
     public DoctorCriteriaDTO getListAllStatus(Search search, String doctorStatus);
 
     //  관리자페이지 의사 상세 보기
-    public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId);
+    public Optional<DoctorHospitalDTO> getDoctorAdminById(Long doctorId,boolean isPending);
 
     //  의사 가입 승인
     public boolean approve(Long doctorId);
